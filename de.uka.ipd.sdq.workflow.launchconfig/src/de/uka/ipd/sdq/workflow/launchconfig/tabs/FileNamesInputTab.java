@@ -54,6 +54,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	/* (non-Javadoc)
 	 * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
 	 */
+	@Override
 	public Image getImage() {
 		return RunConfigImages.getFileNamesTabImage();
 	}
@@ -336,7 +337,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void deactivated(ILaunchConfigurationWorkingCopy workingCopy) {}
 	
-	private boolean validateFilePath(String filePath, String[] extensions){
+	protected boolean validateFilePath(String filePath, String[] extensions){
 		if (filePath.equals(""))
 			return false;
 		String extension = getExtensionFromArray(extensions).replace("*", ""); 

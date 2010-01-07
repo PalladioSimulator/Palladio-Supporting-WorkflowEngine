@@ -12,6 +12,7 @@ public abstract class AbstractCodeGenerationWorkflowRunConfiguration
 extends	AbstractPCMWorkflowRunConfiguration {
 
 	private boolean cleanupCode = false;
+	private boolean overwriteWithoutAsking = false;
 	private String pluginID = ConstantsContainer.PLUGIN_ID;
 	
 	/**
@@ -43,6 +44,24 @@ extends	AbstractPCMWorkflowRunConfiguration {
 	public void setPluginID(String pluginID) {
 		checkFixed();
 		this.pluginID = pluginID;
+	}
+
+	/**
+	 * Set whether the code generation may overwrite any existing artifacts without asking the user.
+	 * If set to false, the code generation has to ask the user first. 
+	 * @param overwriteWithoutAsking
+	 */
+	public void setOverwriteWithoutAsking(boolean overwriteWithoutAsking) {
+		this.overwriteWithoutAsking = overwriteWithoutAsking;
+	}
+
+	/**
+	 * Get whether the code generation may overwrite any existing artifacts without asking the user.
+	 * If set to false, the code generation has to ask the user first. 
+	 * @return true if the code can be overwritten without asking, else false 
+	 */
+	public boolean isOverwriteWithoutAsking() {
+		return overwriteWithoutAsking;
 	}
 	
 	

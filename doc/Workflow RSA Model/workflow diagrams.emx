@@ -2473,14 +2473,14 @@
         <children xmi:id="_7JB6c_9YEd6CMaijIC_FiA" type="Name"/>
         <children xmi:id="_7JB6dP9YEd6CMaijIC_FiA" type="Parent"/>
         <children xmi:id="_7JB6df9YEd6CMaijIC_FiA" type="AttributeCompartment">
-          <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_7JB6dv9YEd6CMaijIC_FiA" collapsed="true"/>
+          <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_7JB6dv9YEd6CMaijIC_FiA"/>
         </children>
         <children xmi:id="_7JB6d_9YEd6CMaijIC_FiA" type="OperationCompartment">
           <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_7JB6eP9YEd6CMaijIC_FiA" collapsed="true"/>
         </children>
         <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_7JBTZ_9YEd6CMaijIC_FiA" fontName="Segoe UI" showStereotype="Label"/>
         <element xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=de.uka.ipd.sdq.workflow.pcm.configurations.AbstractCodeGenerationWorkflowRunConfiguration%5Bproject%5Eid=de.uka.ipd.sdq.workflow.pcm%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7JBTaP9YEd6CMaijIC_FiA" x="8876" y="14265"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7JBTaP9YEd6CMaijIC_FiA" x="10461" y="14265"/>
       </children>
       <children xmi:id="_NCbTAP9bEd6CMaijIC_FiA">
         <children xmi:id="_NCbTA_9bEd6CMaijIC_FiA" type="ImageCompartment">
@@ -2490,14 +2490,14 @@
         <children xmi:id="_NCb6Ef9bEd6CMaijIC_FiA" type="Name"/>
         <children xmi:id="_NCb6Ev9bEd6CMaijIC_FiA" type="Parent"/>
         <children xmi:id="_NCb6E_9bEd6CMaijIC_FiA" type="AttributeCompartment">
-          <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_NCb6FP9bEd6CMaijIC_FiA" collapsed="true"/>
+          <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_NCb6FP9bEd6CMaijIC_FiA"/>
         </children>
         <children xmi:id="_NCb6Ff9bEd6CMaijIC_FiA" type="OperationCompartment">
           <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_NCb6Fv9bEd6CMaijIC_FiA" collapsed="true"/>
         </children>
         <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_NCbTAf9bEd6CMaijIC_FiA" fontName="Segoe UI" showStereotype="Label"/>
         <element xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=de.uka.ipd.sdq.codegen.simucontroller.runconfig.SimuComWorkflowConfiguration%5Bproject%5Eid=de.uka.ipd.sdq.codegen.simucontroller%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NCbTAv9bEd6CMaijIC_FiA" x="1351" y="16636"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NCbTAv9bEd6CMaijIC_FiA" x="-317" y="17118"/>
       </children>
       <children xmi:id="_zdttMP9bEd6CMaijIC_FiA">
         <children xmi:id="_zduUQP9bEd6CMaijIC_FiA" type="ImageCompartment">
@@ -2514,7 +2514,7 @@
         </children>
         <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_zdttMf9bEd6CMaijIC_FiA" fontName="Segoe UI" showStereotype="Label"/>
         <element xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=de.uka.ipd.sdq.cip.launchconfig.AbstractPCMCompletionWorkflowRunConfiguration%5Bproject%5Eid=de.uka.ipd.sdq.cip.launchconfig%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zdttMv9bEd6CMaijIC_FiA" x="8959" y="16636"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zdttMv9bEd6CMaijIC_FiA" x="10461" y="17752"/>
       </children>
       <children xmi:id="_FH0-gP9cEd6CMaijIC_FiA">
         <children xmi:id="_FH0-g_9cEd6CMaijIC_FiA" type="ImageCompartment">
@@ -2531,7 +2531,7 @@
         </children>
         <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_FH0-gf9cEd6CMaijIC_FiA" fontName="Segoe UI" showStereotype="Label"/>
         <element xmi:type="uml:Class" href="mmi:///#jbintype%5Ename=de.uka.ipd.sdq.pcmsolver.runconfig.PCMSolverWorkflowRunConfiguration%5Bproject%5Eid=de.uka.ipd.sdq.pcmsolver%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FH0-gv9cEd6CMaijIC_FiA" x="717" y="14100"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FH0-gv9cEd6CMaijIC_FiA" x="634" y="13948"/>
       </children>
       <children xmi:id="_1qpM4P9dEd6CMaijIC_FiA" type="triangle">
         <children xmi:id="_1qqbAP9dEd6CMaijIC_FiA" type="DiagramName">
@@ -2542,7 +2542,7 @@
         </children>
         <styles xmi:type="notation:ShapeStyle" xmi:id="_1qpM4f9dEd6CMaijIC_FiA" fontName="Segoe UI" lineColor="12632256"/>
         <element xsi:nil="true"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1qpM4v9dEd6CMaijIC_FiA" x="8642" y="17270" width="317" height="317"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1qpM4v9dEd6CMaijIC_FiA" x="10144" y="18386" width="317" height="317"/>
       </children>
       <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_O4zqAf9UEd6CMaijIC_FiA"/>
       <element xsi:nil="true"/>
@@ -3592,6 +3592,10 @@
         <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjbintype%5Ename=de.uka.ipd.sdq.workflow.pcm.blackboard.PCMResourceSetPartition%5Bproject%5Eid=de.uka.ipd.sdq.workflow.pcm%5D%5D%5Bjbintype%5Ename=de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition%5Bproject%5Eid=de.uka.ipd.sdq.workflow.mdsd%5D%5D$uml.Generalization"/>
         <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aw--ov9kEd6CMaijIC_FiA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
       </edges>
+    </contents>
+    <contents xmi:type="notation:Diagram" xmi:id="_vSd6UP-TEd6CMaijIC_FiA" type="Class" name="Example Usage">
+      <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_vSd6Uf-TEd6CMaijIC_FiA"/>
+      <element xsi:nil="true"/>
     </contents>
   </eAnnotations>
   <packageImport xmi:id="__9Q8ZP7SEd6ZM5uda73hAQ">

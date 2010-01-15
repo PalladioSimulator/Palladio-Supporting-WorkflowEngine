@@ -12,7 +12,6 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
  */
 public class LaunchMultipleTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	@Override
 	public void createTabs(ILaunchConfigurationDialog arg0, String arg1) {
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
 				new LaunchMultipleTab()

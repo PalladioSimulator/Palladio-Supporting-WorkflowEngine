@@ -44,7 +44,6 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	private static Logger logger = Logger.getLogger("de.uka.ipd.sdq.launchmultiple");
 
 	
-	@Override
 	public void createControl(Composite parent) {
 		
 		//FIXME: See above
@@ -104,6 +103,7 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 			/* (non-Javadoc)
 			 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 			 */
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				LaunchMultipleTab.this.updateLaunchConfigurationDialog();
 			}
@@ -114,12 +114,10 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		
 	}
 
-	@Override
 	public String getName() {
 		return "Launch Multiple Runs Tab";
 	}
 
-	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		
 		List<ILaunchConfiguration> configs = getLaunchConfigs();
@@ -155,7 +153,6 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		return null;
 	}
 
-	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy config) {
 		for (Button button : this.buttons) {
 			config.setAttribute(button.getText(), button.getSelection());
@@ -163,7 +160,6 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 
 	}
 
-	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
 		for (Button button : this.buttons) {
 			config.setAttribute(button.getText(), true);

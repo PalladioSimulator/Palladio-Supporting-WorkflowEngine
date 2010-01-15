@@ -26,7 +26,6 @@ public class LaunchMultiple implements ILaunchConfigurationDelegate {
 	/**
 	 * FIXME: Use workflow concept
 	 */
-	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		

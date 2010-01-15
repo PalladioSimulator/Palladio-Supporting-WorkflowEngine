@@ -26,8 +26,13 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 /**
  * This class is a specialised MDSDBlackboard partition which is specialised to load and hold PCM model 
  * instances. Currently, the PCM instance is loaded as a list of files, each file containing a part of the PCM
- * model. In future versions of this class it should be sufficient to specify a PCM Allocation and a PCM UsageModel. All
+ * model. It is sufficient to specify a PCM Allocation and a PCM UsageModel. All
  * other model parts can then be derived automatically.
+ * 
+ * Note that there is no specialised {@link Blackboard} for PCMResourceSetPartitions, because
+ * usually, the Blackboard containing the PCM might contain other models, for example SAAM models 
+ * when transforming one into the other. 
+ *  
  * 
  * @author Steffen Becker
  *

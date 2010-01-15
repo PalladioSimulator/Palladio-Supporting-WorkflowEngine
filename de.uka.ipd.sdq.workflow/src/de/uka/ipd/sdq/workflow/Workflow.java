@@ -10,8 +10,11 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
 
 /**
- * Implementation of a workflow. A workflow is a special composite job which executes all other jobs while displaying the progress in a progress
+ * Implementation of a workflow. A workflow is a special composite job which 
+ * executes all other jobs while displaying the progress in a progress
  * bar to the user.
+ * Additionally, the Workflow has an internal WorkflowExceptionHandler 
+ * that handles exception based on the environment (UI available or not).
  * The given Progress Monitor will receive updates before and after a
  * job is executed.
  * 

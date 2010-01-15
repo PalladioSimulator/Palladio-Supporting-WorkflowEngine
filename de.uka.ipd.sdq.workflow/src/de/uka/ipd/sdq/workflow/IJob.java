@@ -28,13 +28,14 @@ public interface IJob {
 	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException;
 	
 	/**
-	 * Return to the state before the execute() method was called.
-	 * This method will be called on every simulation run to remove
-	 * automatically created files and to leave the environment in a
-	 * state in which the simulation run can be started again with
-	 * the same results.
+	 * Clean up all temporary side effects of this job. 
+	 * This method will always be called after executing the workflow 
+	 * to remove automatically created files and to leave the environment in a
+	 * state in which the workflow run can be started again with
+	 * the same results (i.e. in which executed can be called again).
 	 * 
-	 * @throws RollbackFailedException
+	 * @throws RollbackFailedException Thrown if a critical error occurred during clean up 
+	 * so that the whole workflow should abort cleaning up further jobs. 
 	 */
 	public void rollback(IProgressMonitor monitor) throws RollbackFailedException;
 	

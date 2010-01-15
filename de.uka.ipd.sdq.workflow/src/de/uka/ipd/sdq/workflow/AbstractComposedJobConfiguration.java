@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Helper class for job configurations which are composed from several child job configurations
+ * Job configuration which is composed from several child job configurations
  * 
  * @author Snowball
  *

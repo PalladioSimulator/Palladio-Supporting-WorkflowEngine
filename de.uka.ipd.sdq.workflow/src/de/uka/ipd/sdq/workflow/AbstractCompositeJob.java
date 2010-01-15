@@ -53,6 +53,12 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
 		this.myName = name;
 	}
 
+	/**
+	 * {@inheritDoc}<br><br>
+	 * This method ensures to clean up all child jobs 
+	 * in the reverse order in which they were added. 
+	 *  
+	 */
 	public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
 		monitor.subTask("Rollback of "+getName());
 		while (!myExecutedJobs.empty()) {

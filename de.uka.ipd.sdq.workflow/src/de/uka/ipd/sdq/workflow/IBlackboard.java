@@ -3,7 +3,7 @@ package de.uka.ipd.sdq.workflow;
 /**
  * Interface of a blackboard as defined in POSA I. See also class Blackboard for further information.
  * @author Steffen
- * @param <T> The type of the data stored in the blackboard
+ * @param <T> The type of the data stored in the blackboard. T is not limited to a certain interface to allow arbitrary values to be stored here. 
  */
 public interface IBlackboard<T> {
 	/**

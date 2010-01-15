@@ -2,10 +2,12 @@ package de.uka.ipd.sdq.workflow.launchconfig;
 
 import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.IJobConfiguration;
+import de.uka.ipd.sdq.workflow.Workflow;
 
 /**
- * Base class for all configurations used to configure an Eclipse based run (or launch)
+ * Base class for all configurations used to configure an Eclipse based {@link Workflow} (or launch)
  * which internally executes a sequence of jobs (compile, M2M Transforms, simulations, etc.)
+ * 
  */
 public abstract class AbstractWorkflowBasedRunConfiguration 
 extends AbstractJobConfiguration 

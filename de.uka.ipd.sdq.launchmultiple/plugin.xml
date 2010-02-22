@@ -15,6 +15,7 @@
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="de.uka.ipd.sdq.launchmultiple.LaunchMultipleTabGroup"
+            description="Create a configuration that allows to select a number of other configurations (of type SimuCom, PCM Solver, PCM Design Space Exploration) to be started in sequence when run is clicked. The order cannot be configured yet."
             id="de.uka.ipd.sdq.launchmultiple.LaunchMultipleTabGroup"
             type="de.uka.ipd.sdq.launchmultiple.launchMultiple">
       </launchConfigurationTabGroup>

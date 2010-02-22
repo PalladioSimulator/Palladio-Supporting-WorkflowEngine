@@ -58,7 +58,7 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		/** Logging group*/
 		final Group loggingGroup = new Group(container, SWT.NONE);
 		loggingGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
-		loggingGroup.setText("Choose Launch Configs to Run");
+		loggingGroup.setText("Choose Launch Configs to run.");
 		loggingGroup.setLayout(new GridLayout());
 		
 		List<ILaunchConfiguration> configs = getLaunchConfigs();

@@ -113,14 +113,12 @@ public abstract class
 
 	/**
 	 * Setup the Eclipse IProcess used to communicate with the Eclipse UI and its logging
-	 * TODO: Anne has set this to protected because the logging has to be re-enabled during PerOpteryx.
-	 * Check later whether there is a better solution.  
 	 * @param configuration
 	 * @param launch
 	 * @return
 	 * @throws CoreException
 	 */
-	protected List<LoggerAppenderStruct> setupProcessAndLogger(
+	private List<LoggerAppenderStruct> setupProcessAndLogger(
 			ILaunchConfiguration configuration, ILaunch launch)
 			throws CoreException {
 		// Reconfigure apache commons logging to use Log4J as backend logger
@@ -142,10 +140,12 @@ public abstract class
 
 	/**
 	 * Get the log level based on the extended CommonTab in DebugEnabledCommonTab
+	 * TODO: Anne has set this to protected because the logging has to be re-enabled during PerOpteryx.
+	 * Check later whether there is a better solution. 
 	 * @param configuration The configuration passed from the eclipse run dialog
 	 * @return The log level selected by the user
 	 */
-	private Level getLogLevel(ILaunchConfiguration configuration) {
+	protected Level getLogLevel(ILaunchConfiguration configuration) {
 		try {
 			switch(configuration.getAttribute(DebugEnabledCommonTab.WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
 			case 0:

@@ -120,7 +120,9 @@ extends ModelValidationJob {
 		for (MWEDiagnostic issue : issues.getErrors()){
 			if (issue.getElement() instanceof EObject){
 				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage(),(EObject)issue.getElement()));
-			} else 
+			} else if (issue.getElement() == null){
+				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage(),null));
+			} else
 				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage()+issue.getElement().toString(),null));
 		}
 		

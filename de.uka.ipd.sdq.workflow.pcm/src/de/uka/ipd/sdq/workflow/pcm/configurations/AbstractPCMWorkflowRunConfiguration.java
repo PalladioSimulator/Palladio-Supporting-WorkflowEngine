@@ -18,7 +18,6 @@ import de.uka.ipd.sdq.pcm.system.SystemPackage;
 import de.uka.ipd.sdq.pcm.usagemodel.UsagemodelPackage;
 import de.uka.ipd.sdq.stoex.StoexPackage;
 import de.uka.ipd.sdq.workflow.exceptions.InvalidWorkflowJobConfiguration;
-import de.uka.ipd.sdq.workflow.exceptions.WorkflowFailedException;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
 
 /**
@@ -56,7 +55,7 @@ extends	AbstractWorkflowBasedRunConfiguration {
 //	private String systemFile;
 	private List <String> allocationFiles;
 	private String usageModelFile;
-	private String featureConfigFile;
+
 
 	/**
 	 * @return Returns a list of string URIs containing all model files needed for a full PCM instance
@@ -70,9 +69,6 @@ extends	AbstractWorkflowBasedRunConfiguration {
 		files.addAll(allocationFiles);
 		files.add(usageModelFile);
 		
-		// TODO: Temporary workaround, this should be moved to its own config object
-		if (featureConfigFile != null)
-			files.add(featureConfigFile);
 		return files;
 	}
 
@@ -144,20 +140,7 @@ extends	AbstractWorkflowBasedRunConfiguration {
 		this.usageModelFile = usageModelFile;
 	}
 
-	/**
-	 * @return Returns the filename of the mark model instance containing the PCM connector completion configuration
-	 */
-	public String getFeatureConfigFile() {
-		return featureConfigFile;
-	}
 
-	/** Sets the filename of the mark model for connector completions
-	 * @param featureConfigFile File name of the connector completion file
-	 */
-	public void setFeatureConfigFile(String featureConfigFile) {
-		checkFixed();
-		this.featureConfigFile = featureConfigFile;
-	}
 
 	/* (non-Javadoc)
 	 * @see de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration#validateAndFreeze()

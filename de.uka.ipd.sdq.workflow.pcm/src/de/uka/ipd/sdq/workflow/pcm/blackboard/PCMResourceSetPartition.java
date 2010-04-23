@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.pcm.blackboard;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -42,15 +43,15 @@ public class PCMResourceSetPartition extends ResourceSetPartition {
 	/**
 	 * @return Returns the PCM repository instance of the PCM model
 	 */
-	public Repository getRepository() {
+	public List<Repository> getRepositories() {
 		// TODO: Allow using multiple Repositories, derive the list of repositories automatically
 		List<EObject> allRepositories = getElement(RepositoryPackage.eINSTANCE.getRepository());
-		int i = 0;
-		// TODO: Remove this again if multiple repositories work
-		while (((Repository)allRepositories.get(i)).getEntityName().equals("PrimitiveTypes")) {
-			i++;
+		Iterator<EObject> iterator = allRepositories.iterator();
+		List<Repository> resultList = new ArrayList<Repository>();
+		while(iterator.hasNext()) {
+			resultList.add((Repository)iterator.next());
 		}
-		return (Repository) allRepositories.get(i);
+		return resultList;
 	}
 
 	/**

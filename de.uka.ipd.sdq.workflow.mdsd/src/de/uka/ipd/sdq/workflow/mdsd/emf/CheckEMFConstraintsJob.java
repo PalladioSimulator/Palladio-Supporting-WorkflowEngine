@@ -1,8 +1,10 @@
 package de.uka.ipd.sdq.workflow.mdsd.emf;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -50,10 +52,25 @@ extends ModelValidationJob {
 		partition.resolveAllProxies();
 		
 		for (Resource r : partition.getResourceSet().getResources()) {
-			// Check model internal OCL constraints
-			Diagnostician diagnostician = new Diagnostician();
-			Diagnostic d = diagnostician.validate(r.getContents().get(0));
-			appendSeverityAndIssueFromDiagnostic(result,d);
+			
+			//Check that model is loaded. 
+			//If not, add an error to the resulting diagnostics regardless of the 
+			//error level of this CheckEMFConstraintsJob
+			List<EObject> contents = r.getContents();
+			if (contents == null || contents.size() == 0){
+				Diagnostic d = new BasicDiagnostic(
+						Diagnostic.ERROR,
+						this.getClass().getCanonicalName(), 
+						0,
+						"Requested file "+r.getURI()+" cannot be loaded. Make sure it exists and is valid, or fix your model's references.",
+						new Object [] { null });
+				appendSeverityAndIssueFromDiagnostic(result,d, SeverityEnum.ERROR);
+			} else {
+				// Check model internal OCL constraints
+				Diagnostician diagnostician = new Diagnostician();
+				Diagnostic d = diagnostician.validate(contents.get(0));
+				appendSeverityAndIssueFromDiagnostic(result,d);
+			}
 		}
 		
 		this.setJobResult(result);
@@ -73,15 +90,19 @@ extends ModelValidationJob {
 		this.blackboard = blackboard;
 	}
 	
-	private void appendSeverityAndIssueFromDiagnostic(ArrayList<SeverityAndIssue> result, Diagnostic d) {
+	private void appendSeverityAndIssueFromDiagnostic(ArrayList<SeverityAndIssue> result, Diagnostic d, SeverityEnum severity) {
 		if (d.getSeverity() >= Diagnostic.ERROR) {
 			SeverityAndIssue sai = new SeverityAndIssue(
-					this.getErrorLevel(),
+					severity,
 					d.getMessage(),
 					(EObject)d.getData().get(0));
 			result.add(sai);
 		}
 		for (Diagnostic child : d.getChildren())
 			appendSeverityAndIssueFromDiagnostic(result, child);
+	}
+	
+	private void appendSeverityAndIssueFromDiagnostic(ArrayList<SeverityAndIssue> result, Diagnostic d) {
+		appendSeverityAndIssueFromDiagnostic(result, d, this.getErrorLevel());
 	}
 }

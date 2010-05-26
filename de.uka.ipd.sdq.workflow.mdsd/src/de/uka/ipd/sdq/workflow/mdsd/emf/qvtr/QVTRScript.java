@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Collection;
 
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
@@ -16,6 +17,7 @@ public class QVTRScript {
 	private String qvtScriptFile;
 	private String transformationName;
 	private String transformationDirection;
+	private Collection<Object> metaModels;
 	
 	
 	
@@ -78,6 +80,15 @@ public class QVTRScript {
 			//logger.error("Could not read QVT file!",ioException,ioException);
 			ioException.printStackTrace();
 		}
+	}
+	
+
+	public void setMetaModels(Collection<Object> metaModels) {
+		this.metaModels = metaModels;
+	}
+	
+	public Collection<Object> getMetaModels() {
+		return metaModels;
 	}
 	
 }

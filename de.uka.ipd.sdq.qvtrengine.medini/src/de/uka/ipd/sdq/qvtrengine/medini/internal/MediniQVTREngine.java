@@ -37,7 +37,7 @@ public class MediniQVTREngine extends QVTREngine {
 	private StringWriter logs;
 	
 	public MediniQVTREngine() {
-		processorImpl = new EMFQvtProcessorImpl(new LogWrapper(MediniQVTREngine.class.getName()));
+		processorImpl = new EMFQvtProcessorImpl(new LogWrapper(QVTREngine.class.getName()));
 		modelResources = new ArrayList<Collection<Resource>>();
 		oldTraces = new ArrayList<Resource>();
 		logs = new StringWriter();
@@ -71,6 +71,7 @@ public class MediniQVTREngine extends QVTREngine {
 	@Override
 	public void setQVTRScript(QVTRScript qvtrScript) {
 		this.qvtScript = qvtrScript;
+		addMetaModels(qvtrScript.getMetaModels());
 		
 	}
 

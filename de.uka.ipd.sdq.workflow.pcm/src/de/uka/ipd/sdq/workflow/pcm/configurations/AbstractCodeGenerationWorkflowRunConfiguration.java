@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow.pcm.configurations;
 
+import de.uka.ipd.sdq.workflow.pcm.runconfig.SensitivityAnalysisConfiguration;
 import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
 
 /**
@@ -14,6 +15,13 @@ extends	AbstractPCMWorkflowRunConfiguration {
 	private boolean cleanupCode = false;
 	private boolean overwriteWithoutAsking = false;
 	private String pluginID = ConstantsContainer.PLUGIN_ID;
+	private boolean loadMiddlewareAndCompletionFiles = false;
+	
+	//The sensitivity analysis configurations have been moved here because the PCM2CodeJob 
+	//requires the Sensitivity Analysis Config anyways. Also for other code 
+	//generation purposes (e.g. Protocom), sensitivity analysis can make sense.
+	private SensitivityAnalysisConfiguration sensitivityAnalysisConfiguration = null;
+	private boolean sensitivityAnalysisEnabled;
 	
 	/**
 	 * @return Returns whether the generated code should be deleted at the end of the workflow run
@@ -62,6 +70,47 @@ extends	AbstractPCMWorkflowRunConfiguration {
 	 */
 	public boolean isOverwriteWithoutAsking() {
 		return overwriteWithoutAsking;
+	}
+
+	/**
+	 * Set whether the middleware files and completion files should be loaded, too. 
+	 * This is for example required for the simulation of linking resources. 
+	 * @param loadMiddlewareAndCompletionFiles the loadMiddlewareAndCompletionFiles to set
+	 */
+	public void setLoadMiddlewareAndCompletionFiles(
+			boolean loadMiddlewareAndCompletionFiles) {
+		this.loadMiddlewareAndCompletionFiles = loadMiddlewareAndCompletionFiles;
+	}
+
+	/**
+	 * Returns whether the middleware files and completion files should be loaded, too. 
+	 * This is for example required for the simulation of linking resources.  
+	 * @return the loadMiddlewareAndCompletionFiles
+	 */
+	public boolean isLoadMiddlewareAndCompletionFiles() {
+		return loadMiddlewareAndCompletionFiles;
+	}
+
+	public boolean isSensitivityAnalysisEnabled() {
+		return sensitivityAnalysisEnabled;
+	}
+
+	public SensitivityAnalysisConfiguration getSensitivityAnalysisConfiguration() {
+		if (!isSensitivityAnalysisEnabled())
+			throw new UnsupportedOperationException("GetSensitivityAnalysisConfiguration is only supported if isSensitivityAnaysisEnabled is true!");
+	
+		return sensitivityAnalysisConfiguration ;
+	}
+
+	public void setSensitivityAnalysisEnabled(boolean sensitivityAnalysisEnabled) {
+		checkFixed();
+		this.sensitivityAnalysisEnabled = sensitivityAnalysisEnabled;
+	}
+
+	public void setSensitivityAnalysisConfiguration(SensitivityAnalysisConfiguration sensitivityConfig) {
+		checkFixed();
+		this.sensitivityAnalysisConfiguration = sensitivityConfig;
+		
 	}
 	
 	

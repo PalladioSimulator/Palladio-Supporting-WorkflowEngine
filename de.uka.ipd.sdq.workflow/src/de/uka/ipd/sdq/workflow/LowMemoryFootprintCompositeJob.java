@@ -27,9 +27,10 @@ extends OrderPreservingBlackboardCompositeJob<BlackboardType> {
 	}
 
 	/** 
-	 * Executes all contained jobs, i.e. call execute() for them. Contained 
-	 * jobs can thus re-implement this method with functionality that should 
-	 * be executed.
+	 * {@inheritDoc}
+	 * 
+	 * Specialty: Calls rollback after the execution of each nested job and deletes the reference to that nested job. 
+	 * Thus, you need to make sure that no later jobs depend on these jobs intermediate results that are deleted during rollback.    
 	 */ 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -70,9 +71,10 @@ extends OrderPreservingBlackboardCompositeJob<BlackboardType> {
 	 * Compared to a OrderPreservingBlackboardCompositeJob, this
 	 * method does not invoke a rollback on nested jobs.
 	 * For every nested job, the rollback method is being called
-	 * immediately after the job has completed. 
+	 * immediately after the job has completed (in {@link #execute(IProgressMonitor)}). 
 	 *  
 	 */
+	@Override
 	public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
 		// Do nothing. Rollback for every nested job is being called immediately after the job has been executed.
 	}

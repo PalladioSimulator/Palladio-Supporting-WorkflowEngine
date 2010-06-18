@@ -11,11 +11,30 @@ import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
  */
 public abstract class AbstractCodeGenerationWorkflowRunConfiguration 
 extends	AbstractPCMWorkflowRunConfiguration {
+	
+	public enum CodeGenerationAdvice {
+		SIMULATION ("simulation_template_methods"),
+		POJO ("pojo_template_methods"),
+		EJB3 ("ejb3_template_methods");
+		
+		private String templateFile;
+
+		CodeGenerationAdvice(String templateFile) {
+	        this.templateFile = templateFile;
+	    }
+
+		public String getTemplateFile() {
+			return templateFile;
+		}
+
+	}
 
 	private boolean cleanupCode = false;
 	private boolean overwriteWithoutAsking = false;
 	private String pluginID = ConstantsContainer.PLUGIN_ID;
 	private boolean loadMiddlewareAndCompletionFiles = false;
+	private CodeGenerationAdvice codeGenerationAdvice = CodeGenerationAdvice.SIMULATION;
+
 	
 	//The sensitivity analysis configurations have been moved here because the PCM2CodeJob 
 	//requires the Sensitivity Analysis Config anyways. Also for other code 
@@ -111,6 +130,14 @@ extends	AbstractPCMWorkflowRunConfiguration {
 		checkFixed();
 		this.sensitivityAnalysisConfiguration = sensitivityConfig;
 		
+	}
+
+	public String getCodeGenerationAdvicesFile() {
+		return this.codeGenerationAdvice.getTemplateFile();
+	}
+	
+	public void setCodeGenerationAdvicesFile(CodeGenerationAdvice advice) {
+		this.codeGenerationAdvice = advice;
 	}
 	
 	

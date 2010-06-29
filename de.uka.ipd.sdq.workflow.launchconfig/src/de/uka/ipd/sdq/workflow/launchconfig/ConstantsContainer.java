@@ -52,6 +52,10 @@ public class ConstantsContainer {
 	public static final String CLIENTOUT_PATH = "clientOutpath";
 	public static final String EJBSOUT_PATH = "ejbsOutpath";
 	
+	public static final String MODEL_TO_TEXT_CHOICE = "modelToTextTarget";
+	public static final String MODEL_TO_TEXT_TARGET_EJB = "Model Target EJB";
+	public static final String MODEL_TO_TEXT_TARGET_PROTO = "Model Target Protocom";
+	
 	/** Simulation features */
 	public static final String FEATURE_CONFIG = "featureConfig";
 	public static final String FEATURE_CONFIG_TARGET = "featureConfigTarget";

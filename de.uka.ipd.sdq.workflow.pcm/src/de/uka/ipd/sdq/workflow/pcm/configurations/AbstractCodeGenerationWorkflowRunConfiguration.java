@@ -15,7 +15,8 @@ extends	AbstractPCMWorkflowRunConfiguration {
 	public enum CodeGenerationAdvice {
 		SIMULATION ("simulation_template_methods"),
 		POJO ("pojo_template_methods"),
-		EJB3 ("ejb3_template_methods");
+		EJB3 ("ejb3_template_methods"), 
+		PROTO("prototype_template_methods");
 		
 		private String templateFile;
 

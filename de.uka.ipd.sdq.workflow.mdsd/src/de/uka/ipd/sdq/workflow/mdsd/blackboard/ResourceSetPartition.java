@@ -103,10 +103,15 @@ public class ResourceSetPartition {
 	 * Resolve all model proxies, i.e., load all dependent models
 	 */
 	public void resolveAllProxies() {
-		ArrayList<Resource> currentResources = null; 
+		ArrayList<Resource> currentResources = null;
+		// The resolveAll() call is not recursive; thus we have to repeat
+		// the thing until the resource set does not grow any more:
 		do {
-			// Copy list to avoid concurrent modification exceptions
+			// Copy list to avoid concurrent modification exceptions:
 			currentResources = new ArrayList<Resource>(this.rs.getResources());
+			// TODO: check if this loop can be replaced through a single call
+			// to EcoreUtil.resolveAll(rs). Maybe this is even already recursive,
+			// i.e. we can eliminate the outer do..while loop?
 			for (Resource r : currentResources) {
 				EcoreUtil.resolveAll(r);
 			}

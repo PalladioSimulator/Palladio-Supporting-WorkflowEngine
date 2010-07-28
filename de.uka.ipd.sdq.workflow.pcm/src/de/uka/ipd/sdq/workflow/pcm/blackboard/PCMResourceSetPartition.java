@@ -104,16 +104,18 @@ public class PCMResourceSetPartition extends ResourceSetPartition {
 	}
 	
 	/**
-	 * Helper to find root object of specified class
-	 * @param clazz 
+	 * Helper to find root objects of a specified class.
+	 * 
+	 * @param clazz The class to get elements for.
+	 * @return The list of found root elements. Empty list of none have been found.
 	 */
 	private List<EObject> getElement(EClass clazz) {
 		ArrayList<EObject> result = new ArrayList<EObject>();
 		for (Resource r : this.rs.getResources()) {
-			if (r == null || r.getContents().size() == 0){
+			if (r == null){
 				throw new RuntimeException("Failed to retrieve PCM model element "+clazz.getName()+", encountered invalid resource "+r.getURI());
 			}
-			if (r.getContents().get(0).eClass() == clazz ) {
+			if (r.getContents().size() > 0 && r.getContents().get(0).eClass() == clazz ) {
 				result.add(r.getContents().get(0));
 			}
 		}

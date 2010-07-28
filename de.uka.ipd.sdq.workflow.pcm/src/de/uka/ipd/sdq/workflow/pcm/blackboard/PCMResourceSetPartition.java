@@ -112,10 +112,7 @@ public class PCMResourceSetPartition extends ResourceSetPartition {
 	private List<EObject> getElement(EClass clazz) {
 		ArrayList<EObject> result = new ArrayList<EObject>();
 		for (Resource r : this.rs.getResources()) {
-			if (r == null){
-				throw new RuntimeException("Failed to retrieve PCM model element "+clazz.getName()+", encountered invalid resource "+r.getURI());
-			}
-			if (r.getContents().size() > 0 && r.getContents().get(0).eClass() == clazz ) {
+			if (r != null && r.getContents().size() > 0 && r.getContents().get(0).eClass() == clazz ) {
 				result.add(r.getContents().get(0));
 			}
 		}

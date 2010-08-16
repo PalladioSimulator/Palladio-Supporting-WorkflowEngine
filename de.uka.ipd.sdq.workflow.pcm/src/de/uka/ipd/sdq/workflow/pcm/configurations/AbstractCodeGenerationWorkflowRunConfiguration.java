@@ -63,7 +63,7 @@ extends	AbstractPCMWorkflowRunConfiguration {
 	 * of the Eclipse project which will contain the generated code
 	 */
 	public String getPluginID() {
-		return pluginID;
+		return sensitivityAnalysisEnabled ? pluginID +"."+this.getSensitivityAnalysisConfiguration().getRunNo() : pluginID; 
 	}
 
 	/** Sets the name of the project which will contain the generated code

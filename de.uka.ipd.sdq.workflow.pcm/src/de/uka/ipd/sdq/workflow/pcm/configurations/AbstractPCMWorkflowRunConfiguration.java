@@ -48,13 +48,9 @@ extends	AbstractWorkflowBasedRunConfiguration {
 			CompletionsPackage.eINSTANCE,
 		};
 	
-	// BRG 04.12.09 configuration adoption to PCM model structure 
-//	private String resourceTypeFile;
-//	private String repositoryFile;
-	private String middlewareFile;
-//	private String systemFile;
-	private List <String> allocationFiles;
-	private String usageModelFile;
+	protected String middlewareFile;
+	protected List <String> allocationFiles;
+	protected String usageModelFile;
 
 
 	/**
@@ -62,40 +58,12 @@ extends	AbstractWorkflowBasedRunConfiguration {
 	 */
 	public List<String> getPCMModelFiles() {
 		ArrayList<String> files = new ArrayList<String>();
-	//BRG
-	//	files.add(this.resourceTypeFile);
-	//	files.add(this.repositoryFile);
-	//	files.add(systemFile);
 		files.addAll(allocationFiles);
 		files.add(usageModelFile);
 		
 		return files;
 	}
 
-
-	//BRG 
-	//public String getResourceTypeFile() {
-	//	return resourceTypeFile;
-	//}
-
-//BRG
-//	public void setResourceTypeFile(String resourceTypeFile) {
-//		checkFixed();
-//		this.resourceTypeFile = resourceTypeFile;
-//	}
-
-
-//	public String getRepositoryFile() {
-//		return repositoryFile;
-//	}
-
-	/** Sets the PCM repository's file name
-	 * @param repositoryFile The PCM repository file name
-	 */
-//	public void setRepositoryFile(String repositoryFile) {
-//		checkFixed();
-//		this.repositoryFile = repositoryFile;
-//	}
 
 	/**
 	 * @return Returns the filename of the PCM's middleware completion repository
@@ -111,16 +79,6 @@ extends	AbstractWorkflowBasedRunConfiguration {
 		checkFixed();
 		this.middlewareFile = middlewareFile;
 	}
-
-	//BRG
-//	public String getSystemFile() {
-//		return systemFile;
-//	}
-
-//	public void setSystemFile(String systemFile) {
-//		checkFixed();
-//		this.systemFile = systemFile;
-//	}
 
 	public List<String> getAllocationFiles() {
 		return allocationFiles;

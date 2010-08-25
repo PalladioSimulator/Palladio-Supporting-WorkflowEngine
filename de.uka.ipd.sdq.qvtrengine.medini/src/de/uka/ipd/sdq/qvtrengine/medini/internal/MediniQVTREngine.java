@@ -46,9 +46,8 @@ public class MediniQVTREngine extends QVTREngine {
 	}
 	
 	@Override
-	public void addModelResourceSet(ResourceSet rSet) {
-		modelResources.add(rSet.getResources());
-		addMetaModels(rSet.getPackageRegistry().values());
+	public void addModels(Collection<Resource> models) {
+		modelResources.add(models);
 	}
 
 	@Override
@@ -76,8 +75,7 @@ public class MediniQVTREngine extends QVTREngine {
 	}
 
 	@Override
-	public void setWorkingDirectory(String directoryName) {
-		URI directoryURI = URI.createURI(directoryName);
+	public void setWorkingDirectory(URI directoryURI) {
 		processorImpl.setWorkingLocation(directoryURI);
 		
 	}

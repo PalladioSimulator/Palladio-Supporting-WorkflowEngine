@@ -126,11 +126,11 @@ public class QVTREngineType {
 			String name = configElement.getAttribute(ATT_NAME);
 			if (name == null)
 				name = "[missing name attribute]";
-			String msg = "Failed to load QVTREngine named "
+			/*String msg = "Failed to load QVTREngine named "
 				+ name
 				+ " in "
 				+ configElement.getDeclaringExtension().getNamespaceIdentifier();
-			//logger.logError(msg,e);
+			logger.logError(msg,e);*/
 			return null;
 		}
 	}	

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -11,6 +12,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 
 
 public class QVTRScript {
@@ -57,14 +59,22 @@ public class QVTRScript {
 		URI qvturl = null;
 		try {
 			qvturl = URI.createURI(fileName);
+			
 		} catch (IllegalArgumentException e) {
 		//	logger.error("Wrong URI format.",e);
 		}
 		try {
-			String fileuri = CommonPlugin.asLocalURI(qvturl).toFileString();
+			InputStream stream = null;
+			
+			if(qvturl.scheme().startsWith("platform"))
+				stream =  URIConverter.INSTANCE.createInputStream(qvturl);
+			else{
+				qvturl = CommonPlugin.resolve(qvturl);
+				stream = new FileInputStream(qvturl.toFileString());
+			}
+			
 			BufferedReader br = new BufferedReader(
-			           new InputStreamReader(
-			           new FileInputStream(fileuri))); 
+			           new InputStreamReader(stream)); 
 			StringBuffer contentOfFile = new StringBuffer();
 			String line; 
 			while ((line = br.readLine()) != null) {

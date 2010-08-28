@@ -38,7 +38,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin;
  */
 public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 
-	private static final String PCM_GLASSFISHREPOSITORY_FILE_URI = "pathmap://PCM_MODELS/Glassfish.repository";
+	protected static final String PCM_GLASSFISHREPOSITORY_FILE_URI = "pathmap://PCM_MODELS/Glassfish.repository";
 //BRG
 // private static final String PCM_RESOURCETYPE_FILE_URI = "pathmap://PCM_MODELS/Palladio.resourcetype";
 	
@@ -47,9 +47,12 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 //	private Text textResourceEnvironment;
 //	private Text textRepository;
 //	private Text textSystem;
-	private Text textAllocation;
-	private Text textUsage;
-	private Text mwtextRepository;
+	protected Text textAllocation;
+	protected Text textUsage;
+	protected Text mwtextRepository;
+	
+	//container for UI elements
+	protected Composite container;
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
@@ -65,7 +68,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @param textField The Text-Field Control which contains the result of 
 	 */
-	private void setOpenFileDialogResultToTextField(Text textField, final String[] EXTENSION) {
+	protected void setOpenFileDialogResultToTextField(Text textField, final String[] EXTENSION) {
 		String resultOpenFileDialog = openFileDialog(EXTENSION);
 		if (!resultOpenFileDialog.equals(new String(""))) {
 			textField.setText(resultOpenFileDialog);			
@@ -79,7 +82,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	 * @param textField
 	 * @param EXTENSION
 	 */
-	private void setOpenFileDialogResultToTextField(Text textField, final String EXTENSION) {
+	protected void setOpenFileDialogResultToTextField(Text textField, final String EXTENSION) {
 		String resultOpenFileDialog = openResourceDialog(EXTENSION);
 		if (!resultOpenFileDialog.equals(new String(""))) {
 			textField.setText(resultOpenFileDialog);			
@@ -99,7 +102,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 			}
 		};
 
-		Composite container = new Composite(parent, SWT.NONE);
+		this.container = new Composite(parent, SWT.NONE);
 		setControl(container);
 		container.setLayout(new GridLayout());
 
@@ -346,7 +349,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 		return false;
 	}
 
-	private String getExtensionFromArray(String[] array){
+	protected String getExtensionFromArray(String[] array){
 		return array[0];
 	}
 	
@@ -359,7 +362,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	 *            argument
 	 * @return absolute path to a file
 	 */
-	private String openFileDialog(String[] extensions) {
+	protected String openFileDialog(String[] extensions) {
 		String filename = "";
 		
 		FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
@@ -380,7 +383,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @return relative path to file in workspace
 	 */
-	private String openResourceDialog(String extension) {
+	protected String openResourceDialog(String extension) {
 		
 		/** Filter from the redundant files. */
 		List<ViewerFilter> filters = new ArrayList<ViewerFilter>();

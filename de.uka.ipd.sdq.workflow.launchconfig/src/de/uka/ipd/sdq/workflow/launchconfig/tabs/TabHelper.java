@@ -46,8 +46,8 @@ public class TabHelper {
 		CTabFolder tabFolder = new CTabFolder(parent, style);
 		for(int i = 0; i<tabGroup.getTabs().length; i++) {
 			ILaunchConfigurationTab tab = tabs[i];
-			tab.createControl(tabFolder);
 			tab.setLaunchConfigurationDialog(dialog);
+			tab.createControl(tabFolder);
 			
 			CTabItem tabItem = new CTabItem(tabFolder, SWT.NULL);
 			tabItem.setText(tab.getName());

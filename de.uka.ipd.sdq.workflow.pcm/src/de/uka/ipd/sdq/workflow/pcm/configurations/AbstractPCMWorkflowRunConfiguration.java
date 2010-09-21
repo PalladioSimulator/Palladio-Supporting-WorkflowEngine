@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import de.uka.ipd.sdq.completions.CompletionsPackage;
+import de.uka.ipd.sdq.identifier.IdentifierPackage;
+import de.uka.ipd.sdq.pcm.PcmPackage;
 import de.uka.ipd.sdq.pcm.allocation.AllocationPackage;
 import de.uka.ipd.sdq.pcm.core.CorePackage;
 import de.uka.ipd.sdq.pcm.parameter.ParameterPackage;
@@ -16,7 +19,9 @@ import de.uka.ipd.sdq.pcm.resourcetype.ResourcetypePackage;
 import de.uka.ipd.sdq.pcm.seff.SeffPackage;
 import de.uka.ipd.sdq.pcm.system.SystemPackage;
 import de.uka.ipd.sdq.pcm.usagemodel.UsagemodelPackage;
+import de.uka.ipd.sdq.probfunction.ProbfunctionPackage;
 import de.uka.ipd.sdq.stoex.StoexPackage;
+import de.uka.ipd.sdq.units.UnitsPackage;
 import de.uka.ipd.sdq.workflow.exceptions.InvalidWorkflowJobConfiguration;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
 
@@ -35,6 +40,13 @@ extends	AbstractWorkflowBasedRunConfiguration {
 	 * configure the loading resource set. 
 	 */
 	public static final EPackage[] PCM_EPACKAGES = new EPackage[]{
+		// Packages needed by QVT Transformations {{
+			EcorePackage.eINSTANCE,
+			IdentifierPackage.eINSTANCE,
+			UnitsPackage.eINSTANCE,
+			ProbfunctionPackage.eINSTANCE,
+			PcmPackage.eINSTANCE,
+		// }}
 			SeffPackage.eINSTANCE,
 			RepositoryPackage.eINSTANCE,
 			ParameterPackage.eINSTANCE,

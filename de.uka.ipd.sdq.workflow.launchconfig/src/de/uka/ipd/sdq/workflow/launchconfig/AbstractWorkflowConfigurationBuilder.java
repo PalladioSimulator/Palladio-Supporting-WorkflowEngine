@@ -67,6 +67,11 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 		return configuration.getAttribute(attribute, 0);
 	}
 
+	protected long getLongAttribute(String attribute) throws CoreException {
+		ensureAttributeExists(attribute);
+		return configuration.getAttribute(attribute, 0);
+	}
+
 	protected Boolean getBooleanAttribute(String attribute) throws CoreException {
 		if (!hasAttribute(attribute))
 			return false;

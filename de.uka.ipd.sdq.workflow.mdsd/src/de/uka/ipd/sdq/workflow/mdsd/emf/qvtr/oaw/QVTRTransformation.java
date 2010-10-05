@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr;
+package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.oaw;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +17,16 @@ import org.eclipse.emf.mwe.core.issues.Issues;
 import org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent;
 import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
 
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
+
+/**
+ * A OAW workflow component for QVT-R transformations.
+ * It uses registered QVT-R engines.
+ *  
+ * @author Thomas Schuischel
+ *
+ */
 public class QVTRTransformation extends AbstractWorkflowComponent  {
 
 	static Logger logger = Logger.getLogger(QVTRTransformation.class);
@@ -25,7 +35,7 @@ public class QVTRTransformation extends AbstractWorkflowComponent  {
 	
 	private Boolean debug = false;
 	private String qvtrScript = null;
-	private QVTREngine qvtrEngineType = null;
+	private AbstractQVTREngine qvtrEngineType = null;
 	protected ResourceSet resourceSet;
 
 	private Collection<String> metaModels = new ArrayList<String>();
@@ -53,7 +63,7 @@ public class QVTRTransformation extends AbstractWorkflowComponent  {
 		this.resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
 		Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 		
-		QVTREngine qvtrEngine = getQvtrEngineType();
+		AbstractQVTREngine qvtrEngine = getQvtrEngineType();
 		
 		if(qvtrEngine==null)
 		{
@@ -122,11 +132,11 @@ public class QVTRTransformation extends AbstractWorkflowComponent  {
 		return qvtrScript;
 	}
 
-	public QVTREngine getQvtrEngineType() {
+	public AbstractQVTREngine getQvtrEngineType() {
 		return qvtrEngineType;
 	}
 
-	public void setQvtrEngineType(QVTREngine qvtrEngineType) {
+	public void setQvtrEngineType(AbstractQVTREngine qvtrEngineType) {
 		this.qvtrEngineType = qvtrEngineType;
 	}
 	

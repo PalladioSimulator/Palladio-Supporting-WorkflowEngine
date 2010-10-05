@@ -11,10 +11,18 @@ import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 
 import de.uka.ipd.sdq.workflow.mdsd.Activator;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngineFactory;
 
-public class QVTREngineType {
+/**
+ * This class enumerates all registered {@link QVTREngine}s.
+ * This class provides access to the extension point.
+ * 
+ * @author Thomas Schuischel
+ *
+ */
+public class QVTREngines {
 
 	private static final String TAG_ENGINETYPE = "engineType";
 	private static final String ATT_ID ="id";
@@ -26,9 +34,9 @@ public class QVTREngineType {
 	private final String name;
 	private QVTREngineFactory factory;
 
-	private static QVTREngineType[] cachedEngineTypes;
+	private static QVTREngines[] cachedEngineTypes;
 
-	private QVTREngineType(IConfigurationElement configurationElement, int ordinal) {
+	private QVTREngines(IConfigurationElement configurationElement, int ordinal) {
 		this.configElement = configurationElement;
 		id = getAttribute(configurationElement, ATT_ID, null);
 		name = getAttribute(configurationElement, ATT_NAME, id);
@@ -55,7 +63,7 @@ public class QVTREngineType {
 		return name;
 	}
 
-	public QVTREngine newQVTREngine() {
+	public AbstractQVTREngine newQVTREngine() {
 		QVTREngineFactory factory = getFactory();
 		if (factory == null) {
 			return null;
@@ -92,7 +100,12 @@ public class QVTREngineType {
  
 	/////////////////////////////////////////////////////////////////////
 	
-	public static QVTREngineType[] getEngineTyps() {
+	/**
+	 * Collects all available QVT-R engines.
+	 * 
+	 * @return array of {@link QVTREngine}s
+	 */
+	public static QVTREngines[] getAllEngines() {
 		if(cachedEngineTypes != null)
 			return cachedEngineTypes;
 
@@ -100,27 +113,28 @@ public class QVTREngineType {
 			IExtension[] extensions = Platform.getExtensionRegistry()
 			.getExtensionPoint(Activator.PLUGIN_ID,"qvtrengine")
 			.getExtensions();
-			List<QVTREngineType> found = new ArrayList<QVTREngineType>();
+			List<QVTREngines> found = new ArrayList<QVTREngines>();
 			for (int i = 0; i < extensions.length; i++) {
 				IConfigurationElement[] configElements = extensions[i].getConfigurationElements();
 				for (int j = 0; j < configElements.length; j++) {
-					QVTREngineType proxy = parseEngineType(configElements[j], found.size());
+					QVTREngines proxy = parseEngineConfiguration(configElements[j], found.size());
 					if(proxy != null)
 						found.add(proxy);
 				}
 			}
-			cachedEngineTypes = (QVTREngineType[]) found.toArray(new QVTREngineType[found.size()]);
+			cachedEngineTypes = (QVTREngines[]) found.toArray(new QVTREngines[found.size()]);
 		} catch (InvalidRegistryObjectException e) {
 			//logger.logError(msg,e);
 		}
 		return cachedEngineTypes;
 	}
 	
-	private static QVTREngineType parseEngineType(IConfigurationElement configElement, int ordinal) {
+	//
+	private static QVTREngines parseEngineConfiguration(IConfigurationElement configElement, int ordinal) {
 		if (!configElement.getName().equals(TAG_ENGINETYPE))
 			return null;
 		try{
-			return new QVTREngineType(configElement,ordinal);
+			return new QVTREngines(configElement,ordinal);
 		}
 		catch (Exception e) {
 			String name = configElement.getAttribute(ATT_NAME);
@@ -136,7 +150,7 @@ public class QVTREngineType {
 	}	
 
 	
-	private static Map<String, QVTREngineType> engineTypeMap = null;
+	private static Map<String, QVTREngines> engineTypeMap = null;
 
 	/**
 	 * Answer the favorite item type that has the specified identifier
@@ -145,13 +159,13 @@ public class QVTREngineType {
 	 *           the identifier
 	 * @return the type or <code>null</code> if none
 	 */
-	public static QVTREngineType getType(String id) {
+	public static QVTREngines getType(String id) {
 		if (engineTypeMap == null) {
 			if(cachedEngineTypes == null)
-				getEngineTyps();
-			engineTypeMap = new HashMap<String, QVTREngineType>(cachedEngineTypes.length);
+				getAllEngines();
+			engineTypeMap = new HashMap<String, QVTREngines>(cachedEngineTypes.length);
 			for (int i = 0; i < cachedEngineTypes.length; i++) {
-				QVTREngineType eachType = cachedEngineTypes[i];
+				QVTREngines eachType = cachedEngineTypes[i];
 				engineTypeMap.put(eachType.getId(), eachType);
 			}
 		}

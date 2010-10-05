@@ -3,10 +3,13 @@
 <schema targetNamespace="de.uka.ipd.sdq.workflow.mdsd" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="de.uka.ipd.sdq.workflow.mdsd" id="qvtrengines" name="QVTREngines"/>
+         <meta.schema plugin="de.uka.ipd.sdq.workflow.mdsd" id="qvtrengine" name="QVTREngine"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to register new QVT-R engines.
+A QVT-R provides an interface to QVT m2m transformations.
+
+The the available engines can be used by QVTRTransformationJobs.
       </documentation>
    </annotation>
 
@@ -66,54 +69,41 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="class" type="string" use="required">
+         <attribute name="factory" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The factory class to create an new instance of the QVT-R engine
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngineFactory:"/>
+                  <meta.attribute kind="java" basedOn=":de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngineFactory"/>
                </appinfo>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         The following is an example of an internal editor extension definition:
+&lt;p&gt;
+&lt;pre&gt;
+&lt;extension point=&quot;de.uka.ipd.sdq.workflow.mdsd.qvtrengine&quot;&gt;
+    &lt;engineType
+        factory=&quot;de.uka.ipd.sdq.qvtrengine.medini.impl.MediniQVTREngineFactory&quot;
+        id=&quot;de.uka.ipd.sdq.workflow.mdsd.mediniqvt&quot;
+        name=&quot;mediniQVT QVT-R Engine&quot;&gt;
+    &lt;/engineType&gt;
+&lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

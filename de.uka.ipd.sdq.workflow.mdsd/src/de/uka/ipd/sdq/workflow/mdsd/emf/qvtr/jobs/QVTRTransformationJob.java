@@ -16,34 +16,50 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
 
+/**
+ * A Job that executes a QVT-R transformation.
+ * It is configured through a {@link QVTRTransformationJobConfiguration}.
+ * 
+ * @author Thomas Schuischel
+ *
+ */
 public class QVTRTransformationJob implements
 		IBlackboardInteractingJob<MDSDBlackboard> {
 	
 	private static final Logger logger = Logger.getLogger(QVTRTransformationJob.class);
 	protected QVTRTransformationJobConfiguration configuration;
-	private MDSDBlackboard blackboard;
+	protected MDSDBlackboard blackboard;
 
+	/**
+	 * Creates a new {@link QVTRTransformationJob} for a given {@link QVTRTransformationJobConfiguration}.
+	 * 
+	 * @param configuration a {@link QVTRTransformationJobConfiguration}
+	 */
 	public QVTRTransformationJob(QVTRTransformationJobConfiguration configuration) {
 		super();
-		
 		this.configuration = configuration;
 	}
 	
 	@Override
 	public void execute(IProgressMonitor monitor) throws JobFailedException,
 			UserCanceledException {
+		
 		logger.info("Executing QVTR Transformation...");
 		logger.debug("Script: "+ configuration.getQVTRScript());
 		
-		QVTREngine qvtrEngine = QVTREngine.getInstance(configuration.getQvtEngineID());
+		// request the QVT-R engine we want to execute
+		AbstractQVTREngine qvtrEngine = AbstractQVTREngine.getInstance(configuration.getQvtEngineID());
 		if(qvtrEngine==null)
 		{
 			throw new JobFailedException("No QVT-R Engine available.");
 		}
+		
+		// enable debug 
 		qvtrEngine.setDebug(configuration.isDebug());
 		
+		// if a trace partition name is provided we create the partition
 		if(configuration.getTracesPartitionName() != null) {
 			ResourceSetPartition tracesPartition = this.blackboard.getPartition(configuration.getTracesPartitionName());
 			if(tracesPartition == null)	{
@@ -53,16 +69,31 @@ public class QVTRTransformationJob implements
 			qvtrEngine.setTracesResourceSet(tracesPartition.getResourceSet());
 		}
 		
+		// if a old trace partition name is provided we sets the partition
+		if(configuration.getOldTracesPartitionName() != null) {
+			ResourceSetPartition oldTracesPartition = this.blackboard.getPartition(configuration.getOldTracesPartitionName());
+			if(oldTracesPartition != null)	{
+				qvtrEngine.setOldTracesResourceSet(oldTracesPartition.getResourceSet());
+			}
+		}
+		
+		// set the working directory for traces
 		qvtrEngine.setWorkingDirectory(configuration.getTraceFileURI());
 		
+		// add all model sets to the engine
 		Iterator<ModelLocation[]> iterator = configuration.getModelLocationSets().iterator();
 		while(iterator.hasNext()) {
 			ModelLocation[] modelLocation = iterator.next();
 			qvtrEngine.addModels(getResources(modelLocation));
 		}
 		
+		// sets the script to execute to the engine
 		qvtrEngine.setQVTRScript(configuration.getQVTRScript());
 		
+		// enables extended logging 
+		qvtrEngine.setExtendedDebugingLog(configuration.getExtendedDebuggingLog());
+		
+		// execute transformation
 		try {
 			qvtrEngine.transform();
 		} catch (Throwable e) {
@@ -72,7 +103,13 @@ public class QVTRTransformationJob implements
 		logger.info("Transformation executed successfully");
 	}
 	
-	public Collection<Resource> getResources(ModelLocation[] modelLocations) {
+	/**
+	 * Returns a {@link Collection} of {@link Resource}s for a array of {@link ModelLocation}s.
+	 *
+	 * @param modelLocations 	an array of {@link ModelLocation}
+	 * @return a {@link Collection} of {@link Resource}
+	 */
+	protected Collection<Resource> getResources(ModelLocation[] modelLocations) {
 		Collection<Resource> resources = new ArrayList<Resource>(modelLocations.length);
 		
 		for(int i = 0; i < modelLocations.length; i++) {
@@ -82,9 +119,17 @@ public class QVTRTransformationJob implements
 		return resources;
 	}
 	
-	public Resource getResource(ModelLocation modelLocation) {
+	/**
+	 * Returns a {@link Resource} for a {@link ModelLocation}
+	 * 
+	 * @param 	modelLocation	{@link ModelLocation}
+	 * @return 	a {@link Resource} for a {@link ModelLocation}
+	 */
+	protected Resource getResource(ModelLocation modelLocation) {
+		
 		ResourceSetPartition partition = this.blackboard.getPartition(modelLocation.getPartitionID());
 		ResourceSet rSet = partition.getResourceSet();
+		
 		Resource r = rSet.getResource(modelLocation.getModelID(), false);
 		if (r == null) {
 			new IllegalArgumentException("Model with URI "+modelLocation.getModelID()+" must be loaded first");
@@ -99,10 +144,7 @@ public class QVTRTransformationJob implements
 
 	@Override
 	public void rollback(IProgressMonitor monitor)
-			throws RollbackFailedException {
-		// Not needed
-		
-	}
+			throws RollbackFailedException {} // Not needed
 	
 	@Override
 	public void setBlackboard(MDSDBlackboard blackboard) {

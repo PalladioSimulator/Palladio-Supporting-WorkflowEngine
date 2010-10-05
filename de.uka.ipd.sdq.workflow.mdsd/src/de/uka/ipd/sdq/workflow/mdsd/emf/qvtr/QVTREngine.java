@@ -1,75 +1,91 @@
 package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr;
 
-import java.util.ArrayList;
+import java.io.PrintStream;
 import java.util.Collection;
-import java.util.HashMap;
 
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.internal.AbstractQVTREngine;
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.internal.QVTREngineType;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 
-public abstract class  QVTREngine  implements AbstractQVTREngine{
-	
-	
-	protected static class QVTRScriptInfoImpl {
-		private HashMap<String,ArrayList<String> > transformationInfo;
-		private boolean valid;
-		
-		private QVTRScriptInfoImpl(){};
-		
-		
-		private QVTRScriptInfoImpl(HashMap<String,ArrayList<String> > transformationInfo, Boolean valid) {
-			this.transformationInfo = transformationInfo;
-			this.valid = valid;
-		}
-		
-		String[] getDirections(String transformationName) {
-			ArrayList<String> directions = transformationInfo.get(transformationName);
-			if(directions != null)
-				return directions.toArray(new String[0]);
-			return null;
-		}
-		
-		String[] getTransformations() {
-			return transformationInfo.keySet().toArray(new String[0]);
-		}
-		
-		Boolean isScriptValid() {
-			return valid;
-		}
-	}
+/**
+ * Interface for QVT-R engine 
+ * If a new engine is created this interface needs to be implemented.
+ * The interface can be instantiated through a {@link QVTREngineFactory}. 
+ * 
+ * @author Thomas Schuischel
+ */
+public interface QVTREngine {
 
-	protected QVTRScriptInfoImpl createQVTRScriptInfo(HashMap<String,ArrayList<String> > transformationInfo, Boolean valid)
-	{
-		return new QVTRScriptInfoImpl(transformationInfo,valid);
-	}
+	/**
+	 * Sets a property of the QVT-R engine
+	 * The available propertys depend on the engine implementation
+	 *  
+	 * @param name		name of the property
+	 * @param value		value of the property
+	 */
+	public void setProperty(String name, String value);
+	/**
+	 * Set the debug mode for the engine.
+	 * This provides detailed information for the transformation.
+	 * 
+	 * @param debug 	enable or disable debug
+	 */
+	public void setDebug(Boolean debug);
 	
-	protected abstract QVTRScriptInfoImpl qvtrScriptInfoImpl();
+	/**
+	 * Sets the QVT-R script to execute.
+	 * QVT-R scripts a handled by {@link QVTRScript}.
+	 * 
+	 * @param qvtrScript	script to execute	
+	 */
+	public void setQVTRScript(QVTRScript qvtrScript);
+	/**
+	 * Adds a model set to the engine.
+	 * For a given QVT transformation a model set for each TypedModel of the 
+	 * transformation declaration must be defined.
+	 * 
+	 * Model sets are a {@link Collection} of model resources.
+	 *  
+	 * @param models	a collection of models to add
+	 */
+	public void addModels(Collection<Resource> models);
 	
-	public static QVTREngine getInstance(String id)
-	{
-		QVTREngineType[] engineTypes = QVTREngineType.getEngineTyps();
-		for (int i = 0;  i < engineTypes.length; i++) {
-			if((id == null)||(engineTypes[i].getId() == id))
-				return engineTypes[i].newQVTREngine();
-		}
-		
-		return null;
-	}
+	/**
+	 * Sets the traces {@link ResourceSet}. 
+	 * The trace model is stored in the resource set´.
+	 * 
+	 * @param rSet	ResourceSet the traces to store in
+	 */
+	public void setTracesResourceSet(ResourceSet rSet);
+	/**
+	 * Sets the {@link ResourceSet} that contains previous traces.
+	 * The engine can use the information in traces from previous 
+	 * transformations to track model changes.
+	 * 
+	 * @param rSet	ResourceSet containing previous traces
+	 */
+	public void setOldTracesResourceSet(ResourceSet rSet);
 	
-	public static QVTREngine getFirstInstance()
-	{
-		return getInstance(null);
-	}
+	/**
+	 * Enables extended debug logging.
+	 * The logging output is written to a {@link PrintStream}.
+	 * 
+	 * @param extendedDebugingLog	PrintStream to log
+	 */
+	public void setExtendedDebugingLog(PrintStream extendedDebugingLog);
 	
-	public static Collection<String> getAllInstanceIDs()
-	{
-		ArrayList<String> engines = new ArrayList<String>();
-		QVTREngineType[] engineTypes = QVTREngineType.getEngineTyps();
-		for (int i = 0;  i < engineTypes.length; i++) {
-			engines.add(engineTypes[i].getId());
-		}
-		
-		return engines;
-	}
+	/**
+	 * Sets a working directory. 
+	 * Traces are stored here for example.
+	 * The use of this directory depends on the engine implementation
+	 *  
+	 * @param directoryURI	an {@link URI} of a directory 
+	 */
+	public void setWorkingDirectory(URI directoryURI);
+	
+	/**
+	 * Execute the transformation.
+	 */
+	public void transform();
 	
 }

@@ -2,10 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="id1"
          point="de.uka.ipd.sdq.workflow.mdsd.qvtrengine">
       <engineType
-            class="de.uka.ipd.sdq.qvtrengine.medini.internal.MediniQVTREngineFactory"
+            factory="de.uka.ipd.sdq.qvtrengine.medini.impl.MediniQVTREngineFactory"
             id="de.uka.ipd.sdq.workflow.mdsd.mediniqvt"
             name="mediniQVT QVT-R Engine">
       </engineType>

@@ -1,5 +1,6 @@
-package de.uka.ipd.sdq.qvtrengine.medini.internal;
+package de.uka.ipd.sdq.qvtrengine.medini.impl;
 
+import java.io.PrintStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,24 +21,36 @@ import org.oslo.ocl20.semantics.model.contexts.ContextDeclaration;
 
 import de.ikv.emf.qvt.EMFQvtProcessorImpl;
 import de.ikv.medini.qvt.QVTProcessorConsts;
+import de.ikv.medini.qvt.execution.QvtSemanticAnalyserThreadPool;
 import de.ikv.medini.qvt.execution.debug.QVTExitDebugSessionException;
 import de.ikv.medini.qvt.model.qvtbase.Transformation;
 import de.ikv.medini.qvt.model.qvtbase.TypedModel;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 
-public class MediniQVTREngine extends QVTREngine {
+/**
+ * A implementation {@link QVTREngine} for mediniQVT.
+ * 
+ * @author Thomas Schuischel
+ *
+ */
+public class MediniQVTREngine extends AbstractQVTREngine {
 
+	// for mediniQVT enforce can only be set global
 	private final Boolean enforce = true;
 	
 	QVTRScript qvtScript;
+	// mediniQVT processor
 	EMFQvtProcessorImpl processorImpl;
 	private Collection<Collection<Resource>> modelResources;
 	private Collection<Resource> oldTraces;
 	private StringWriter logs;
+
+	private PrintStream extendedDebuggingLog = null;
 	
 	public MediniQVTREngine() {
-		processorImpl = new EMFQvtProcessorImpl(new LogWrapper(QVTREngine.class.getName()));
+		processorImpl = new EMFQvtProcessorImpl(new LogWrapper(AbstractQVTREngine.class.getName()));
 		modelResources = new ArrayList<Collection<Resource>>();
 		oldTraces = new ArrayList<Resource>();
 		logs = new StringWriter();
@@ -57,6 +70,7 @@ public class MediniQVTREngine extends QVTREngine {
 		if(debug)
 			value = "true";
 		
+		// set the mediniQVT debug variables
 		setProperty(QVTProcessorConsts.PROP_DEBUG, value);
 		setProperty(QVTProcessorConsts.PROP_DEBUG_TASKS, value);
 	}
@@ -91,9 +105,23 @@ public class MediniQVTREngine extends QVTREngine {
 		processorImpl.setResourceSetForTraces(rSet);
 		
 	}
+	
+	@Override
+	public void setExtendedDebugingLog(PrintStream extendedDebuggingLog) {
+		this.extendedDebuggingLog = extendedDebuggingLog;
+		
+	}
 
 	@Override
 	public void transform() {
+		
+		// where should the extended logging go?
+		// this logger is only used if debug for the engine is enabled 
+		if(extendedDebuggingLog != null)
+			QvtSemanticAnalyserThreadPool.setLogger(extendedDebuggingLog);
+		else
+			QvtSemanticAnalyserThreadPool.setLogger(null);
+		
 		processorImpl.setModels(modelResources);
 		processorImpl.evaluateQVT(qvtScript.toReader(), qvtScript.getTransformationName(), enforce, qvtScript.getTransformationDirection(), null, oldTraces, processorImpl.getLog());
 		processorImpl.setModels(Collections.EMPTY_LIST);
@@ -109,21 +137,22 @@ public class MediniQVTREngine extends QVTREngine {
 		
 		//setDebug(true);
 		try{
-			List<ContextDeclaration> contextDeclarations = processorImpl.analyseQvt(qvtScript.toReader(), processorImpl.getLog() );
+			// analyze the script and collect the contextDeclarations
+			List<ContextDeclaration> contextDeclarations = 
+				processorImpl.analyseQvt(qvtScript.toReader(), processorImpl.getLog() );
 			
 			if (contextDeclarations == null ) {
 				
 				throw new RuntimeException("Could not analyse QVT script. Aborting evaluation!");
 			}
 			
-			ArrayList<String> transformations = new ArrayList<String>();
-			
+			// walk through the contextDeclarations and gather the requested informations
 			Iterator<ContextDeclaration > iterator = contextDeclarations.iterator();
 			while (iterator.hasNext()) {
 				Transformation transformation = (Transformation) iterator.next();
 				ArrayList<String> directions = new ArrayList<String>();
-
-				transformations.add(transformation.getName());
+				
+				// get the directions for a transformation
 				EList modelParameter = transformation.getModelParameter();
 				for (Iterator iter = modelParameter.iterator(); iter.hasNext();) {
 					TypedModel currentTypedModel = (TypedModel) iter.next();

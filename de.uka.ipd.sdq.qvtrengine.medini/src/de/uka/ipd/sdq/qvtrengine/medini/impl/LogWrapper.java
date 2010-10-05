@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.uka.ipd.sdq.qvtrengine.medini.internal;
+package de.uka.ipd.sdq.qvtrengine.medini.impl;
 
 
 import org.apache.log4j.Logger;
@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
 import uk.ac.kent.cs.kmf.util.ILog;
 
 /**
- * @author thomasS
+ * A log wrapper from the mediniQVT {@link ILog} to the log4j {@link Logger}.
+ * 
+ * @author Thomas Schuischel
  *
  */
 public class LogWrapper implements ILog {
@@ -19,7 +21,9 @@ public class LogWrapper implements ILog {
 	private int warnings;
 	
 	/**
+	 * Creates a new LogWrapper. 
 	 * 
+	 * @param loggerClass class for that the log4j logger should be created
 	 */
 	public LogWrapper(String loggerClass) {
 		errors = 0;

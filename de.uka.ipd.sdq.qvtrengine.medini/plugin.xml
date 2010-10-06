@@ -3,11 +3,11 @@
 <plugin>
    <extension
          point="de.uka.ipd.sdq.workflow.mdsd.qvtrengine">
-      <engineType
+      <engine
             factory="de.uka.ipd.sdq.qvtrengine.medini.impl.MediniQVTREngineFactory"
             id="de.uka.ipd.sdq.workflow.mdsd.mediniqvt"
             name="mediniQVT QVT-R Engine">
-      </engineType>
+      </engine>
    </extension>
 
 </plugin>

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.uka.ipd.sdq.qvtrengine.medini.impl;
 
 
@@ -16,8 +13,17 @@ import uk.ac.kent.cs.kmf.util.ILog;
  */
 public class LogWrapper implements ILog {
 
-	private Logger logger=null;
+	/**
+	 * log4j logger.
+	 */
+	private Logger logger = null;
+	/**
+	 * count of errors.
+	 */
 	private int errors;
+	/**
+	 * count of warnings.
+	 */
 	private int warnings;
 	
 	/**
@@ -25,7 +31,7 @@ public class LogWrapper implements ILog {
 	 * 
 	 * @param loggerClass class for that the log4j logger should be created
 	 */
-	public LogWrapper(String loggerClass) {
+	public LogWrapper(final String loggerClass) {
 		errors = 0;
 		warnings = 0;
 		logger = Logger.getLogger(loggerClass);

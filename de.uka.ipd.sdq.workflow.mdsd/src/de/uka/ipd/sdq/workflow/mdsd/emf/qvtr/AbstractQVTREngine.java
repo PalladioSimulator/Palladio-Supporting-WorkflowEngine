@@ -15,7 +15,7 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.internal.QVTREngines;
  * @author Thomas Schuischel
  *
  */
-public abstract class  AbstractQVTREngine  implements QVTREngine{
+public abstract class  AbstractQVTREngine  implements QVTREngine {
 	
 	/**
 	 * Derived engines should implement this to provide the information for 
@@ -33,9 +33,9 @@ public abstract class  AbstractQVTREngine  implements QVTREngine{
 	 * @param valid					is the script file valid
 	 * @return						a new QVTRScriptImpl
 	 */
-	protected QVTRScriptInfoImpl createQVTRScriptInfo(HashMap<String,ArrayList<String> > transformationInfo, Boolean valid)
-	{
-		return new QVTRScriptInfoImpl(transformationInfo,valid);
+	protected QVTRScriptInfoImpl createQVTRScriptInfo(final HashMap<String, ArrayList<String> > transformationInfo,
+			final Boolean valid) {
+		return new QVTRScriptInfoImpl(transformationInfo, valid);
 	}
 	
 	
@@ -46,14 +46,14 @@ public abstract class  AbstractQVTREngine  implements QVTREngine{
 	 * @param id	a id of a QVT-R engine
 	 * @return		an implementation of the {@link QVTREngine}
 	 */
-	public static AbstractQVTREngine getInstance(String id)
-	{
+	public static AbstractQVTREngine getInstance(final String id)	{
 		QVTREngines[] engines = QVTREngines.getAllEngines();
 		// search for given id
 		for (int i = 0;  i < engines.length; i++) {
 			// if id found or no id provided return new engine
-			if((id == null)||(engines[i].getId() == id))
+			if ((id == null) || (engines[i].getId() == id)) {
 				return engines[i].newQVTREngine();
+			}
 		}
 		
 		return null;
@@ -64,8 +64,7 @@ public abstract class  AbstractQVTREngine  implements QVTREngine{
 	 * 
 	 * @return	an implementation of the {@link QVTREngine}
 	 */
-	public static AbstractQVTREngine getFirstInstance()
-	{
+	public static AbstractQVTREngine getFirstInstance() {
 		// returns the first engine since id is null 
 		return getInstance(null);
 	}
@@ -75,8 +74,7 @@ public abstract class  AbstractQVTREngine  implements QVTREngine{
 	 * 
 	 * @return a {@link Collection} of QVT-R engine ids
 	 */
-	public static Collection<String> getAllInstanceIDs()
-	{
+	public static Collection<String> getAllInstanceIDs() {
 		ArrayList<String> engineIDs = new ArrayList<String>();
 		QVTREngines[] engines = QVTREngines.getAllEngines();
 		// enumerate all ids
@@ -88,40 +86,65 @@ public abstract class  AbstractQVTREngine  implements QVTREngine{
 	}
 	
 	/**
-	 * Internal implementation of {@link QVTRScriptInfo} 
+	 * Internal implementation of {@link QVTRScriptInfo}.
 	 * 
 	 * @author Thomas Schuischel
 	 *
 	 */
-	protected static class QVTRScriptInfoImpl {
-		// A Map of transformations and directions
-		private HashMap<String,ArrayList<String> > transformationInfo;
-		// Is the script valid?
+	protected static final class QVTRScriptInfoImpl {
+		/**
+		 * A Map of transformations and directions.
+		 */
+		private HashMap<String, ArrayList<String> > transformationInfo;
+		/**
+		 * Is the script valid?
+		 */
 		private boolean valid;
 		
-		// no instantiation from outside
-		private QVTRScriptInfoImpl(){};
+		/**
+		 * Private constructor to avoid instantiation from outside. 
+		 */
+		private QVTRScriptInfoImpl() { };
 		
-		// creates an new QVTRScriptInfoImpl
-		private QVTRScriptInfoImpl(HashMap<String,ArrayList<String> > transformationInfo, Boolean valid) {
+		/**
+		 * Creates an new QVTRScriptInfoImpl.
+		 * 
+		 * @param transformationInfo the map of transformations and directions
+		 * @param valid information if the script is valid
+		 */
+		private QVTRScriptInfoImpl(final HashMap<String, ArrayList<String> > transformationInfo, final Boolean valid) {
 			this.transformationInfo = transformationInfo;
 			this.valid = valid;
 		}
-		
-		// returns the directions for a given transformation 
-		String[] getDirections(String transformationName) {
+		 
+		/**
+		 * Returns the directions for a given transformation.
+		 * 
+		 * @param transformationName the transformation name to query
+		 * @return the direction for a given transformation
+		 */
+		String[] getDirections(final String transformationName) {
 			ArrayList<String> directions = transformationInfo.get(transformationName);
-			if(directions != null)
+			if (directions != null) {
 				return directions.toArray(new String[0]);
+			}
 			return null;
 		}
 		
-		// returns all transformations of a QVT-R script file
+		/**
+		 * Returns all transformations of a QVT-R script file.
+		 * 
+		 * @return an array of strings containing transformation names
+		 */
 		String[] getTransformations() {
 			return transformationInfo.keySet().toArray(new String[0]);
 		}
 		
-		// returns if the QVT-R script file is valid
+		/**
+		 * Returns if the QVT-R script file is valid.
+		 *  
+		 * @return true if the script is valid
+		 */
 		Boolean isScriptValid() {
 			return valid;
 		}

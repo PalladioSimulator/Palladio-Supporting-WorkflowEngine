@@ -20,29 +20,45 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
  */
 public class QVTRTransformationJobConfiguration {
 	
-	// a collection of all model sets needed by the transformation
-	protected Collection<ModelLocation[]> modelLocationSets = new ArrayList<ModelLocation[]>();
+	/**
+	 *  A collection of all model sets needed by the transformation.
+	 */
+	private Collection<ModelLocation[]> modelLocationSets = new ArrayList<ModelLocation[]>();
 	
-	// name of the traces partition
-	protected String tracesPartitionName;
+	/**
+	 * Name of the traces partition.
+	 */
+	private String tracesPartitionName;
 	
-	// name of the old traces partition
-	protected String oldTracesPartitionName;
+	/**
+	 * name of the old traces partition.
+	 */
+	private String oldTracesPartitionName;
 	
-	// a QVTRScript file
-	protected QVTRScript qvtScript;
+	/**
+	 * A QVTRScript file.
+	 */
+	private QVTRScript qvtScript;
 	
-	// path to the traces folder
-	protected URI traceFileURI;
+	/**
+	 * Path to the traces folder.
+	 */
+	private URI traceFileURI;
 	
-	// PrintStream where extended logging should go to
-	protected PrintStream extendedDebuggingLog;
+	/**
+	 * PrintStream where extended logging should go to.
+	 */
+	private PrintStream extendedDebuggingLog;
 	
-	// if debug is enabled
-	protected Boolean debug;
+	/**
+	 * If debug is enabled.
+	 */
+	private Boolean debug;
 	
-	// id of the QVT-R engine
-	protected String qvtEngineID;
+	/**
+	 * Id of the QVT-R engine.
+	 */
+	private String qvtEngineID;
 
 	/**
 	 * Returns the id of the {@link QVTREngine}.
@@ -54,11 +70,11 @@ public class QVTRTransformationJobConfiguration {
 	}
 	
 	/**
-	 * Sets the id for the {@link QVTREngine} to use
+	 * Sets the id for the {@link QVTREngine} to use.
 	 * 
 	 * @param qvtEngineID	id of the QVT-R engine
 	 */
-	public void setQvtEngineID(String qvtEngineID) {
+	public void setQvtEngineID(final String qvtEngineID) {
 		this.qvtEngineID = qvtEngineID;
 	}
 	
@@ -76,7 +92,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param qvtScript the QVT-R script
 	 */
-	public void setQVTRScript(QVTRScript qvtScript) {
+	public void setQVTRScript(final QVTRScript qvtScript) {
 		this.qvtScript = qvtScript;
 	}
 
@@ -96,7 +112,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param debug	true to enable debug mode
 	 */
-	public void setDebug(Boolean debug) {
+	public void setDebug(final Boolean debug) {
 		this.debug = debug;
 	}
 	
@@ -114,7 +130,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param traceFileURI	traces folder URI
 	 */
-	public void setTraceFileURI(URI traceFileURI) {
+	public void setTraceFileURI(final URI traceFileURI) {
 		this.traceFileURI = traceFileURI;
 	}
 
@@ -132,7 +148,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param extendedDebuggingLog	PrintStream for extended logging
 	 */
-	public void setExtendedDebuggingLog(PrintStream extendedDebuggingLog) {
+	public void setExtendedDebuggingLog(final PrintStream extendedDebuggingLog) {
 		this.extendedDebuggingLog = extendedDebuggingLog;
 	}
 	
@@ -150,7 +166,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param tracesPartitionName name of the traces {@link ResourceSetPartition}
 	 */
-	public void setTracesPartitionName(String tracesPartitionName) {
+	public void setTracesPartitionName(final String tracesPartitionName) {
 		this.tracesPartitionName = tracesPartitionName;
 	}
 	
@@ -170,7 +186,7 @@ public class QVTRTransformationJobConfiguration {
 	 * 
 	 * @param oldTracesPartitionName name of the previous traces {@link ResourceSetPartition}
 	 */
-	public void setOldTracesPartitionName(String oldTracesPartitionName) {
+	public void setOldTracesPartitionName(final String oldTracesPartitionName) {
 		this.oldTracesPartitionName = oldTracesPartitionName;
 	}
 	
@@ -192,7 +208,7 @@ public class QVTRTransformationJobConfiguration {
 	 *  
 	 * @param modelLocations a model sets
 	 */
-	public void addModelLocationSets(ModelLocation[] modelLocations) {
+	public void addModelLocationSets(final ModelLocation[] modelLocations) {
 		modelLocationSets.add(modelLocations);
 	}
 	

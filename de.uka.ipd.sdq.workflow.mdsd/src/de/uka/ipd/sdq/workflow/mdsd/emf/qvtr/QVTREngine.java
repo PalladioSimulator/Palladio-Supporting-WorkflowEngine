@@ -17,20 +17,20 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 public interface QVTREngine {
 
 	/**
-	 * Sets a property of the QVT-R engine
+	 * Sets a property of the QVT-R engine.
 	 * The available propertys depend on the engine implementation
 	 *  
 	 * @param name		name of the property
 	 * @param value		value of the property
 	 */
-	public void setProperty(String name, String value);
+	void setProperty(String name, String value);
 	/**
 	 * Set the debug mode for the engine.
 	 * This provides detailed information for the transformation.
 	 * 
 	 * @param debug 	enable or disable debug
 	 */
-	public void setDebug(Boolean debug);
+	void setDebug(Boolean debug);
 	
 	/**
 	 * Sets the QVT-R script to execute.
@@ -38,7 +38,7 @@ public interface QVTREngine {
 	 * 
 	 * @param qvtrScript	script to execute	
 	 */
-	public void setQVTRScript(QVTRScript qvtrScript);
+	void setQVTRScript(QVTRScript qvtrScript);
 	/**
 	 * Adds a model set to the engine.
 	 * For a given QVT transformation a model set for each TypedModel of the 
@@ -48,7 +48,7 @@ public interface QVTREngine {
 	 *  
 	 * @param models	a collection of models to add
 	 */
-	public void addModels(Collection<Resource> models);
+	void addModels(Collection<Resource> models);
 	
 	/**
 	 * Sets the traces {@link ResourceSet}. 
@@ -56,7 +56,7 @@ public interface QVTREngine {
 	 * 
 	 * @param rSet	ResourceSet the traces to store in
 	 */
-	public void setTracesResourceSet(ResourceSet rSet);
+	void setTracesResourceSet(ResourceSet rSet);
 	/**
 	 * Sets the {@link ResourceSet} that contains previous traces.
 	 * The engine can use the information in traces from previous 
@@ -64,7 +64,7 @@ public interface QVTREngine {
 	 * 
 	 * @param rSet	ResourceSet containing previous traces
 	 */
-	public void setOldTracesResourceSet(ResourceSet rSet);
+	void setOldTracesResourceSet(ResourceSet rSet);
 	
 	/**
 	 * Enables extended debug logging.
@@ -72,7 +72,7 @@ public interface QVTREngine {
 	 * 
 	 * @param extendedDebugingLog	PrintStream to log
 	 */
-	public void setExtendedDebugingLog(PrintStream extendedDebugingLog);
+	void setExtendedDebugingLog(PrintStream extendedDebugingLog);
 	
 	/**
 	 * Sets a working directory. 
@@ -81,11 +81,11 @@ public interface QVTREngine {
 	 *  
 	 * @param directoryURI	an {@link URI} of a directory 
 	 */
-	public void setWorkingDirectory(URI directoryURI);
+	void setWorkingDirectory(URI directoryURI);
 	
 	/**
 	 * Execute the transformation.
 	 */
-	public void transform();
+	void transform();
 	
 }

@@ -17,11 +17,11 @@ public interface QVTREngineFactory {
 	 * 
 	 * @return a new instance of a {@link AbstractQVTREngine} implementation
 	 */
-	public abstract AbstractQVTREngine createEngine();
+	AbstractQVTREngine createEngine();
 	
 	/**
 	 * Cleanup method if needed.
 	 * Dispose is called if the engine is not need any longer
 	 */
-	public void dispose();
+	void dispose();
 }

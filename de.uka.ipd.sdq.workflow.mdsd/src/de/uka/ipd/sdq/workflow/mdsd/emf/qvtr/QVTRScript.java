@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
@@ -30,14 +31,26 @@ import org.eclipse.emf.ecore.resource.URIConverter;
  */
 public class QVTRScript {
 	
-	// Path to the QVT script file 
+	/**
+	 * Path to the QVT script file.
+	 */
 	private String qvtScriptFile;
-	// Name of the Transformation to execute
+	/**
+	 * Name of the Transformation to execute.
+	 */
 	private String transformationName;
-	// Name of the direction for the transformation 
+	/**
+	 * Name of the direction for the transformation.
+	 */
 	private String transformationDirection;
-	// Collection of the meta models needed by the transformation
+	/**
+	 * Collection of the meta models needed by the transformation.
+	 */
 	private Collection<Object> metaModels;
+	/**
+	 * log4j logger.
+	 */
+	private Logger logger = Logger.getLogger(QVTRScript.class); 
 	
 	
 	
@@ -54,13 +67,13 @@ public class QVTRScript {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString()
-	{
+	@Override
+	public String toString() {
 		return qvtScriptFile;
 	}
 	
 	/**
-	 * Returns the transformation name
+	 * Returns the transformation name.
 	 * 
 	 * @return name of the transformation
 	 */
@@ -69,7 +82,7 @@ public class QVTRScript {
 	}
 
 	/**
-	 * Returns the name of the transformation direction
+	 * Returns the name of the transformation direction.
 	 * 
 	 * @return name of the direction
 	 */
@@ -78,20 +91,20 @@ public class QVTRScript {
 	}
 
 	/**
-	 * Sets the name of a transformation
+	 * Sets the name of a transformation.
 	 * 
 	 * @param transformationName name of a transformation
 	 */
-	public void setTransformationName(String transformationName) {
+	public void setTransformationName(final String transformationName) {
 		this.transformationName = transformationName;
 	}
 
 	/**
-	 * Sets the name of a transformation direction
+	 * Sets the name of a transformation direction.
 	 * 
 	 * @param transformationDirection name of transformation direction
 	 */
-	public void setTransformationDirection(String transformationDirection) {
+	public void setTransformationDirection(final String transformationDirection) {
 		this.transformationDirection = transformationDirection;
 	}
 
@@ -100,8 +113,7 @@ public class QVTRScript {
 	 * 
 	 * @return a {@link Reader} to the content of the QVT script file
 	 */
-	public Reader toReader()
-	{
+	public Reader toReader() {
 		return new StringReader(qvtScriptFile);
 	}
 	
@@ -111,20 +123,20 @@ public class QVTRScript {
 	 * 
 	 * @param fileName path to the QVT script file
 	 */
-	public void setQVTFile(String fileName) {
+	public void setQVTFile(final String fileName) {
 		URI qvturl = null;
 		try {
 			qvturl = URI.createURI(fileName);
 			
 		} catch (IllegalArgumentException e) {
-		//	logger.error("Wrong URI format.",e);
+			logger.error("Wrong URI format.",e);
 		}
 		try {
 			InputStream stream = null;
 			
-			if(qvturl.scheme().startsWith("platform"))
+			if (qvturl.scheme().startsWith("platform")) {
 				stream =  URIConverter.INSTANCE.createInputStream(qvturl);
-			else{
+			} else {
 				qvturl = CommonPlugin.resolve(qvturl);
 				stream = new FileInputStream(qvturl.toFileString());
 			}
@@ -154,7 +166,7 @@ public class QVTRScript {
 	 * 
 	 * @param metaModels a {@link Collection} of needed meta models
 	 */
-	public void setMetaModels(Collection<Object> metaModels) {
+	public void setMetaModels(final Collection<Object> metaModels) {
 		this.metaModels = metaModels;
 	}
 	

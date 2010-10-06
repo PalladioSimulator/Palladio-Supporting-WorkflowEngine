@@ -28,8 +28,17 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
 public class QVTRTransformationJob implements
 		IBlackboardInteractingJob<MDSDBlackboard> {
 	
-	private static final Logger logger = Logger.getLogger(QVTRTransformationJob.class);
+	/**
+	 * log4j logger for this class.
+	 */
+	private final Logger logger = Logger.getLogger(QVTRTransformationJob.class);
+	/**
+	 * Configuration for this job.
+	 */
 	protected QVTRTransformationJobConfiguration configuration;
+	/**
+	 * Blackboard this job is interacting.
+	 */
 	protected MDSDBlackboard blackboard;
 
 	/**
@@ -37,22 +46,21 @@ public class QVTRTransformationJob implements
 	 * 
 	 * @param configuration a {@link QVTRTransformationJobConfiguration}
 	 */
-	public QVTRTransformationJob(QVTRTransformationJobConfiguration configuration) {
+	public QVTRTransformationJob(final QVTRTransformationJobConfiguration configuration) {
 		super();
 		this.configuration = configuration;
 	}
 	
 	@Override
-	public void execute(IProgressMonitor monitor) throws JobFailedException,
+	public void execute(final IProgressMonitor monitor) throws JobFailedException,
 			UserCanceledException {
 		
 		logger.info("Executing QVTR Transformation...");
-		logger.debug("Script: "+ configuration.getQVTRScript());
+		logger.debug("Script: " + configuration.getQVTRScript());
 		
 		// request the QVT-R engine we want to execute
 		AbstractQVTREngine qvtrEngine = AbstractQVTREngine.getInstance(configuration.getQvtEngineID());
-		if(qvtrEngine==null)
-		{
+		if (qvtrEngine == null) {
 			throw new JobFailedException("No QVT-R Engine available.");
 		}
 		
@@ -60,9 +68,9 @@ public class QVTRTransformationJob implements
 		qvtrEngine.setDebug(configuration.isDebug());
 		
 		// if a trace partition name is provided we create the partition
-		if(configuration.getTracesPartitionName() != null) {
+		if (configuration.getTracesPartitionName() != null) {
 			ResourceSetPartition tracesPartition = this.blackboard.getPartition(configuration.getTracesPartitionName());
-			if(tracesPartition == null)	{
+			if (tracesPartition == null)	{
 				tracesPartition = new ResourceSetPartition();
 				this.blackboard.addPartition(configuration.getTracesPartitionName(), tracesPartition);
 			}
@@ -70,9 +78,10 @@ public class QVTRTransformationJob implements
 		}
 		
 		// if a old trace partition name is provided we sets the partition
-		if(configuration.getOldTracesPartitionName() != null) {
-			ResourceSetPartition oldTracesPartition = this.blackboard.getPartition(configuration.getOldTracesPartitionName());
-			if(oldTracesPartition != null)	{
+		if (configuration.getOldTracesPartitionName() != null) {
+			ResourceSetPartition oldTracesPartition = 
+				this.blackboard.getPartition(configuration.getOldTracesPartitionName());
+			if (oldTracesPartition != null)	{
 				qvtrEngine.setOldTracesResourceSet(oldTracesPartition.getResourceSet());
 			}
 		}
@@ -82,7 +91,7 @@ public class QVTRTransformationJob implements
 		
 		// add all model sets to the engine
 		Iterator<ModelLocation[]> iterator = configuration.getModelLocationSets().iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			ModelLocation[] modelLocation = iterator.next();
 			qvtrEngine.addModels(getResources(modelLocation));
 		}
@@ -97,7 +106,7 @@ public class QVTRTransformationJob implements
 		try {
 			qvtrEngine.transform();
 		} catch (Throwable e) {
-			throw new JobFailedException("Error in mediniQVT Transformation",e);
+			throw new JobFailedException("Error in mediniQVT Transformation", e);
 		}
 		
 		logger.info("Transformation executed successfully");
@@ -109,10 +118,10 @@ public class QVTRTransformationJob implements
 	 * @param modelLocations 	an array of {@link ModelLocation}
 	 * @return a {@link Collection} of {@link Resource}
 	 */
-	protected Collection<Resource> getResources(ModelLocation[] modelLocations) {
+	protected Collection<Resource> getResources(final ModelLocation[] modelLocations) {
 		Collection<Resource> resources = new ArrayList<Resource>(modelLocations.length);
 		
-		for(int i = 0; i < modelLocations.length; i++) {
+		for (int i = 0; i < modelLocations.length; i++) {
 			resources.add(getResource(modelLocations[i]));
 		}
 		
@@ -120,19 +129,19 @@ public class QVTRTransformationJob implements
 	}
 	
 	/**
-	 * Returns a {@link Resource} for a {@link ModelLocation}
+	 * Returns a {@link Resource} for a {@link ModelLocation}.
 	 * 
 	 * @param 	modelLocation	{@link ModelLocation}
 	 * @return 	a {@link Resource} for a {@link ModelLocation}
 	 */
-	protected Resource getResource(ModelLocation modelLocation) {
+	protected Resource getResource(final ModelLocation modelLocation) {
 		
 		ResourceSetPartition partition = this.blackboard.getPartition(modelLocation.getPartitionID());
 		ResourceSet rSet = partition.getResourceSet();
 		
 		Resource r = rSet.getResource(modelLocation.getModelID(), false);
 		if (r == null) {
-			new IllegalArgumentException("Model with URI "+modelLocation.getModelID()+" must be loaded first");
+			new IllegalArgumentException("Model with URI " + modelLocation.getModelID() + " must be loaded first");
 		}
 		return r;
 	}
@@ -143,11 +152,11 @@ public class QVTRTransformationJob implements
 	}
 
 	@Override
-	public void rollback(IProgressMonitor monitor)
-			throws RollbackFailedException {} // Not needed
+	public void rollback(final IProgressMonitor monitor)
+			throws RollbackFailedException { } // Not needed
 	
 	@Override
-	public void setBlackboard(MDSDBlackboard blackboard) {
+	public void setBlackboard(final MDSDBlackboard blackboard) {
 		this.blackboard = blackboard;
 	}
 

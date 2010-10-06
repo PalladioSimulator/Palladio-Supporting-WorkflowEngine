@@ -13,8 +13,10 @@ package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr;
  */
 public class QVTRScriptInfo {
 	
-	// Instance of a QVTRScriptInfoImpl
-	protected AbstractQVTREngine.QVTRScriptInfoImpl qvtScriptInfoImpl = null;
+	/**
+	 * Instance of a QVTRScriptInfoImpl.
+	 */
+	private AbstractQVTREngine.QVTRScriptInfoImpl qvtScriptInfoImpl = null;
 	
 	
 	/**
@@ -23,8 +25,8 @@ public class QVTRScriptInfo {
 	 * 
 	 * @param qvtrScript	a QVTRScript to analyze
 	 */
-	public QVTRScriptInfo(QVTRScript qvtrScript) {
-		this(qvtrScript,AbstractQVTREngine.getFirstInstance());
+	public QVTRScriptInfo(final QVTRScript qvtrScript) {
+		this(qvtrScript, AbstractQVTREngine.getFirstInstance());
 	}
 
 	/**
@@ -34,8 +36,8 @@ public class QVTRScriptInfo {
 	 * @param qvtrScript	a QVTRScript to analyze
 	 * @param qvtrEngineID	an id of the QVT-R engine to use 
 	 */
-	public QVTRScriptInfo(QVTRScript qvtrScript, String qvtrEngineID) {
-		this(qvtrScript,AbstractQVTREngine.getInstance(qvtrEngineID));
+	public QVTRScriptInfo(final QVTRScript qvtrScript, final String qvtrEngineID) {
+		this(qvtrScript, AbstractQVTREngine.getInstance(qvtrEngineID));
 	}
 	
 	
@@ -46,8 +48,8 @@ public class QVTRScriptInfo {
 	 * @param qvtrScript	a QVTRScript to analyze
 	 * @param qvtrEngine	an QVT-R engine to use 
 	 */
-	protected QVTRScriptInfo(QVTRScript qvtrScript, AbstractQVTREngine qvtrEngine) {
-		if(qvtrEngine != null){
+	protected QVTRScriptInfo(final QVTRScript qvtrScript, final AbstractQVTREngine qvtrEngine) {
+		if (qvtrEngine != null) {
 			qvtrEngine.setQVTRScript(qvtrScript);
 			qvtScriptInfoImpl = qvtrEngine.qvtrScriptInfoImpl();
 		}
@@ -59,33 +61,36 @@ public class QVTRScriptInfo {
 	 * @param transformationName	name of a transformation
 	 * @return						the direction names for a transformation 
 	 */
-	public String[] getDirections(String transformationName) {
-		if(qvtScriptInfoImpl != null)
+	public String[] getDirections(final String transformationName) {
+		if (qvtScriptInfoImpl != null) {
 			return qvtScriptInfoImpl.getDirections(transformationName);
+		}
 		
 		return null;
 	}
 	
 	/**
-	 * Returns the available transformations
+	 * Returns the available transformations.
 	 * 
 	 * @return		the transformations names
 	 */
 	public String[] getTransformations() {
-		if(qvtScriptInfoImpl != null)
+		if (qvtScriptInfoImpl != null) {
 			return qvtScriptInfoImpl.getTransformations();
+		}
 		
 		return null;
 	}
 	
 	/**
-	 * Returns if the QVT-R script is valid
+	 * Returns if the QVT-R script is valid.
 	 *  
 	 * @return		true if it is a valid QVT-R script
 	 */
 	public boolean isScriptValid() {
-		if(qvtScriptInfoImpl != null)
+		if (qvtScriptInfoImpl != null) {
 			return qvtScriptInfoImpl.isScriptValid();
+		}
 		
 		return false;
 	}

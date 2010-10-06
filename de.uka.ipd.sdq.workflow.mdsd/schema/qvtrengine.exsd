@@ -21,7 +21,7 @@ The the available engines can be used by QVTRTransformationJobs.
       </annotation>
       <complexType>
          <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="engineType"/>
+            <element ref="engine"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -50,7 +50,7 @@ The the available engines can be used by QVTRTransformationJobs.
       </complexType>
    </element>
 
-   <element name="engineType">
+   <element name="engine">
       <complexType>
          <attribute name="name" type="string">
             <annotation>

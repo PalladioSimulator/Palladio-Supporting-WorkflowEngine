@@ -12,6 +12,7 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -19,6 +20,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+
+
 
 /**
  * 
@@ -50,8 +53,12 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		instance = this;
 		
 		Composite container = new Composite(parent, SWT.NONE);
-		container.setLayout(new GridLayout());
+		GridLayout layoutOuter = new GridLayout();
+		layoutOuter.numColumns = 3;
+		container.setLayout(layoutOuter);
 		setControl(container);
+		
+		
 		
 		buttons = new ArrayList<Button>();
 		
@@ -59,9 +66,12 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		final Group loggingGroup = new Group(container, SWT.NONE);
 		loggingGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		loggingGroup.setText("Choose Launch Configs to run.");
-		loggingGroup.setLayout(new GridLayout());
+		GridLayout layoutInner = new GridLayout();
+		layoutInner.numColumns = 3;
+		loggingGroup.setLayout(layoutInner);
 		
 		List<ILaunchConfiguration> configs = getLaunchConfigs();
+
 		
 		for (ILaunchConfiguration launchConfiguration : configs) {
 			buttons.add(createCheckBox(launchConfiguration, loggingGroup));
@@ -122,6 +132,7 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 		
 		List<ILaunchConfiguration> configs = getLaunchConfigs();
 		
+	
 		for (ILaunchConfiguration launchConfiguration : configs) {
 			boolean selected = false;
 			try {

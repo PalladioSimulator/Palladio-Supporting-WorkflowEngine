@@ -228,7 +228,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 
 		try {
 			eventMiddlewareRepository.setText(configuration.getAttribute(
-					ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE, ""));
+					ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE, PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI));
 		} catch (CoreException e) {
 			RunConfigPlugin.errorLogger(getName(),"Event Middleware Repository File", e.getMessage());
 		}

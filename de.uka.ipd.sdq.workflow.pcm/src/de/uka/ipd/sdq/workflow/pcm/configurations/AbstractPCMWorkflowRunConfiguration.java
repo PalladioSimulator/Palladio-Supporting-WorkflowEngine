@@ -65,6 +65,7 @@ public abstract class AbstractPCMWorkflowRunConfiguration extends
 			de.uka.ipd.sdq.pcm.seff.reliability.ReliabilityPackage.eINSTANCE, };
 
 	protected String middlewareFile;
+	protected String eventMiddlewareFile;
 	protected List<String> allocationFiles;
 	protected String usageModelFile;
 
@@ -96,6 +97,24 @@ public abstract class AbstractPCMWorkflowRunConfiguration extends
 	public void setMiddlewareFile(String middlewareFile) {
 		checkFixed();
 		this.middlewareFile = middlewareFile;
+	}
+
+	/**
+	 * @return Returns the filename of the PCM's middleware completion
+	 *         repository
+	 */
+	public String getEventMiddlewareFile() {
+		return eventMiddlewareFile;
+	}
+
+	/**
+	 * Sets the filename of the PCM's middleware completion repository
+	 * 
+	 * @param eventMiddlewareFile
+	 */
+	public void setEventMiddlewareFile(String eventMiddlewareFile) {
+		checkFixed();
+		this.eventMiddlewareFile = eventMiddlewareFile;
 	}
 
 	public List<String> getAllocationFiles() {

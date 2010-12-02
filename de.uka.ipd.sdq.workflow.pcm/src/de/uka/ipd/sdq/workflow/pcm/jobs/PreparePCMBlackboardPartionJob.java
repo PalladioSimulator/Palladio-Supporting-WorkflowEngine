@@ -34,6 +34,9 @@ implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 		ResourceSetPartition middlewareRepositoryPartition = new ResourceSetPartition();
 		this.blackboard.addPartition(LoadPCMModelsIntoBlackboardJob.MIDDLEWARE_PARTITION_ID, middlewareRepositoryPartition);
 		
+		ResourceSetPartition eventMiddlewareRepositoryPartition = new ResourceSetPartition();
+		this.blackboard.addPartition(LoadPCMModelsIntoBlackboardJob.EVENT_MIDDLEWARE_PARTITION_ID, eventMiddlewareRepositoryPartition);
+		
 		logger.debug("Initialising PCM EPackages");
 		myPartion.initialiseResourceSetEPackages(AbstractPCMWorkflowRunConfiguration.PCM_EPACKAGES);
 		middlewareRepositoryPartition.initialiseResourceSetEPackages(AbstractPCMWorkflowRunConfiguration.PCM_EPACKAGES);
@@ -50,6 +53,7 @@ implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 	@Override
 	public void rollback(IProgressMonitor monitor)
 			throws RollbackFailedException {
+		this.blackboard.removePartition(LoadPCMModelsIntoBlackboardJob.EVENT_MIDDLEWARE_PARTITION_ID);
 		this.blackboard.removePartition(LoadPCMModelsIntoBlackboardJob.MIDDLEWARE_PARTITION_ID);
 		this.blackboard.removePartition(LoadPCMModelsIntoBlackboardJob.PCM_MODELS_PARTITION_ID);
 	}

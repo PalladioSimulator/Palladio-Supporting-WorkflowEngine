@@ -35,6 +35,7 @@ implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 			UserCanceledException {
 		ResourceSetPartition pcmPartition = this.blackboard.getPartition(LoadPCMModelsIntoBlackboardJob.PCM_MODELS_PARTITION_ID);
 		ResourceSetPartition middlewarePartition = this.blackboard.getPartition(LoadPCMModelsIntoBlackboardJob.MIDDLEWARE_PARTITION_ID);
+		ResourceSetPartition eventMiddlewarePartition = this.blackboard.getPartition(LoadPCMModelsIntoBlackboardJob.EVENT_MIDDLEWARE_PARTITION_ID);
 		
 		// Load the PCM model and its middleware completions
 		logger.info("Loading PCM Model Files");
@@ -44,6 +45,10 @@ implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 		pcmPartition.resolveAllProxies();
 		middlewarePartition.loadModel(configuration.getMiddlewareFile());
 		middlewarePartition.resolveAllProxies();
+		
+		// load the event middleware repository
+		eventMiddlewarePartition.loadModel(configuration.getEventMiddlewareFile());
+		eventMiddlewarePartition.resolveAllProxies();
 	}
 
 	@Override

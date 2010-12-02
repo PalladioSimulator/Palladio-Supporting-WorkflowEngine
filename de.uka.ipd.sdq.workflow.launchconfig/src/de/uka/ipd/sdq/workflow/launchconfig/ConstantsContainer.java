@@ -16,6 +16,8 @@ public class ConstantsContainer {
 	public static final String USAGE_FILE = "usageFile";
 
 	public static final String MWREPOSITORY_FILE = "mwRepositoryFile";
+
+	public static final String EVENT_MIDDLEWARE_REPOSITORY_FILE = "eventMiddlewareRepositoryFile";
 	
 	/** Template method value*/
 	public static final String AOP_TEMPLATE  = "aop_templates";

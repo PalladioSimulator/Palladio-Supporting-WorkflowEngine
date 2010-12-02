@@ -59,6 +59,7 @@ public class PCMWorkflowConfigurationBuilder extends
 		config.setAllocationFiles(tempList);
 		config.setUsageModelFile   ( getStringAttribute(ConstantsContainer.USAGE_FILE) );
 		config.setMiddlewareFile   ( getStringAttribute(ConstantsContainer.MWREPOSITORY_FILE) );
+		config.setEventMiddlewareFile   ( getStringAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE) );
 		
 	}	
 }

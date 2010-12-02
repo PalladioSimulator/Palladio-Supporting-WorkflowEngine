@@ -39,6 +39,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin;
 public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 
 	protected static final String PCM_GLASSFISHREPOSITORY_FILE_URI = "pathmap://PCM_MODELS/Glassfish.repository";
+	protected static final String PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI = "pathmap://PCM_MODELS/default_event_middleware.repository";
 //BRG
 // private static final String PCM_RESOURCETYPE_FILE_URI = "pathmap://PCM_MODELS/Palladio.resourcetype";
 	
@@ -50,6 +51,7 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 	protected Text textAllocation;
 	protected Text textUsage;
 	protected Text mwtextRepository;
+	protected Text eventMiddlewareRepository;
 	
 	//container for UI elements
 	protected Composite container;
@@ -129,6 +131,12 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 		 */
 		mwtextRepository = new Text(container, SWT.SINGLE | SWT.BORDER);
 		createFileInputSection(container, modifyListener, "Middleware Repository File", ConstantsContainer.REPOSITORY_EXTENSION, mwtextRepository);
+
+		/**
+		 * Create event MW repository section
+		 */
+		eventMiddlewareRepository = new Text(container, SWT.SINGLE | SWT.BORDER);
+		createFileInputSection(container, modifyListener, "Event Middleware Repository File", ConstantsContainer.REPOSITORY_EXTENSION, eventMiddlewareRepository);
 
 /*		*//**
 		 * Create system Section
@@ -218,6 +226,13 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 			RunConfigPlugin.errorLogger(getName(),"Middleware Repository File", e.getMessage());
 		}
 
+		try {
+			eventMiddlewareRepository.setText(configuration.getAttribute(
+					ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE, ""));
+		} catch (CoreException e) {
+			RunConfigPlugin.errorLogger(getName(),"Event Middleware Repository File", e.getMessage());
+		}
+
 /*		try {
 			textResourceType.setText(configuration.getAttribute(
 					ConstantsContainer.RESOURCETYPEREPOSITORY_FILE, ""));
@@ -261,6 +276,8 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 //				textRepository.getText());
 		configuration.setAttribute(ConstantsContainer.MWREPOSITORY_FILE,
 				mwtextRepository.getText());
+		configuration.setAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE,
+				eventMiddlewareRepository.getText());
 //		configuration.setAttribute(ConstantsContainer.SYSTEM_FILE, textSystem
 //				.getText());
 		configuration.setAttribute(ConstantsContainer.ALLOCATION_FILE,
@@ -277,6 +294,8 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 //			PCM_RESOURCETYPE_FILE_URI);
 		configuration.setAttribute(ConstantsContainer.MWREPOSITORY_FILE,
 			PCM_GLASSFISHREPOSITORY_FILE_URI);
+		configuration.setAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE,
+			PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI);
 	}
 
 	
@@ -295,6 +314,11 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 		if (!validateFilePath(mwtextRepository.getText(),
 				ConstantsContainer.REPOSITORY_EXTENSION)) {
 			setErrorMessage("Middleware Repository is missing!");
+			return false;
+		}
+		if (!validateFilePath(eventMiddlewareRepository.getText(),
+				ConstantsContainer.REPOSITORY_EXTENSION)) {
+			setErrorMessage("Event Middleware Repository is missing!");
 			return false;
 		}
 //		if (!validateFilePath(textResourceType.getText(),

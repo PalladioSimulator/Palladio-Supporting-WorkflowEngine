@@ -276,8 +276,18 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 //				textRepository.getText());
 		configuration.setAttribute(ConstantsContainer.MWREPOSITORY_FILE,
 				mwtextRepository.getText());
-		configuration.setAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE,
-				eventMiddlewareRepository.getText());
+		
+		// set either the selected or the default event middleware repository if none was selected
+		// this is also used as fall back for existing projects where the setDefault method is not called
+		if(eventMiddlewareRepository.getText() != null && !eventMiddlewareRepository.getText().equals("")) {
+			configuration.setAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE,
+					eventMiddlewareRepository.getText());
+		} else {
+			configuration.setAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE,
+					PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI);			
+		}
+
+		
 //		configuration.setAttribute(ConstantsContainer.SYSTEM_FILE, textSystem
 //				.getText());
 		configuration.setAttribute(ConstantsContainer.ALLOCATION_FILE,

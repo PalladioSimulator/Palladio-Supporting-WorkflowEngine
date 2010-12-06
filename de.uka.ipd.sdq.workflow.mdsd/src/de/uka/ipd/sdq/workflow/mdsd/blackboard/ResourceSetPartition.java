@@ -141,7 +141,7 @@ public class ResourceSetPartition {
 	public void storeAllResources() throws IOException {
 		for (Resource r : rs.getResources()) {
 			logger.debug("Save resource "+r.getURI());
-			if (r.getURI().isFile()) {
+			if (r.getURI().isFile() || r.getURI().isPlatformResource()) {
 				r.save(new HashMap());
 			}
 		}

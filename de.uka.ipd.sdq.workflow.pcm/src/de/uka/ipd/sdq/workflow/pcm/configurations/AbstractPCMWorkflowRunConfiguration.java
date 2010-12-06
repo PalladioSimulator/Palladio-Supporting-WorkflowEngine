@@ -36,6 +36,9 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
  */
 public abstract class AbstractPCMWorkflowRunConfiguration extends
 		AbstractWorkflowBasedRunConfiguration {
+	
+	/** URI to the default event middleware model file */
+	public static final String PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI = "pathmap://PCM_MODELS/default_event_middleware.repository";
 
 	/**
 	 * Contains All EPackages within or referenced by PCM. Used, e.g., for OAW
@@ -101,10 +104,14 @@ public abstract class AbstractPCMWorkflowRunConfiguration extends
 
 	/**
 	 * @return Returns the filename of the PCM's middleware completion
-	 *         repository
+	 *         repository. If the repository was not set before, the default file will be returned.
 	 */
 	public String getEventMiddlewareFile() {
-		return eventMiddlewareFile;
+		if(eventMiddlewareFile != null){
+			return eventMiddlewareFile;
+		} else {
+			return PCM_DEFAULT_EVENT_MIDDLEWARE_FILE_URI;
+		}
 	}
 
 	/**

@@ -32,7 +32,7 @@ extends AbstractOAWWorkflowJobBridge<Generator> {
 	private String fileEncoding;
 	private boolean beautifyCode;
 	
-	public XpandGeneratorJob(HashMap<String, EObject> slotContents, 
+	public XpandGeneratorJob(HashMap<String, Object> slotContents, 
 			EPackage[] ePackages,
 			Outlet[] outlets,
 			String expandExpression) {

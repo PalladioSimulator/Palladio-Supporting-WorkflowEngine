@@ -32,14 +32,14 @@ implements IJob {
 	private Logger logger = Logger.getLogger(AbstractOAWWorkflowJobBridge.class);
 	
 	protected T oawJob = null;
-	private HashMap<String, EObject> slotContents;
+	private HashMap<String, Object> slotContents;
 	
 	/**
 	 * Constructor of the oAW bridge
 	 * @param job The oAW job to wrap for execution in the SDQ workflow engine
 	 */
 	public AbstractOAWWorkflowJobBridge(T job) {
-		this(job,new HashMap<String, EObject>());
+		this(job,new HashMap<String, Object>());
 	}
 	
 	/** Constructor of the oAW bridge
@@ -48,7 +48,7 @@ implements IJob {
 	 * by the encapsulated oAW job
 	 */
 	public AbstractOAWWorkflowJobBridge(T job,
-			HashMap<String, EObject> slotContents) {
+			HashMap<String, Object> slotContents) {
 		super();
 		
 		this.oawJob = job;

@@ -3,6 +3,12 @@ package de.uka.ipd.sdq.workflow.pcm.runconfig;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Experiment run descriptor for sensitivity analyses. 
+ * This descriptor contains the values chosen for each variable of the sensitivity analysis. 
+ * It provides an experiment name based on this information.  
+ *
+ */
 public class ExperimentRunDescriptor {
 
 	private String name;

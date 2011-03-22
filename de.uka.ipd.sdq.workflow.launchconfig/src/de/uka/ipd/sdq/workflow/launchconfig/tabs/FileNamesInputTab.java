@@ -10,6 +10,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -435,8 +436,12 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 		
 		if (files.length != 0)
 			file = files[0];
+		//String OSString = file.getFullPath().toOSString();
+		//String toString = file.getFullPath().toString();
+		String portableString = file.getFullPath().toPortableString();
+		String target = "platform:/resource" + portableString;
 		if (file != null)
-			return file.getLocation().toOSString();
+			return target; //solution before 2011-03-22: file.getLocation().toOSString();
 		
 		return "";
 	}

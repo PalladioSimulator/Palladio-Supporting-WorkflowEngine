@@ -11,7 +11,7 @@ import org.osgi.framework.BundleContext;
 public class RunConfigPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "de.uka.ipd.sdq.codegen.runconfig";
+	public static final String PLUGIN_ID = "de.uka.ipd.sdq.workflow.launchconfig";
 
 	// The shared instance
 	private static RunConfigPlugin plugin;

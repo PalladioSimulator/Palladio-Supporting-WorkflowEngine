@@ -172,6 +172,10 @@ public abstract class AbstractCodeGenerationWorkflowRunConfiguration extends
 
 	}
 
+	public CodeGenerationAdvice getCodeGenerationAdvice() {
+		return codeGenerationAdvice;
+	}
+
 	public String getCodeGenerationAdvicesFile() {
 		return this.codeGenerationAdvice.getTemplateFile();
 	}

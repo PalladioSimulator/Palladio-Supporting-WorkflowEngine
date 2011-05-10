@@ -11,9 +11,9 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  * @author Steffen
  * @param <BlackboardType> The type of the blackboard needed by all jobs in the sequential workflow
  */
-public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackboard<?>> 
+public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackboard<?>>
 extends OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
-	
+
 	protected BlackboardType myBlackboard;
 
 	/**
@@ -23,11 +23,11 @@ extends OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInterac
 		super();
 	}
 
-	/** 
-	 * Executes all contained jobs, i.e. call execute() for them. Contained 
-	 * jobs can thus re-implement this method with functionality that should 
+	/**
+	 * Executes all contained jobs, i.e. call execute() for them. Contained
+	 * jobs can thus re-implement this method with functionality that should
 	 * be executed.
-	 */ 
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
@@ -44,5 +44,12 @@ extends OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInterac
 	 */
 	public void setBlackboard(BlackboardType blackboard) {
 		this.myBlackboard = blackboard;
+	}
+
+	/**
+	 * @return Returns the used blackboard.
+	 */
+	public BlackboardType getBlackboard() {
+		return myBlackboard;
 	}
 }

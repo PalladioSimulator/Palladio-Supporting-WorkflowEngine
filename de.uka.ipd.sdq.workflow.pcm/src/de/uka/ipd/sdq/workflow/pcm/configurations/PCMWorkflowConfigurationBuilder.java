@@ -13,7 +13,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
 /**
  * Builder class which is able to fill the PCM specific parts of a workflow configuration object based on the PCM
  * filename configuration tab entries.
- * 
+ *
  * @author Steffen Becker
  */
 public class PCMWorkflowConfigurationBuilder extends
@@ -38,8 +38,14 @@ public class PCMWorkflowConfigurationBuilder extends
 			AbstractWorkflowBasedRunConfiguration configuration)
 			throws CoreException {
 		AbstractPCMWorkflowRunConfiguration config = (AbstractPCMWorkflowRunConfiguration) configuration;
-		
+
 		setPCMFilenames(config);
+		// temporary data location
+		config.setStoragePluginID(getStringAttribute(ConstantsContainer.TEMPORARY_DATA_LOCATION));
+		config.setDeleteTemporaryDataAfterAnalysis(getBooleanAttribute(ConstantsContainer.DELETE_TEMPORARY_DATA_AFTER_ANALYSIS));
+		// accuracy analysis
+		config.setAccuracyInfluenceAnalysisEnabled(getBooleanAttribute(ConstantsContainer.ANALYSE_ACCURACY));
+		config.setAccuracyInformationModelFile(getStringAttribute(ConstantsContainer.ACCURACY_QUALITY_ANNOTATION_FILE));
 	}
 
 	/** Read the PCM model filenames from this builder's launch configuration
@@ -50,16 +56,12 @@ public class PCMWorkflowConfigurationBuilder extends
 
 		//BRG
 		List <String> tempList = new ArrayList <String>();
-		
+
 		tempList.add(getStringAttribute(ConstantsContainer.ALLOCATION_FILE));
-//		config.setRepositoryFile   ( getStringAttribute(ConstantsContainer.REPOSITORY_FILE) );
-//		config.setResourceTypeFile ( getStringAttribute(ConstantsContainer.RESOURCETYPEREPOSITORY_FILE) );
-//		config.setSystemFile       ( getStringAttribute(ConstantsContainer.SYSTEM_FILE) );
-//		config.setAllocationFiles   ( getStringAttribute(ConstantsContainer.ALLOCATION_FILE) );
 		config.setAllocationFiles(tempList);
 		config.setUsageModelFile   ( getStringAttribute(ConstantsContainer.USAGE_FILE) );
 		config.setMiddlewareFile   ( getStringAttribute(ConstantsContainer.MWREPOSITORY_FILE) );
 		config.setEventMiddlewareFile   ( getStringAttribute(ConstantsContainer.EVENT_MIDDLEWARE_REPOSITORY_FILE) );
-		
-	}	
+
+	}
 }

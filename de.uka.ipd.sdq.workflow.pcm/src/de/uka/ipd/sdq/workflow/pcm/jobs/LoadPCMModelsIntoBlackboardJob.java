@@ -11,27 +11,27 @@ import de.uka.ipd.sdq.workflow.pcm.configurations.AbstractPCMWorkflowRunConfigur
  * A job to be used in the SDQ workflow engine which fully loads a PCM model instance into two MDSDBlackboard partitions.
  * The first partition contains the plain PCM model instance, the second one contains parametric middleware completion
  * components.
- *  
+ *
  * @author Steffen Becker
  */
-public class LoadPCMModelsIntoBlackboardJob 
+public class LoadPCMModelsIntoBlackboardJob
 extends OrderPreservingBlackboardCompositeJob<MDSDBlackboard>
 implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 
 	/**
-	 * ID of the blackboard partition containing the fully loaded PCM instance. The blackboard partition is 
+	 * ID of the blackboard partition containing the fully loaded PCM instance. The blackboard partition is
 	 * ensured to be of type {@link PCMResourceSetPartition}
 	 */
 	public static final String PCM_MODELS_PARTITION_ID = "de.uka.ipd.sdq.pcmmodels.partition";
-	
+
 	/**
-	 * ID of the blackboard partition containing the fully loaded parametric middleware completions. The blackboard partition is 
+	 * ID of the blackboard partition containing the fully loaded parametric middleware completions. The blackboard partition is
 	 * ensured to be of type {@link PCMResourceSetPartition}
 	 */
 	public static final String MIDDLEWARE_PARTITION_ID = "de.uka.ipd.sdq.pcmmodels.partition.middleware";
 
 	/**
-	 * ID of the blackboard partition containing the fully loaded parametric event middleware completions. 
+	 * ID of the blackboard partition containing the fully loaded parametric event middleware completions.
 	 * The blackboard partition is ensured to be of type {@link PCMResourceSetPartition}
 	 */
 	public static final String EVENT_MIDDLEWARE_PARTITION_ID = "de.uka.ipd.sdq.pcmmodels.partition.eventmiddleware";
@@ -44,5 +44,8 @@ implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 		super();
 		this.add(new PreparePCMBlackboardPartionJob());
 		this.add(new LoadPCMModelsJob(config));
+		// store models in temporary eclipse plug-in
+		this.add(new CreatePluginProjectJob(config));
+		this.add(new CreateWorkingCopyOfModelsJob(config));
 	}
 }

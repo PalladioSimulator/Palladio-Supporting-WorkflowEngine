@@ -18,19 +18,19 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 
 /**
  * This Class encapsulates a QVT-R script.
- * It holds a QVT-R script file, its needed meta models, a transformation 
+ * It holds a QVT-R script file, its needed meta models, a transformation
  * and a direction. A QVT-R transformation always consists of a transformation
  * name and a direction to execute. The available transformations and directions
  * of a given QVT-R script file can be queried from a {@link QVTRScriptInfo}.
- * 
+ *
  * To execute a QVT-R transformation the meta models used by the transformation
  * needed to be known.
- * 
+ *
  * @author Thomas Schuischel
  *
  */
 public class QVTRScript {
-	
+
 	/**
 	 * Path to the QVT script file.
 	 */
@@ -50,10 +50,10 @@ public class QVTRScript {
 	/**
 	 * log4j logger.
 	 */
-	private Logger logger = Logger.getLogger(QVTRScript.class); 
-	
-	
-	
+	private Logger logger = Logger.getLogger(QVTRScript.class);
+
+
+
 	/**
 	 * Create a new empty QVTRScript.
 	 */
@@ -62,8 +62,8 @@ public class QVTRScript {
 		transformationName = "";
 		transformationDirection = "";
 	}
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -71,10 +71,10 @@ public class QVTRScript {
 	public String toString() {
 		return qvtScriptFile;
 	}
-	
+
 	/**
 	 * Returns the transformation name.
-	 * 
+	 *
 	 * @return name of the transformation
 	 */
 	public String getTransformationName() {
@@ -83,7 +83,7 @@ public class QVTRScript {
 
 	/**
 	 * Returns the name of the transformation direction.
-	 * 
+	 *
 	 * @return name of the direction
 	 */
 	public String getTransformationDirection() {
@@ -92,7 +92,7 @@ public class QVTRScript {
 
 	/**
 	 * Sets the name of a transformation.
-	 * 
+	 *
 	 * @param transformationName name of a transformation
 	 */
 	public void setTransformationName(final String transformationName) {
@@ -101,7 +101,7 @@ public class QVTRScript {
 
 	/**
 	 * Sets the name of a transformation direction.
-	 * 
+	 *
 	 * @param transformationDirection name of transformation direction
 	 */
 	public void setTransformationDirection(final String transformationDirection) {
@@ -110,74 +110,73 @@ public class QVTRScript {
 
 	/**
 	 * Returns a new Reader to the QVT script file.
-	 * 
+	 *
 	 * @return a {@link Reader} to the content of the QVT script file
 	 */
 	public Reader toReader() {
 		return new StringReader(qvtScriptFile);
 	}
-	
+
 	/**
 	 * Sets the QVT script file.
 	 * The script file is read into the internal buffer.
-	 * 
+	 *
 	 * @param fileName path to the QVT script file
 	 */
 	public void setQVTFile(final String fileName) {
 		URI qvturl = null;
 		try {
 			qvturl = URI.createURI(fileName);
-			
+
 		} catch (IllegalArgumentException e) {
 			logger.error("Wrong URI format.",e);
 		}
 		try {
 			InputStream stream = null;
-			
+
 			if (qvturl.scheme().startsWith("platform")) {
 				stream =  URIConverter.INSTANCE.createInputStream(qvturl);
 			} else {
 				qvturl = CommonPlugin.resolve(qvturl);
 				stream = new FileInputStream(qvturl.toFileString());
 			}
-			
+
 			BufferedReader br = new BufferedReader(
-			           new InputStreamReader(stream)); 
+			           new InputStreamReader(stream));
 			StringBuffer contentOfFile = new StringBuffer();
-			String line; 
+			String line;
 			while ((line = br.readLine()) != null) {
 			    contentOfFile.append(line);
 			    contentOfFile.append("\n");
 			}
 			qvtScriptFile = contentOfFile.toString();
-			
+
 		} catch (FileNotFoundException fileNotFoundException) {
 			//logger.error("QVT file not found!",fileNotFoundException);
 			return;
 		} catch (IOException ioException) {
-			//logger.error("Could not read QVT file!",ioException,ioException);
-			ioException.printStackTrace();
+			logger.info("Error reading the QVT file.", ioException);
 		}
 	}
-	
+
 
 	/**
 	 * Sets the meta models needed by the transformation.
-	 * 
+	 *
 	 * @param metaModels a {@link Collection} of needed meta models
 	 */
 	public void setMetaModels(final Collection<Object> metaModels) {
 		this.metaModels = metaModels;
 	}
-	
+
 	/**
-	 * Returns a {@link Collection} of meta models that is currently 
+	 * Returns a {@link Collection} of meta models that is currently
 	 * connected to the tranformation.
-	 *  
+	 *
 	 * @return {@link Collection} of current meta models
 	 */
 	public Collection<Object> getMetaModels() {
 		return metaModels;
 	}
-	
+
 }

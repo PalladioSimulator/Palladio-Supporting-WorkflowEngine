@@ -12,11 +12,11 @@ import de.uka.ipd.sdq.workflow.IJobWithResult;
 import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 
-public abstract class ModelValidationJob 
-implements 
+public abstract class ModelValidationJob
+implements
 	IJobWithResult<List<SeverityAndIssue>>,
 	IBlackboardInteractingJob<MDSDBlackboard> {
-	
+
 	private List<SeverityAndIssue> jobResult = null;
 	private final SeverityEnum errorLevel;
 
@@ -24,7 +24,7 @@ implements
 		super();
 		this.errorLevel = errorLevel;
 	}
-	
+
 	/**
 	 * @return the errorLevel
 	 */
@@ -40,16 +40,16 @@ implements
 			throw new IllegalArgumentException("Error list must not be null.");
 		this.jobResult = jobResult;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see de.uka.ipd.sdq.workflow.IJobWithResult#getResult()
 	 */
 	public List<SeverityAndIssue> getResult() {
 		if (this.jobResult == null)
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		return Collections.unmodifiableList(jobResult);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
 	 */

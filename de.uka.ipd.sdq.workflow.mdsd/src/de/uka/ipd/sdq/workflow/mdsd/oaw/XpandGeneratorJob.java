@@ -4,48 +4,66 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xpand2.Generator;
 import org.eclipse.xpand2.output.JavaBeautifier;
 import org.eclipse.xpand2.output.Outlet;
 import org.eclipse.xpand2.output.PostProcessor;
 import org.eclipse.xpand2.output.XmlBeautifier;
+import org.eclipse.xtend.expression.AbstractExpressionsUsingWorkflowComponent.GlobalVarDef;
 import org.eclipse.xtend.typesystem.emf.EmfMetaModel;
 
-//TODO Is this annotation needed?
-/**
- * A job to run oAWs Xpand Generator on models in order to generate code (i.e., perform a model-2-text transformation)
- * 
+/**Job which creates, configures and runs an XPand generator.
  * @author Steffen Becker
+ * @author groenda
  */
-@SuppressWarnings("deprecation")
-public class XpandGeneratorJob
-extends AbstractOAWWorkflowJobBridge<Generator> {
+public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
 	private EPackage[] ePackages = null;
 	private Outlet[] outlets;
 	private String expandExpression;
-	
+
 	private List<String> advices = new ArrayList<String>();
 	private boolean checkProtectedRegions;
 	private String fileEncoding;
 	private boolean beautifyCode;
-	
-	public XpandGeneratorJob(HashMap<String, Object> slotContents, 
+	/** Definition of global variables. */
+	private GlobalVarDef[] glovalVarDefs;
+
+	/**Creates a new XPand generator job.
+	 * @param slotContents Slots and their content.
+	 * @param ePackages EMF Meta-models which can be used by the generator.
+	 * @param outlets Outlets.
+	 * @param expandExpression Initial generation expression.
+	 * @param globalVarDefs Definitions for global Variables.
+	 */
+	public XpandGeneratorJob(HashMap<String, Object> slotContents,
 			EPackage[] ePackages,
 			Outlet[] outlets,
-			String expandExpression) {
-		
+			String expandExpression, GlobalVarDef[] globalVarDefs) {
 		super(new Generator(),slotContents);
-		
+
 		this.ePackages = ePackages;
 		this.outlets = outlets;
 		this.expandExpression = expandExpression;
-		
+		this.glovalVarDefs = globalVarDefs;
+
 		this.checkProtectedRegions = false;
-		this.fileEncoding = "ISO-8859-1"; 
+		this.fileEncoding = "ISO-8859-1";
 		this.beautifyCode = false;
+	}
+
+	/**Creates a new XPand generator job without global variables.
+	 * @param slotContents Slots and their content.
+	 * @param ePackages EMF Meta-models which can be used by the generator.
+	 * @param outlets Outlets.
+	 * @param expandExpression Initial generation expression.
+	 */
+	public XpandGeneratorJob(HashMap<String, Object> slotContents,
+			EPackage[] ePackages,
+			Outlet[] outlets,
+			String expandExpression) {
+		this(slotContents, ePackages, outlets, expandExpression, null);
 	}
 
 	/* (non-Javadoc)
@@ -55,27 +73,33 @@ extends AbstractOAWWorkflowJobBridge<Generator> {
 	protected void setupOAWJob(Generator generatorJob) {
 		generatorJob.setExpand(expandExpression);
 		generatorJob.setFileEncoding(fileEncoding);
-		
+
 		for (EPackage p : ePackages) {
 			generatorJob.addMetaModel(new EmfMetaModel(p));
 		}
-		
+
 		String prResolver = "";
 		for (Outlet o : outlets) {
 			generatorJob.addOutlet(o);
 			prResolver += o.getPath() + ",";
 		}
 		prResolver = prResolver.substring(0,prResolver.length()-1);
-		
+
+		if (glovalVarDefs != null) {
+			for (GlobalVarDef def : glovalVarDefs) {
+				generatorJob.addGlobalVarDef(def);
+			}
+		}
+
 		if (this.checkProtectedRegions) {
 			generatorJob.setPrSrcPaths(prResolver);
 			generatorJob.setPrExcludes(".svn");
 		}
-		
+
 		for (String advice : this.advices) {
 			generatorJob.addAdvice(advice);
 		}
-		
+
 		if (beautifyCode) {
 			ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
 			beautifier.add(new JavaBeautifier());

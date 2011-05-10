@@ -2,6 +2,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.tabs;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.ILaunchConfigurationTabGroup;
@@ -18,10 +19,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * Provides methods helpful when working with {@link ILaunchConfiguration} and related classes.
- * 
- * @author pmerkle
+ * Provides methods helpful when working with {@link ILaunchConfiguration}, {@link AbstractLaunchConfigurationTab} and related classes.
+ *
  * @author groenda
+ * @author pmerkle
  */
 public class TabHelper {
 
@@ -31,12 +32,12 @@ public class TabHelper {
 	 * {@link CTabFolder} containing the same tabs as the passed
 	 * ILaunchConfigurationTabGroup.
 	 * <p>
-	 * Note that the resulting tab folder does not support launch-specific 
+	 * Note that the resulting tab folder does not support launch-specific
 	 * methods like {@link ILaunchConfigurationTabGroup#performApply(ILaunchConfigurationWorkingCopy)}.
-	 * If the tab folder is intended to work in an launch configuration environment 
-	 * (e.g. in a nested tab setting), use delegates to the corresponding methods 
-	 * of the tabs provided by the passed tabGroup.   
-	 * 
+	 * If the tab folder is intended to work in an launch configuration environment
+	 * (e.g. in a nested tab setting), use delegates to the corresponding methods
+	 * of the tabs provided by the passed tabGroup.
+	 *
 	 * @param tabGroup the tab group from which the CTabFolder will be created
 	 * @param dialog see {@link ILaunchConfigurationTabGroup#createTabs(ILaunchConfigurationDialog, String)
 	 * @param mode see {@link ILaunchConfigurationTabGroup#createTabs(ILaunchConfigurationDialog, String)
@@ -50,51 +51,51 @@ public class TabHelper {
 			int style) {
 		tabGroup.createTabs(dialog, mode);
 		ILaunchConfigurationTab[] tabs = tabGroup.getTabs();
-		
+
 		CTabFolder tabFolder = new CTabFolder(parent, style);
 		for(int i = 0; i<tabGroup.getTabs().length; i++) {
 			ILaunchConfigurationTab tab = tabs[i];
 			tab.setLaunchConfigurationDialog(dialog);
 			tab.createControl(tabFolder);
-			
+
 			CTabItem tabItem = new CTabItem(tabFolder, SWT.NULL);
 			tabItem.setText(tab.getName());
 			tabItem.setControl(tab.getControl());
 		}
 		tabFolder.setSelection(0);
-		
+
 		return tabFolder;
 	}
 
 	/**
-	 * Creates a section in the parent container for file selection. 
-	 * Creates a {@link Group} with a label. Inside the group, a text field for the file 
-	 * with the given extension, a button to load from the workspace and a button to load 
+	 * Creates a section in the parent container for file selection.
+	 * Creates a {@link Group} with a label. Inside the group, a text field for the file
+	 * with the given extension, a button to load from the workspace and a button to load
 	 * from the file system are displayed. The dialog title is derived from modelFileLabel.
 	 * @param parentContainer The parent container
 	 * @param modifyListener The listener for modifications
-	 * @param groupLabel The label of the group. 
-	 * @param fileExtensionRestrictions The extensions to load 
+	 * @param groupLabel The label of the group.
+	 * @param fileExtensionRestrictions The extensions to load
 	 * @param textFileNameToLoad The text field that contains the filename. Its parent will be reset to the appropriate group within this method.
-	 * @param dialogShell Shell used for the file selection dialogs. 
-	 * @param defaultFileURI Default URI used for the file. 
+	 * @param dialogShell Shell used for the file selection dialogs.
+	 * @param defaultFileURI Default URI used for the file.
 	 */
 	public static void createFileInputSection(final Composite parentContainer,
 			final ModifyListener modifyListener, final String groupLabel,
 			final String[] fileExtensionRestrictions, Text textFileNameToLoad, Shell dialogShell, String defaultFileURI) {
 		createFileInputSection(parentContainer, modifyListener, groupLabel, fileExtensionRestrictions, textFileNameToLoad, "Select " + groupLabel, dialogShell, defaultFileURI);
 	}
-	
+
 	/**
-	 * Creates a section in the parent container for selection files. Creates a {@link Group} with a label. Inside the group, a text field for the file with the given extension, a button to load from the workspace and a button to load from the file system are displayed. 
+	 * Creates a section in the parent container for selection files. Creates a {@link Group} with a label. Inside the group, a text field for the file with the given extension, a button to load from the workspace and a button to load from the file system are displayed.
 	 * @param parentContainer The parent container
 	 * @param modifyListener The listener for modifications
-	 * @param groupLabel The label of the group. 
-	 * @param fileExtensionRestrictions The extensions to load 
+	 * @param groupLabel The label of the group.
+	 * @param fileExtensionRestrictions The extensions to load
 	 * @param textFileNameToLoad The text field that contains the filename. Its parent will be reset to the appropriate group within this method.
 	 * @param dialogTitle Title used for the file selection dialogs.
 	 * @param dialogShell Shell used for the file selection dialogs.
-	 * @param defaultFileURI Default URI used for the file. 
+	 * @param defaultFileURI Default URI used for the file.
 	 */
 	public static void createFileInputSection(final Composite parentContainer,
 			final ModifyListener modifyListener, final String groupLabel,
@@ -125,13 +126,13 @@ public class TabHelper {
 		workspaceButton
 				.addSelectionListener(new WorkspaceButtonSelectionListener(
 						textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
-		
+
 		final Button localFileSystemButton = new Button(fileInputGroup, SWT.NONE);
 		localFileSystemButton.setText("File System...");
 		localFileSystemButton
 				.addSelectionListener(new LocalFileSystemButtonSelectionAdapter(
 						textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
-		
+
 		if (defaultFileURI != null) {
 			final Button defaultFileURIButton = new Button(fileInputGroup, SWT.NONE);
 			defaultFileURIButton.setText("Default");
@@ -141,5 +142,33 @@ public class TabHelper {
 							defaultFileURI));
 		}
 	}
-	
+
+	/**Checks if a file name is not empty and has one of the given extensions.
+	 * @param filePath Path of the file.
+	 * @param extensions Set of extensions. The strings have to be of the format {@code*.[extension]}. An example string value is <code>*.system</code>.
+	 * @return {@code true} if, and only if, the check succeeds.
+	 */
+	public static boolean validateFilenameExtension(String filePath, String[] extensions){
+		// check emptiness
+		if (filePath == null) {
+			return false;
+		}
+		if (filePath.equals("")) {
+			return false;
+		}
+		// check extension
+		String extension;
+		boolean extensionValid = false;
+		for (int position=0; position < extensions.length; position++) {
+			extension = extensions[position].replace("*", "");
+			if (filePath.endsWith(extension)) {
+				extensionValid = true;
+			}
+		}
+		if (!extensionValid) {
+			return false;
+		}
+		// default
+		return true;
+	}
 }

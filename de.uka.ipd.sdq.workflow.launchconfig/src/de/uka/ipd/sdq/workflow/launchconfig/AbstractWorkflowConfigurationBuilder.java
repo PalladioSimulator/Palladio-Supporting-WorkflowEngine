@@ -7,18 +7,23 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 
 
+/**Bridge for workflow engine-based configurations of type {@link AbstractWorkflowBasedRunConfiguration} and eclipse launch configurations.
+ */
 public abstract class AbstractWorkflowConfigurationBuilder {
 
+	/** Eclipse launch configuration. */
 	protected ILaunchConfiguration configuration;
+	/** debug mode. */
 	protected boolean isDebug;
+	/** Mapped properties / attributes. */
 	protected Map<String, Object> properties;
 
-	
+
 	/**
 	 * @param configuration
 	 * @param isDebug
 	 * @param properties
-	 * @throws CoreException 
+	 * @throws CoreException
 	 */
 	@SuppressWarnings("unchecked")
 	public AbstractWorkflowConfigurationBuilder(ILaunchConfiguration configuration,
@@ -49,7 +54,7 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 		Object value = configuration.getAttribute(attribute, "");
 		if (!(value instanceof String))
 			throw new IllegalArgumentException("Tried to read non-string value as string value");
-	
+
 		return (String)value;
 	}
 
@@ -58,7 +63,7 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 		Object value = configuration.getAttribute(attribute, "");
 		if (!(value instanceof String))
 			throw new IllegalArgumentException("Tried to read non-double value as double value");
-	
+
 		return Double.parseDouble((String) value);
 	}
 
@@ -75,11 +80,11 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 	protected Boolean getBooleanAttribute(String attribute) throws CoreException {
 		if (!hasAttribute(attribute))
 			return false;
-		
+
 		Object value = configuration.getAttribute(attribute, false);
 		if (!(value instanceof Boolean))
 			throw new IllegalArgumentException("Tried to read non-boolean value as boolean value");
-	
+
 		return (Boolean)value;
 	}
 
@@ -87,5 +92,5 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 		if (!configuration.hasAttribute(attribute))
 			throw new IllegalStateException("Tried to read non-existing configuration attribute");
 	}
-	
+
 }

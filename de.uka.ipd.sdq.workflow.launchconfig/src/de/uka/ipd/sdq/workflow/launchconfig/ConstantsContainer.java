@@ -31,7 +31,7 @@ public class ConstantsContainer {
 	public static final String[] ALLOCATION_EXTENSION = new String[] { "*.allocation" };
 	public static final String[] USAGEMODEL_EXTENSION = new String[] { "*.usagemodel" };
 	public static final String[] FEATURECONFIG_EXTENSION = new String[] { "*.featureconfig" };
-	public static final String[] ACCURACY_QUALITY_ANNOTATION_EXTENSION = new String[] { "*.validation" };
+	public static final String[] ACCURACY_QUALITY_ANNOTATION_EXTENSION = new String[] { "*.quality" };
 
 	// Configuration tab
 	public static final String TEMPORARY_DATA_LOCATION = "outpath";

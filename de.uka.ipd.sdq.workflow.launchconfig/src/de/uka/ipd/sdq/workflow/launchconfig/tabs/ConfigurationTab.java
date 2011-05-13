@@ -267,7 +267,6 @@ public class ConfigurationTab extends AbstractLaunchConfigurationTab {
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(ConstantsContainer.TEMPORARY_DATA_LOCATION,
 				ConstantsContainer.DEFAULT_TEMPORARY_DATA_LOCATION);
-		defaultLocationButton.setSelection(true);
 		configuration
 				.setAttribute(
 						ConstantsContainer.DELETE_TEMPORARY_DATA_AFTER_ANALYSIS,

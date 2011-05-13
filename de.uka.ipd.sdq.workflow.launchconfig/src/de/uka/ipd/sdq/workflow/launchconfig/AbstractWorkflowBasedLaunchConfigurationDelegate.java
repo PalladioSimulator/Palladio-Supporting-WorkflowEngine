@@ -122,7 +122,7 @@ public abstract class
 			ILaunchConfiguration configuration, ILaunch launch)
 			throws CoreException {
 		// Reconfigure apache commons logging to use Log4J as backend logger
-		// System.setProperty(LogFactoryImpl.LOG_PROPERTY, "org.apache.commons.logging.impl.Log4JLogger");
+		System.setProperty(LogFactoryImpl.LOG_PROPERTY, "org.apache.commons.logging.impl.Log4JLogger");
 
 		WorkflowProcess myProcess;
 		// Add a process to this launch, needed for Eclipse UI updates

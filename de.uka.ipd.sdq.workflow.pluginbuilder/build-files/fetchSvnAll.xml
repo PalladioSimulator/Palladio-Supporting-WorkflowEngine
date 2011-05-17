@@ -1,0 +1,52 @@
+<project name="Generated">
+  <target name="fetch.svn.all">
+  	<antcall target="svn.co">
+  	      <param name="target" value="features"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.feature"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.feature"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.launchconfig"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.launchconfig"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.mdsd"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.mdsd"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.tests"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.tests"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="org.apache.commons.logging.fragment"/>
+  	      <param name="project.name" value="/org.apache.commons.logging.fragment"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Wrapper/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.dialogs"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.dialogs"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.CoreServices/trunk"/>
+  	    </antcall>
+  	    <antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.errorhandling"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.errorhandling"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.CoreServices/trunk"/>
+  	    </antcall>
+  </target>
+</project>

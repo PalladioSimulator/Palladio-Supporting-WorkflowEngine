@@ -12,7 +12,7 @@
 	<target name="clean_remote">
 		<sshexec host="${uploadTargetHost}"
 				username="${uploadUsername}"
-				keyfile="/home/ccontrol/.ssh/id_rsa" 
+				keyfile="/home/ccontrol/.ssh/id_dsa" 
 				passphrase="" 
 				trust="true" 
 				command="cd ${uploadTargetDir}; 
@@ -22,7 +22,7 @@
 
 	<target name="upload" depends="clean_remote">
 		<scp todir="${uploadUsername}@${uploadTargetHost}:${uploadTargetDir}"
-				keyfile="/home/ccontrol/.ssh/id_rsa" 
+				keyfile="/home/ccontrol/.ssh/id_dsa" 
 				passphrase="" 
 				trust="true">
 			<fileset dir="/home/ccontrol/pluginbuilder/de.uka.ipd.sdq.workflow.pluginbuilder/">

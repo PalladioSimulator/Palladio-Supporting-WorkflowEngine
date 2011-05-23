@@ -24,6 +24,18 @@
   	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.mdsd"/>
   	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
   	    </antcall>
+  		<antcall target="svn.co">
+  		 <param name="target" value="plugins"/>
+  		 <param name="element.id" value="de.uka.ipd.sdq.qvtrengine.medini"/>
+  		 <param name="project.name" value="/de.uka.ipd.sdq.qvtrengine.medini"/>
+  		 <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Workflow/trunk"/>
+  		</antcall>
+  		<antcall target="svn.co">
+  	     <param name="target" value="plugins"/>
+  	     <param name="element.id" value="de.ikv.medini.qvt.plugin"/>
+  	     <param name="project.name" value="/de.ikv.medini.qvt.plugin"/>
+  	     <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/Palladio.Wrapper/trunk"/>
+  	   	</antcall>
   	    <antcall target="svn.co">
   	      <param name="target" value="plugins"/>
   	      <param name="element.id" value="de.uka.ipd.sdq.workflow.tests"/>

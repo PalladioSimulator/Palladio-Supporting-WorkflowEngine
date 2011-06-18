@@ -90,6 +90,8 @@ public abstract class AbstractPCMWorkflowRunConfiguration extends
 	protected AccuracyInfluenceAnalysisState accuracyInfluenceAnalysisState;
 	/** Job receiving the issues occurred during accuracy influence analysis. */
 	protected IIssueReceiver accuracyInfluenceIssueReceivingJob;
+	
+	protected boolean overwriteWithoutAsking = false;
 
 	/**
 	 * @return Returns the receiving job for accuracy influence analysis issues
@@ -262,6 +264,15 @@ public abstract class AbstractPCMWorkflowRunConfiguration extends
 	public void setUsageModelFile(String usageModelFile) {
 		checkFixed();
 		this.usageModelFile = usageModelFile;
+	}
+	
+
+	public boolean isOverwriteWithoutAsking() {
+		return overwriteWithoutAsking;
+	}
+
+	public void setOverwriteWithoutAsking(boolean overwriteWithoutAsking) {
+		this.overwriteWithoutAsking = overwriteWithoutAsking;
 	}
 
 	/*

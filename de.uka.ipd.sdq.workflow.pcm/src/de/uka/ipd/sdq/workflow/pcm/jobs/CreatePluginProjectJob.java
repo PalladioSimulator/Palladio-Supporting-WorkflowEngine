@@ -32,6 +32,7 @@ public class CreatePluginProjectJob implements IJob {
 
 	private boolean deleteProject;
 	private String myProjectId;
+	private boolean overwriteWithoutAsking;
 
 	public CreatePluginProjectJob(
 			AbstractPCMWorkflowRunConfiguration configuration) {
@@ -39,6 +40,7 @@ public class CreatePluginProjectJob implements IJob {
 
 		this.myProjectId = configuration.getStoragePluginID();
 		this.deleteProject = configuration.isDeleteTemporaryDataAfterAnalysis();
+		this.overwriteWithoutAsking = configuration.isOverwriteWithoutAsking();
 	}
 
 	/*
@@ -60,7 +62,7 @@ public class CreatePluginProjectJob implements IJob {
 	private void ensurePluginProjectNotExisting(IProgressMonitor monitor)
 			throws UserCanceledException, JobFailedException {
 		if (pluginFolderExists() || getProject(this.myProjectId).exists()) {
-			if (!userAcceptsDelete()) {
+			if (!overwriteWithoutAsking && !userAcceptsDelete()) {
 				// abort execution
 				throw new UserCanceledException("Aborted by user");
 			} else {

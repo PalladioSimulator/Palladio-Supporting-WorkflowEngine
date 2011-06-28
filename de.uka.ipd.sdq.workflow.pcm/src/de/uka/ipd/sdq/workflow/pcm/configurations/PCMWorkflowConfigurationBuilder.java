@@ -45,7 +45,9 @@ public class PCMWorkflowConfigurationBuilder extends
 		config.setDeleteTemporaryDataAfterAnalysis(getBooleanAttribute(ConstantsContainer.DELETE_TEMPORARY_DATA_AFTER_ANALYSIS));
 		// accuracy analysis
 		config.setAccuracyInfluenceAnalysisEnabled(getBooleanAttribute(ConstantsContainer.ANALYSE_ACCURACY));
-		config.setAccuracyInformationModelFile(getStringAttribute(ConstantsContainer.ACCURACY_QUALITY_ANNOTATION_FILE));
+		if (config.isAccuracyInfluenceAnalysisEnabled()){
+			config.setAccuracyInformationModelFile(getStringAttribute(ConstantsContainer.ACCURACY_QUALITY_ANNOTATION_FILE));
+		}
 	}
 
 	/** Read the PCM model filenames from this builder's launch configuration

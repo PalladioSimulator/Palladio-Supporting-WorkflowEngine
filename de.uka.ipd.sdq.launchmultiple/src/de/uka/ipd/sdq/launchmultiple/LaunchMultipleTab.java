@@ -37,7 +37,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 			"de.uka.ipd.sdq.simucontroller.SimuLaunching",
 			"de.uka.ipd.sdq.dsolver_plugin.PCMSolverLaunchConfigurationType",
 			"de.uka.ipd.sdq.dsolver_plugin.PCMSolverLaunchConfigurationType.Reliability",
-			"de.uka.ipd.sdq.dsexplore.launchDSE"
+			"de.uka.ipd.sdq.dsexplore.launchDSE",
+			"edu.kit.ipd.sdq.simqpnsolver.SimQPNSolverLaunchConfigurationType"
 			};
 	
 	//FIXME: retrieve instance of this using the extension point
@@ -87,11 +88,13 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 			
 			try {
 				ILaunchConfigurationType launchType = manager.getLaunchConfigurationType(launchTypeID);
-				ILaunchConfiguration[] configs = null;
-				configs = manager.getLaunchConfigurations(launchType);
-				
-				for (ILaunchConfiguration iLaunchConfiguration : configs) {
-					allTypes.add(iLaunchConfiguration);
+				if (launchType != null){
+					ILaunchConfiguration[] configs = null;
+					configs = manager.getLaunchConfigurations(launchType);
+
+					for (ILaunchConfiguration iLaunchConfiguration : configs) {
+						allTypes.add(iLaunchConfiguration);
+					}
 				}
 				
 			} catch (CoreException e) {

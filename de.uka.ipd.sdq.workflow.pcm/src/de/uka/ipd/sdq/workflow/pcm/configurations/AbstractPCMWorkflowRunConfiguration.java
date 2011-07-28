@@ -28,7 +28,7 @@ import de.uka.ipd.sdq.stoex.StoexPackage;
 import de.uka.ipd.sdq.units.UnitsPackage;
 import de.uka.ipd.sdq.workflow.exceptions.InvalidWorkflowJobConfiguration;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
+import de.uka.ipd.sdq.workflow.pcm.ConstantsContainer;
 import de.uka.ipd.sdq.workflow.pcm.jobs.IIssueReceiver;
 import de.uka.ipd.sdq.workflow.pcm.runconfig.AccuracyInfluenceAnalysisState;
 

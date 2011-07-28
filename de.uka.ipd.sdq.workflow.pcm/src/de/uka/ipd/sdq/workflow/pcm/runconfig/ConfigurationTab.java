@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig.tabs;
+package de.uka.ipd.sdq.workflow.pcm.runconfig;
 
 
 import org.eclipse.core.runtime.CoreException;
@@ -20,9 +20,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
 import de.uka.ipd.sdq.workflow.launchconfig.RunConfigImages;
 import de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin;
+import de.uka.ipd.sdq.workflow.launchconfig.tabs.TabHelper;
+import de.uka.ipd.sdq.workflow.pcm.ConstantsContainer;
 
 /**Configuration of an analysis method.
  * Represents configuration settings which are independent of the solving method.

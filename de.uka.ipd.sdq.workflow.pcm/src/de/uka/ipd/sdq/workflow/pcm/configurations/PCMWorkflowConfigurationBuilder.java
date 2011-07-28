@@ -8,7 +8,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder;
-import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
+import de.uka.ipd.sdq.workflow.pcm.ConstantsContainer;
 
 /**
  * Builder class which is able to fill the PCM specific parts of a workflow configuration object based on the PCM

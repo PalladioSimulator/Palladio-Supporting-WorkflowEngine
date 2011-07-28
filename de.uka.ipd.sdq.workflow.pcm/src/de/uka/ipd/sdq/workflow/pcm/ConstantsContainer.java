@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig;
+package de.uka.ipd.sdq.workflow.pcm;
 
 /**
  * This class is used as a container for constants.

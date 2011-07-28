@@ -1,9 +1,8 @@
-package de.uka.ipd.sdq.workflow.launchconfig.tabs;
+package de.uka.ipd.sdq.workflow.pcm.runconfig;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -12,9 +11,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-import de.uka.ipd.sdq.workflow.launchconfig.ConstantsContainer;
 import de.uka.ipd.sdq.workflow.launchconfig.RunConfigImages;
 import de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin;
+import de.uka.ipd.sdq.workflow.launchconfig.tabs.TabHelper;
+import de.uka.ipd.sdq.workflow.pcm.ConstantsContainer;
 
 /**
  * The class defines a tab, which is responsible for the input model(s) of
@@ -23,7 +23,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin;
  * @author Roman Andrej
  * @author groenda
  */
-public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
+public class FileNamesInputTab extends AbstractPCMLaunchConfigurationTab {
 
 	// input fields
 	/** Text field for path to allocation model file. */
@@ -57,6 +57,26 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 				FileNamesInputTab.this.updateLaunchConfigurationDialog();
 			}
 		};
+		final ModifyListener allocationTextFieldModifyListener = new ModifyListener() {
+
+			public void modifyText(ModifyEvent e) {
+				if (FileNamesInputTab.this.blackboard != null) {
+					blackboard.updateAllocationFile(FileNamesInputTab.this.textAllocation.getText());
+				}
+				FileNamesInputTab.this.setDirty(true);
+				FileNamesInputTab.this.updateLaunchConfigurationDialog();
+			}
+		};
+		final ModifyListener usageModelTextFieldModifyListener = new ModifyListener() {
+
+			public void modifyText(ModifyEvent e) {
+				if (FileNamesInputTab.this.blackboard != null) {
+					blackboard.updateUsageModelFile(FileNamesInputTab.this.textUsage.getText());
+				}
+				FileNamesInputTab.this.setDirty(true);
+				FileNamesInputTab.this.updateLaunchConfigurationDialog();
+			}
+		};
 
 		this.container = new Composite(parent, SWT.NONE);
 		setControl(container);
@@ -78,14 +98,14 @@ public class FileNamesInputTab extends AbstractLaunchConfigurationTab {
 		 * Create allocation section
 		 */
 		textAllocation = new Text(container, SWT.SINGLE | SWT.BORDER);
-		TabHelper.createFileInputSection(container, modifyListener, "Allocation File", ConstantsContainer.ALLOCATION_EXTENSION, textAllocation, "Select Allocation File", getShell(), ConstantsContainer.DEFAULT_ALLOCATION_FILE);
+		TabHelper.createFileInputSection(container, allocationTextFieldModifyListener, "Allocation File", ConstantsContainer.ALLOCATION_EXTENSION, textAllocation, "Select Allocation File", getShell(), ConstantsContainer.DEFAULT_ALLOCATION_FILE);
 
 		/**
 		 * Create usage section
 		 */
 		//First set the text like this, will be changed to the right parent in createFileInputSection
 		textUsage = new Text(container, SWT.SINGLE | SWT.BORDER);
-		TabHelper.createFileInputSection(container, modifyListener, "Usage File", ConstantsContainer.USAGEMODEL_EXTENSION, textUsage, "Select Usage File", getShell(), ConstantsContainer.DEFAULT_USAGE_FILE);
+		TabHelper.createFileInputSection(container, usageModelTextFieldModifyListener, "Usage File", ConstantsContainer.USAGEMODEL_EXTENSION, textUsage, "Select Usage File", getShell(), ConstantsContainer.DEFAULT_USAGE_FILE);
 
 	}
 

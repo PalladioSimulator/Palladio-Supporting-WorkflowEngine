@@ -64,8 +64,6 @@ public class ConstantsContainer {
 	public static final String FEATURE_FILE = "featureFile";
 	public static final String SIMULATE_LINKING_RESOURCES = "simulateLinkingResources";
 	public static final String SIMULATE_FAILURES = "simulateFailures";
-	public static final String USE_HDD_PARAMETERS = "useHddParameters";
-	public static final String HDD_PARAMETERS = "hddParameters";
 
 	// Default values
 	/** Default URI of the feature configuration file. */
@@ -74,8 +72,7 @@ public class ConstantsContainer {
 	public static final String DEFAULT_ACCURACY_QUALITY_ANNOTATION_FILE = "";
 	/** Default URI of the event middleware repository file. */
 	public static final String DEFAULT_EVENT_MIDDLEWARE_FILE = "pathmap://PCM_MODELS/default_event_middleware.repository";
-	/** Default URI of the ginpex HDD parameter configuration file. */
-	public static final String DEFAULT_HDD_PARAMETER_CONFIGURATION_FILE = "";
+	
 	//BRG
 	// private static final String PCM_RESOURCETYPE_FILE_URI = "pathmap://PCM_MODELS/Palladio.resourcetype";
 	/** Default URI of the middleware repository file. */

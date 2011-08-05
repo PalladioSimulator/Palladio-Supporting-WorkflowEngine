@@ -90,7 +90,7 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 
 	private void ensureAttributeExists(String attribute) throws CoreException {
 		if (!configuration.hasAttribute(attribute))
-			throw new IllegalStateException("Tried to read non-existing configuration attribute");
+			throw new IllegalStateException("Tried to read non-existing configuration attribute. If you have recently updated your Eclipse installation, please visit every tab of your launch configuration to make sure that newly added configuration entries are added to the internally stored launch configuration.");
 	}
 
 }

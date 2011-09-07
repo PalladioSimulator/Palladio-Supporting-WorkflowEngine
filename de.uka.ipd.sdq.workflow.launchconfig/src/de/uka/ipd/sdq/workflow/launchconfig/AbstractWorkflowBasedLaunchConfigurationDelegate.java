@@ -181,8 +181,13 @@ public abstract class
 			String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 		logger.info("Create workflow configuration");
+		
 		WorkflowConfigurationType workflowConfiguration = 
 			deriveConfiguration(configuration, mode);
+		if(workflowConfiguration == null){
+		    logger.error("No configuration instance has been created by the workflow ["+this.getClass().toString()+"]", new NullPointerException());
+		    return;
+		}
 
 		logger.info("Validating workflow configuration");
 		try {

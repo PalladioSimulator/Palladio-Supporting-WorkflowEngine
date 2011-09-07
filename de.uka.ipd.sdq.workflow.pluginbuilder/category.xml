@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature_3.1.0.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature" version="3.1.0.qualifier">
+      <category name="de,uka.ipd.sdq.workflow"/>
+   </feature>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.source_3.1.0.201102280052NGT.jar" id="de.uka.ipd.sdq.workflow.feature.source" version="3.1.0.201102280052NGT">
+      <category name="de,uka.ipd.sdq.workflow.source"/>
+   </feature>
+   <category-def name="de,uka.ipd.sdq.workflow" label="Palladio Workflow Engine">
+      <description>
+         This category contains the Palladio Workflow Engine feature.
+      </description>
+   </category-def>
+   <category-def name="de,uka.ipd.sdq.workflow.source" label="Workflow Engine Sources">
+      <description>
+         Sources of the Palladio Workflow Engine
+      </description>
+   </category-def>
+</site>

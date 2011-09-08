@@ -6,6 +6,9 @@
    <feature url="features/de.uka.ipd.sdq.workflow.feature.source_3.1.0.201102280052NGT.jar" id="de.uka.ipd.sdq.workflow.feature.source" version="3.1.0.201102280052NGT">
       <category name="de,uka.ipd.sdq.workflow.source"/>
    </feature>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.test_1.0.0.jar" id="de.uka.ipd.sdq.workflow.feature.test" version="1.0.0">
+      <category name="de,uka.ipd.sdq.workflow.tests"/>
+   </feature>
    <category-def name="de,uka.ipd.sdq.workflow" label="Palladio Workflow Engine">
       <description>
          This category contains the Palladio Workflow Engine feature.
@@ -14,6 +17,11 @@
    <category-def name="de,uka.ipd.sdq.workflow.source" label="Workflow Engine Sources">
       <description>
          Sources of the Palladio Workflow Engine
+      </description>
+   </category-def>
+   <category-def name="de,uka.ipd.sdq.workflow.tests" label="Workflow Engine Tests">
+      <description>
+         Tests of the Palladio Workflow Engine
       </description>
    </category-def>
 </site>

@@ -14,6 +14,11 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 
 
+/**
+ * Helper class to access installed work-flow extensions.
+ * 
+ * @author Benjamin Klatt
+ */
 public class ExtensionHelper {
 	
 	private static final String WorkflowExtensionPointId = "de.uka.ipd.sdq.workflow.extension";
@@ -23,13 +28,20 @@ public class ExtensionHelper {
 	private static final String WorkflowExtensionPointAttribute_Priority = "priority";
 	private static final String WorkflowExtensionPointAttribute_WorkflowId = "workflow_id";
 	
+	/**
+	 * Get a list of work-flow extensions registered for a specific work-flow. This method
+	 * also orders the work-flow extensions by their id.
+	 * 
+	 * @param workflowId The id of the work flow to get extensions for.
+	 * @return
+	 */
 	public static List<WorkflowExtension> getWorkflowExtensionsSortedByPriority(String workflowId) {
 		List<WorkflowExtension> extensions = getWorkflowExtensions(workflowId);
 		Collections.sort(extensions, new Comparator<WorkflowExtension>() {
-			public int compare(WorkflowExtension arg0, WorkflowExtension arg1) {
-				if (arg0.getPriority() < arg1.getPriority()) {
+			public int compare(WorkflowExtension workflowExtensionA, WorkflowExtension workflowExtensionB) {
+				if (workflowExtensionA.getPriority() < workflowExtensionB.getPriority()) {
 					return -1;
-				} else if (arg0.getPriority() == arg1.getPriority()) {
+				} else if (workflowExtensionA.getPriority() == workflowExtensionB.getPriority()) {
 					return 0;
 				} else {
 					return 1;
@@ -39,6 +51,19 @@ public class ExtensionHelper {
 		return extensions;
 	}
 	
+	/**
+	 * Build the list of extensions registered for a specific work-flow.
+	 * 
+	 * This method identifies plug-ins extending the work flow extension point
+	 * and have configured to be applicable for a specific work-flow by its id.
+	 * 
+	 * When identified the extensions, it instantiates their job, triggers their 
+	 * configuration builder and injects the custom configuration instance into the
+	 * new job. 
+	 * 
+	 * @param workflowId The id to get the registered extensions for.
+	 * @return The list of identified work-flow extensions.
+	 */
 	public static List<WorkflowExtension> getWorkflowExtensions(String workflowId) {
 		List<WorkflowExtension> extensions = new ArrayList<WorkflowExtension>();
 		IExtension[] registeredExtensions = getRegisteredWorkflowExtensions();
@@ -56,8 +81,8 @@ public class ExtensionHelper {
 					WorkflowExtension extension = new WorkflowExtension(registeredExtension.getUniqueIdentifier(), workflowId);
 					try {	
 						Object o = element.createExecutableExtension(WorkflowExtensionPointAttribute_ExtensionJob);
-						if ((o!= null) && (o instanceof AbstractExtensionJob)) {
-							extension.setWorkflowExtensionJob((AbstractExtensionJob)o);
+						if ((o!= null) && (o instanceof AbstractWorkflowExtensionJob)) {
+							extension.setWorkflowExtensionJob((AbstractWorkflowExtensionJob<?>)o);
 						}
 					} catch (CoreException e) {
 						e.printStackTrace();
@@ -72,8 +97,8 @@ public class ExtensionHelper {
 					}
 					try {	
 						Object o = element.createExecutableExtension(WorkflowExtensionPointAttribute_ExtensionConfigurationBuilder);
-						if ((o!= null) && (o instanceof WorkflowExtensionConfigurationBuilder)) {
-							extension.setExtensionConfigurationBuilder((WorkflowExtensionConfigurationBuilder)o);
+						if ((o!= null) && (o instanceof AbstractWorkflowExtensionConfigurationBuilder)) {
+							extension.setExtensionConfigurationBuilder((AbstractWorkflowExtensionConfigurationBuilder)o);
 						}
 					} catch (CoreException e) {
 						e.printStackTrace();
@@ -93,6 +118,11 @@ public class ExtensionHelper {
 		return extensions;
 	}
 	
+	/**
+	 * Get the extensions providing the work-flow extension point.
+	 * 
+	 * @return The list of installed extensions.
+	 */
 	private static IExtension[] getRegisteredWorkflowExtensions() {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		IExtensionPoint extensionPoint = registry.getExtensionPoint(WorkflowExtensionPointId);

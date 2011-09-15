@@ -8,37 +8,35 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
-import de.uka.ipd.sdq.workflow.launchconfig.tabs.DebugEnabledCommonTab;
 
 public abstract class ExtendableTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	@Override
-	public final void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		// TODO Auto-generated method stub
-		
-		List<ILaunchConfigurationTab> tabs = new ArrayList<ILaunchConfigurationTab>();
-		List<ILaunchConfigurationTab> requiredTabs = getTabs(mode);
-		if ((requiredTabs!= null) && (requiredTabs.size() > 0)) {
-			tabs.addAll(requiredTabs);
-		}
-		List<AbstractLaunchConfigurationTab> extensionUiTabs = new ArrayList<AbstractLaunchConfigurationTab>();
-		for (WorkflowExtension workflowExtension : ExtensionHelper.getWorkflowExtensionsSortedByPriority(getWorkflowId())) {
-			if (workflowExtension.getLaunchConfigurationTab() != null) {
-				AbstractLaunchConfigurationTab extensionTab = workflowExtension.getLaunchConfigurationTab();
-				extensionUiTabs.add(extensionTab);
-			}
-		}
-		if (!extensionUiTabs.isEmpty()) {
-			tabs.addAll(extensionUiTabs);
-		}
-		ILaunchConfigurationTab commonTab = new DebugEnabledCommonTab();
-		tabs.add(commonTab);
+    /**
+     * Create the tabs for installed plug-ins contributing to this extension point and registered for the specified work
+     * flow.
+     * 
+     * @param dialog
+     *            The launch configuration dialog to access.
+     * @param mode
+     *            The mode of the launch.
+     * @param worflowId
+     *            The id of the work flow the extensions should have registered for.
+     */
+    public final List<ILaunchConfigurationTab> createExtensionTabs(ILaunchConfigurationDialog dialog, String mode, String workflowId) {
 
-		setTabs(tabs.toArray(new ILaunchConfigurationTab[] {}));
-	}
-	
-	protected abstract List<ILaunchConfigurationTab> getTabs(String mode);
-	
-	protected abstract String getWorkflowId();
+        List<ILaunchConfigurationTab> tabs = new ArrayList<ILaunchConfigurationTab>();
+        List<AbstractLaunchConfigurationTab> extensionUiTabs = new ArrayList<AbstractLaunchConfigurationTab>();
+        for (WorkflowExtension workflowExtension : ExtensionHelper
+                .getWorkflowExtensionsSortedByPriority(workflowId)) {
+            if (workflowExtension.getLaunchConfigurationTab() != null) {
+                AbstractLaunchConfigurationTab extensionTab = workflowExtension.getLaunchConfigurationTab();
+                extensionUiTabs.add(extensionTab);
+            }
+        }
+        if (!extensionUiTabs.isEmpty()) {
+            tabs.addAll(extensionUiTabs);
+        }
 
+        return tabs;
+    }
 }

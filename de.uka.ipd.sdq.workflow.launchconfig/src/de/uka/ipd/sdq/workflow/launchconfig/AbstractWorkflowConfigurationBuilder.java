@@ -13,8 +13,13 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 
 	/** Eclipse launch configuration. */
 	protected ILaunchConfiguration configuration;
+	
+	/** The launch mode. */
+	protected String mode;
+	
 	/** debug mode. */
 	protected boolean isDebug;
+	
 	/** Mapped properties / attributes. */
 	protected Map<String, Object> properties;
 
@@ -30,6 +35,7 @@ public abstract class AbstractWorkflowConfigurationBuilder {
 			String mode) throws CoreException {
 		super();
 		this.configuration = configuration;
+		this.mode = mode;
 		this.isDebug = mode.equals(ILaunchManager.DEBUG_MODE);
 		this.properties = configuration.getAttributes();
 	}

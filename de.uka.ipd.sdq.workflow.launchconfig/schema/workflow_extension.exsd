@@ -6,7 +6,8 @@
          <meta.schema plugin="de.uka.ipd.sdq.workflow.launchconfig" id="de.uka.ipd.sdq.workflow.extension" name="Workflow Job Extension"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         Extension point to extend a specific workflow with additional jobs. 
+The workflow to be extended by a job is identified by the workflow id identified by the extension.
       </documentation>
    </annotation>
 
@@ -34,7 +35,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="name" type="string">
+         <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
                   
@@ -49,6 +50,20 @@
 
    <element name="workflow_extension">
       <complexType>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="workflow_id" type="string" use="required">
             <annotation>
                <documentation>
@@ -61,16 +76,6 @@
                <documentation>
                   
                </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="extension_job" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractExtensionJob:"/>
-               </appinfo>
             </annotation>
          </attribute>
          <attribute name="runconfig_tab" type="string">
@@ -89,15 +94,18 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.WorkflowExtensionConfigurationBuilder:"/>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.extension.AbstractWorkflowExtensionConfigurationBuilder:"/>
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="description" type="string">
+         <attribute name="extension_job" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractWorkflowExtensionJob:"/>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>

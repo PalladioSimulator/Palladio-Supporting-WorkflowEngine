@@ -2,11 +2,20 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 
-public class WorkflowExtension {
+import de.uka.ipd.sdq.workflow.Blackboard;
+
+/**
+ * A data class composing the relevant elements that form an instance of the work flow extension point.
+ * 
+ * @author Benjamin Klatt
+ * @author Michael Hauck
+ *
+ */
+public class WorkflowExtension<BlackboardType extends Blackboard<?>> {
 	
 	private AbstractLaunchConfigurationTab launchConfigurationTab = null;
-	private AbstractExtensionJob workflowExtensionJob = null;
-	private WorkflowExtensionConfigurationBuilder extensionConfigurationBuilder = null;
+	private AbstractWorkflowExtensionJob<BlackboardType> workflowExtensionJob = null;
+	private AbstractWorkflowExtensionConfigurationBuilder extensionConfigurationBuilder = null;
 	private int priority = 50;
 	private String id = null;
 	private String workflowId = null;
@@ -27,18 +36,18 @@ public class WorkflowExtension {
 			AbstractLaunchConfigurationTab launchConfigurationTab) {
 		this.launchConfigurationTab = launchConfigurationTab;
 	}
-	public AbstractExtensionJob getWorkflowExtensionJob() {
+	public AbstractWorkflowExtensionJob<?> getWorkflowExtensionJob() {
 		return workflowExtensionJob;
 	}
 	public void setWorkflowExtensionJob(
-			AbstractExtensionJob workflowExtensionJob) {
+			AbstractWorkflowExtensionJob<BlackboardType> workflowExtensionJob) {
 		this.workflowExtensionJob = workflowExtensionJob;
 	}
-	public WorkflowExtensionConfigurationBuilder getExtensionConfigurationBuilder() {
+	public AbstractWorkflowExtensionConfigurationBuilder getExtensionConfigurationBuilder() {
 		return extensionConfigurationBuilder;
 	}
 	public void setExtensionConfigurationBuilder(
-			WorkflowExtensionConfigurationBuilder extensionConfigurationBuilder) {
+	        AbstractWorkflowExtensionConfigurationBuilder extensionConfigurationBuilder) {
 		this.extensionConfigurationBuilder = extensionConfigurationBuilder;
 	}
 	public int getPriority() {

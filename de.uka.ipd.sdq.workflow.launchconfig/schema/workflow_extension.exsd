@@ -94,7 +94,7 @@ The workflow to be extended by a job is identified by the workflow id identified
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.extension.AbstractWorkflowExtensionConfigurationBuilder:"/>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractWorkflowExtensionConfigurationBuilder:"/>
                </appinfo>
             </annotation>
          </attribute>

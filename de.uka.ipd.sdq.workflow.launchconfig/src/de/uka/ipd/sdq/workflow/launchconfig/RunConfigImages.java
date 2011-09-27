@@ -18,6 +18,7 @@ public class RunConfigImages {
 	public static final String FILENAMES_TAB  		= "filenames_tab";
 	public static final String FEATURE_TAB  		= "feature_tab";
 	public static final String MAIN_TAB  			= "main_tab";
+	public static final String OPTIONS_TAB			= "options_tab";
 	
 	/** For the toolbar images */
 	public static ImageRegistry imageRegistry = new ImageRegistry();
@@ -43,6 +44,9 @@ public class RunConfigImages {
 		
 		imageRegistry.put(FEATURE_TAB,
 				 getImageDescriptor(iconPath + FEATURE_TAB + ".gif")
+				);
+		imageRegistry.put(OPTIONS_TAB,
+				 getImageDescriptor(iconPath + OPTIONS_TAB + ".gif")
 				);
 	}
 
@@ -71,5 +75,9 @@ public class RunConfigImages {
 
 	public static Image getMainTabImage() {
 		return imageRegistry.get(MAIN_TAB);
+	}
+	
+	public static Image getOptionsTabImage() {
+		return imageRegistry.get(OPTIONS_TAB);
 	}
 }

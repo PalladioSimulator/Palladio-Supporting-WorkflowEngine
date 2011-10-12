@@ -18,7 +18,7 @@ public abstract class AbstractUIBasedConfigurationBuilder
 	 * Key-value pairs of the configuration options set in the run dialog
 	 */
 	private Map<String,Object> attributes = null;
-
+	
 	/**
 	 * Constructor of the configuration object builder
 	 * @param attributes The key-value pairs used to configure the produced object

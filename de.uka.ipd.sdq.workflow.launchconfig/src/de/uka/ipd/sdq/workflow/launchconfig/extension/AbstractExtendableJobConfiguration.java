@@ -1,5 +1,7 @@
 package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
+import java.util.Map;
+
 import org.eclipse.debug.core.ILaunchConfiguration;
 
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
@@ -12,7 +14,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
  * 
  */
 public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflowBasedRunConfiguration 
-            implements ExtendibleJobConfiguration {
+            implements ExtendableJobConfiguration {
 
     // ////////////////////////////////
     // ATTRIBUTES
@@ -22,7 +24,7 @@ public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflo
     private String mode = null;
 
     /** The configuration of the current launch to work with. */
-    private ILaunchConfiguration launchConfiguration = null;
+    private Map<String, Object> attributes = null;
 
     // ////////////////////////////////
     // CONSTRUCTORS
@@ -34,8 +36,8 @@ public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflo
      * @param launchConfiguration The configuration to set.
      * @param mode The mode to set.
      */
-    public AbstractExtendableJobConfiguration(ILaunchConfiguration launchConfiguration,String mode) {
-        this.launchConfiguration = launchConfiguration;
+    public AbstractExtendableJobConfiguration(Map<String, Object> attributes, String mode) {
+        this.attributes = attributes;
         this.mode = mode;
     }
 
@@ -46,11 +48,10 @@ public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflo
     // ////////////////////////////////
     // GETTER / SETTER
     // ////////////////////////////////
-
+    
     /* (non-Javadoc)
      * @see de.uka.ipd.sdq.workflow.launchconfig.extension.ExtendableJobConfiguration#getMode()
      */
-    @Override
     public String getMode() {
         return mode;
     }
@@ -58,9 +59,8 @@ public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflo
     /* (non-Javadoc)
      * @see de.uka.ipd.sdq.workflow.launchconfig.extension.ExtendableJobConfiguration#getLaunchConfiguration()
      */
-    @Override
-    public ILaunchConfiguration getLaunchConfiguration() {
-        return launchConfiguration;
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
 }

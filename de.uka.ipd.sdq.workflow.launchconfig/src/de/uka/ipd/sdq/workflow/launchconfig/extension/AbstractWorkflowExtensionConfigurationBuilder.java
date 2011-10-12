@@ -1,5 +1,7 @@
 package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
+import java.util.Map;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 
@@ -35,11 +37,8 @@ public abstract class AbstractWorkflowExtensionConfigurationBuilder {
      * @param mode
      *            The mode of the launch (run/debug)
      * @return The prepared configuration for the job extension
-     * @throws CoreException
-     *             Identifying that an error occurred when trying to fill the configuration.
      */
-    public abstract AbstractExtensionJobConfiguration buildConfiguration(ILaunchConfiguration configuration,
-            String mode) throws CoreException;
+    public abstract AbstractExtensionJobConfiguration buildConfiguration(Map<String, Object> attributes);
 
     // ////////////////////////////////
     // GETTER / SETTER

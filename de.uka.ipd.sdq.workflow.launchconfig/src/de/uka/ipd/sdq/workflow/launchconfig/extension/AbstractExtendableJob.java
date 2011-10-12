@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -53,7 +54,7 @@ public abstract class AbstractExtendableJob<BlackboardType extends Blackboard<?>
      *             Identifying that a job could not be instantiated correctly.
      */
     @SuppressWarnings("rawtypes")
-    protected void handleJobExtensions(String workflowId, ExtendibleJobConfiguration configuration) {
+    protected void handleJobExtensions(String workflowId, ExtendableJobConfiguration configuration) {
         List<WorkflowExtension> workflowExtensions =
                 ExtensionHelper.getWorkflowExtensionsSortedByPriority(workflowId);
         for (WorkflowExtension workflowExtension : workflowExtensions) {
@@ -65,11 +66,7 @@ public abstract class AbstractExtendableJob<BlackboardType extends Blackboard<?>
             AbstractWorkflowExtensionConfigurationBuilder jobConfigurationBuilder =
                     workflowExtension.getExtensionConfigurationBuilder();
             if (jobConfigurationBuilder != null) {
-                try {
-                    job.setJobConfiguration(jobConfigurationBuilder.buildConfiguration(configuration.getLaunchConfiguration(), configuration.getMode()));
-                } catch (CoreException coreException) {
-                    LOGGER.error("Failed to build job configuration", coreException);
-                }
+            	job.setJobConfiguration(jobConfigurationBuilder.buildConfiguration(configuration.getAttributes()));
             }
             
             // add the job to the work flow

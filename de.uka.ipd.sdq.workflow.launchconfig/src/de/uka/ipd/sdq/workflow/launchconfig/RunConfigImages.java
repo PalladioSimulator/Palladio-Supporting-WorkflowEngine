@@ -1,83 +1,42 @@
 package de.uka.ipd.sdq.workflow.launchconfig;
 
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * The class is used for the administration the images stored in the Plug-In.
+ * The class is used for the administration of the images stored in the Plug-Ins 
+ * using the workflow engine.
+ * This helper class manages an image registry in the background. 
+ * To use this utility class a plugin should provide the image file and call the 
+ * static method getTabImage() with it's plugin id and it's relative path 
+ * to the image (e.g., /icons/filenames_tab.gif).
  * 
  * @author Roman Andrej
+ * @author Benjamin Klatt
  */
 public class RunConfigImages {
-	
-	/**
-	 * Names of images used to represent actions in ToolBar
-	 */
-	public static final String CONFIGURATION_TAB 	= "configuration_tab";
-	public static final String FILENAMES_TAB  		= "filenames_tab";
-	public static final String FEATURE_TAB  		= "feature_tab";
-	public static final String MAIN_TAB  			= "main_tab";
-	public static final String OPTIONS_TAB			= "options_tab";
 	
 	/** For the toolbar images */
 	public static ImageRegistry imageRegistry = new ImageRegistry();
 	
 	/**
-	 * Note: An image registry owns all of the image objects registered with it,
-	 * and automatically disposes of them the SWT Display is disposed.
-	 */ 
-	static {
-		String iconPath = "icons/";
-		
-		imageRegistry.put(CONFIGURATION_TAB,
-				 getImageDescriptor(iconPath + CONFIGURATION_TAB + ".gif")
-		);
-		
-		imageRegistry.put(FILENAMES_TAB,
-				 getImageDescriptor(iconPath + FILENAMES_TAB + ".gif")
-				);
-		
-		imageRegistry.put(MAIN_TAB,
-				 getImageDescriptor(iconPath + MAIN_TAB + ".gif")
-		);
-		
-		imageRegistry.put(FEATURE_TAB,
-				 getImageDescriptor(iconPath + FEATURE_TAB + ".gif")
-				);
-		imageRegistry.put(OPTIONS_TAB,
-				 getImageDescriptor(iconPath + OPTIONS_TAB + ".gif")
-				);
-	}
-
-	
-	/**
-	 * @param imageFilePath
-	 *            the relative to the root of the plug-in; the path must be
-	 *            legal
-	 * @return an image descriptor, or null if no image could be found
+	 * Request an image object for a plugin and image file.
+	 * 
+	 * This method looks up the requested file in the image registry. 
+	 * If it is already available, it will be returned directly.
+	 * If not, it will be registered first and returned afterwards.
+	 * 
+	 * @param pluginID The id of the plugin containing the image file.
+	 * @param imageFilePath The relative path of the image within the plugin.
+	 * @return The Image file if available.
 	 */
-	public static ImageDescriptor getImageDescriptor(String imageFilePath) {
-		return RunConfigPlugin.imageDescriptorFromPlugin(RunConfigPlugin.PLUGIN_ID, imageFilePath);
-	}
-
-	public static Image getConfigurationTabImage() {
-		return imageRegistry.get(CONFIGURATION_TAB);
-	}
-
-	public static Image getFileNamesTabImage() {
-		return imageRegistry.get(FILENAMES_TAB);
-	}
-
-	public static Image getFeaturTabImage() {
-		return imageRegistry.get(FEATURE_TAB);
-	}
-
-	public static Image getMainTabImage() {
-		return imageRegistry.get(MAIN_TAB);
-	}
-	
-	public static Image getOptionsTabImage() {
-		return imageRegistry.get(OPTIONS_TAB);
+	public static Image getTabImage(String pluginID, String imageFilePath){
+		String key = pluginID+imageFilePath;
+		if(imageRegistry.get(key) == null){
+			imageRegistry.put(
+					key,
+					RunConfigPlugin.imageDescriptorFromPlugin(pluginID, imageFilePath));
+		}
+		return imageRegistry.get(key);
 	}
 }

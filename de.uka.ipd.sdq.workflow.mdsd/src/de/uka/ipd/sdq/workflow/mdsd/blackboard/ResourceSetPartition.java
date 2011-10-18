@@ -135,6 +135,18 @@ public class ResourceSetPartition {
 		}
 	}
 
+	/**
+	 * Replaces the contents of the given model with newContents
+	 * @param modelID The model extent whose contents get replaced
+	 * @param newContents The new contents, single object
+	 */
+	public void setContents(URI modelID, EObject newContents) {
+		
+		ArrayList<EObject> list = new ArrayList<EObject>();
+		list.add(newContents);
+		setContents(modelID, list);
+	}
+	
 	/**Determines if the Resource referenced by the parameter contains an EMF model.
 	 * @param modelURI URI of the Resource.
 	 * @return {@code true} if, and only if, an EMF model is contained.

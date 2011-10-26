@@ -85,7 +85,7 @@ public class TabHelper {
 			final String[] fileExtensionRestrictions, Text textFileNameToLoad, Shell dialogShell, String defaultFileURI) {
 		createFileInputSection(parentContainer, modifyListener, groupLabel, fileExtensionRestrictions, textFileNameToLoad, "Select " + groupLabel, dialogShell, defaultFileURI);
 	}
-
+	
 	/**
 	 * Creates a section in the parent container for selection files. Creates a {@link Group} with a label. Inside the group, a text field for the file with the given extension, a button to load from the workspace and a button to load from the file system are displayed.
 	 * @param parentContainer The parent container
@@ -100,14 +100,40 @@ public class TabHelper {
 	public static void createFileInputSection(final Composite parentContainer,
 			final ModifyListener modifyListener, final String groupLabel,
 			final String[] fileExtensionRestrictions, Text textFileNameToLoad, String dialogTitle, Shell dialogShell, String defaultFileURI) {
+		createFileInputSection(parentContainer, modifyListener, groupLabel, fileExtensionRestrictions, textFileNameToLoad, dialogTitle, dialogShell, true, true, defaultFileURI);
+	}
+			
+
+	/**
+	 * Creates a section in the parent container for selection files. Creates a {@link Group} with a label. Inside the group, a text field for the file with the given extension, a button to load from the workspace and a button to load from the file system are displayed.
+	 * @param parentContainer The parent container
+	 * @param modifyListener The listener for modifications
+	 * @param groupLabel The label of the group.
+	 * @param fileExtensionRestrictions The extensions to load
+	 * @param textFileNameToLoad The text field that contains the filename. Its parent will be reset to the appropriate group within this method.
+	 * @param dialogTitle Title used for the file selection dialogs.
+	 * @param dialogShell Shell used for the file selection dialogs.
+	 * @param showWorkspaceSelectionButton indicates whether a workspace selection button is shown
+	 * @param showFileSystemSelectionButton indicates whether a file system selection button is shown
+	 * @param defaultFileURI Default URI used for the file.
+	 */
+	public static void createFileInputSection(final Composite parentContainer,
+			final ModifyListener modifyListener, final String groupLabel,
+			final String[] fileExtensionRestrictions, Text textFileNameToLoad, String dialogTitle, Shell dialogShell, boolean showWorkspaceSelectionButton, boolean showFileSystemSelectionButton, String defaultFileURI) {
 
 		final Group fileInputGroup = new Group(parentContainer, SWT.NONE);
 		final GridLayout glFileInputGroup = new GridLayout();
+		int numColumns = 1;
 		if (defaultFileURI != null) {
-			glFileInputGroup.numColumns = 4;
-		} else {
-			glFileInputGroup.numColumns = 3;
+			numColumns++;
 		}
+		if (showWorkspaceSelectionButton == true) {
+			numColumns++;
+		}
+		if (showFileSystemSelectionButton == true) {
+			numColumns++;
+		}
+		glFileInputGroup.numColumns = numColumns;
 		fileInputGroup.setLayout(glFileInputGroup);
 		fileInputGroup.setText(groupLabel); //The group name
 		fileInputGroup
@@ -121,18 +147,21 @@ public class TabHelper {
 		textFileNameToLoad.addModifyListener(modifyListener);
 
 		//new String[]{"*diagram","*.settings","*.project"} used before 2011-03-22
-		final Button workspaceButton = new Button(fileInputGroup, SWT.NONE);
-		workspaceButton.setText("Workspace...");
-		workspaceButton
-				.addSelectionListener(new WorkspaceButtonSelectionListener(
-						textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
+		if (showWorkspaceSelectionButton == true) {
+			final Button workspaceButton = new Button(fileInputGroup, SWT.NONE);
+			workspaceButton.setText("Workspace...");
+			workspaceButton
+					.addSelectionListener(new WorkspaceButtonSelectionListener(
+							textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
+		}
 
-		final Button localFileSystemButton = new Button(fileInputGroup, SWT.NONE);
-		localFileSystemButton.setText("File System...");
-		localFileSystemButton
-				.addSelectionListener(new LocalFileSystemButtonSelectionAdapter(
-						textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
-
+		if (showFileSystemSelectionButton == true) {
+			final Button localFileSystemButton = new Button(fileInputGroup, SWT.NONE);
+			localFileSystemButton.setText("File System...");
+			localFileSystemButton
+					.addSelectionListener(new LocalFileSystemButtonSelectionAdapter(
+							textFileNameToLoad, fileExtensionRestrictions, dialogTitle, dialogShell));
+		}
 		if (defaultFileURI != null) {
 			final Button defaultFileURIButton = new Button(fileInputGroup, SWT.NONE);
 			defaultFileURIButton.setText("Default");

@@ -29,11 +29,32 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
 		this.dialogTitle = dialogTitle;
 	}
 	
+	private boolean useFolder = false;
+	
+	/**Initializes a new file selection dialog.
+	 * @param field Text field which receives the path of the selected file.
+	 * @param fileExtension List of file extension restriction for file selection.
+	 * @param dialogTitle Title/message of the dialog.
+	 * @param shell The shell which is used to open the dialog.
+	 */
+	public FileSelectionAdapter(Text field, String[] fileExtension, String dialogTitle, Shell shell, boolean useFolder){
+		this.field = field;
+		this.extensions = fileExtension;
+		this.shell = shell;
+		this.dialogTitle = dialogTitle;
+		this.useFolder = useFolder;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 	 */
 	public void widgetSelected(SelectionEvent e) {
-		String selectedFile = openFileDialog(field, extensions);
+		String selectedFile = null;
+		if (useFolder == true) {
+			selectedFile = openFolderDialog(field);
+		} else {
+			selectedFile = openFileDialog(field, extensions);
+		}
 		if (selectedFile != null) {
 			field.setText(selectedFile);			
 		}
@@ -60,4 +81,11 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
 	 * @return
 	 */
 	abstract protected String openFileDialog(Text textField, String[] fileExtension);
+	
+	/**Opens a folder selection dialog.
+	 * Use {@link #getShell()} to retrieve the shell and {@link #getDialogTitle()} to retrieve the title within subclasses.
+	 * @param textField The text field which receives the path of the selected folder.
+	 * @return
+	 */
+	abstract protected String openFolderDialog(Text textField);
 }

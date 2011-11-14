@@ -125,6 +125,10 @@ public class ExtensionHelper {
 	 */
 	private static IExtension[] getRegisteredWorkflowExtensions() {
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		if(registry == null){
+            // No registry available
+		    return null;
+		}
 		IExtensionPoint extensionPoint = registry.getExtensionPoint(WorkflowExtensionPointId);
 		if (extensionPoint == null) {
 			// No extension point found!

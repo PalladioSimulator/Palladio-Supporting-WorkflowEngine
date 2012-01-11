@@ -4,7 +4,7 @@
   	      <param name="target" value="features"/>
   	      <param name="element.id" value="de.uka.ipd.sdq.workflow.feature"/>
   	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.feature"/>
-  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/branches/PCMIndigoMigration"/>
   	    </antcall>
 		<antcall target="svn.co">
 	      <param name="target" value="features"/>
@@ -34,14 +34,8 @@
   		 <param name="target" value="plugins"/>
   		 <param name="element.id" value="de.uka.ipd.sdq.qvtrengine.medini"/>
   		 <param name="project.name" value="/de.uka.ipd.sdq.qvtrengine.medini"/>
-  		 <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
+  		 <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/branches/PCMIndigoMigration"/>
   		</antcall>
-  		<antcall target="svn.co">
-  	     <param name="target" value="plugins"/>
-  	     <param name="element.id" value="de.ikv.medini.qvt.plugin"/>
-  	     <param name="project.name" value="/de.ikv.medini.qvt.plugin"/>
-  	     <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/ThirdPartyWrapper/trunk"/>
-  	   	</antcall>
   	    <antcall target="svn.co">
   	      <param name="target" value="plugins"/>
   	      <param name="element.id" value="de.uka.ipd.sdq.workflow.tests"/>

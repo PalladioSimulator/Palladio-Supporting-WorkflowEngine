@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.mdsd.blackboard;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -18,10 +19,19 @@ public class SavePartitionToDiskJob implements IJob,
 	
 	private MDSDBlackboard blackboard;
 	private String partitionID;
+	private Map<String, Object> saveOptions = null;
 
 	public SavePartitionToDiskJob(String partitionID) {
 		super();
 		this.partitionID = partitionID;
+	}
+	
+	public SavePartitionToDiskJob(String partitionID, Map<String, Object> saveOptions) 
+	{
+		super();
+		this.partitionID = partitionID;
+		this.saveOptions = saveOptions;
+		
 	}
 
 	@Override
@@ -30,7 +40,7 @@ public class SavePartitionToDiskJob implements IJob,
 		logger.debug("Saving partition "+partitionID);
 		ResourceSetPartition partition = this.blackboard.getPartition(this.partitionID);
 		try {
-			partition.storeAllResources();
+			partition.storeAllResources(saveOptions);
 		} catch (IOException e) {
 			throw new JobFailedException("Failed to save models",e);
 		}

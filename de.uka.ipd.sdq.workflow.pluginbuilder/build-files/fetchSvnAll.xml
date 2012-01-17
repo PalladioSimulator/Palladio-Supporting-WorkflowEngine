@@ -18,10 +18,28 @@
   	      <param name="project.name" value="/de.uka.ipd.sdq.workflow"/>
   	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
   	    </antcall>
+  		<antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.logging.console"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.logging.console"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
+  	    </antcall>
+  		<antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.ui"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.ui"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
+  	    </antcall>
   	    <antcall target="svn.co">
   	      <param name="target" value="plugins"/>
   	      <param name="element.id" value="de.uka.ipd.sdq.workflow.launchconfig"/>
   	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.launchconfig"/>
+  	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
+  	    </antcall>
+		<antcall target="svn.co">
+  	      <param name="target" value="plugins"/>
+  	      <param name="element.id" value="de.uka.ipd.sdq.workflow.workbench"/>
+  	      <param name="project.name" value="/de.uka.ipd.sdq.workflow.workbench"/>
   	      <param name="url" value="https://svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk"/>
   	    </antcall>
   	    <antcall target="svn.co">

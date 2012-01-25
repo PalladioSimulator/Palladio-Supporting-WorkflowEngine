@@ -141,12 +141,12 @@ public class ResourceSetPartition {
 	 * @param newContents The new contents, single object
 	 */
 	public void setContents(URI modelID, EObject newContents) {
-		
+
 		ArrayList<EObject> list = new ArrayList<EObject>();
 		list.add(newContents);
 		setContents(modelID, list);
 	}
-	
+
 	/**Determines if the Resource referenced by the parameter contains an EMF model.
 	 * @param modelURI URI of the Resource.
 	 * @return {@code true} if, and only if, an EMF model is contained.
@@ -165,5 +165,25 @@ public class ResourceSetPartition {
 				r.save(null);
 			}
 		}
+	}
+
+	/**
+	 * Helper to find root objects of a specified class.
+	 *
+	 * @param clazz The class to get elements for.
+	 * @return The list of found root elements. Empty list if none have been found.
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends EObject> List<T> getElement(final T targetType) {
+		ArrayList<T> result = new ArrayList<T>();
+		for (Resource r : rs.getResources()) {
+			if (r != null && r.getContents().size() > 0 && r.getContents().get(0).eClass() == targetType.eClass() ) {
+				result.add((T) r.getContents().get(0));
+			}
+		}
+		if (result.size() == 0)
+			throw new RuntimeException("Failed to retrieve PCM model element "+targetType.eClass().getName());
+		else
+			return result;
 	}
 }

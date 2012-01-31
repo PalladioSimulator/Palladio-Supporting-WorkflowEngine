@@ -12,8 +12,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.IStreamListener;
-import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
@@ -24,7 +24,6 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 
 import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.IJob;
@@ -154,28 +153,31 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 				}
 			}
 		}
-		
+
 		if (myConsole == null) {
-			// no existing console found (or existing console is not used), so create a new one
+			// no existing console found (or existing console is not used), so
+			// create a new one
 			myConsole = new MessageConsole(this.getClass().getSimpleName(), null);
 		}
-		conMan.addConsoles(new IConsole[]{myConsole});
-	
+		conMan.addConsoles(new IConsole[] { myConsole });
+
 		IStreamListener streamListener = new MessageConsoleStreamListener(myConsole);
 		myProcess.getStreamsProxy().getOutputStreamMonitor().addListener(streamListener);
 		myProcess.getStreamsProxy().getErrorStreamMonitor().addListener(streamListener);
-		
-		String id = IConsoleConstants.ID_CONSOLE_VIEW;
-		IWorkbenchPage page = window.getActivePage();
-		IConsoleView view;
-		try {
-			view = (IConsoleView) page.showView(id);
-			view.display(myConsole);
-		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		final MessageConsole consoleForUpdate = myConsole;
+		final String id = IConsoleConstants.ID_CONSOLE_VIEW;
+		final IWorkbenchPage page = window.getActivePage();
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				try {
+					IConsoleView view = (IConsoleView) page.showView(id);
+					view.display(consoleForUpdate);
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 
 		// Configure logging output to the Eclipse console
 		List<LoggerAppenderStruct> loggerList = setupLogging(getLogLevel());
@@ -352,12 +354,12 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	protected WorkflowProcess getProcess() {
 		return new WorkflowProcess();
 	}
-	
+
 	private IWorkbenchWindow window;
-    
+
 	public void init(IWorkbenchWindow win) {
-       this.window = win;
-    }
+		this.window = win;
+	}
 
 	/**
 	 * Instantiate the main job to be executed by the workflow engine. The job
@@ -370,7 +372,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * @return The main workflow job to be executed by the workflow engine
 	 */
 	protected abstract IJob createWorkflowJob(WorkflowConfigurationType config);
-	
+
 	protected abstract boolean useSeparateConsoleForEachJobRun();
 
 	/**

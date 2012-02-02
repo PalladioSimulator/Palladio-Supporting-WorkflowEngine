@@ -8,6 +8,12 @@ import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
+/**
+ * OrderPreservingCompositeJob for MWE2 WorkflowComponents.
+ * 
+ * @author Joerg Henss
+ *
+ */
 public class MWE2OrderPreservingCompositeJob extends
 		OrderPreservingCompositeJob 
 		{

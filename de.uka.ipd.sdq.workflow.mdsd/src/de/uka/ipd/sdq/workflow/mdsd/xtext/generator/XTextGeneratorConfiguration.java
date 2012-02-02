@@ -12,7 +12,12 @@ import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.mwe.Reader;
 import org.eclipse.xtext.mwe.ResourceLoadingSlotEntry;
 
-
+/**
+ * A configuration for using the XText Generator 
+ * 
+ * @author Joerg Henss
+ *
+ */
 public class XTextGeneratorConfiguration 
 {
 	private XTextGeneratorModule module;
@@ -31,20 +36,31 @@ public class XTextGeneratorConfiguration
 	
 	private GeneratorComponent generator;
 	
-	
+	/**
+	 * Create and init the StandaloneSetup for the MWE.
+	 */
 	public void initMWEBean()
 	{
 		StandaloneSetup setup = new StandaloneSetup();
 		setup.addRegisterGeneratedEPackage(outputPackageName);
 		setup.setScanClassPath(true);
-	
 	}
 	
+	/**
+	 * Set the file path to the model directory.
+	 * 
+	 * @param modelPath
+	 */
 	public void setModelPath(String modelPath)
 	{
 		readerPathes.add(modelPath);
 	}
 	
+	/**
+	 * Set the target directory for the generator.
+	 * 
+	 * @param targetDir
+	 */
 	public void setTargetDir(String targetDir)
 	{
 		Outlet o = new Outlet();
@@ -52,7 +68,11 @@ public class XTextGeneratorConfiguration
 		outlets.add(o);
 	}
 	
-	
+	/**
+	 * Set the slot that is used for loading the model.
+	 * 
+	 * @param slotName
+	 */
 	public void setSourceSlot(String slotName)
 	{
 		slots.add(slotName);
@@ -88,7 +108,14 @@ public class XTextGeneratorConfiguration
 		return fileExtension;
 	}
 
-
+	/**
+	 * Constructor.
+	 * 
+	 * @param generatorClass The generator class that is used
+	 * @param languageName The name of the language
+	 * @param fileExtension The file extension of the model
+	 * @param outputPackageName The package name used for output
+	 */
 	public XTextGeneratorConfiguration(Class<? extends IGenerator> generatorClass,
 			String languageName, String fileExtension, String outputPackageName) {
 		super();
@@ -98,6 +125,10 @@ public class XTextGeneratorConfiguration
 		this.outputPackageName = outputPackageName;
 	}
 	
+	/**
+	 * Creates a MWE Reader for the model based on the path and slots
+	 * @return
+	 */
 	public Reader createReader()
 	{
 		Reader reader = new Reader();
@@ -112,7 +143,10 @@ public class XTextGeneratorConfiguration
 		
 	}
 	
-	
+	/**
+	 * Creates and inits the XText generator
+	 * @return
+	 */
 	public GeneratorComponent createGenerator()
 	{
 		generator = new GeneratorComponent();
@@ -126,15 +160,19 @@ public class XTextGeneratorConfiguration
 		return generator;
 	}
 	
-	
-	public void createGeneratorModuleAndGeneratorSetup()
+	/**
+	 * Initialises the GeneratorModule and GeneratorSetup 
+	 */
+	public void initGeneratorModuleAndGeneratorSetup()
 	{
 		this.module = new XTextGeneratorModule(generatorClass, languageName, fileExtension);
 		this.setup = new XTextGeneratorSetup(this.module);
-		
 	}
 	
-	
+	/**
+	 * Create the GeneratorSupport
+	 * @return
+	 */
 	public XTextGeneratorSupport createGeneratorSupport()
 	{
 		return new XTextGeneratorSupport(module);

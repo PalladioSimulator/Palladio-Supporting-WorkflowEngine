@@ -9,13 +9,19 @@ import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
-
-public class AbstractWorkflowComponentBridge<T extends IWorkflowComponent>
+/**
+ * A bridge allowing the simple execution of MWE2 WorkflowComponents
+ * 
+ * @author Joerg Henss
+ *
+ * @param <T>
+ */
+public class MWE2WorkflowComponentBridge<T extends IWorkflowComponent>
 
 implements IPrePostJob {
 
 	private Logger logger = Logger
-			.getLogger(AbstractWorkflowComponentBridge.class);
+			.getLogger(MWE2WorkflowComponentBridge.class);
 
 	protected T mwe2Job = null;
 	
@@ -30,7 +36,7 @@ implements IPrePostJob {
 	 * @param job
 	 *            The oAW job to wrap for execution in the SDQ workflow engine
 	 */
-	public AbstractWorkflowComponentBridge(T job, IWorkflowContext ctx, String name) {
+	public MWE2WorkflowComponentBridge(T job, IWorkflowContext ctx, String name) {
 		super();
 		this.mwe2Job = job;
 		this.ctx = ctx;

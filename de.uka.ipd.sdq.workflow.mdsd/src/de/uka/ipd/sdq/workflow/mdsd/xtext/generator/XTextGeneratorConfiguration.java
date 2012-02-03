@@ -9,8 +9,11 @@ import org.eclipse.xtext.ISetup;
 import org.eclipse.xtext.generator.GeneratorComponent;
 import org.eclipse.xtext.generator.GeneratorComponent.Outlet;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.mwe.AbstractReader;
 import org.eclipse.xtext.mwe.Reader;
 import org.eclipse.xtext.mwe.ResourceLoadingSlotEntry;
+
+import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
 
 /**
  * A configuration for using the XText Generator 
@@ -28,6 +31,8 @@ public class XTextGeneratorConfiguration
 	private final String fileExtension;
 	private final String outputPackageName;
 	
+	private ModelLocation modelLocation;
+	
 	private final Set<String> slots = new TreeSet<String>();
 	private final Set<Outlet> outlets = new TreeSet<Outlet>();
 	
@@ -35,6 +40,7 @@ public class XTextGeneratorConfiguration
 	private final Set<ResourceLoadingSlotEntry> loadEntries = new TreeSet<ResourceLoadingSlotEntry>();
 	
 	private GeneratorComponent generator;
+	
 	
 	/**
 	 * Create and init the StandaloneSetup for the MWE.
@@ -51,7 +57,7 @@ public class XTextGeneratorConfiguration
 	 * 
 	 * @param modelPath
 	 */
-	public void setModelPath(String modelPath)
+	public void setModelFilePath(String modelPath)
 	{
 		readerPathes.add(modelPath);
 	}
@@ -131,16 +137,23 @@ public class XTextGeneratorConfiguration
 	 */
 	public Reader createReader()
 	{
+		if(readerPathes.isEmpty())
+			throw new RuntimeException("XText Reader requires a path!");
+		
 		Reader reader = new Reader();
-		reader.addRegister(setup);
+		setupReader(reader);
+		
 		for(String path : readerPathes)
 			reader.addPath(path);
 		
-		for(ResourceLoadingSlotEntry entry : loadEntries)
-			reader.addLoadResource(entry);
-		
 		return reader;
 		
+	}
+
+	private void setupReader(AbstractReader reader) {
+		reader.addRegister(setup);
+		for(ResourceLoadingSlotEntry entry : loadEntries)
+			reader.addLoadResource(entry);
 	}
 	
 	/**
@@ -177,7 +190,30 @@ public class XTextGeneratorConfiguration
 	{
 		return new XTextGeneratorSupport(module);
 	}
-	
+
+	public Set<String> getSlots() {
+		return slots;
+	}
+
+	public ModelLocation getBlackboardModelLocation() {
+		return modelLocation;
+	}
+
+	public void setBlackboardModelLocation(ModelLocation modelLocation) {
+		this.modelLocation = modelLocation;
+	}
+
+	public BlackboardReader createBlackboardReader() 
+	{
+		if(modelLocation == null)
+			throw new RuntimeException("XText BlackboardReader requires a modelLocation!");
+		
+		BlackboardReader reader = new BlackboardReader(modelLocation);
+		setupReader(reader);
+		
+		return reader;
+	}
+
 	
 	
 

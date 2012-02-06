@@ -8,18 +8,17 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.m2m.internal.qvt.oml.trace.Trace;
 
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal.ExecutionDiagnostic;
-
+@SuppressWarnings("restriction")
 public class QVTOResult {
 
-	private final ExecutionDiagnostic diagnosticResult;
+	private final org.eclipse.m2m.qvt.oml.ExecutionDiagnostic diagnosticResult;
 	private Trace trace;
 
-	public QVTOResult(ExecutionDiagnostic result) {
+	public QVTOResult(org.eclipse.m2m.qvt.oml.ExecutionDiagnostic result) {
 		this(result,null);
 	}
 	
-	public QVTOResult(ExecutionDiagnostic result, Trace trace) {
+	public QVTOResult(org.eclipse.m2m.qvt.oml.ExecutionDiagnostic result, Trace trace) {
 		super();
 		
 		this.diagnosticResult = result;
@@ -29,7 +28,7 @@ public class QVTOResult {
 	/**
 	 * @return the diagnosticResult
 	 */
-	public ExecutionDiagnostic getDiagnosticResult() {
+	public org.eclipse.m2m.qvt.oml.ExecutionDiagnostic getDiagnosticResult() {
 		return diagnosticResult;
 	}
 

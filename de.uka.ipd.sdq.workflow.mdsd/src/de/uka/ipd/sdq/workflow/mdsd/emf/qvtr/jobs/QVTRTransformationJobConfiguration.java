@@ -3,6 +3,7 @@ package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.jobs;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 
@@ -19,6 +20,12 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
  *
  */
 public class QVTRTransformationJobConfiguration {
+	
+	
+	/**
+	 * A Map of options passed to QVT engine
+	 */
+	private Map<String, String> properties = null;
 	
 	/**
 	 *  A collection of all model sets needed by the transformation.
@@ -210,6 +217,24 @@ public class QVTRTransformationJobConfiguration {
 	 */
 	public void addModelLocationSets(final ModelLocation[] modelLocations) {
 		modelLocationSets.add(modelLocations);
+	}
+
+	/**
+	 * Get the properties for the engine.
+	 * 
+	 * @return The properties
+	 */
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	/**
+	 * Set the properties for the engine as key value pair.
+	 * 
+	 * @param properties The properties
+	 */
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
 	}
 	
 }

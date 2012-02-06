@@ -12,11 +12,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.m2m.qvt.oml.BasicModelExtent;
 import org.eclipse.m2m.qvt.oml.ExecutionContextImpl;
+import org.eclipse.m2m.qvt.oml.ExecutionDiagnostic;
 import org.eclipse.m2m.qvt.oml.ModelExtent;
 
 import de.uka.ipd.sdq.workflow.mdsd.Activator;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.QVTOResult;
 
+@SuppressWarnings("restriction")
 public class QVTOExecutor {
 
 	public static QVTOResult execute(
@@ -24,12 +26,12 @@ public class QVTOExecutor {
 			/* INOUT */ List<EObject>[] inoutParameter){
 		return QVTOExecutor.execute(transformationURI, new HashMap<String,Object>(), inoutParameter);
 	}
+
 	
 	public static QVTOResult execute(
 			URI transformationURI,
 			Map<String,Object> parameters,
 			/* INOUT */ List<EObject>[] inoutParameter){
-
 		// create executor for the given transformation
 		TransformationExecutor executor = new TransformationExecutor(transformationURI);
 

@@ -3,6 +3,8 @@ package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.jobs;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -66,6 +68,16 @@ public class QVTRTransformationJob implements
 		
 		// enable debug 
 		qvtrEngine.setDebug(configuration.isDebug());
+		
+		//if options are provided
+		if (configuration.getProperties() != null)
+		{
+			Map<String, String> properties = configuration.getProperties();
+			for(Entry<String, String> property : properties.entrySet())
+			{
+				qvtrEngine.setProperty(property.getKey(), property.getValue());
+			}
+		}
 		
 		// if a trace partition name is provided we create the partition
 		if (configuration.getTracesPartitionName() != null) {

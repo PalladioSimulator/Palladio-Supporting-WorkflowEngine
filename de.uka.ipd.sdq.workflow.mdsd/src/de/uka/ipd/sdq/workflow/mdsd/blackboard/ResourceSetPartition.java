@@ -3,7 +3,6 @@ package de.uka.ipd.sdq.workflow.mdsd.blackboard;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
@@ -190,7 +189,7 @@ public class ResourceSetPartition {
 	public <T extends EObject> List<T> getElement(final T targetType) {
 		ArrayList<T> result = new ArrayList<T>();
 		for (Resource r : rs.getResources()) {
-			if (r != null && r.getContents().size() > 0 && r.getContents().get(0).eClass() == targetType.eClass() ) {
+			if (r != null && r.getContents().size() > 0 && targetType.eClass().isSuperTypeOf(r.getContents().get(0).eClass()) ) {
 				result.add((T) r.getContents().get(0));
 			}
 		}

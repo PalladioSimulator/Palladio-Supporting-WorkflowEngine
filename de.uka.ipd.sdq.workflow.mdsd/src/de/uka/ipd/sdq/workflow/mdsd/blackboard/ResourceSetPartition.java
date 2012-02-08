@@ -3,6 +3,7 @@ package de.uka.ipd.sdq.workflow.mdsd.blackboard;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
@@ -162,8 +163,8 @@ public class ResourceSetPartition {
 		storeAllResources(null);
 	}
 
-	
-	
+
+
 	/**
 	 * Stores all resources in the resource set.
 	 * @param saveOptions Save options to use

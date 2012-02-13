@@ -8,6 +8,7 @@
   <rm:locator searchPathRef="xpand" failOnError="false" pattern="^org\.eclipse\.xpand" />
   <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.xtend*" />
   <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.xtext*" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^com\.google\.inject*" />
   <rm:locator searchPathRef="google_guava" failOnError="false" pattern="^com\.google\.guava*" />
   <rm:locator searchPathRef="mdt" failOnError="false" pattern="^org\.eclipse\.ocl" />
   <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.emf\.mwe\..*" />

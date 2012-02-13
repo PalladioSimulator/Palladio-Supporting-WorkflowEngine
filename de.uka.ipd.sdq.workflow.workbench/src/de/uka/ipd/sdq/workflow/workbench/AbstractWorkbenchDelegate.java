@@ -14,10 +14,11 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleConstants;
@@ -57,7 +58,7 @@ import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
  * @author Steffen Becker
  */
 public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extends AbstractJobConfiguration, WorkflowType extends Workflow>
-		implements IWorkbenchWindowActionDelegate {
+		implements IActionDelegate {
 
 	/**
 	 * Log Pattern used for run mode
@@ -78,6 +79,8 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * Name of the entry in the configuration hashmap containing the log level
 	 */
 	public static String VERBOSE_LOGGING = "verboseLogging";
+
+	private IWorkbenchWindow window;
 
 	/*
 	 * (non-Javadoc)
@@ -166,6 +169,9 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 		myProcess.getStreamsProxy().getErrorStreamMonitor().addListener(streamListener);
 		final MessageConsole consoleForUpdate = myConsole;
 		final String id = IConsoleConstants.ID_CONSOLE_VIEW;
+		if (window == null) {
+			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		}
 		final IWorkbenchPage page = window.getActivePage();
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
@@ -355,11 +361,6 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 		return new WorkflowProcess();
 	}
 
-	private IWorkbenchWindow window;
-
-	public void init(IWorkbenchWindow win) {
-		this.window = win;
-	}
 
 	/**
 	 * Instantiate the main job to be executed by the workflow engine. The job

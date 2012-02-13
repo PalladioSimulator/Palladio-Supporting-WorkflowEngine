@@ -4,6 +4,9 @@
 <listAttribute key="com.mountainminds.eclemma.core.INSTRUMENTATION_PATHS">
 <listEntry value="/de.uka.ipd.sdq.workflow/bin"/>
 </listAttribute>
+<listAttribute key="com.mountainminds.eclemma.core.SCOPE_IDS">
+<listEntry value="=de.uka.ipd.sdq.workflow/src"/>
+</listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/de.uka.ipd.sdq.workflow.tests"/>
 </listAttribute>

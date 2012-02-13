@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.uka.ipd.sdq.workflow.site"
+      label="Workflow Engine"
+      version="1.0.0">
+
+   <includes
+         id="de.uka.ipd.sdq.workflow.feature.core"
+         version="0.0.0"/>
+         
+   <includes
+         id="de.uka.ipd.sdq.workflow.feature.mdsd"
+         version="0.0.0"/>
+</feature>

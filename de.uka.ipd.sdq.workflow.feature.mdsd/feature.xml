@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="de.uka.ipd.sdq.workflow.feature.mdsd"
-      label="Workflow engine MDSD part"
+      label="Palladio Workflow Engine MDSD"
       version="1.0.0">
 
    <description url="http://sdq.ipd.uka.de">
@@ -240,27 +240,6 @@ litigation.
 
    <plugin
          id="de.uka.ipd.sdq.qvtrengine.medini"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="de.uka.ipd.sdq.workflow.logging.console"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="de.uka.ipd.sdq.workflow.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="de.uka.ipd.sdq.workflow.workbench"
          download-size="0"
          install-size="0"
          version="0.0.0"

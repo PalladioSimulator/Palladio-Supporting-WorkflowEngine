@@ -214,7 +214,7 @@ litigation.
    </license>
 
    <includes
-         id="de.uka.ipd.sdq.workflow.site"
+         id="de.uka.ipd.sdq.workflow.buckminster.site"
          version="0.0.0"/>
          
    <plugin

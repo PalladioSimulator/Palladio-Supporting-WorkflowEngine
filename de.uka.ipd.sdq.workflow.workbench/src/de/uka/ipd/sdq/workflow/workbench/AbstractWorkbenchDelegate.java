@@ -170,20 +170,22 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 		final MessageConsole consoleForUpdate = myConsole;
 		final String id = IConsoleConstants.ID_CONSOLE_VIEW;
 		if (window == null) {
-			window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			Display.getDefault().asyncExec(new Runnable() {
+				 
+			    public  void run()  {
+			    	window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+			    	try {
+						final IWorkbenchPage page = window.getActivePage();
+						IConsoleView view = (IConsoleView) page.showView(id);
+						view.display(consoleForUpdate);
+					} catch (PartInitException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			});
+			
 		}
-		final IWorkbenchPage page = window.getActivePage();
-		Display.getDefault().asyncExec(new Runnable() {
-			public void run() {
-				try {
-					IConsoleView view = (IConsoleView) page.showView(id);
-					view.display(consoleForUpdate);
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 
 		// Configure logging output to the Eclipse console
 		List<LoggerAppenderStruct> loggerList = setupLogging(getLogLevel());

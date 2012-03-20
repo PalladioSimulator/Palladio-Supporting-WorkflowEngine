@@ -85,7 +85,7 @@ public class ExtensionHelper {
 							extension.setWorkflowExtensionJob((AbstractWorkflowExtensionJob<?>)o);
 						}
 					} catch (CoreException e) {
-						e.printStackTrace();
+						// No workflow extension job specified
 					}
 					try {	
 						Object o = element.createExecutableExtension(WorkflowExtensionPointAttribute_RunconfigTab);
@@ -93,15 +93,15 @@ public class ExtensionHelper {
 							extension.setLaunchConfigurationTab((AbstractLaunchConfigurationTab)o);
 						}
 					} catch (CoreException e) {
-						e.printStackTrace();
+						// No launch configuration tab specified
 					}
-					try {	
+					try {
 						Object o = element.createExecutableExtension(WorkflowExtensionPointAttribute_ExtensionConfigurationBuilder);
 						if ((o!= null) && (o instanceof AbstractWorkflowExtensionConfigurationBuilder)) {
 							extension.setExtensionConfigurationBuilder((AbstractWorkflowExtensionConfigurationBuilder)o);
 						}
 					} catch (CoreException e) {
-						e.printStackTrace();
+						// No extension configuration builder specified
 					}
 					String priorityString = element.getAttribute(WorkflowExtensionPointAttribute_Priority);
 					if (priorityString != null) {

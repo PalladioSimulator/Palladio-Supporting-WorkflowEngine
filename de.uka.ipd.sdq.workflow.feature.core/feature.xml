@@ -213,11 +213,6 @@ Each party waives its rights to a jury trial in any resulting
 litigation.
    </license>
 
-   <url>
-      <update label="Workflow Engine Update Site" url="http://sdqweb.ipd.kit.edu/eclipse/workflowengine/current/"/>
-      <discovery label="Software Design and Quality" url="http://sdq.ipd.uka.de"/>
-   </url>
-
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>

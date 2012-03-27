@@ -3,6 +3,7 @@
 
   <rm:locator searchPathRef="localresources" failOnError="false"/>
   <rm:locator searchPathRef="workflowengine" failOnError="false" pattern="^de\.uka\.ipd\.sdq\..*" />
+  <rm:locator searchPathRef="palladio-commons" failOnError="false" pattern="^de\.uka\.ipd\.sdq\..*" />
   <rm:locator searchPathRef="mediniqvt" failOnError="false" pattern="^de\.ikv\.medini\.qvt\..*" />
   <rm:locator searchPathRef="m2m" failOnError="false" pattern="^org\.eclipse\.m2m\..*" />
   <rm:locator searchPathRef="xpand" failOnError="false" pattern="^org\.eclipse\.xpand" />
@@ -23,6 +24,13 @@
       	<bc:propertyRef key="buckminster.component" />
       </rm:uri>
     </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="palladio-commons">
+	  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+	 	<rm:property key="buckminster.source" value="false"/>
+	    <rm:property key="buckminster.mutable" value="false"/>
+	  	<rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/commons/releases/1.0/"/>
+	  </rm:provider>
   </rm:searchPath>
   <rm:searchPath name="orbit">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">

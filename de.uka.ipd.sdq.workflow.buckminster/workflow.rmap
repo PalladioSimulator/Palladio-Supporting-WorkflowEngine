@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+
+  <rm:locator searchPathRef="localresources" failOnError="false"/>
+  <rm:locator searchPathRef="workflowengine" failOnError="false" pattern="^de\.uka\.ipd\.sdq\..*" />
+  <rm:locator searchPathRef="palladio-commons" failOnError="false" pattern="^de\.uka\.ipd\.sdq\..*" />
+  <rm:locator searchPathRef="mediniqvt" failOnError="false" pattern="^de\.ikv\.medini\.qvt\..*" />
+  <rm:locator searchPathRef="m2m" failOnError="false" pattern="^org\.eclipse\.m2m\..*" />
+  <rm:locator searchPathRef="xpand" failOnError="false" pattern="^org\.eclipse\.xpand" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.xtend*" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.xtext*" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^com\.google\.inject*" />
+  <rm:locator searchPathRef="google_guava" failOnError="false" pattern="^com\.google\.guava*" />
+  <rm:locator searchPathRef="mdt" failOnError="false" pattern="^org\.eclipse\.ocl" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.emf\.mwe\..*" />
+  <rm:locator searchPathRef="xtext" failOnError="false" pattern="^org\.eclipse\.emf\.mwe2\..*" />
+  <rm:locator searchPathRef="emf" failOnError="false" pattern="^org\.eclipse\.emf\..*" />
+  <rm:locator searchPathRef="orbit" failOnError="false" />
+  
+  
+  <rm:searchPath name="workflowengine">
+    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn" source="true">
+      <rm:uri format="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk/{0}">
+      	<bc:propertyRef key="buckminster.component" />
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="palladio-commons">
+	  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+	 	<rm:property key="buckminster.source" value="false"/>
+	    <rm:property key="buckminster.mutable" value="false"/>
+	  	<rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/commons/releases/1.0/"/>
+	  </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="orbit">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="mediniqvt">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://www.ikv.de/qvt/update-site-indigo/"/>
+  </rm:provider></rm:searchPath>
+  <rm:searchPath name="m2m">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://download.eclipse.org/releases/indigo/"/>
+  </rm:provider></rm:searchPath>
+  <rm:searchPath name="xpand">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://download.eclipse.org/modeling/m2t/xpand/updates/releases/"/>
+  </rm:provider></rm:searchPath>
+    <rm:searchPath name="xtext">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+  </rm:provider></rm:searchPath>
+    <rm:searchPath name="mdt">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://download.eclipse.org/modeling/mdt/updates/releases/"/>
+  </rm:provider></rm:searchPath>
+    <rm:searchPath name="emf">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://download.eclipse.org/modeling/emf/updates/releases/"/>
+  </rm:provider></rm:searchPath>
+  <rm:searchPath name="google_guava">
+  <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+ 	<rm:property key="buckminster.source" value="false"/>
+    <rm:property key="buckminster.mutable" value="false"/>
+  	<rm:uri format="http://guava-osgi.googlecode.com/svn/trunk/repository/"/>
+  </rm:provider></rm:searchPath>
+  <rm:searchPath name="localresources">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="local">
+      <rm:uri format="file:///{0}/{1}/">
+        <bc:propertyRef key="workspace.root"/>
+        <bc:propertyRef key="buckminster.component"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+</rm:rmap>

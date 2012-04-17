@@ -4,34 +4,47 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
+/**
+ * The Class ExecutionTimeLoggingProgressMonitor.
+ */
 public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 
+	/**
+	 * Instantiates a new execution time logging progress monitor.
+	 *
+	 * @param monitor the monitor
+	 * @param ticks the ticks
+	 */
 	public ExecutionTimeLoggingProgressMonitor(IProgressMonitor monitor,
 			int ticks) {
 		super(monitor, ticks);
 	}
 
-	double startTime = 0;
+	/** The start time. */
+	private double startTime = 0;
+	
+	/** The task name. */
 	private String taskName;
-	Logger logger = Logger.getLogger(ExecutionTimeLoggingProgressMonitor.class);
-	private int totalWork;
-	private int completedWork;
-
+	
+	/** The logger. */
+	private Logger logger = Logger.getLogger(ExecutionTimeLoggingProgressMonitor.class);
+	
 	/**
-	 * @param name
-	 * @param totalWork
+	 * Begin task.
+	 *
+	 * @param name the name
+	 * @param totalWork the total work
 	 * @see org.eclipse.core.runtime.IProgressMonitor#beginTask(java.lang.String, int)
 	 */
 	public void beginTask(String name, int totalWork) {
 		this.startTime = System.nanoTime();
 		this.taskName = name;
-		this.totalWork = totalWork;
-		this.completedWork = 0;
 		super.beginTask(name, totalWork);
 	}
 
 	/**
-	 * 
+	 * Done.
+	 *
 	 * @see org.eclipse.core.runtime.IProgressMonitor#done()
 	 */
 	public void done() {
@@ -41,7 +54,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @param work
+	 * Internal worked.
+	 *
+	 * @param work the work
 	 * @see org.eclipse.core.runtime.IProgressMonitor#internalWorked(double)
 	 */
 	public void internalWorked(double work) {
@@ -49,7 +64,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @return
+	 * Checks if is canceled.
+	 *
+	 * @return true, if is canceled
 	 * @see org.eclipse.core.runtime.IProgressMonitor#isCanceled()
 	 */
 	public boolean isCanceled() {
@@ -57,7 +74,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @param value
+	 * Sets the canceled.
+	 *
+	 * @param value the new canceled
 	 * @see org.eclipse.core.runtime.IProgressMonitor#setCanceled(boolean)
 	 */
 	public void setCanceled(boolean value) {
@@ -65,7 +84,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @param name
+	 * Sets the task name.
+	 *
+	 * @param name the new task name
 	 * @see org.eclipse.core.runtime.IProgressMonitor#setTaskName(java.lang.String)
 	 */
 	public void setTaskName(String name) {
@@ -74,7 +95,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @param name
+	 * Sub task.
+	 *
+	 * @param name the name
 	 * @see org.eclipse.core.runtime.IProgressMonitor#subTask(java.lang.String)
 	 */
 	public void subTask(String name) {
@@ -82,7 +105,9 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
 	}
 
 	/**
-	 * @param work
+	 * Worked.
+	 *
+	 * @param work the work
 	 * @see org.eclipse.core.runtime.IProgressMonitor#worked(int)
 	 */
 	public void worked(int work) {

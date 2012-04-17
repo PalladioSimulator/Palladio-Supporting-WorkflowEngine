@@ -20,7 +20,8 @@ public interface IJob {
 	/**
 	 * Execute the job. In case of an error throw an exception
 	 * with a meaningful name which can be understood by a user.
-	 * 
+	 *
+	 * @param monitor the monitor
 	 * @throws JobFailedException the job failed
 	 * @throws UserCanceledException the user has chosen
 	 * to abort the job
@@ -28,18 +29,19 @@ public interface IJob {
 	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException;
 	
 	/**
-	 * Clean up all temporary side effects of this job. 
-	 * This method will always be called after executing this job 
+	 * Clean up all temporary side effects of this job.
+	 * This method will always be called after executing this job
 	 * to remove automatically created files and to leave the environment in a
 	 * state in which the whole workflow run can be started again with
 	 * the same results (i.e. in which executed can be called again).
 	 * 
-	 * Usually, rollback is called after the whole workflow is completed to allow other 
-	 * jobs to use intermediate results. In some cases, rollback can be called earlier. However, 
-	 * in those cases, later jobs might not be able to access the intermediate data anymore.  
-	 * 
-	 * @throws RollbackFailedException Thrown if a critical error occurred during clean up 
-	 * so that the whole workflow should abort cleaning up further jobs. 
+	 * Usually, rollback is called after the whole workflow is completed to allow other
+	 * jobs to use intermediate results. In some cases, rollback can be called earlier. However,
+	 * in those cases, later jobs might not be able to access the intermediate data anymore.
+	 *
+	 * @param monitor the monitor
+	 * @throws RollbackFailedException Thrown if a critical error occurred during clean up
+	 * so that the whole workflow should abort cleaning up further jobs.
 	 */
 	public void rollback(IProgressMonitor monitor) throws RollbackFailedException;
 	

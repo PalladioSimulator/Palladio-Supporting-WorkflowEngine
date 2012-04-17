@@ -7,21 +7,21 @@ import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
- * A sequential workflow which may contain jobs which need access to a common blackboard
- * for information exchange.
- * Compared to a OrderPreservingBlackboardCompositeJob, this job
- * has a lower memory footprint. In addition, a rollback of a nested job
- * is being executed immediately after the nested job has completed.
+ * A sequential workflow which may contain jobs which need access to a common blackboard for
+ * information exchange. Compared to a OrderPreservingBlackboardCompositeJob, this job has a lower
+ * memory footprint. In addition, a rollback of a nested job is being executed immediately after the
+ * nested job has completed.
  * 
- * @author Hauck
- * @param <BlackboardType> The type of the blackboard needed by all jobs in the sequential workflow
+ * @param <BlackboardType>
+ *            The type of the blackboard needed by all jobs in the sequential workflow
+ * @author Michael Hauck
  */
 public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>> 
 extends OrderPreservingBlackboardCompositeJob<BlackboardType> {
 
 	/**
-	 * constructor
-	 */
+     * Instantiates a new low memory footprint composite job.
+     */
 	public LowMemoryFootprintCompositeJob() {
 		super();
 	}

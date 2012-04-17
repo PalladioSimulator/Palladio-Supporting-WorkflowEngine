@@ -25,23 +25,47 @@ public class Workflow
 	extends OrderPreservingCompositeJob
 	implements ICompositeJob {
 	
+	/** The my monitor. */
 	private IProgressMonitor myMonitor;
+	
+	/** The logger. */
 	protected Logger logger = null;
+	
+	/** The exception handler. */
 	protected WorkflowExceptionHandler exceptionHandler = null;
 
+	/**
+     * Instantiates a new workflow.
+     * 
+     * @param job
+     *            the job
+     */
 	public Workflow(IJob job) {
 		this(job, null, new WorkflowExceptionHandler(false));
 	}
 	
+	/**
+     * Instantiates a new workflow.
+     * 
+     * @param job
+     *            the job
+     * @param exceptionHandler
+     *            the exception handler
+     */
 	public Workflow(IJob job, WorkflowExceptionHandler exceptionHandler) {
 		this(job, null, exceptionHandler);
 	}
 	
-	/** 
-	 * @param job 
-	 * @param monitor the progress monitor to use
-	 * @param workflowExceptionHandler 
-	 */
+	/**
+     * Instantiates a new workflow.
+     * 
+     * @param job
+     *            the job
+     * @param monitor
+     *            the progress monitor to use
+     * @param workflowExceptionHandler
+     *            the workflow exception handler
+     */
 	public Workflow(IJob job, IProgressMonitor monitor, WorkflowExceptionHandler workflowExceptionHandler) {
 		this.addJob(job);
 		this.exceptionHandler  = workflowExceptionHandler;
@@ -53,6 +77,9 @@ public class Workflow
 		logger = Logger.getLogger(Workflow.class);
 	}
 
+	/**
+     * Run.
+     */
 	public void run() {
 		logger.info("Creating workflow engine and starting workflow");
 
@@ -63,13 +90,13 @@ public class Workflow
 			this.execute(myMonitor);
 		} catch (JobFailedException e) {
 			logger.error("Workflow job failed, handling failure...");
-			logger.error("Failure reason was: ",e);
+			logger.error("Failure reason was: ", e);
 			this.exceptionHandler.handleJobFailed(e);
 		} catch (UserCanceledException e) {
 			logger.info("User canceled workflow");
 			this.exceptionHandler.handleUserCanceled(e);
 		} catch (Exception e) {
-			logger.fatal("Workflow terminated unexpectedly",e);
+			logger.fatal("Workflow terminated unexpectedly", e);
 			this.exceptionHandler.handleFatalFailure(e);
 		} finally {
 			logger.info("Cleaning up...");

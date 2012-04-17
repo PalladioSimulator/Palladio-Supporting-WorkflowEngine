@@ -7,23 +7,45 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
 
 /**
- * A workflow implementation which may contain jobs which need to access a blackboard
- * @author Steffen
+ * A workflow implementation which may contain jobs which need to access a blackboard.
  *
  * @param <T> The type of the blackboard which the jobs in the workflow can access
+ * @author Steffen Becker
  */
 public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
 
+	/** The my blackboard. */
 	private T myBlackboard;
 
+	/**
+	 * Instantiates a new blackboard based workflow.
+	 *
+	 * @param job the job
+	 * @param blackboard the blackboard
+	 */
 	public BlackboardBasedWorkflow(IJob job, T blackboard) {
 		this(job, null, new WorkflowExceptionHandler(false), blackboard);
 	}
 
+	/**
+	 * Instantiates a new blackboard based workflow.
+	 *
+	 * @param job the job
+	 * @param handler the handler
+	 * @param blackboard the blackboard
+	 */
 	public BlackboardBasedWorkflow(IJob job, WorkflowExceptionHandler handler, T blackboard) {
 		this(job, null, new WorkflowExceptionHandler(false),blackboard);
 	}
 
+	/**
+	 * Instantiates a new blackboard based workflow.
+	 *
+	 * @param job the job
+	 * @param monitor the monitor
+	 * @param handler the handler
+	 * @param blackboard the blackboard
+	 */
 	public BlackboardBasedWorkflow(
 			IJob job, 
 			IProgressMonitor monitor, 

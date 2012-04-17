@@ -14,477 +14,638 @@ import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
+/**
+ * The Class AbstractCompositeJob.
+ */
 public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> {
 
-	protected LinkedList<IJob> myJobs;
-	protected Stack<IJob> myExecutedJobs;
-	protected Logger logger = Logger.getLogger(OrderPreservingCompositeJob.class);
-	String myName = null;
+    /** The my jobs. */
+    protected LinkedList<IJob> myJobs;
 
-	public AbstractCompositeJob() {
-		super();
-		myJobs = new LinkedList<IJob>();
-		myExecutedJobs = new Stack<IJob>();
-	}
-	
-	public void addJob(IJob job) {
-		if (job == null)
-			throw new IllegalArgumentException("Job cannot be null");
-		
-		myJobs.add(job);
-	}
+    /** The my executed jobs. */
+    protected Stack<IJob> myExecutedJobs;
 
-	public abstract void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException;
+    /** The logger. */
+    protected Logger logger = Logger.getLogger(OrderPreservingCompositeJob.class);
 
-	public String getName() {
-		if (myName != null)
-			return myName;
-		
-		String compositeName = "CompositeJob <";
-		for(IJob job:myJobs) {
-			compositeName += job.getName() + " ";
-		}
-		compositeName += ">";
-		
-		return compositeName;
-	}
-	
-	public void setName(String name) {
-		this.myName = name;
-	}
+    /** The my name. */
+    private String myName = null;
 
-	/**
-	 * {@inheritDoc}<br><br>
-	 * This method ensures to clean up all child jobs 
-	 * in the reverse order in which they were added. 
-	 *  
-	 */
-	public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-		monitor.subTask("Rollback of "+getName());
-		while (!myExecutedJobs.empty()) {
-			myExecutedJobs.pop().rollback(monitor);
-			monitor.worked(1);
-		}
-	}
+    /**
+     * Instantiates a new abstract composite job.
+     */
+    public AbstractCompositeJob() {
+        super();
+        myJobs = new LinkedList<IJob>();
+        myExecutedJobs = new Stack<IJob>();
+    }
 
-	/**
-	 * @param e
-	 * @return
-	 * @see java.util.LinkedList#add(java.lang.Object)
-	 */
-	public boolean add(IJob e) {
-		return myJobs.add(e);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.ICompositeJob#addJob(de.uka.ipd.sdq.workflow.IJob)
+     */
+    public void addJob(IJob job) {
+        if (job == null)
+            throw new IllegalArgumentException("Job cannot be null");
 
-	/**
-	 * @param index
-	 * @param element
-	 * @see java.util.LinkedList#add(int, java.lang.Object)
-	 */
-	public void add(int index, IJob element) {
-		myJobs.add(index, element);
-	}
+        myJobs.add(job);
+    }
 
-	/**
-	 * @param c
-	 * @return
-	 * @see java.util.LinkedList#addAll(java.util.Collection)
-	 */
-	public boolean addAll(Collection<? extends IJob> c) {
-		return myJobs.addAll(c);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public abstract void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException;
 
-	/**
-	 * @param index
-	 * @param c
-	 * @return
-	 * @see java.util.LinkedList#addAll(int, java.util.Collection)
-	 */
-	public boolean addAll(int index, Collection<? extends IJob> c) {
-		return myJobs.addAll(index, c);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    public String getName() {
+        if (myName != null)
+            return myName;
 
-	/**
-	 * @param e
-	 * @see java.util.LinkedList#addFirst(java.lang.Object)
-	 */
-	public void addFirst(IJob e) {
-		myJobs.addFirst(e);
-	}
+        String compositeName = "CompositeJob <";
+        for (IJob job : myJobs) {
+            compositeName += job.getName() + " ";
+        }
+        compositeName += ">";
 
-	/**
-	 * @param e
-	 * @see java.util.LinkedList#addLast(java.lang.Object)
-	 */
-	public void addLast(IJob e) {
-		myJobs.addLast(e);
-	}
+        return compositeName;
+    }
 
-	/**
-	 * 
-	 * @see java.util.LinkedList#clear()
-	 */
-	public void clear() {
-		myJobs.clear();
-	}
+    /**
+     * Sets the name.
+     * 
+     * @param name
+     *            the new name
+     */
+    public void setName(String name) {
+        this.myName = name;
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#clone()
-	 */
-	public Object clone() {
-		return myJobs.clone();
-	}
+    /**
+     * {@inheritDoc}<br>
+     * <br>
+     * This method ensures to clean up all child jobs in the reverse order in which they were added.
+     * 
+     */
+    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+        monitor.subTask("Rollback of " + getName());
+        while (!myExecutedJobs.empty()) {
+            myExecutedJobs.pop().rollback(monitor);
+            monitor.worked(1);
+        }
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#contains(java.lang.Object)
-	 */
-	public boolean contains(Object o) {
-		return myJobs.contains(o);
-	}
+    /**
+     * Adds the.
+     * 
+     * @param e
+     *            the e
+     * @return true, if successful
+     * @see java.util.LinkedList#add(java.lang.Object)
+     */
+    public boolean add(IJob e) {
+        return myJobs.add(e);
+    }
 
-	/**
-	 * @param c
-	 * @return
-	 * @see java.util.AbstractCollection#containsAll(java.util.Collection)
-	 */
-	public boolean containsAll(Collection<?> c) {
-		return myJobs.containsAll(c);
-	}
+    /**
+     * Adds the.
+     * 
+     * @param index
+     *            the index
+     * @param element
+     *            the element
+     * @see java.util.LinkedList#add(int, java.lang.Object)
+     */
+    public void add(int index, IJob element) {
+        myJobs.add(index, element);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#descendingIterator()
-	 */
-	public Iterator<IJob> descendingIterator() {
-		return myJobs.descendingIterator();
-	}
+    /**
+     * Adds the all.
+     * 
+     * @param c
+     *            the c
+     * @return true, if successful
+     * @see java.util.LinkedList#addAll(java.util.Collection)
+     */
+    public boolean addAll(Collection<? extends IJob> c) {
+        return myJobs.addAll(c);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#element()
-	 */
-	public IJob element() {
-		return myJobs.element();
-	}
+    /**
+     * Adds the all.
+     * 
+     * @param index
+     *            the index
+     * @param c
+     *            the c
+     * @return true, if successful
+     * @see java.util.LinkedList#addAll(int, java.util.Collection)
+     */
+    public boolean addAll(int index, Collection<? extends IJob> c) {
+        return myJobs.addAll(index, c);
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.AbstractList#equals(java.lang.Object)
-	 */
-	public boolean equals(Object o) {
-		return myJobs.equals(o);
-	}
+    /**
+     * Adds the first.
+     * 
+     * @param e
+     *            the e
+     * @see java.util.LinkedList#addFirst(java.lang.Object)
+     */
+    public void addFirst(IJob e) {
+        myJobs.addFirst(e);
+    }
 
-	/**
-	 * @param index
-	 * @return
-	 * @see java.util.LinkedList#get(int)
-	 */
-	public IJob get(int index) {
-		return myJobs.get(index);
-	}
+    /**
+     * Adds the last.
+     * 
+     * @param e
+     *            the e
+     * @see java.util.LinkedList#addLast(java.lang.Object)
+     */
+    public void addLast(IJob e) {
+        myJobs.addLast(e);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#getFirst()
-	 */
-	public IJob getFirst() {
-		return myJobs.getFirst();
-	}
+    /**
+     * Clear.
+     * 
+     * @see java.util.LinkedList#clear()
+     */
+    public void clear() {
+        myJobs.clear();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#getLast()
-	 */
-	public IJob getLast() {
-		return myJobs.getLast();
-	}
+    /**
+     * Clone.
+     * 
+     * @return the object
+     * @see java.util.LinkedList#clone()
+     */
+    public Object clone() {
+        return myJobs.clone();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.AbstractList#hashCode()
-	 */
-	public int hashCode() {
-		return myJobs.hashCode();
-	}
+    /**
+     * Contains.
+     * 
+     * @param o
+     *            the o
+     * @return true, if successful
+     * @see java.util.LinkedList#contains(java.lang.Object)
+     */
+    public boolean contains(Object o) {
+        return myJobs.contains(o);
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#indexOf(java.lang.Object)
-	 */
-	public int indexOf(Object o) {
-		return myJobs.indexOf(o);
-	}
+    /**
+     * Contains all.
+     * 
+     * @param c
+     *            the c
+     * @return true, if successful
+     * @see java.util.AbstractCollection#containsAll(java.util.Collection)
+     */
+    public boolean containsAll(Collection<?> c) {
+        return myJobs.containsAll(c);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.AbstractCollection#isEmpty()
-	 */
-	public boolean isEmpty() {
-		return myJobs.isEmpty();
-	}
+    /**
+     * Descending iterator.
+     * 
+     * @return the iterator
+     * @see java.util.LinkedList#descendingIterator()
+     */
+    public Iterator<IJob> descendingIterator() {
+        return myJobs.descendingIterator();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.AbstractSequentialList#iterator()
-	 */
-	public Iterator<IJob> iterator() {
-		return myJobs.iterator();
-	}
+    /**
+     * Element.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#element()
+     */
+    public IJob element() {
+        return myJobs.element();
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#lastIndexOf(java.lang.Object)
-	 */
-	public int lastIndexOf(Object o) {
-		return myJobs.lastIndexOf(o);
-	}
+    /**
+     * Equals.
+     * 
+     * @param o
+     *            the o
+     * @return true, if successful
+     * @see java.util.AbstractList#equals(java.lang.Object)
+     */
+    public boolean equals(Object o) {
+        return myJobs.equals(o);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.AbstractList#listIterator()
-	 */
-	public ListIterator<IJob> listIterator() {
-		return myJobs.listIterator();
-	}
+    /**
+     * Gets the.
+     * 
+     * @param index
+     *            the index
+     * @return the i job
+     * @see java.util.LinkedList#get(int)
+     */
+    public IJob get(int index) {
+        return myJobs.get(index);
+    }
 
-	/**
-	 * @param index
-	 * @return
-	 * @see java.util.LinkedList#listIterator(int)
-	 */
-	public ListIterator<IJob> listIterator(int index) {
-		return myJobs.listIterator(index);
-	}
+    /**
+     * Gets the first.
+     * 
+     * @return the first
+     * @see java.util.LinkedList#getFirst()
+     */
+    public IJob getFirst() {
+        return myJobs.getFirst();
+    }
 
-	/**
-	 * @param e
-	 * @return
-	 * @see java.util.LinkedList#offer(java.lang.Object)
-	 */
-	public boolean offer(IJob e) {
-		return myJobs.offer(e);
-	}
+    /**
+     * Gets the last.
+     * 
+     * @return the last
+     * @see java.util.LinkedList#getLast()
+     */
+    public IJob getLast() {
+        return myJobs.getLast();
+    }
 
-	/**
-	 * @param e
-	 * @return
-	 * @see java.util.LinkedList#offerFirst(java.lang.Object)
-	 */
-	public boolean offerFirst(IJob e) {
-		return myJobs.offerFirst(e);
-	}
+    /**
+     * Hash code.
+     * 
+     * @return the int
+     * @see java.util.AbstractList#hashCode()
+     */
+    public int hashCode() {
+        return myJobs.hashCode();
+    }
 
-	/**
-	 * @param e
-	 * @return
-	 * @see java.util.LinkedList#offerLast(java.lang.Object)
-	 */
-	public boolean offerLast(IJob e) {
-		return myJobs.offerLast(e);
-	}
+    /**
+     * Index of.
+     * 
+     * @param o
+     *            the o
+     * @return the int
+     * @see java.util.LinkedList#indexOf(java.lang.Object)
+     */
+    public int indexOf(Object o) {
+        return myJobs.indexOf(o);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#peek()
-	 */
-	public IJob peek() {
-		return myJobs.peek();
-	}
+    /**
+     * Checks if is empty.
+     * 
+     * @return true, if is empty
+     * @see java.util.AbstractCollection#isEmpty()
+     */
+    public boolean isEmpty() {
+        return myJobs.isEmpty();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#peekFirst()
-	 */
-	public IJob peekFirst() {
-		return myJobs.peekFirst();
-	}
+    /**
+     * Iterator.
+     * 
+     * @return the iterator
+     * @see java.util.AbstractSequentialList#iterator()
+     */
+    public Iterator<IJob> iterator() {
+        return myJobs.iterator();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#peekLast()
-	 */
-	public IJob peekLast() {
-		return myJobs.peekLast();
-	}
+    /**
+     * Last index of.
+     * 
+     * @param o
+     *            the o
+     * @return the int
+     * @see java.util.LinkedList#lastIndexOf(java.lang.Object)
+     */
+    public int lastIndexOf(Object o) {
+        return myJobs.lastIndexOf(o);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#poll()
-	 */
-	public IJob poll() {
-		return myJobs.poll();
-	}
+    /**
+     * List iterator.
+     * 
+     * @return the list iterator
+     * @see java.util.AbstractList#listIterator()
+     */
+    public ListIterator<IJob> listIterator() {
+        return myJobs.listIterator();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#pollFirst()
-	 */
-	public IJob pollFirst() {
-		return myJobs.pollFirst();
-	}
+    /**
+     * List iterator.
+     * 
+     * @param index
+     *            the index
+     * @return the list iterator
+     * @see java.util.LinkedList#listIterator(int)
+     */
+    public ListIterator<IJob> listIterator(int index) {
+        return myJobs.listIterator(index);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#pollLast()
-	 */
-	public IJob pollLast() {
-		return myJobs.pollLast();
-	}
+    /**
+     * Offer.
+     * 
+     * @param e
+     *            the e
+     * @return true, if successful
+     * @see java.util.LinkedList#offer(java.lang.Object)
+     */
+    public boolean offer(IJob e) {
+        return myJobs.offer(e);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#pop()
-	 */
-	public IJob pop() {
-		return myJobs.pop();
-	}
+    /**
+     * Offer first.
+     * 
+     * @param e
+     *            the e
+     * @return true, if successful
+     * @see java.util.LinkedList#offerFirst(java.lang.Object)
+     */
+    public boolean offerFirst(IJob e) {
+        return myJobs.offerFirst(e);
+    }
 
-	/**
-	 * @param e
-	 * @see java.util.LinkedList#push(java.lang.Object)
-	 */
-	public void push(IJob e) {
-		myJobs.push(e);
-	}
+    /**
+     * Offer last.
+     * 
+     * @param e
+     *            the e
+     * @return true, if successful
+     * @see java.util.LinkedList#offerLast(java.lang.Object)
+     */
+    public boolean offerLast(IJob e) {
+        return myJobs.offerLast(e);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#remove()
-	 */
-	public IJob remove() {
-		return myJobs.remove();
-	}
+    /**
+     * Peek.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#peek()
+     */
+    public IJob peek() {
+        return myJobs.peek();
+    }
 
-	/**
-	 * @param index
-	 * @return
-	 * @see java.util.LinkedList#remove(int)
-	 */
-	public IJob remove(int index) {
-		return myJobs.remove(index);
-	}
+    /**
+     * Peek first.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#peekFirst()
+     */
+    public IJob peekFirst() {
+        return myJobs.peekFirst();
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#remove(java.lang.Object)
-	 */
-	public boolean remove(Object o) {
-		return myJobs.remove(o);
-	}
+    /**
+     * Peek last.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#peekLast()
+     */
+    public IJob peekLast() {
+        return myJobs.peekLast();
+    }
 
-	/**
-	 * @param c
-	 * @return
-	 * @see java.util.AbstractCollection#removeAll(java.util.Collection)
-	 */
-	public boolean removeAll(Collection<?> c) {
-		return myJobs.removeAll(c);
-	}
+    /**
+     * Poll.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#poll()
+     */
+    public IJob poll() {
+        return myJobs.poll();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#removeFirst()
-	 */
-	public IJob removeFirst() {
-		return myJobs.removeFirst();
-	}
+    /**
+     * Poll first.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#pollFirst()
+     */
+    public IJob pollFirst() {
+        return myJobs.pollFirst();
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#removeFirstOccurrence(java.lang.Object)
-	 */
-	public boolean removeFirstOccurrence(Object o) {
-		return myJobs.removeFirstOccurrence(o);
-	}
+    /**
+     * Poll last.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#pollLast()
+     */
+    public IJob pollLast() {
+        return myJobs.pollLast();
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#removeLast()
-	 */
-	public IJob removeLast() {
-		return myJobs.removeLast();
-	}
+    /**
+     * Pop.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#pop()
+     */
+    public IJob pop() {
+        return myJobs.pop();
+    }
 
-	/**
-	 * @param o
-	 * @return
-	 * @see java.util.LinkedList#removeLastOccurrence(java.lang.Object)
-	 */
-	public boolean removeLastOccurrence(Object o) {
-		return myJobs.removeLastOccurrence(o);
-	}
+    /**
+     * Push.
+     * 
+     * @param e
+     *            the e
+     * @see java.util.LinkedList#push(java.lang.Object)
+     */
+    public void push(IJob e) {
+        myJobs.push(e);
+    }
 
-	/**
-	 * @param c
-	 * @return
-	 * @see java.util.AbstractCollection#retainAll(java.util.Collection)
-	 */
-	public boolean retainAll(Collection<?> c) {
-		return myJobs.retainAll(c);
-	}
+    /**
+     * Removes the.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#remove()
+     */
+    public IJob remove() {
+        return myJobs.remove();
+    }
 
-	/**
-	 * @param index
-	 * @param element
-	 * @return
-	 * @see java.util.LinkedList#set(int, java.lang.Object)
-	 */
-	public IJob set(int index, IJob element) {
-		return myJobs.set(index, element);
-	}
+    /**
+     * Removes the.
+     * 
+     * @param index
+     *            the index
+     * @return the i job
+     * @see java.util.LinkedList#remove(int)
+     */
+    public IJob remove(int index) {
+        return myJobs.remove(index);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#size()
-	 */
-	public int size() {
-		return myJobs.size();
-	}
+    /**
+     * Removes the.
+     * 
+     * @param o
+     *            the o
+     * @return true, if successful
+     * @see java.util.LinkedList#remove(java.lang.Object)
+     */
+    public boolean remove(Object o) {
+        return myJobs.remove(o);
+    }
 
-	/**
-	 * @param fromIndex
-	 * @param toIndex
-	 * @return
-	 * @see java.util.AbstractList#subList(int, int)
-	 */
-	public List<IJob> subList(int fromIndex, int toIndex) {
-		return myJobs.subList(fromIndex, toIndex);
-	}
+    /**
+     * Removes the all.
+     * 
+     * @param c
+     *            the c
+     * @return true, if successful
+     * @see java.util.AbstractCollection#removeAll(java.util.Collection)
+     */
+    public boolean removeAll(Collection<?> c) {
+        return myJobs.removeAll(c);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.LinkedList#toArray()
-	 */
-	public Object[] toArray() {
-		return myJobs.toArray();
-	}
+    /**
+     * Removes the first.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#removeFirst()
+     */
+    public IJob removeFirst() {
+        return myJobs.removeFirst();
+    }
 
-	/**
-	 * @param <T>
-	 * @param a
-	 * @return
-	 * @see java.util.LinkedList#toArray(T[])
-	 */
-	public <T> T[] toArray(T[] a) {
-		return myJobs.toArray(a);
-	}
+    /**
+     * Removes the first occurrence.
+     * 
+     * @param o
+     *            the o
+     * @return true, if successful
+     * @see java.util.LinkedList#removeFirstOccurrence(java.lang.Object)
+     */
+    public boolean removeFirstOccurrence(Object o) {
+        return myJobs.removeFirstOccurrence(o);
+    }
 
-	/**
-	 * @return
-	 * @see java.util.AbstractCollection#toString()
-	 */
-	public String toString() {
-		return myJobs.toString();
-	}
+    /**
+     * Removes the last.
+     * 
+     * @return the i job
+     * @see java.util.LinkedList#removeLast()
+     */
+    public IJob removeLast() {
+        return myJobs.removeLast();
+    }
 
+    /**
+     * Removes the last occurrence.
+     * 
+     * @param o
+     *            the o
+     * @return true, if successful
+     * @see java.util.LinkedList#removeLastOccurrence(java.lang.Object)
+     */
+    public boolean removeLastOccurrence(Object o) {
+        return myJobs.removeLastOccurrence(o);
+    }
+
+    /**
+     * Retain all.
+     * 
+     * @param c
+     *            the c
+     * @return true, if successful
+     * @see java.util.AbstractCollection#retainAll(java.util.Collection)
+     */
+    public boolean retainAll(Collection<?> c) {
+        return myJobs.retainAll(c);
+    }
+
+    /**
+     * Sets the.
+     * 
+     * @param index
+     *            the index
+     * @param element
+     *            the element
+     * @return the i job
+     * @see java.util.LinkedList#set(int, java.lang.Object)
+     */
+    public IJob set(int index, IJob element) {
+        return myJobs.set(index, element);
+    }
+
+    /**
+     * Size.
+     * 
+     * @return the int
+     * @see java.util.LinkedList#size()
+     */
+    public int size() {
+        return myJobs.size();
+    }
+
+    /**
+     * Sub list.
+     * 
+     * @param fromIndex
+     *            the from index
+     * @param toIndex
+     *            the to index
+     * @return the list
+     * @see java.util.AbstractList#subList(int, int)
+     */
+    public List<IJob> subList(int fromIndex, int toIndex) {
+        return myJobs.subList(fromIndex, toIndex);
+    }
+
+    /**
+     * To array.
+     * 
+     * @return the object[]
+     * @see java.util.LinkedList#toArray()
+     */
+    public Object[] toArray() {
+        return myJobs.toArray();
+    }
+
+    /**
+     * To array.
+     * 
+     * @param <T>
+     *            the generic type
+     * @param a
+     *            the a
+     * @return the t[]
+     * @see java.util.LinkedList#toArray(T[])
+     */
+    public <T> T[] toArray(T[] a) {
+        return myJobs.toArray(a);
+    }
+
+    /**
+     * To string.
+     * 
+     * @return the string
+     * @see java.util.AbstractCollection#toString()
+     */
+    public String toString() {
+        return myJobs.toString();
+    }
 
 }

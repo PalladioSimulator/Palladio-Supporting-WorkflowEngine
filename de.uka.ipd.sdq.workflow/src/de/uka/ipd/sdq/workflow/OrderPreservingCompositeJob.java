@@ -15,18 +15,25 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 public class OrderPreservingCompositeJob extends AbstractCompositeJob implements ICompositeJob {
 	
+
 	/**
-	 * constructor
-	 */
+     * Instantiates a new order preserving composite job.
+     */
 	public OrderPreservingCompositeJob() {
 		super();
 	}
 
-	/** 
-	 * Executes all contained jobs, i.e. call execute() for them. Contained 
-	 * jobs can thus re-implement this method with functionality that should 
-	 * be executed.
-	 */ 
+	/**
+     * Executes all contained jobs, i.e. call execute() for them. Contained jobs can thus
+     * re-implement this method with functionality that should be executed.
+     * 
+     * @param monitor
+     *            the monitor
+     * @throws JobFailedException
+     *             the job failed exception
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */ 
 	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(monitor, 1);
 		subProgressMonitor.beginTask("Composite Job Execution", myJobs.size());

@@ -9,13 +9,14 @@ import java.util.HashMap;
  * The blackboard contains information pieces called partitions. Each partition contains data
  * needed for a specific type of job. For example, in a compiler, there would be a partition called
  * symbol table to store the detected variable declarations.
- * 
- * @author Steffen
+ *
  * @param <T> The type of the partitions of the blackboard
+ * @author Steffen
  */
 public class Blackboard<T> implements IBlackboard<T> {
 
-	private HashMap<String,T> blackboardStore = new HashMap<String, T>();
+	/** The blackboard store. */
+	private HashMap<String, T> blackboardStore = new HashMap<String, T>();
 	
 	/**
 	 * Add a specific partition to the blackboard.
@@ -26,7 +27,7 @@ public class Blackboard<T> implements IBlackboard<T> {
 	 * @see de.uka.ipd.sdq.codegen.workflow.IBlackboard#addPartition(java.lang.String, java.lang.Object)
 	 */
 	public void addPartition(String id, T partition) {
-		assert(!blackboardStore.containsKey(id));
+		assert (!blackboardStore.containsKey(id));
 		
 		blackboardStore.put(id, partition);
 	}

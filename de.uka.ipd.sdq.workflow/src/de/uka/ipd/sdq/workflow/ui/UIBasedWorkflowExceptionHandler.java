@@ -72,9 +72,9 @@ public class UIBasedWorkflowExceptionHandler extends WorkflowExceptionHandler {
             this.e = e;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
+        
+        /**
+         * Run method to realize the continuously updated error display in the user interface.
          * @see java.lang.Runnable#run()
          */
         public void run() {

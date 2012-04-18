@@ -12,77 +12,156 @@ import de.uka.ipd.sdq.workflow.logging.console.Log4JBasedStreamsProxy;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 
 /**
- * An implementation of an IProcess which is able to log to the provided
- * process console, but otherwise unable to terminate, suspend, etc.
+ * An implementation of an IProcess which is able to log to the provided process console, but
+ * otherwise unable to terminate, suspend, etc.
  * 
- * Extend this class if you can provide additional control over the running 
- * process.
+ * Extend this class if you can provide additional control over the running process.
  * 
  * @author Steffen Becker
  */
 public class WorkflowProcess extends PlatformObject implements IProcess {
 
-	private ILaunch myLaunch;
-	private boolean isTerminated;
-	private Log4JBasedStreamsProxy myStreamsProxy = null;
+    /** The my launch. */
+    private ILaunch myLaunch;
 
-	public WorkflowProcess(ILaunch myLaunch) {
-		super();
-		this.myLaunch = myLaunch;
-		this.myStreamsProxy = new Log4JBasedStreamsProxy();
-	}
-	
-	public WorkflowProcess() {
-		super();
-		this.myStreamsProxy = new Log4JBasedStreamsProxy();
-	}
+    /** The is terminated. */
+    private boolean isTerminated;
 
-	public String getAttribute(String key) {
-		return null;
-	}
+    /** The my streams proxy. */
+    private Log4JBasedStreamsProxy myStreamsProxy = null;
 
-	public int getExitValue() throws DebugException {
-		return 0;
-	}
+    /**
+     * Instantiates a new workflow process.
+     * 
+     * @param myLaunch
+     *            the my launch
+     */
+    public WorkflowProcess(ILaunch myLaunch) {
+        super();
+        this.myLaunch = myLaunch;
+        this.myStreamsProxy = new Log4JBasedStreamsProxy();
+    }
 
-	public String getLabel() {
-		return "Simulation Process";
-	}
+    /**
+     * Instantiates a new workflow process.
+     */
+    public WorkflowProcess() {
+        super();
+        this.myStreamsProxy = new Log4JBasedStreamsProxy();
+    }
 
-	public ILaunch getLaunch() {
-		return this.myLaunch;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#getAttribute(java.lang.String)
+     */
+    @Override
+    public String getAttribute(String key) {
+        return null;
+    }
 
-	public IStreamsProxy getStreamsProxy() {
-		return myStreamsProxy;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#getExitValue()
+     */
+    @Override
+    public int getExitValue() throws DebugException {
+        return 0;
+    }
 
-	public void setAttribute(String key, String value) {
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#getLabel()
+     */
+    @Override
+    public String getLabel() {
+        return "Simulation Process";
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object getAdapter(Class adapter) {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#getLaunch()
+     */
+    @Override
+    public ILaunch getLaunch() {
+        return this.myLaunch;
+    }
 
-	public boolean canTerminate() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#getStreamsProxy()
+     */
+    @Override
+    public IStreamsProxy getStreamsProxy() {
+        return myStreamsProxy;
+    }
 
-	public boolean isTerminated() {
-		return this.isTerminated;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.IProcess#setAttribute(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void setAttribute(String key, String value) {
+    }
 
-	public void terminate() throws DebugException {
-		this.isTerminated = true;
-		
-		this.myStreamsProxy.dispose();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.runtime.PlatformObject#getAdapter(java.lang.Class)
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Object getAdapter(Class adapter) {
+        return null;
+    }
 
-		DebugPlugin.getDefault().fireDebugEventSet(new DebugEvent[] {new DebugEvent(this,DebugEvent.TERMINATE)});
-	}
-	
-	public void addAppender(StreamsProxyAppender appender) {
-		this.myStreamsProxy.addAppender(appender);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.ITerminate#canTerminate()
+     */
+    @Override
+    public boolean canTerminate() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.ITerminate#isTerminated()
+     */
+    @Override
+    public boolean isTerminated() {
+        return this.isTerminated;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.debug.core.model.ITerminate#terminate()
+     */
+    @Override
+    public void terminate() throws DebugException {
+        this.isTerminated = true;
+
+        this.myStreamsProxy.dispose();
+
+        DebugPlugin.getDefault().fireDebugEventSet(new DebugEvent[] { new DebugEvent(this, DebugEvent.TERMINATE) });
+    }
+
+    /**
+     * Adds the appender.
+     * 
+     * @param appender
+     *            the appender
+     */
+    public void addAppender(StreamsProxyAppender appender) {
+        this.myStreamsProxy.addAppender(appender);
+    }
 
 }

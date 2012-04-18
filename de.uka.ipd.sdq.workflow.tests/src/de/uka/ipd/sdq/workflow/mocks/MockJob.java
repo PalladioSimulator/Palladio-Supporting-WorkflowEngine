@@ -13,50 +13,104 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  * @author Philipp Meier
  */
 public class MockJob implements IJob {
-	
-	private static int executionNumber = 0;
-	
-	public static void resetExecutionNumber() {
-		executionNumber = 0;
-	}
-	
-	static int nextExecutionNumber() {
-		executionNumber += 1;
-		return executionNumber;
-	}
-	
-	private boolean myWasExecuted = false;
-	private boolean myWasRolledBack = false;
-	private boolean myWasAskedName = false;
-	private int myExecutionNumber = 0;
 
-	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-		myWasExecuted = true;
-		myExecutionNumber = nextExecutionNumber();
-	}
+    /** The execution number. */
+    private static int executionNumber = 0;
 
-	public String getName() {
-		myWasAskedName = true;
-		return "MockJob";
-	}
+    /**
+     * Reset execution number.
+     */
+    public static void resetExecutionNumber() {
+        executionNumber = 0;
+    }
 
-	public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-		myWasRolledBack = true;
-	}
-	
-	public boolean wasExecuted() {
-		return myWasExecuted;
-	}
-	
-	public boolean wasRolledBack() {
-		return myWasRolledBack;
-	}
-	
-	public boolean wasAskedName() {
-		return myWasAskedName;
-	}
-	
-	public int getExecutionNumber() {
-		return myExecutionNumber;
-	}
+    /**
+     * Next execution number.
+     * 
+     * @return the int
+     */
+    static int nextExecutionNumber() {
+        executionNumber += 1;
+        return executionNumber;
+    }
+
+    /** The my was executed. */
+    private boolean myWasExecuted = false;
+
+    /** The my was rolled back. */
+    private boolean myWasRolledBack = false;
+
+    /** The my was asked name. */
+    private boolean myWasAskedName = false;
+
+    /** The my execution number. */
+    private int myExecutionNumber = 0;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        myWasExecuted = true;
+        myExecutionNumber = nextExecutionNumber();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    @Override
+    public String getName() {
+        myWasAskedName = true;
+        return "MockJob";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+        myWasRolledBack = true;
+    }
+
+    /**
+     * Was executed.
+     * 
+     * @return true, if successful
+     */
+    public boolean wasExecuted() {
+        return myWasExecuted;
+    }
+
+    /**
+     * Was rolled back.
+     * 
+     * @return true, if successful
+     */
+    public boolean wasRolledBack() {
+        return myWasRolledBack;
+    }
+
+    /**
+     * Was asked name.
+     * 
+     * @return true, if successful
+     */
+    public boolean wasAskedName() {
+        return myWasAskedName;
+    }
+
+    /**
+     * Gets the execution number.
+     * 
+     * @return the execution number
+     */
+    public int getExecutionNumber() {
+        return myExecutionNumber;
+    }
 }

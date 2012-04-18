@@ -15,103 +15,115 @@ import de.uka.ipd.sdq.workflow.mocks.CancelingJob;
 import de.uka.ipd.sdq.workflow.mocks.FailingJob;
 import de.uka.ipd.sdq.workflow.mocks.MockJob;
 
+/**
+ * The Class OrderPreservingCompositeJobTests.
+ */
 public class OrderPreservingCompositeJobTests extends TestCase {
 
-	private OrderPreservingCompositeJob myCompJob = null;
+    /** The my comp job. */
+    private OrderPreservingCompositeJob myCompJob = null;
 
-	@Override
-	protected void setUp() {
-		myCompJob = new OrderPreservingCompositeJob();
-		MockJob.resetExecutionNumber();
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Override
+    protected void setUp() {
+        myCompJob = new OrderPreservingCompositeJob();
+        MockJob.resetExecutionNumber();
+    }
 
-	/**
-	 * add a job. execute the composite job. check if the added job was
-	 * executed. roll back the composite job. check if the added job was rolled
-	 * back.
-	 * 
-	 * @throws UserCanceledException
-	 * @throws JobFailedException
-	 * @throws RollbackFailedException
-	 */
-	public void testJobHandling() throws JobFailedException,
-			UserCanceledException, RollbackFailedException {
-		MockJob job = new MockJob();
-		myCompJob.addJob(job);
-		NullProgressMonitor monitor = new NullProgressMonitor();
+    /**
+     * add a job. execute the composite job. check if the added job was executed. roll back the
+     * composite job. check if the added job was rolled back.
+     * 
+     * @throws JobFailedException
+     *             the job failed exception
+     * @throws UserCanceledException
+     *             the user canceled exception
+     * @throws RollbackFailedException
+     *             the rollback failed exception
+     */
+    public void testJobHandling() throws JobFailedException, UserCanceledException, RollbackFailedException {
+        MockJob job = new MockJob();
+        myCompJob.addJob(job);
+        NullProgressMonitor monitor = new NullProgressMonitor();
 
-		myCompJob.execute(monitor);
-		assertEquals(true, job.wasExecuted());
+        myCompJob.execute(monitor);
+        assertEquals(true, job.wasExecuted());
 
-		myCompJob.rollback(monitor);
-		assertEquals(true, job.wasRolledBack());
-	}
+        myCompJob.rollback(monitor);
+        assertEquals(true, job.wasRolledBack());
+    }
 
-	/**
-	 * add a number of jobs. execute the composite job. check if all jobs were
-	 * executed in the order they were added.
-	 * 
-	 * @throws UserCanceledException
-	 * @throws JobFailedException
-	 */
-	public void testInOrderExecution() throws JobFailedException,
-			UserCanceledException {
-		LinkedList<MockJob> jobs = new LinkedList<MockJob>();
-		NullProgressMonitor monitor = new NullProgressMonitor();
+    /**
+     * add a number of jobs. execute the composite job. check if all jobs were executed in the order
+     * they were added.
+     * 
+     * @throws JobFailedException
+     *             the job failed exception
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */
+    public void testInOrderExecution() throws JobFailedException, UserCanceledException {
+        LinkedList<MockJob> jobs = new LinkedList<MockJob>();
+        NullProgressMonitor monitor = new NullProgressMonitor();
 
-		for (int i = 0; i < 20; i++) {
-			jobs.addLast(new MockJob());
-			myCompJob.addJob(jobs.peekLast());
-		}
+        for (int i = 0; i < 20; i++) {
+            jobs.addLast(new MockJob());
+            myCompJob.addJob(jobs.peekLast());
+        }
 
-		myCompJob.execute(monitor);
+        myCompJob.execute(monitor);
 
-		int executionNumber = 0;
-		while (!jobs.isEmpty()) {
-			MockJob job = jobs.removeFirst();
-			assertTrue("Job was executed in the wrong order!", job
-					.getExecutionNumber() > executionNumber);
-			executionNumber = job.getExecutionNumber();
-		}
-	}
+        int executionNumber = 0;
+        while (!jobs.isEmpty()) {
+            MockJob job = jobs.removeFirst();
+            assertTrue("Job was executed in the wrong order!", job.getExecutionNumber() > executionNumber);
+            executionNumber = job.getExecutionNumber();
+        }
+    }
 
-	/**
-	 * test a failed job
-	 * 
-	 * @throws UserCanceledException
-	 * @throws JobFailedException
-	 */
-	public void testFailedJob() throws JobFailedException,
-			UserCanceledException {
-		try {
-			NullProgressMonitor monitor = new NullProgressMonitor();
+    /**
+     * test a failed job.
+     * 
+     * @throws JobFailedException
+     *             the job failed exception
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */
+    public void testFailedJob() throws JobFailedException, UserCanceledException {
+        try {
+            NullProgressMonitor monitor = new NullProgressMonitor();
 
-			myCompJob.addJob(new FailingJob());
-			myCompJob.execute(monitor);
-		} catch (Exception e) {
-			Assert.assertTrue(e instanceof JobFailedException);
-			return;
-		}
-		Assert.fail("Expected exception not thrown");
-	}
+            myCompJob.addJob(new FailingJob());
+            myCompJob.execute(monitor);
+        } catch (Exception e) {
+            Assert.assertTrue(e instanceof JobFailedException);
+            return;
+        }
+        Assert.fail("Expected exception not thrown");
+    }
 
-	/**
-	 * test a canceled job
-	 * 
-	 * @throws UserCanceledException
-	 * @throws JobFailedException
-	 */
-	public void testCanceledJob() throws JobFailedException,
-			UserCanceledException {
-		try {
-			NullProgressMonitor monitor = new NullProgressMonitor();
+    /**
+     * test a canceled job.
+     * 
+     * @throws JobFailedException
+     *             the job failed exception
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */
+    public void testCanceledJob() throws JobFailedException, UserCanceledException {
+        try {
+            NullProgressMonitor monitor = new NullProgressMonitor();
 
-			myCompJob.addJob(new CancelingJob());
-			myCompJob.execute(monitor);
-		} catch (Exception e) {
-			Assert.assertTrue(e instanceof UserCanceledException);
-			return;
-		}
-		Assert.fail("Expected exception not thrown");
-	}
+            myCompJob.addJob(new CancelingJob());
+            myCompJob.execute(monitor);
+        } catch (Exception e) {
+            Assert.assertTrue(e instanceof UserCanceledException);
+            return;
+        }
+        Assert.fail("Expected exception not thrown");
+    }
 }

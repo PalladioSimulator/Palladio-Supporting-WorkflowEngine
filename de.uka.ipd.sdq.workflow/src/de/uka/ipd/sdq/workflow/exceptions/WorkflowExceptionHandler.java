@@ -44,8 +44,9 @@ public class WorkflowExceptionHandler {
         logException(e);
 
         // In case of shouldThrowException = true we fail here
-        if (myShouldThrowException)
+        if (myShouldThrowException) {
             throw new WorkflowFailedException("Workflow failed", e);
+        }
     }
 
     /**

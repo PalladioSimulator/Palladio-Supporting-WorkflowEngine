@@ -25,12 +25,14 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
      * any longer.
      * 
      * If check fails it throws an Exception.
-     *
-     * @throws InvalidWorkflowJobConfiguration the invalid workflow job configuration
+     * 
+     * @throws InvalidWorkflowJobConfiguration
+     *             the invalid workflow job configuration
      */
     public void validateAndFreeze() throws InvalidWorkflowJobConfiguration {
-        if (!this.isValid())
+        if (!this.isValid()) {
             throw new InvalidWorkflowJobConfiguration(this.getErrorMessage());
+        }
         this.isFixed = true;
     }
 
@@ -53,11 +55,11 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    
+    /* (non-Javadoc)
      * @see de.uka.ipd.sdq.workflow.IJobConfiguration#getErrorMessage()
      */
+    @Override
     abstract public String getErrorMessage();
 
     /*
@@ -65,6 +67,7 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
      * 
      * @see de.uka.ipd.sdq.workflow.IJobConfiguration#isValid()
      */
+    @Override
     public boolean isValid() {
         return getErrorMessage() == null;
     }
@@ -74,6 +77,7 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
      * 
      * @see de.uka.ipd.sdq.workflow.IJobConfiguration#setDefaults()
      */
+    @Override
     public abstract void setDefaults();
 
     /*

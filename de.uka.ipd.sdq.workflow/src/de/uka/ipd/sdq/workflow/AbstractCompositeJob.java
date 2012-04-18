@@ -45,9 +45,11 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
      * 
      * @see de.uka.ipd.sdq.workflow.ICompositeJob#addJob(de.uka.ipd.sdq.workflow.IJob)
      */
+    @Override
     public void addJob(IJob job) {
-        if (job == null)
+        if (job == null) {
             throw new IllegalArgumentException("Job cannot be null");
+        }
 
         myJobs.add(job);
     }
@@ -57,6 +59,7 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
      */
+    @Override
     public abstract void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException;
 
     /*
@@ -64,9 +67,11 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#getName()
      */
+    @Override
     public String getName() {
-        if (myName != null)
+        if (myName != null) {
             return myName;
+        }
 
         String compositeName = "CompositeJob <";
         for (IJob job : myJobs) {

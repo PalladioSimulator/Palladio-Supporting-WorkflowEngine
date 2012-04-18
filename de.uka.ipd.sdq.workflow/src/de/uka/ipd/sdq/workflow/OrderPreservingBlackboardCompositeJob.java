@@ -13,20 +13,20 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  *            The type of the blackboard needed by all jobs in the sequential workflow
  * @author Steffen
  */
-public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackboard<?>>
-extends OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
+public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackboard<?>> extends
+        OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
 
-	/** The my blackboard. */
-	protected BlackboardType myBlackboard;
+    /** The my blackboard. */
+    protected BlackboardType myBlackboard;
 
-	/**
+    /**
      * Instantiates a new order preserving blackboard composite job.
      */
-	public OrderPreservingBlackboardCompositeJob() {
-		super();
-	}
+    public OrderPreservingBlackboardCompositeJob() {
+        super();
+    }
 
-	/**
+    /**
      * Executes all contained jobs, i.e. call execute() for them. Contained jobs can thus
      * re-implement this method with functionality that should be executed.
      * 
@@ -37,30 +37,35 @@ extends OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInterac
      * @throws UserCanceledException
      *             the user canceled exception
      */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-		for (IJob job : this.myJobs){
-			if (job instanceof IBlackboardInteractingJob){
-				((IBlackboardInteractingJob) job).setBlackboard(this.myBlackboard);
-			}
-		}
-		super.execute(monitor);
-	}
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        for (IJob job : this.myJobs) {
+            if (job instanceof IBlackboardInteractingJob) {
+                ((IBlackboardInteractingJob) job).setBlackboard(this.myBlackboard);
+            }
+        }
+        super.execute(monitor);
+    }
 
-	/* (non-Javadoc)
-	 * @see de.uka.ipd.sdq.codegen.workflow.IBlackboardInteractingJob#setBlackbard(de.uka.ipd.sdq.codegen.workflow.Blackboard)
-	 */
-	public void setBlackboard(BlackboardType blackboard) {
-		this.myBlackboard = blackboard;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.codegen.workflow.IBlackboardInteractingJob#setBlackbard(de.uka.ipd.sdq.codegen
+     * .workflow.Blackboard)
+     */
+    @Override
+    public void setBlackboard(BlackboardType blackboard) {
+        this.myBlackboard = blackboard;
+    }
 
-	/**
+    /**
      * Gets the blackboard.
      * 
      * @return Returns the used blackboard.
      */
-	public BlackboardType getBlackboard() {
-		return myBlackboard;
-	}
+    public BlackboardType getBlackboard() {
+        return myBlackboard;
+    }
 }

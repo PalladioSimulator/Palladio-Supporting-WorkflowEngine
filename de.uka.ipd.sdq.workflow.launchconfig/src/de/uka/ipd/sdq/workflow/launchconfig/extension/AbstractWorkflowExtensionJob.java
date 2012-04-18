@@ -83,11 +83,9 @@ public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackb
      * 
      * @param blackboard
      *            The blackboard to set.
-     * @throws ClassCastException
-     *             the class cast exception
      */
     @SuppressWarnings("unchecked")
-    public void setJobExtensionBlackboard(Blackboard<?> blackboard) throws ClassCastException {
+    public void setJobExtensionBlackboard(Blackboard<?> blackboard) {
         this.blackboard = (BlackboardType) blackboard;
     }
 }

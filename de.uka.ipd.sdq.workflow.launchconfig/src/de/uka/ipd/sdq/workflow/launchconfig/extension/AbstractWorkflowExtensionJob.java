@@ -4,16 +4,17 @@ import de.uka.ipd.sdq.workflow.Blackboard;
 import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
 
-/***
- * Abstract extension job. This class specifies jobs which can be plugged in into an extendible work flow as provided by
- * the work flow engine.
+/**
+ * Abstract extension job. This class specifies jobs which can be plugged in into an extendible
+ * work flow as provided by the work flow engine.
  * 
- * 
+ * @param <BlackboardType>
+ *            the generic type
  * @author Benjamin Klatt
  * @author Michael Hauck
- * 
  */
-public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackboard<?>> extends OrderPreservingCompositeJob implements IBlackboardInteractingJob<BlackboardType> {
+public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackboard<?>> extends
+        OrderPreservingCompositeJob implements IBlackboardInteractingJob<BlackboardType> {
 
     // ////////////////////////////////
     // ATTRIBUTES
@@ -39,6 +40,7 @@ public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackb
 
     /**
      * Get the blackboard to work with.
+     * 
      * @return the blackboard
      */
     public BlackboardType getMyBlackboard() {
@@ -46,9 +48,10 @@ public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackb
     }
 
     /**
-     * Set the blackboard to work with. 
+     * Set the blackboard to work with.
      * 
-     * @param blackboard the blackboard to set
+     * @param blackboard
+     *            the blackboard to set
      */
     public void setBlackboard(BlackboardType blackboard) {
         this.blackboard = blackboard;
@@ -74,12 +77,14 @@ public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackb
     }
 
     /**
-     * Set the blackboard for the extension job. 
-     * A type cast is required by the method due to the fact that
-     * the general extension point is not able to determine the 
-     * blackboard type only available at runtime.
+     * Set the blackboard for the extension job. A type cast is required by the method due to the
+     * fact that the general extension point is not able to determine the blackboard type only
+     * available at runtime.
      * 
-     * @param blackboard The blackboard to set.
+     * @param blackboard
+     *            The blackboard to set.
+     * @throws ClassCastException
+     *             the class cast exception
      */
     @SuppressWarnings("unchecked")
     public void setJobExtensionBlackboard(Blackboard<?> blackboard) throws ClassCastException {

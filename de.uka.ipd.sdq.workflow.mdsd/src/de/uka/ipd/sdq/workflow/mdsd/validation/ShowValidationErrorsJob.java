@@ -15,59 +15,94 @@ import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
 
-public class ShowValidationErrorsJob
-implements IJob {
+/**
+ * The Class ShowValidationErrorsJob.
+ * @author Steffen Becker
+ */
+public class ShowValidationErrorsJob implements IJob {
 
-	private final ModelValidationJob[] validationJobs;
-	private static final Logger logger = Logger.getLogger(ShowValidationErrorsJob.class);
-	private final AbstractWorkflowBasedRunConfiguration configuration;
+    /** The validation jobs. */
+    private final ModelValidationJob[] validationJobs;
 
-	public ShowValidationErrorsJob(AbstractWorkflowBasedRunConfiguration configuration, ModelValidationJob...validationJobs) {
-		super();
-		this.validationJobs = validationJobs;
-		this.configuration = configuration;
-	}
+    /** The Constant logger. */
+    private static final Logger logger = Logger.getLogger(ShowValidationErrorsJob.class);
 
-	@Override
-	public void execute(IProgressMonitor monitor) throws JobFailedException,
-			UserCanceledException {
-		List<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
-		for (ModelValidationJob validationJob : validationJobs) {
-			result.addAll(validationJob.getResult());
-		}
+    /** The configuration. */
+    private final AbstractWorkflowBasedRunConfiguration configuration;
 
-		if (result.size() > 0) {
-			logger.warn("Found validation problems in the models");
-			displayValidationErrors(result);
-			logger.warn("Continuing workflow, ignoring model validation issues");
-		}
+    /**
+     * Instantiates a new show validation errors job.
+     * 
+     * @param configuration
+     *            the configuration
+     * @param validationJobs
+     *            the validation jobs
+     */
+    public ShowValidationErrorsJob(AbstractWorkflowBasedRunConfiguration configuration,
+            ModelValidationJob... validationJobs) {
+        super();
+        this.validationJobs = validationJobs;
+        this.configuration = configuration;
+    }
 
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        List<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
+        for (ModelValidationJob validationJob : validationJobs) {
+            result.addAll(validationJob.getResult());
+        }
 
-	@Override
-	public String getName() {
-		return "Show validation errors";
-	}
+        if (result.size() > 0) {
+            logger.warn("Found validation problems in the models");
+            displayValidationErrors(result);
+            logger.warn("Continuing workflow, ignoring model validation issues");
+        }
 
-	@Override
-	public void rollback(IProgressMonitor monitor)
-			throws RollbackFailedException {
-		// Not needed
-	}
+    }
 
-	private void displayValidationErrors(
-			List<SeverityAndIssue> overallResult)
-			throws UserCanceledException {
-		DisplayIssuesDialog runner = new DisplayIssuesDialog(overallResult);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    @Override
+    public String getName() {
+        return "Show validation errors";
+    }
 
-		/**
-		 * Disable the IssuesDialog, if SimuComConfig.SHOULD_THROW_EXCEPTION set
-		 * of false
-		 */
-		if (configuration.isInteractive()) {
-			PlatformUI.getWorkbench().getDisplay().syncExec(runner);
-			if (!runner.shouldProceedAfterErrorDialog())
-				throw new UserCanceledException();
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+        // Not needed
+    }
+
+    /**
+     * Display validation errors.
+     * 
+     * @param overallResult
+     *            the overall result
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */
+    private void displayValidationErrors(List<SeverityAndIssue> overallResult) throws UserCanceledException {
+        DisplayIssuesDialog runner = new DisplayIssuesDialog(overallResult);
+
+        /**
+         * Disable the IssuesDialog, if SimuComConfig.SHOULD_THROW_EXCEPTION set of false
+         */
+        if (configuration.isInteractive()) {
+            PlatformUI.getWorkbench().getDisplay().syncExec(runner);
+            if (!runner.shouldProceedAfterErrorDialog())
+                throw new UserCanceledException();
+        }
+    }
 }

@@ -13,130 +13,199 @@ import org.eclipse.xpand2.output.XmlBeautifier;
 import org.eclipse.xtend.expression.AbstractExpressionsUsingWorkflowComponent.GlobalVarDef;
 import org.eclipse.xtend.typesystem.emf.EmfMetaModel;
 
-/**Job which creates, configures and runs an XPand generator.
+/**
+ * Job which creates, configures and runs an XPand generator.
+ * 
  * @author Steffen Becker
  * @author groenda
  */
 public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
-	private EPackage[] ePackages = null;
-	private Outlet[] outlets;
-	private String expandExpression;
+    /** The e packages. */
+    private EPackage[] ePackages = null;
 
-	private List<String> advices = new ArrayList<String>();
-	private boolean checkProtectedRegions;
-	private String fileEncoding;
-	private boolean beautifyCode;
-	/** Definition of global variables. */
-	private GlobalVarDef[] glovalVarDefs;
+    /** The outlets. */
+    private Outlet[] outlets;
 
-	/**Creates a new XPand generator job.
-	 * @param slotContents Slots and their content.
-	 * @param ePackages EMF Meta-models which can be used by the generator.
-	 * @param outlets Outlets.
-	 * @param expandExpression Initial generation expression.
-	 * @param globalVarDefs Definitions for global Variables.
-	 */
-	public XpandGeneratorJob(HashMap<String, Object> slotContents,
-			EPackage[] ePackages,
-			Outlet[] outlets,
-			String expandExpression, GlobalVarDef[] globalVarDefs) {
-		super(new Generator(),slotContents);
+    /** The expand expression. */
+    private String expandExpression;
 
-		this.ePackages = ePackages;
-		this.outlets = outlets;
-		this.expandExpression = expandExpression;
-		this.glovalVarDefs = globalVarDefs;
+    /** The advices. */
+    private List<String> advices = new ArrayList<String>();
 
-		this.checkProtectedRegions = false;
-		this.fileEncoding = "ISO-8859-1";
-		this.beautifyCode = false;
-	}
+    /** The check protected regions. */
+    private boolean checkProtectedRegions;
 
-	/**Creates a new XPand generator job without global variables.
-	 * @param slotContents Slots and their content.
-	 * @param ePackages EMF Meta-models which can be used by the generator.
-	 * @param outlets Outlets.
-	 * @param expandExpression Initial generation expression.
-	 */
-	public XpandGeneratorJob(HashMap<String, Object> slotContents,
-			EPackage[] ePackages,
-			Outlet[] outlets,
-			String expandExpression) {
-		this(slotContents, ePackages, outlets, expandExpression, null);
-	}
+    /** The file encoding. */
+    private String fileEncoding;
 
-	/* (non-Javadoc)
-	 * @see de.uka.ipd.sdq.workflow.mdsd.oaw.AbstractOAWWorkflowJobBridge#setupOAWJob(org.openarchitectureware.workflow.lib.AbstractWorkflowComponent2)
-	 */
-	@Override
-	protected void setupOAWJob(Generator generatorJob) {
-		generatorJob.setExpand(expandExpression);
-		generatorJob.setFileEncoding(fileEncoding);
+    /** The beautify code. */
+    private boolean beautifyCode;
+    /** Definition of global variables. */
+    private GlobalVarDef[] glovalVarDefs;
 
-		for (EPackage p : ePackages) {
-			generatorJob.addMetaModel(new EmfMetaModel(p));
-		}
+    /**
+     * Creates a new XPand generator job.
+     * 
+     * @param slotContents
+     *            Slots and their content.
+     * @param ePackages
+     *            EMF Meta-models which can be used by the generator.
+     * @param outlets
+     *            Outlets.
+     * @param expandExpression
+     *            Initial generation expression.
+     * @param globalVarDefs
+     *            Definitions for global Variables.
+     */
+    public XpandGeneratorJob(HashMap<String, Object> slotContents, EPackage[] ePackages, Outlet[] outlets,
+            String expandExpression, GlobalVarDef[] globalVarDefs) {
+        super(new Generator(), slotContents);
 
-		String prResolver = "";
-		for (Outlet o : outlets) {
-			generatorJob.addOutlet(o);
-			prResolver += o.getPath() + ",";
-		}
-		prResolver = prResolver.substring(0,prResolver.length()-1);
+        this.ePackages = ePackages;
+        this.outlets = outlets;
+        this.expandExpression = expandExpression;
+        this.glovalVarDefs = globalVarDefs;
 
-		if (glovalVarDefs != null) {
-			for (GlobalVarDef def : glovalVarDefs) {
-				generatorJob.addGlobalVarDef(def);
-			}
-		}
+        this.checkProtectedRegions = false;
+        this.fileEncoding = "ISO-8859-1";
+        this.beautifyCode = false;
+    }
 
-		if (this.checkProtectedRegions) {
-			generatorJob.setPrSrcPaths(prResolver);
-			generatorJob.setPrExcludes(".svn");
-		}
+    /**
+     * Creates a new XPand generator job without global variables.
+     * 
+     * @param slotContents
+     *            Slots and their content.
+     * @param ePackages
+     *            EMF Meta-models which can be used by the generator.
+     * @param outlets
+     *            Outlets.
+     * @param expandExpression
+     *            Initial generation expression.
+     */
+    public XpandGeneratorJob(HashMap<String, Object> slotContents, EPackage[] ePackages, Outlet[] outlets,
+            String expandExpression) {
+        this(slotContents, ePackages, outlets, expandExpression, null);
+    }
 
-		for (String advice : this.advices) {
-			generatorJob.addAdvice(advice);
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.oaw.AbstractOAWWorkflowJobBridge#setupOAWJob(org.
+     * openarchitectureware.workflow.lib.AbstractWorkflowComponent2)
+     */
+    @Override
+    protected void setupOAWJob(Generator generatorJob) {
+        generatorJob.setExpand(expandExpression);
+        generatorJob.setFileEncoding(fileEncoding);
 
-		if (beautifyCode) {
-			ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
-			beautifier.add(new JavaBeautifier());
-			beautifier.add(new XmlBeautifier());
-			generatorJob.setBeautifier(beautifier);
-		}
-	}
+        for (EPackage p : ePackages) {
+            generatorJob.addMetaModel(new EmfMetaModel(p));
+        }
 
-	public List<String> getAdvices() {
-		return this.advices;
-	}
+        String prResolver = "";
+        for (Outlet o : outlets) {
+            generatorJob.addOutlet(o);
+            prResolver += o.getPath() + ",";
+        }
+        prResolver = prResolver.substring(0, prResolver.length() - 1);
 
-	public boolean isCheckProtectedRegions() {
-		return checkProtectedRegions;
-	}
+        if (glovalVarDefs != null) {
+            for (GlobalVarDef def : glovalVarDefs) {
+                generatorJob.addGlobalVarDef(def);
+            }
+        }
 
-	public void setCheckProtectedRegions(boolean checkProtectedRegions) {
-		this.checkProtectedRegions = checkProtectedRegions;
-	}
+        if (this.checkProtectedRegions) {
+            generatorJob.setPrSrcPaths(prResolver);
+            generatorJob.setPrExcludes(".svn");
+        }
 
-	public String getFileEncoding() {
-		return fileEncoding;
-	}
+        for (String advice : this.advices) {
+            generatorJob.addAdvice(advice);
+        }
 
-	public void setFileEncoding(String fileEncoding) {
-		this.fileEncoding = fileEncoding;
-	}
+        if (beautifyCode) {
+            ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
+            beautifier.add(new JavaBeautifier());
+            beautifier.add(new XmlBeautifier());
+            generatorJob.setBeautifier(beautifier);
+        }
+    }
 
-	public String getExpandExpression() {
-		return expandExpression;
-	}
+    /**
+     * Gets the advices.
+     * 
+     * @return the advices
+     */
+    public List<String> getAdvices() {
+        return this.advices;
+    }
 
-	public boolean isBeautifyCode() {
-		return beautifyCode;
-	}
+    /**
+     * Checks if is check protected regions.
+     * 
+     * @return true, if is check protected regions
+     */
+    public boolean isCheckProtectedRegions() {
+        return checkProtectedRegions;
+    }
 
-	public void setBeautifyCode(boolean beautifyCode) {
-		this.beautifyCode = beautifyCode;
-	}
+    /**
+     * Sets the check protected regions.
+     * 
+     * @param checkProtectedRegions
+     *            the new check protected regions
+     */
+    public void setCheckProtectedRegions(boolean checkProtectedRegions) {
+        this.checkProtectedRegions = checkProtectedRegions;
+    }
+
+    /**
+     * Gets the file encoding.
+     * 
+     * @return the file encoding
+     */
+    public String getFileEncoding() {
+        return fileEncoding;
+    }
+
+    /**
+     * Sets the file encoding.
+     * 
+     * @param fileEncoding
+     *            the new file encoding
+     */
+    public void setFileEncoding(String fileEncoding) {
+        this.fileEncoding = fileEncoding;
+    }
+
+    /**
+     * Gets the expand expression.
+     * 
+     * @return the expand expression
+     */
+    public String getExpandExpression() {
+        return expandExpression;
+    }
+
+    /**
+     * Checks if is beautify code.
+     * 
+     * @return true, if is beautify code
+     */
+    public boolean isBeautifyCode() {
+        return beautifyCode;
+    }
+
+    /**
+     * Sets the beautify code.
+     * 
+     * @param beautifyCode
+     *            the new beautify code
+     */
+    public void setBeautifyCode(boolean beautifyCode) {
+        this.beautifyCode = beautifyCode;
+    }
 }

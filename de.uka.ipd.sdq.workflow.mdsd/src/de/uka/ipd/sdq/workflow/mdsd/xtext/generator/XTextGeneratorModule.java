@@ -1,44 +1,73 @@
 package de.uka.ipd.sdq.workflow.mdsd.xtext.generator;
 
-
-
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule;
 
+/**
+ * The Class XTextGeneratorModule.
+ */
+public class XTextGeneratorModule extends AbstractGenericResourceRuntimeModule {
 
-public class XTextGeneratorModule extends AbstractGenericResourceRuntimeModule 
-{
-	
-	private final Class<? extends IGenerator> generatorClass;
-	private final String languageName;
-	private final String fileExtension;
-	
-	public XTextGeneratorModule(Class<? extends IGenerator> generatorClass,
-			String languageName, String fileExtension) {
-		super();
-		this.generatorClass = generatorClass;
-		this.languageName = languageName;
-		this.fileExtension = fileExtension;
-	}
+    /** The generator class. */
+    private final Class<? extends IGenerator> generatorClass;
+    
+    /** The language name. */
+    private final String languageName;
+    
+    /** The file extension. */
+    private final String fileExtension;
 
-	@Override
-	protected String getLanguageName() {
-		return languageName;
-	}
+    /**
+     * Instantiates a new x text generator module.
+     * 
+     * @param generatorClass
+     *            the generator class
+     * @param languageName
+     *            the language name
+     * @param fileExtension
+     *            the file extension
+     */
+    public XTextGeneratorModule(Class<? extends IGenerator> generatorClass, String languageName, String fileExtension) {
+        super();
+        this.generatorClass = generatorClass;
+        this.languageName = languageName;
+        this.fileExtension = fileExtension;
+    }
 
-	@Override
-	protected String getFileExtensions() {
-		return fileExtension;
-	}
-	
-	public Class<? extends IGenerator> bindIGenerator() {
-		return generatorClass;
-	}
+    /* (non-Javadoc)
+     * @see org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule#getLanguageName()
+     */
+    @Override
+    protected String getLanguageName() {
+        return languageName;
+    }
 
-	public Class<? extends ResourceSet> bindResourceSet() {
-		return ResourceSetImpl.class;
-	}
+    /* (non-Javadoc)
+     * @see org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule#getFileExtensions()
+     */
+    @Override
+    protected String getFileExtensions() {
+        return fileExtension;
+    }
+
+    /**
+     * Bind i generator.
+     * 
+     * @return the class<? extends i generator>
+     */
+    public Class<? extends IGenerator> bindIGenerator() {
+        return generatorClass;
+    }
+
+    /**
+     * Bind resource set.
+     * 
+     * @return the class<? extends resource set>
+     */
+    public Class<? extends ResourceSet> bindResourceSet() {
+        return ResourceSetImpl.class;
+    }
 
 }

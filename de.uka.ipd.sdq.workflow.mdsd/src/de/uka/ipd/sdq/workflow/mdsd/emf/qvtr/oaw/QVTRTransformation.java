@@ -21,199 +21,329 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 
 /**
- * A OAW workflow component for QVT-R transformations.
- * It uses registered QVT-R engines.
- *  
+ * A OAW workflow component for QVT-R transformations. It uses registered QVT-R engines.
+ * 
  * @author Thomas Schuischel
- *
+ * 
  */
-public class QVTRTransformation extends AbstractWorkflowComponent  {
+public class QVTRTransformation extends AbstractWorkflowComponent {
 
-	static Logger logger = Logger.getLogger(QVTRTransformation.class);
-	
-	private static final String COMPONENT_NAME = "QVTRTransformation";
-	
-	private Boolean debug = false;
-	private String qvtrScript = null;
-	private AbstractQVTREngine qvtrEngineType = null;
-	protected ResourceSet resourceSet;
+    /** The logger. */
+    static Logger logger = Logger.getLogger(QVTRTransformation.class);
 
-	private Collection<String> metaModels = new ArrayList<String>();
+    /** The Constant COMPONENT_NAME. */
+    private static final String COMPONENT_NAME = "QVTRTransformation";
 
-	private URI traceFileURI = null;
+    /** The debug. */
+    private Boolean debug = false;
 
-	private Collection<String> inputModels = new ArrayList<String>();
+    /** The qvtr script. */
+    private String qvtrScript = null;
 
-	private Collection<String> outputModels = new ArrayList<String>();
-	
-	@Override
-	protected void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor,
-			Issues issues) {
-		//ctx.get(getModelSlot());
-		run(issues);
-		
-	}
-	
-	public void run(Issues issues)  {
-		
-		logger.info("Executing QVTR Transformation...");
-		logger.debug("Script: "+ getQvtrScript());
-		 
-		this.resourceSet = new ResourceSetImpl();
-		this.resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
-		Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-		
-		AbstractQVTREngine qvtrEngine = getQvtrEngineType();
-		
-		if(qvtrEngine==null)
-		{
-			issues.addError(this, "No QVT-R Engine available.");
-			return;
-		}
-		
-		qvtrEngine.setDebug(getDebug());
-		
-		QVTRScript qvtrScript = new QVTRScript();
-		qvtrScript.setMetaModels(getMetaModelsFromString(getMetaModelURIs()));
-		qvtrScript.setQVTFile(getQvtrScript());
-		
-	/*	if(configuration.getTracesPartitionName() != null) {
-			ResourceSetPartition tracesPartition = this.blackboard.getPartition(configuration.getTracesPartitionName());
-			if(tracesPartition == null)	{
-				tracesPartition = new ResourceSetPartition();
-				this.blackboard.addPartition(configuration.getTracesPartitionName(), tracesPartition);
-			}
-			qvtrEngine.setTracesResourceSet(tracesPartition.getResourceSet());
-		}*/
-		
-		qvtrEngine.setWorkingDirectory(getTraceFileURI());
-		
-		qvtrEngine.addModels(getResorces(inputModels));
-		
-		qvtrEngine.addModels(getAndCreateResorces(outputModels));
-		
-		qvtrEngine.addModels(getResorces(inputModels));
-		
-		qvtrEngine.setQVTRScript(qvtrScript);
-		
-		try {
-			qvtrEngine.transform();
-		} catch (Throwable e) {
-			issues.addError(this, "Error in mediniQVT Transformation",e);
-			return;
-		}
-		
-		logger.info("Transformation executed successfully");
-		issues.addInfo("Transformation executed successfully");
-	}
+    /** The qvtr engine type. */
+    private AbstractQVTREngine qvtrEngineType = null;
 
+    /** The resource set. */
+    protected ResourceSet resourceSet;
 
-	public void setTraceFileURI(String traceFileURI) {
-		this.traceFileURI = URI.createURI(traceFileURI);
-	}
-	
-	public URI getTraceFileURI() {
-		return traceFileURI;
-	}
+    /** The meta models. */
+    private Collection<String> metaModels = new ArrayList<String>();
 
-	public void setDebug(Boolean debug) {
-		this.debug = debug;
-	}
+    /** The trace file uri. */
+    private URI traceFileURI = null;
 
-	public Boolean getDebug() {
-		return debug;
-	}
+    /** The input models. */
+    private Collection<String> inputModels = new ArrayList<String>();
 
-	public void setQvtrScript(String qvtrScript) {
-		this.qvtrScript = qvtrScript;
-	}
+    /** The output models. */
+    private Collection<String> outputModels = new ArrayList<String>();
 
-	public String getQvtrScript() {
-		return qvtrScript;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent#invokeInternal(org.eclipse.emf.mwe
+     * .core.WorkflowContext, org.eclipse.emf.mwe.core.monitor.ProgressMonitor,
+     * org.eclipse.emf.mwe.core.issues.Issues)
+     */
+    @Override
+    protected void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor, Issues issues) {
+        // ctx.get(getModelSlot());
+        run(issues);
 
-	public AbstractQVTREngine getQvtrEngineType() {
-		return qvtrEngineType;
-	}
+    }
 
-	public void setQvtrEngineType(AbstractQVTREngine qvtrEngineType) {
-		this.qvtrEngineType = qvtrEngineType;
-	}
-	
-	public Collection<String> getInputModels() {
-		return inputModels;
-	}
+    /**
+     * Run.
+     * 
+     * @param issues
+     *            the issues
+     */
+    public void run(Issues issues) {
 
-	public void addInputModels(String inputModels) {
-		this.inputModels.add(inputModels);
-	}
+        logger.info("Executing QVTR Transformation...");
+        logger.debug("Script: " + getQvtrScript());
 
-	public Collection<String> getOutputModels() {
-		return outputModels;
-	}
+        this.resourceSet = new ResourceSetImpl();
+        this.resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+                .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 
-	public void setOutputModels(String outputModels) {
-		this.outputModels.add(outputModels);
-	}
+        AbstractQVTREngine qvtrEngine = getQvtrEngineType();
 
-	public Collection<String> getMetaModelURIs() {
-		return metaModels;
-	}
+        if (qvtrEngine == null) {
+            issues.addError(this, "No QVT-R Engine available.");
+            return;
+        }
 
-	public void addMetaModelURI(String metaModel) {
-		this.metaModels.add(metaModel);
-	}
-	
-	protected Collection<Object> getMetaModelsFromString(Collection<String> models) {
-		Collection<Object> modelResources = new ArrayList<Object>();
-		for(String model :models) {
-			URI uri = URI.createURI(model, false);
-			EList<EObject> objects= resourceSet.getResource(uri, true).getContents();
-			for(EObject o : objects) {
-				if(o instanceof EPackageImpl) {
-					EPackageImpl p = (EPackageImpl) o;
-					//this.resourceSet.getPackageRegistry().put(p.getNsURI(), p);
-					modelResources.add(p);
-				}
-			}
-			
-		}
-		return modelResources;
-	}
-	
-	private Collection<Resource> getResorces(Collection<String> models) {
-		Collection<Resource> modelResources = new ArrayList<Resource>();
-		for(String model :models) {
-			URI uri = URI.createURI(model, false);
-			Resource r = resourceSet.getResource(uri, true);
-			modelResources.add(r);
-		}
-		return modelResources;
-	}
-	
-	private Collection<Resource> getAndCreateResorces(Collection<String> models) {
-		Collection<Resource> modelResources = new ArrayList<Resource>();
-		ResourceSet rSet = new ResourceSetImpl();
-		for(String model :models) {
-			URI uri = URI.createURI(model, false);
-			Resource r = rSet.createResource(uri);
-			modelResources.add(r);
-		}
-		return modelResources;
-	}
-	
-	/**
-	 * @see org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent#getComponentName()
-	 */
-	@Override
-	public String getComponentName() {
-		return COMPONENT_NAME;
-	}
-	
-	@Override
-	public void checkConfiguration(final Issues issues) {
-		if (qvtrScript == null) {
-			issues.addError("QTRScript not set");
-		}
-	}
+        qvtrEngine.setDebug(getDebug());
+
+        QVTRScript qvtrScript = new QVTRScript();
+        qvtrScript.setMetaModels(getMetaModelsFromString(getMetaModelURIs()));
+        qvtrScript.setQVTFile(getQvtrScript());
+
+        /*
+         * if(configuration.getTracesPartitionName() != null) { ResourceSetPartition tracesPartition
+         * = this.blackboard.getPartition(configuration.getTracesPartitionName());
+         * if(tracesPartition == null) { tracesPartition = new ResourceSetPartition();
+         * this.blackboard.addPartition(configuration.getTracesPartitionName(), tracesPartition); }
+         * qvtrEngine.setTracesResourceSet(tracesPartition.getResourceSet()); }
+         */
+
+        qvtrEngine.setWorkingDirectory(getTraceFileURI());
+
+        qvtrEngine.addModels(getResorces(inputModels));
+
+        qvtrEngine.addModels(getAndCreateResorces(outputModels));
+
+        qvtrEngine.addModels(getResorces(inputModels));
+
+        qvtrEngine.setQVTRScript(qvtrScript);
+
+        try {
+            qvtrEngine.transform();
+        } catch (Throwable e) {
+            issues.addError(this, "Error in mediniQVT Transformation", e);
+            return;
+        }
+
+        logger.info("Transformation executed successfully");
+        issues.addInfo("Transformation executed successfully");
+    }
+
+    /**
+     * Sets the trace file uri.
+     * 
+     * @param traceFileURI
+     *            the new trace file uri
+     */
+    public void setTraceFileURI(String traceFileURI) {
+        this.traceFileURI = URI.createURI(traceFileURI);
+    }
+
+    /**
+     * Gets the trace file uri.
+     * 
+     * @return the trace file uri
+     */
+    public URI getTraceFileURI() {
+        return traceFileURI;
+    }
+
+    /**
+     * Sets the debug.
+     * 
+     * @param debug
+     *            the new debug
+     */
+    public void setDebug(Boolean debug) {
+        this.debug = debug;
+    }
+
+    /**
+     * Gets the debug.
+     * 
+     * @return the debug
+     */
+    public Boolean getDebug() {
+        return debug;
+    }
+
+    /**
+     * Sets the qvtr script.
+     * 
+     * @param qvtrScript
+     *            the new qvtr script
+     */
+    public void setQvtrScript(String qvtrScript) {
+        this.qvtrScript = qvtrScript;
+    }
+
+    /**
+     * Gets the qvtr script.
+     * 
+     * @return the qvtr script
+     */
+    public String getQvtrScript() {
+        return qvtrScript;
+    }
+
+    /**
+     * Gets the qvtr engine type.
+     * 
+     * @return the qvtr engine type
+     */
+    public AbstractQVTREngine getQvtrEngineType() {
+        return qvtrEngineType;
+    }
+
+    /**
+     * Sets the qvtr engine type.
+     * 
+     * @param qvtrEngineType
+     *            the new qvtr engine type
+     */
+    public void setQvtrEngineType(AbstractQVTREngine qvtrEngineType) {
+        this.qvtrEngineType = qvtrEngineType;
+    }
+
+    /**
+     * Gets the input models.
+     * 
+     * @return the input models
+     */
+    public Collection<String> getInputModels() {
+        return inputModels;
+    }
+
+    /**
+     * Adds the input models.
+     * 
+     * @param inputModels
+     *            the input models
+     */
+    public void addInputModels(String inputModels) {
+        this.inputModels.add(inputModels);
+    }
+
+    /**
+     * Gets the output models.
+     * 
+     * @return the output models
+     */
+    public Collection<String> getOutputModels() {
+        return outputModels;
+    }
+
+    /**
+     * Sets the output models.
+     * 
+     * @param outputModels
+     *            the new output models
+     */
+    public void setOutputModels(String outputModels) {
+        this.outputModels.add(outputModels);
+    }
+
+    /**
+     * Gets the meta model ur is.
+     * 
+     * @return the meta model ur is
+     */
+    public Collection<String> getMetaModelURIs() {
+        return metaModels;
+    }
+
+    /**
+     * Adds the meta model uri.
+     * 
+     * @param metaModel
+     *            the meta model
+     */
+    public void addMetaModelURI(String metaModel) {
+        this.metaModels.add(metaModel);
+    }
+
+    /**
+     * Gets the meta models from string.
+     * 
+     * @param models
+     *            the models
+     * @return the meta models from string
+     */
+    protected Collection<Object> getMetaModelsFromString(Collection<String> models) {
+        Collection<Object> modelResources = new ArrayList<Object>();
+        for (String model : models) {
+            URI uri = URI.createURI(model, false);
+            EList<EObject> objects = resourceSet.getResource(uri, true).getContents();
+            for (EObject o : objects) {
+                if (o instanceof EPackageImpl) {
+                    EPackageImpl p = (EPackageImpl) o;
+                    // this.resourceSet.getPackageRegistry().put(p.getNsURI(), p);
+                    modelResources.add(p);
+                }
+            }
+
+        }
+        return modelResources;
+    }
+
+    /**
+     * Gets the resorces.
+     * 
+     * @param models
+     *            the models
+     * @return the resorces
+     */
+    private Collection<Resource> getResorces(Collection<String> models) {
+        Collection<Resource> modelResources = new ArrayList<Resource>();
+        for (String model : models) {
+            URI uri = URI.createURI(model, false);
+            Resource r = resourceSet.getResource(uri, true);
+            modelResources.add(r);
+        }
+        return modelResources;
+    }
+
+    /**
+     * Gets the and create resorces.
+     * 
+     * @param models
+     *            the models
+     * @return the and create resorces
+     */
+    private Collection<Resource> getAndCreateResorces(Collection<String> models) {
+        Collection<Resource> modelResources = new ArrayList<Resource>();
+        ResourceSet rSet = new ResourceSetImpl();
+        for (String model : models) {
+            URI uri = URI.createURI(model, false);
+            Resource r = rSet.createResource(uri);
+            modelResources.add(r);
+        }
+        return modelResources;
+    }
+
+    /**
+     * Gets the component name.
+     * 
+     * @return the component name
+     * @see org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent#getComponentName()
+     */
+    @Override
+    public String getComponentName() {
+        return COMPONENT_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.emf.mwe.core.WorkflowComponent#checkConfiguration(org.eclipse.emf.mwe.core.issues
+     * .Issues)
+     */
+    @Override
+    public void checkConfiguration(final Issues issues) {
+        if (qvtrScript == null) {
+            issues.addError("QTRScript not set");
+        }
+    }
 }

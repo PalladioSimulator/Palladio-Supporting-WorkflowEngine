@@ -12,52 +12,92 @@ import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
-public class SavePartitionToDiskJob implements IJob,
-		IBlackboardInteractingJob<MDSDBlackboard> {
+/**
+ * The Class SavePartitionToDiskJob.
+ */
+public class SavePartitionToDiskJob implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 
-	private static final Logger logger = Logger.getLogger(SavePartitionToDiskJob.class);
-	
-	private MDSDBlackboard blackboard;
-	private String partitionID;
-	private Map<String, Object> saveOptions = null;
+    /** The Constant logger. */
+    private static final Logger logger = Logger.getLogger(SavePartitionToDiskJob.class);
 
-	public SavePartitionToDiskJob(String partitionID) {
-		super();
-		this.partitionID = partitionID;
-	}
-	
-	public SavePartitionToDiskJob(String partitionID, Map<String, Object> saveOptions) 
-	{
-		super();
-		this.partitionID = partitionID;
-		this.saveOptions = saveOptions;
-		
-	}
+    /** The blackboard. */
+    private MDSDBlackboard blackboard;
 
-	@Override
-	public void execute(IProgressMonitor monitor) throws JobFailedException,
-			UserCanceledException {
-		logger.debug("Saving partition "+partitionID);
-		ResourceSetPartition partition = this.blackboard.getPartition(this.partitionID);
-		try {
-			partition.storeAllResources(saveOptions);
-		} catch (IOException e) {
-			throw new JobFailedException("Failed to save models",e);
-		}
-	}
+    /** The partition id. */
+    private String partitionID;
 
-	@Override
-	public String getName() {
-		return "Store all resources of a partion to disk";
-	}
+    /** The save options. */
+    private Map<String, Object> saveOptions = null;
 
-	@Override
-	public void rollback(IProgressMonitor monitor)
-			throws RollbackFailedException {
-	}
+    /**
+     * Instantiates a new save partition to disk job.
+     * 
+     * @param partitionID
+     *            the partition id
+     */
+    public SavePartitionToDiskJob(String partitionID) {
+        super();
+        this.partitionID = partitionID;
+    }
 
-	@Override
-	public void setBlackboard(MDSDBlackboard blackboard) {
-		this.blackboard = blackboard;
-	}
+    /**
+     * Instantiates a new save partition to disk job.
+     * 
+     * @param partitionID
+     *            the partition id
+     * @param saveOptions
+     *            the save options
+     */
+    public SavePartitionToDiskJob(String partitionID, Map<String, Object> saveOptions) {
+        super();
+        this.partitionID = partitionID;
+        this.saveOptions = saveOptions;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        logger.debug("Saving partition " + partitionID);
+        ResourceSetPartition partition = this.blackboard.getPartition(this.partitionID);
+        try {
+            partition.storeAllResources(saveOptions);
+        } catch (IOException e) {
+            throw new JobFailedException("Failed to save models", e);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    @Override
+    public String getName() {
+        return "Store all resources of a partion to disk";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @Override
+    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
+     * Blackboard)
+     */
+    @Override
+    public void setBlackboard(MDSDBlackboard blackboard) {
+        this.blackboard = blackboard;
+    }
 }

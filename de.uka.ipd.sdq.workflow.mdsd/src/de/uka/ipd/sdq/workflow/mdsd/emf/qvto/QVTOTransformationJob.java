@@ -21,82 +21,108 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal.QVTOExecutor;
  * @author Michael Hauck
  * 
  */
-public class QVTOTransformationJob 
-implements IBlackboardInteractingJob<MDSDBlackboard> {
-	
-	private static final Logger logger = Logger.getLogger(QVTOTransformationJob.class);
-	private QVTOTransformationJobConfiguration configuration;
-	private MDSDBlackboard blackboard;
+public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
-	public QVTOTransformationJob(QVTOTransformationJobConfiguration conf) {
-		super();
-		
-		this.configuration = conf;
-	}
+    /** The Constant logger. */
+    private static final Logger logger = Logger.getLogger(QVTOTransformationJob.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seede.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.
-	 * IProgressMonitor)
-	 */
-	public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-		logger.info("Executing QVTO Transformation...");
-		logger.debug("Script: "+configuration.getScriptFileURI());
-		
-		List<EObject>[] parameter = getModelContents(); // parameter is used as inout parameter
-		QVTOResult result = QVTOExecutor.execute(configuration.getScriptFileURI(), configuration.getOptions(), parameter);
-		if (!result.isSuccess()) {
-			logger.error("Transformation job failed");
-			logger.error(result.getDiagnosticResult().getMessage());
-			result.logStackTrace(logger, Level.ERROR);
-			throw new JobFailedException("Transformation execution failed");
-		}
-		storeResultOnBlackboard(parameter);
-		logger.info("Transformation executed successfully");
-	}
-	
-	private void storeResultOnBlackboard(List<EObject>[] parameter) {
-		for (int i = 0; i < parameter.length; i++) {
-			blackboard.setContents(configuration.getInoutModels()[i],parameter[i]);
-		}
-	}
+    /** The configuration. */
+    private QVTOTransformationJobConfiguration configuration;
 
-	@SuppressWarnings("unchecked")
-	private List<EObject>[] getModelContents() {
-		List<EObject>[] modelContents = new List[configuration.getInoutModels().length];
-		
-		for (int i = 0; i < configuration.getInoutModels().length; i++) {
-			if (blackboard.modelExists(configuration.getInoutModels()[i])) {
-				modelContents[i] = blackboard.getContents(configuration.getInoutModels()[i]);
-			} else {
-				modelContents[i] = Collections.EMPTY_LIST;
-			}
-		}
-		
-		return modelContents;
-	}
+    /** The blackboard. */
+    private MDSDBlackboard blackboard;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.uka.ipd.sdq.workflow.IJob#getName()
-	 */
-	public String getName() {
-		return "Perform QVT Operational Transformation";
-	}
+    /**
+     * Instantiates a new qVTO transformation job.
+     * 
+     * @param conf
+     *            the conf
+     */
+    public QVTOTransformationJob(QVTOTransformationJobConfiguration conf) {
+        super();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @seede.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.
-	 * IProgressMonitor)
-	 */
-	public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-		// Not needed yet.
-	}
+        this.configuration = conf;
+    }
 
-	public void setBlackboard(MDSDBlackboard blackboard) {
-		this.blackboard = blackboard;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @seede.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime. IProgressMonitor)
+     */
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        logger.info("Executing QVTO Transformation...");
+        logger.debug("Script: " + configuration.getScriptFileURI());
+
+        List<EObject>[] parameter = getModelContents(); // parameter is used as inout parameter
+        QVTOResult result = QVTOExecutor.execute(configuration.getScriptFileURI(), configuration.getOptions(),
+                parameter);
+        if (!result.isSuccess()) {
+            logger.error("Transformation job failed");
+            logger.error(result.getDiagnosticResult().getMessage());
+            result.logStackTrace(logger, Level.ERROR);
+            throw new JobFailedException("Transformation execution failed");
+        }
+        storeResultOnBlackboard(parameter);
+        logger.info("Transformation executed successfully");
+    }
+
+    /**
+     * Store result on blackboard.
+     * 
+     * @param parameter
+     *            the parameter
+     */
+    private void storeResultOnBlackboard(List<EObject>[] parameter) {
+        for (int i = 0; i < parameter.length; i++) {
+            blackboard.setContents(configuration.getInoutModels()[i], parameter[i]);
+        }
+    }
+
+    /**
+     * Gets the model contents.
+     * 
+     * @return the model contents
+     */
+    @SuppressWarnings("unchecked")
+    private List<EObject>[] getModelContents() {
+        List<EObject>[] modelContents = new List[configuration.getInoutModels().length];
+
+        for (int i = 0; i < configuration.getInoutModels().length; i++) {
+            if (blackboard.modelExists(configuration.getInoutModels()[i])) {
+                modelContents[i] = blackboard.getContents(configuration.getInoutModels()[i]);
+            } else {
+                modelContents[i] = Collections.EMPTY_LIST;
+            }
+        }
+
+        return modelContents;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    public String getName() {
+        return "Perform QVT Operational Transformation";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @seede.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime. IProgressMonitor)
+     */
+    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+        // Not needed yet.
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
+     * Blackboard)
+     */
+    public void setBlackboard(MDSDBlackboard blackboard) {
+        this.blackboard = blackboard;
+    }
 }

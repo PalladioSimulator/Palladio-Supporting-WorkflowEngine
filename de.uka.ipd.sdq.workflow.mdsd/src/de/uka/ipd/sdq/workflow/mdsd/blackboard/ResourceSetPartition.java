@@ -15,188 +15,219 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
- * Implementation of a blackboard partition based on EMF Resource Sets. Each partition has
- * a resource set configured for the given EPackages. It can load a set of model resources.
+ * Implementation of a blackboard partition based on EMF Resource Sets. Each partition has a
+ * resource set configured for the given EPackages. It can load a set of model resources.
  * Inter-Model links are resolved up to the boundaries of the underlying resource set
+ * 
  * @author Steffen Becker
  */
 public class ResourceSetPartition {
-	/** Logger of this class.*/
-	private static final Logger logger = Logger.getLogger(ResourceSetPartition.class);
+    /** Logger of this class. */
+    private static final Logger logger = Logger.getLogger(ResourceSetPartition.class);
 
-	/** Common EMF resource set for all models in this partition. */
-	protected ResourceSet rs = new ResourceSetImpl();
+    /** Common EMF resource set for all models in this partition. */
+    protected ResourceSet rs = new ResourceSetImpl();
 
-	/**
-	 * @return Returns the internal used resource set of this blackboard partition
-	 */
-	public ResourceSet getResourceSet() {
-		return rs;
-	}
+    /**
+     * Gets the resource set.
+     * 
+     * @return Returns the internal used resource set of this blackboard partition
+     */
+    public ResourceSet getResourceSet() {
+        return rs;
+    }
 
-	/**
-	 * Initialize the EPackages of the models to be stored in this blackboard partition
-	 * @param ePackages The list of EPackages which form the meta-model of the model stored in this model partition
-	 */
-	public void initialiseResourceSetEPackages(EPackage[] ePackages) {
-		for (EPackage ePackage : ePackages) {
-			rs.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
-		}
-	}
+    /**
+     * Initialize the EPackages of the models to be stored in this blackboard partition.
+     * 
+     * @param ePackages
+     *            The list of EPackages which form the meta-model of the model stored in this model
+     *            partition
+     */
+    public void initialiseResourceSetEPackages(EPackage[] ePackages) {
+        for (EPackage ePackage : ePackages) {
+            rs.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
+        }
+    }
 
-	/**
-	 * Load the model with the given URI into this blackboard partition
-	 * @param modelURI The URI of the model to be loaded
-	 * @return The loaded resource
-	 */
-	public Resource loadModel(URI modelURI) {
-		return rs.getResource(modelURI, true);
-	}
+    /**
+     * Load the model with the given URI into this blackboard partition.
+     * 
+     * @param modelURI
+     *            The URI of the model to be loaded
+     * @return The loaded resource
+     */
+    public Resource loadModel(URI modelURI) {
+        return rs.getResource(modelURI, true);
+    }
 
-	/**
-	 * Returns all top level EObjects of the given model stored under the given URI. The model has to be
-	 * created first and it has to have at least one top level element
-	 * @param modelURI The model URI
-	 * @return All top level elements of the model
-	 */
-	public List<EObject> getContents(URI modelURI) {
-		Resource r = rs.getResource(modelURI, false);
-		if (r == null) {
-			throw new IllegalArgumentException("Model with URI "+modelURI+" must be loaded first");
-		}
-		if (r.getContents().size() == 0) {
-			throw new IllegalArgumentException("Model does not contain any model elements yet");
-		}
-		return r.getContents();
-	}
+    /**
+     * Returns all top level EObjects of the given model stored under the given URI. The model has
+     * to be created first and it has to have at least one top level element
+     * 
+     * @param modelURI
+     *            The model URI
+     * @return All top level elements of the model
+     */
+    public List<EObject> getContents(URI modelURI) {
+        Resource r = rs.getResource(modelURI, false);
+        if (r == null) {
+            throw new IllegalArgumentException("Model with URI " + modelURI + " must be loaded first");
+        }
+        if (r.getContents().size() == 0) {
+            throw new IllegalArgumentException("Model does not contain any model elements yet");
+        }
+        return r.getContents();
+    }
 
-	/**
-	 * Returns the first top level EObject of the given model stored under the given URI. The model has to be
-	 * created first and it has to have at least one top level element
-	 * @param modelURI The model URI
-	 * @return The first top level element of the model
-	 */
-	public EObject getFirstContentElement(URI modelURI) {
-		return getContents(modelURI).get(0);
-	}
+    /**
+     * Returns the first top level EObject of the given model stored under the given URI. The model
+     * has to be created first and it has to have at least one top level element
+     * 
+     * @param modelURI
+     *            The model URI
+     * @return The first top level element of the model
+     */
+    public EObject getFirstContentElement(URI modelURI) {
+        return getContents(modelURI).get(0);
+    }
 
-	/**
-	 * Load the model with the given URI into this blackboard partition
-	 * @param modelURI The URI of the model to be loaded
-	 * @return The loaded resource
-	 * @deprecated Use loadModel taking a URI instead
-	 */
-	@Deprecated
-	public Resource loadModel(String modelURI) {
-		Resource r;
-		if (URI.createURI(modelURI).isPlatform() || modelURI.indexOf("://") >= 0) {
-			r = loadModel(URI.createURI(modelURI));
-		} else {
-			r = loadModel(URI.createFileURI(modelURI));
-		}
-		return r;
-//BRG 07.12.09
-//		java.util.Map<EObject,Collection<EStructuralFeature.Setting>> map = EcoreUtil.CrossReferencer.find(Collections.singleton(r.getContents().get(0)));
-//		EcoreUtil.resolveAll(r);
+    /**
+     * Load the model with the given URI into this blackboard partition.
+     * 
+     * @param modelURI
+     *            The URI of the model to be loaded
+     * @return The loaded resource
+     * @deprecated Use loadModel taking a URI instead
+     */
+    @Deprecated
+    public Resource loadModel(String modelURI) {
+        Resource r;
+        if (URI.createURI(modelURI).isPlatform() || modelURI.indexOf("://") >= 0) {
+            r = loadModel(URI.createURI(modelURI));
+        } else {
+            r = loadModel(URI.createFileURI(modelURI));
+        }
+        return r;
+        // BRG 07.12.09
+        // java.util.Map<EObject,Collection<EStructuralFeature.Setting>> map =
+        // EcoreUtil.CrossReferencer.find(Collections.singleton(r.getContents().get(0)));
+        // EcoreUtil.resolveAll(r);
 
-	}
+    }
 
-	/**
-	 * Resolve all model proxies, i.e., load all dependent models
-	 */
-	public void resolveAllProxies() {
-		ArrayList<Resource> currentResources = null;
-		// The resolveAll() call is not recursive; thus we have to repeat
-		// the thing until the resource set does not grow any more:
-		do {
-			// Copy list to avoid concurrent modification exceptions:
-			currentResources = new ArrayList<Resource>(this.rs.getResources());
-			// TODO: check if this loop can be replaced through a single call
-			// to EcoreUtil.resolveAll(rs). Maybe this is even already recursive,
-			// i.e. we can eliminate the outer do..while loop?
-			for (Resource r : currentResources) {
-				EcoreUtil.resolveAll(r);
-			}
-		} while (currentResources.size() != this.rs.getResources().size());
-	}
+    /**
+     * Resolve all model proxies, i.e., load all dependent models
+     */
+    public void resolveAllProxies() {
+        ArrayList<Resource> currentResources = null;
+        // The resolveAll() call is not recursive; thus we have to repeat
+        // the thing until the resource set does not grow any more:
+        do {
+            // Copy list to avoid concurrent modification exceptions:
+            currentResources = new ArrayList<Resource>(this.rs.getResources());
+            // TODO: check if this loop can be replaced through a single call
+            // to EcoreUtil.resolveAll(rs). Maybe this is even already recursive,
+            // i.e. we can eliminate the outer do..while loop?
+            for (Resource r : currentResources) {
+                EcoreUtil.resolveAll(r);
+            }
+        } while (currentResources.size() != this.rs.getResources().size());
+    }
 
-	/**
-	 * Replaces the contents of the given model with newContents
-	 * @param modelID The model extent whose contents get replaced
-	 * @param newContents The new contents
-	 */
-	public void setContents(URI modelID, List<EObject> newContents) {
-		if (!hasModel(modelID)) {
-			getResourceSet().createResource(modelID);
-		}
-		Resource r = getResourceSet().getResource(modelID, false);
-		if (newContents != r.getContents()) {
-			r.getContents().clear();
-			r.getContents().addAll(newContents);
-		}
-	}
+    /**
+     * Replaces the contents of the given model with newContents.
+     * 
+     * @param modelID
+     *            The model extent whose contents get replaced
+     * @param newContents
+     *            The new contents
+     */
+    public void setContents(URI modelID, List<EObject> newContents) {
+        if (!hasModel(modelID)) {
+            getResourceSet().createResource(modelID);
+        }
+        Resource r = getResourceSet().getResource(modelID, false);
+        if (newContents != r.getContents()) {
+            r.getContents().clear();
+            r.getContents().addAll(newContents);
+        }
+    }
 
-	/**
-	 * Replaces the contents of the given model with newContents
-	 * @param modelID The model extent whose contents get replaced
-	 * @param newContents The new contents, single object
-	 */
-	public void setContents(URI modelID, EObject newContents) {
+    /**
+     * Replaces the contents of the given model with newContents.
+     * 
+     * @param modelID
+     *            The model extent whose contents get replaced
+     * @param newContents
+     *            The new contents, single object
+     */
+    public void setContents(URI modelID, EObject newContents) {
 
-		ArrayList<EObject> list = new ArrayList<EObject>();
-		list.add(newContents);
-		setContents(modelID, list);
-	}
+        ArrayList<EObject> list = new ArrayList<EObject>();
+        list.add(newContents);
+        setContents(modelID, list);
+    }
 
-	/**Determines if the Resource referenced by the parameter contains an EMF model.
-	 * @param modelURI URI of the Resource.
-	 * @return {@code true} if, and only if, an EMF model is contained.
-	 */
-	public boolean hasModel(URI modelURI) {
-		return rs.getResource(modelURI, false) != null;
-	}
+    /**
+     * Determines if the Resource referenced by the parameter contains an EMF model.
+     * 
+     * @param modelURI
+     *            URI of the Resource.
+     * @return {@code true} if, and only if, an EMF model is contained.
+     */
+    public boolean hasModel(URI modelURI) {
+        return rs.getResource(modelURI, false) != null;
+    }
 
-	/**Stores all resources in the resource set.
-	 * @throws IOException If saving leads to I/O-Errors.
-	 */
-	public void storeAllResources() throws IOException {
-		storeAllResources(null);
-	}
+    /**
+     * Stores all resources in the resource set.
+     * 
+     * @throws IOException
+     *             If saving leads to I/O-Errors.
+     */
+    public void storeAllResources() throws IOException {
+        storeAllResources(null);
+    }
 
+    /**
+     * Stores all resources in the resource set.
+     * 
+     * @param saveOptions
+     *            Save options to use
+     * @throws IOException
+     *             IOException If saving leads to I/O-Errors.
+     */
+    public void storeAllResources(Map<String, Object> saveOptions) throws IOException {
+        for (Resource r : rs.getResources()) {
+            logger.debug("Save resource " + r.getURI());
+            if (r.getURI().isFile() || r.getURI().isPlatformResource()) {
+                r.save(saveOptions);
+            }
+        }
+    }
 
-
-	/**
-	 * Stores all resources in the resource set.
-	 * @param saveOptions Save options to use
-	 * @throws IOException IOException If saving leads to I/O-Errors.
-	 */
-	public void storeAllResources(Map<String, Object> saveOptions)
-			throws IOException {
-		for (Resource r : rs.getResources()) {
-			logger.debug("Save resource "+r.getURI());
-			if (r.getURI().isFile() || r.getURI().isPlatformResource()) {
-				r.save(saveOptions);
-			}
-		}
-	}
-
-	/**
-	 * Helper to find root objects of a specified class.
-	 *
-	 * @param clazz The class to get elements for.
-	 * @return The list of found root elements. Empty list if none have been found.
-	 */
-	@SuppressWarnings("unchecked")
-	public <T extends EObject> List<T> getElement(final T targetType) {
-		ArrayList<T> result = new ArrayList<T>();
-		for (Resource r : rs.getResources()) {
-			if (r != null && r.getContents().size() > 0 && targetType.eClass().isSuperTypeOf(r.getContents().get(0).eClass()) ) {
-				result.add((T) r.getContents().get(0));
-			}
-		}
-		if (result.size() == 0)
-			throw new RuntimeException("Failed to retrieve PCM model element "+targetType.eClass().getName());
-		else
-			return result;
-	}
+    /**
+     * Helper to find root objects of a specified class.
+     * 
+     * @param <T>
+     *            the generic type
+     * @param targetType
+     *            the target type
+     * @return The list of found root elements. Empty list if none have been found.
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends EObject> List<T> getElement(final T targetType) {
+        ArrayList<T> result = new ArrayList<T>();
+        for (Resource r : rs.getResources()) {
+            if (r != null && r.getContents().size() > 0
+                    && targetType.eClass().isSuperTypeOf(r.getContents().get(0).eClass())) {
+                result.add((T) r.getContents().get(0));
+            }
+        }
+        if (result.size() == 0)
+            throw new RuntimeException("Failed to retrieve PCM model element " + targetType.eClass().getName());
+        else
+            return result;
+    }
 }

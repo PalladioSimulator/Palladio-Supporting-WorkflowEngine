@@ -28,110 +28,149 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 import de.uka.ipd.sdq.workflow.mdsd.validation.ModelValidationJob;
 
 /**
- * Execute a model validation check using a given oAW check file. The oAW check language allows 
+ * Execute a model validation check using a given oAW check file. The oAW check language allows
  * powerfull specification of model validation rules similar to OCL constraints.
+ * 
  * @author Steffen Becker
  */
-public class PerformOAWCheckValidation 
-extends ModelValidationJob {
+public class PerformOAWCheckValidation extends ModelValidationJob {
 
-	private MDSDBlackboard blackboard;
-	private ExecutionContextImpl ctx;
+    /** The blackboard. */
+    private MDSDBlackboard blackboard;
 
-	private String partitionName;
-	private String checkFilename;
-	private EPackage[] ePackages;
+    /** The ctx. */
+    private ExecutionContextImpl ctx;
 
-	/**
-	 * Create a new oAW check job
-	 * @param partitionName The blackboard model partition containing the model to validate
-	 * @param checkFilename The URL of the check file containing the rules for well-formed models
-	 * @param packages The EPackages used in the model to be checked
-	 */
-	public PerformOAWCheckValidation(
-			String partitionName,
-			String checkFilename, EPackage[] packages) {
-		super(SeverityEnum.ERROR);
-		
-		this.partitionName = partitionName;
-		this.checkFilename = checkFilename;
-		ePackages = packages;
-	}
+    /** The partition name. */
+    private String partitionName;
 
-	/* (non-Javadoc)
-	 * @see de.uka.ipd.sdq.codegen.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	public void execute(IProgressMonitor monitor) throws JobFailedException,
-			UserCanceledException {
+    /** The check filename. */
+    private String checkFilename;
 
-		Issues issues = new IssuesImpl();
+    /** The e packages. */
+    private EPackage[] ePackages;
 
-		ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
-		partition.resolveAllProxies();
+    /**
+     * Create a new oAW check job.
+     * 
+     * @param partitionName
+     *            The blackboard model partition containing the model to validate
+     * @param checkFilename
+     *            The URL of the check file containing the rules for well-formed models
+     * @param packages
+     *            The EPackages used in the model to be checked
+     */
+    public PerformOAWCheckValidation(String partitionName, String checkFilename, EPackage[] packages) {
+        super(SeverityEnum.ERROR);
 
-		for (Resource r : partition.getResourceSet().getResources()) {
-			// Check resource with oAW's check language
-			CheckFacade.checkAll(
-					this.checkFilename, 
-					getElementsInResource(r),
-					getExecutionContext(), 
-					issues);
-		}
+        this.partitionName = partitionName;
+        this.checkFilename = checkFilename;
+        ePackages = packages;
+    }
 
-		this.setJobResult(getSeverityAndIssues(issues));
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.codegen.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
-	/* (non-Javadoc)
-	 * @see de.uka.ipd.sdq.codegen.workflow.IJob#getName()
-	 */
-	public String getName() {
-		return "Checking oAW constraints";
-	}
+        Issues issues = new IssuesImpl();
 
-	public void setBlackboard(MDSDBlackboard blackboard) {
-		this.blackboard = blackboard;
-	}
+        ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
+        partition.resolveAllProxies();
 
-	private Collection<EObject> getElementsInResource(Resource resource) {
-		TreeIterator<EObject> items = resource.getAllContents();
-		ArrayList<EObject> result = new ArrayList<EObject>();
-		for (;items.hasNext();) {
-			result.add(items.next());
-		}
-		
-		return result;
-	}
-	
-	private ExecutionContext getExecutionContext() {
-		if (ctx == null) {
-			ctx = new ExecutionContextImpl();
-			List<EPackage> l = getMetamodelPackages();
-			for (Iterator<EPackage> iter = l.iterator(); iter.hasNext();) {
-				EPackage pkg = iter.next();
-				ctx.registerMetaModel(new EmfMetaModel(pkg));
-			}
-		}
-		return ctx;
-	}
-	
-	private List<SeverityAndIssue> getSeverityAndIssues(
-			Issues issues) {
-		ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
-		for (MWEDiagnostic issue : issues.getErrors()){
-			if (issue.getElement() instanceof EObject){
-				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage(),(EObject)issue.getElement()));
-			} else if (issue.getElement() == null){
-				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage(),null));
-			} else
-				result.add(new SeverityAndIssue(SeverityEnum.ERROR,issue.getMessage()+issue.getElement().toString(),null));
-		}
-		
-		for (MWEDiagnostic issue : issues.getWarnings())
-			result.add(new SeverityAndIssue(SeverityEnum.WARNING,issue.getMessage(),(EObject)issue.getElement()));
-		return result;
-	}
-	
-	private List<EPackage> getMetamodelPackages() {
-		return Arrays.asList(this.ePackages);
-	}
+        for (Resource r : partition.getResourceSet().getResources()) {
+            // Check resource with oAW's check language
+            CheckFacade.checkAll(this.checkFilename, getElementsInResource(r), getExecutionContext(), issues);
+        }
+
+        this.setJobResult(getSeverityAndIssues(issues));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.codegen.workflow.IJob#getName()
+     */
+    public String getName() {
+        return "Checking oAW constraints";
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
+     * Blackboard)
+     */
+    public void setBlackboard(MDSDBlackboard blackboard) {
+        this.blackboard = blackboard;
+    }
+
+    /**
+     * Gets the elements in resource.
+     * 
+     * @param resource
+     *            the resource
+     * @return the elements in resource
+     */
+    private Collection<EObject> getElementsInResource(Resource resource) {
+        TreeIterator<EObject> items = resource.getAllContents();
+        ArrayList<EObject> result = new ArrayList<EObject>();
+        for (; items.hasNext();) {
+            result.add(items.next());
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the execution context.
+     * 
+     * @return the execution context
+     */
+    private ExecutionContext getExecutionContext() {
+        if (ctx == null) {
+            ctx = new ExecutionContextImpl();
+            List<EPackage> l = getMetamodelPackages();
+            for (Iterator<EPackage> iter = l.iterator(); iter.hasNext();) {
+                EPackage pkg = iter.next();
+                ctx.registerMetaModel(new EmfMetaModel(pkg));
+            }
+        }
+        return ctx;
+    }
+
+    /**
+     * Gets the severity and issues.
+     * 
+     * @param issues
+     *            the issues
+     * @return the severity and issues
+     */
+    private List<SeverityAndIssue> getSeverityAndIssues(Issues issues) {
+        ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
+        for (MWEDiagnostic issue : issues.getErrors()) {
+            if (issue.getElement() instanceof EObject) {
+                result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage(), (EObject) issue.getElement()));
+            } else if (issue.getElement() == null) {
+                result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage(), null));
+            } else
+                result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage() + issue.getElement().toString(),
+                        null));
+        }
+
+        for (MWEDiagnostic issue : issues.getWarnings())
+            result.add(new SeverityAndIssue(SeverityEnum.WARNING, issue.getMessage(), (EObject) issue.getElement()));
+        return result;
+    }
+
+    /**
+     * Gets the metamodel packages.
+     * 
+     * @return the metamodel packages
+     */
+    private List<EPackage> getMetamodelPackages() {
+        return Arrays.asList(this.ePackages);
+    }
 }

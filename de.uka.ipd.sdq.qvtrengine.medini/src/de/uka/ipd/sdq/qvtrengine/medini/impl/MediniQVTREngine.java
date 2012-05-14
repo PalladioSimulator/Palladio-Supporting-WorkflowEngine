@@ -26,7 +26,6 @@ import de.ikv.medini.qvt.execution.debug.QVTExitDebugSessionException;
 import de.ikv.medini.qvt.model.qvtbase.Transformation;
 import de.ikv.medini.qvt.model.qvtbase.TypedModel;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 
 /**
@@ -210,7 +209,7 @@ public class MediniQVTREngine extends AbstractQVTREngine {
      * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine#qvtrScriptInfoImpl()
      */
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected QVTRScriptInfoImpl qvtrScriptInfoImpl() {
         HashMap<String, ArrayList<String>> transformationInfo = new HashMap<String, ArrayList<String>>();
         Boolean valid = true;

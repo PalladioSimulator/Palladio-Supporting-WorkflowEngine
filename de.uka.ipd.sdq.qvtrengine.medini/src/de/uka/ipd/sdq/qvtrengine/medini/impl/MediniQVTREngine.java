@@ -33,179 +33,233 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
  * A implementation {@link QVTREngine} for mediniQVT.
  * 
  * @author Thomas Schuischel
- *
+ * 
  */
 public class MediniQVTREngine extends AbstractQVTREngine {
 
-	/**
-	 * For mediniQVT enforce can only be set global.
-	 */
-	private final Boolean enforce = true;
-	
-	/**
-	 * A QVT-R script.
-	 */
-	private QVTRScript qvtScript;
-	/**
-	 * The mediniQVT processor.
-	 */
-	private EMFQvtProcessorImpl processorImpl;
-	/**
-	 * The collection of model sets.
-	 */
-	private Collection<Collection<Resource>> modelResources;
-	/**
-	 * The collection of old traces.
-	 */
-	private Collection<Resource> oldTraces;
-	/**
-	 * 
-	 */
-	private StringWriter logs;
+    /**
+     * For mediniQVT enforce can only be set global.
+     */
+    private final Boolean enforce = true;
 
-	/**
-	 * 
-	 */
-	private PrintStream extendedDebuggingLog = null;
-	
-	/**
-	 * Creates a new mediniQVT engine.
-	 */
-	public MediniQVTREngine() {
-		processorImpl = new EMFQvtProcessorImpl(new LogWrapper(AbstractQVTREngine.class.getName()));
-		modelResources = new ArrayList<Collection<Resource>>();
-		oldTraces = new ArrayList<Resource>();
-		logs = new StringWriter();
-		Logger.getLogger(MediniQVTREngine.class.getName()).addAppender(
-				new WriterAppender(new PatternLayout("%-5p [%t]: %m%n")	, logs));
-	}
-	
-	@Override
-	public void addModels(final Collection<Resource> models) {
-		modelResources.add(models);
-	}
+    /**
+     * A QVT-R script.
+     */
+    private QVTRScript qvtScript;
+    /**
+     * The mediniQVT processor.
+     */
+    private EMFQvtProcessorImpl processorImpl;
+    /**
+     * The collection of model sets.
+     */
+    private Collection<Collection<Resource>> modelResources;
+    /**
+     * The collection of old traces.
+     */
+    private Collection<Resource> oldTraces;
 
-	@Override
-	public void setDebug(final Boolean debug) {
-		String value = "false";
-		
-		if (debug) {
-			value = "true";
-		}
-		
-		// set the mediniQVT debug variables
-		setProperty(QVTProcessorConsts.PROP_DEBUG, value);
-		setProperty(QVTProcessorConsts.PROP_DEBUG_TASKS, value);
-	}
+    /** The logs. */
+    private StringWriter logs;
 
-	@Override
-	public void setProperty(final String name, final String value) {
-		processorImpl.setProperty(name, value);
-		
-	}
+    /** The extended debugging log. */
+    private PrintStream extendedDebuggingLog = null;
 
-	@Override
-	public void setQVTRScript(final QVTRScript qvtrScript) {
-		this.qvtScript = qvtrScript;
-		addMetaModels(qvtrScript.getMetaModels());
-		
-	}
+    /**
+     * Creates a new mediniQVT engine.
+     */
+    public MediniQVTREngine() {
+        processorImpl = new EMFQvtProcessorImpl(new LogWrapper(AbstractQVTREngine.class.getName()));
+        modelResources = new ArrayList<Collection<Resource>>();
+        oldTraces = new ArrayList<Resource>();
+        logs = new StringWriter();
+        Logger.getLogger(MediniQVTREngine.class.getName()).addAppender(
+                new WriterAppender(new PatternLayout("%-5p [%t]: %m%n"), logs));
+    }
 
-	@Override
-	public void setWorkingDirectory(final URI directoryURI) {
-		processorImpl.setWorkingLocation(directoryURI);
-		
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#addModels(java.util.Collection)
+     */
+    @Override
+    public void addModels(final Collection<Resource> models) {
+        modelResources.add(models);
+    }
 
-	@Override
-	public void setOldTracesResourceSet(final ResourceSet rSet) {
-		oldTraces.addAll(rSet.getResources());
-		
-	}
-	
-	@Override
-	public void setTracesResourceSet(final ResourceSet rSet) {
-		processorImpl.setResourceSetForTraces(rSet);
-		
-	}
-	
-	@Override
-	public void setExtendedDebugingLog(final PrintStream extendedDebuggingLog) {
-		this.extendedDebuggingLog = extendedDebuggingLog;
-		
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setDebug(java.lang.Boolean)
+     */
+    @Override
+    public void setDebug(final Boolean debug) {
+        String value = "false";
 
-	@Override
-	public void transform() {
-		
-		// where should the extended logging go?
-		// this logger is only used if debug for the engine is enabled 
-		if (extendedDebuggingLog != null) {
-			QvtSemanticAnalyserThreadPool.setLogger(extendedDebuggingLog);
-		} else {
-			QvtSemanticAnalyserThreadPool.setLogger(null);
-		}
-		
-		processorImpl.setModels(modelResources);
-		processorImpl.evaluateQVT(qvtScript.toReader(), qvtScript.getTransformationName(), enforce, 
-				qvtScript.getTransformationDirection(), null, oldTraces, processorImpl.getLog());
-		processorImpl.setModels(Collections.EMPTY_LIST);
-	}
+        if (debug) {
+            value = "true";
+        }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	protected QVTRScriptInfoImpl qvtrScriptInfoImpl() {
-		HashMap<String, ArrayList<String>> transformationInfo = new HashMap<String, ArrayList<String>>();
-		Boolean valid = true;
+        // set the mediniQVT debug variables
+        setProperty(QVTProcessorConsts.PROP_DEBUG, value);
+        setProperty(QVTProcessorConsts.PROP_DEBUG_TASKS, value);
+    }
 
-		
-		//setDebug(true);
-		try {
-			// analyze the script and collect the contextDeclarations
-			List<ContextDeclaration> contextDeclarations = 
-				processorImpl.analyseQvt(qvtScript.toReader(), processorImpl.getLog());
-			
-			if (contextDeclarations == null) {
-				
-				throw new RuntimeException("Could not analyse QVT script. Aborting evaluation!");
-			}
-			
-			// walk through the contextDeclarations and gather the requested informations
-			Iterator<ContextDeclaration > iterator = contextDeclarations.iterator();
-			while (iterator.hasNext()) {
-				Transformation transformation = (Transformation) iterator.next();
-				ArrayList<String> directions = new ArrayList<String>();
-				
-				// get the directions for a transformation
-				EList modelParameter = transformation.getModelParameter();
-				for (Iterator iter = modelParameter.iterator(); iter.hasNext();) {
-					TypedModel currentTypedModel = (TypedModel) iter.next();
-					directions.add(currentTypedModel.getName());
-				}
-				
-				transformationInfo.put(transformation.getName(), directions);
-			}
-		} catch (QVTExitDebugSessionException e) {
-			valid = false;
-		}
-		
-		
-		return createQVTRScriptInfo(transformationInfo, valid);
-	}
-	
-	/**
-	 * Sets the meta models for the QVT transformation.
-	 * 
-	 * @param metamodels
-	 * 				List of meta model packages
-	 */
-	protected void addMetaModels(final Collection<Object> metamodels) {
-		for (Object p : metamodels) {
-			if (p instanceof EPackage) {
-				this.processorImpl.addMetaModel(p);
-			}
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setProperty(java.lang.String,
+     * java.lang.String)
+     */
+    @Override
+    public void setProperty(final String name, final String value) {
+        processorImpl.setProperty(name, value);
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setQVTRScript(de.uka.ipd.sdq.workflow.mdsd
+     * .emf.qvtr.QVTRScript)
+     */
+    @Override
+    public void setQVTRScript(final QVTRScript qvtrScript) {
+        this.qvtScript = qvtrScript;
+        addMetaModels(qvtrScript.getMetaModels());
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setWorkingDirectory(org.eclipse.emf.common
+     * .util.URI)
+     */
+    @Override
+    public void setWorkingDirectory(final URI directoryURI) {
+        processorImpl.setWorkingLocation(directoryURI);
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setOldTracesResourceSet(org.eclipse.emf.
+     * ecore.resource.ResourceSet)
+     */
+    @Override
+    public void setOldTracesResourceSet(final ResourceSet rSet) {
+        oldTraces.addAll(rSet.getResources());
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setTracesResourceSet(org.eclipse.emf.ecore
+     * .resource.ResourceSet)
+     */
+    @Override
+    public void setTracesResourceSet(final ResourceSet rSet) {
+        processorImpl.setResourceSetForTraces(rSet);
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#setExtendedDebugingLog(java.io.PrintStream)
+     */
+    @Override
+    public void setExtendedDebugingLog(final PrintStream extendedDebuggingLog) {
+        this.extendedDebuggingLog = extendedDebuggingLog;
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine#transform()
+     */
+    @Override
+    public void transform() {
+
+        // where should the extended logging go?
+        // this logger is only used if debug for the engine is enabled
+        if (extendedDebuggingLog != null) {
+            QvtSemanticAnalyserThreadPool.setLogger(extendedDebuggingLog);
+        } else {
+            QvtSemanticAnalyserThreadPool.setLogger(null);
+        }
+
+        processorImpl.setModels(modelResources);
+        processorImpl.evaluateQVT(qvtScript.toReader(), qvtScript.getTransformationName(), enforce,
+                qvtScript.getTransformationDirection(), null, oldTraces, processorImpl.getLog());
+        processorImpl.setModels(Collections.EMPTY_LIST);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine#qvtrScriptInfoImpl()
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    protected QVTRScriptInfoImpl qvtrScriptInfoImpl() {
+        HashMap<String, ArrayList<String>> transformationInfo = new HashMap<String, ArrayList<String>>();
+        Boolean valid = true;
+
+        // setDebug(true);
+        try {
+            // analyze the script and collect the contextDeclarations
+            List<ContextDeclaration> contextDeclarations = processorImpl.analyseQvt(qvtScript.toReader(),
+                    processorImpl.getLog());
+
+            if (contextDeclarations == null) {
+
+                throw new RuntimeException("Could not analyse QVT script. Aborting evaluation!");
+            }
+
+            // walk through the contextDeclarations and gather the requested informations
+            Iterator<ContextDeclaration> iterator = contextDeclarations.iterator();
+            while (iterator.hasNext()) {
+                Transformation transformation = (Transformation) iterator.next();
+                ArrayList<String> directions = new ArrayList<String>();
+
+                // get the directions for a transformation
+                EList modelParameter = transformation.getModelParameter();
+                for (Iterator iter = modelParameter.iterator(); iter.hasNext();) {
+                    TypedModel currentTypedModel = (TypedModel) iter.next();
+                    directions.add(currentTypedModel.getName());
+                }
+
+                transformationInfo.put(transformation.getName(), directions);
+            }
+        } catch (QVTExitDebugSessionException e) {
+            valid = false;
+        }
+
+        return createQVTRScriptInfo(transformationInfo, valid);
+    }
+
+    /**
+     * Sets the meta models for the QVT transformation.
+     * 
+     * @param metamodels
+     *            List of meta model packages
+     */
+    protected void addMetaModels(final Collection<Object> metamodels) {
+        for (Object p : metamodels) {
+            if (p instanceof EPackage) {
+                this.processorImpl.addMetaModel(p);
+            }
+        }
+    }
 
 }
-

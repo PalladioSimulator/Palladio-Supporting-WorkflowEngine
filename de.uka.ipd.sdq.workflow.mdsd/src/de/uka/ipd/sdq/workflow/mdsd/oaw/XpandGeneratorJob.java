@@ -19,6 +19,7 @@ import org.eclipse.xtend.typesystem.emf.EmfMetaModel;
  * @author Steffen Becker
  * @author groenda
  */
+@SuppressWarnings("deprecation")
 public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /** The e packages. */

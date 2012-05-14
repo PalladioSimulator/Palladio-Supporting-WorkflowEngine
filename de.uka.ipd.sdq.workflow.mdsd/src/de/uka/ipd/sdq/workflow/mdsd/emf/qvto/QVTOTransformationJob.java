@@ -49,6 +49,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      * 
      * @seede.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime. IProgressMonitor)
      */
+    @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         logger.info("Executing QVTO Transformation...");
         logger.debug("Script: " + configuration.getScriptFileURI());
@@ -103,6 +104,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#getName()
      */
+    @Override
     public String getName() {
         return "Perform QVT Operational Transformation";
     }
@@ -112,6 +114,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      * 
      * @seede.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime. IProgressMonitor)
      */
+    @Override
     public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
         // Not needed yet.
     }
@@ -122,6 +125,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
      * Blackboard)
      */
+    @Override
     public void setBlackboard(MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }

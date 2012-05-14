@@ -68,6 +68,7 @@ implements IJob {
      * 
      * @seede.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime. IProgressMonitor)
      */
+    @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         Issues issues = new IssuesImpl();
         WorkflowContext ctx = new WorkflowContextDefaultImpl();
@@ -85,8 +86,9 @@ implements IJob {
 
             logger.debug("Running oAW task....");
             oawJob.invoke(ctx, new ProgressMonitorAdapter(monitor), issues);
-            if (issues.hasErrors())
+            if (issues.hasErrors()) {
                 throw new JobFailedException("oAW Job failed");
+            }
         } catch (Exception e) {
             throw new JobFailedException("oAW Failed", e);
         }
@@ -117,6 +119,7 @@ implements IJob {
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#getName()
      */
+    @Override
     public String getName() {
         return oawJob.getId() == null ? "oAW Job" : oawJob.getId();
     }
@@ -126,6 +129,7 @@ implements IJob {
      * 
      * @seede.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime. IProgressMonitor)
      */
+    @Override
     public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
     }
 

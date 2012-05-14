@@ -101,8 +101,9 @@ public class ShowValidationErrorsJob implements IJob {
          */
         if (configuration.isInteractive()) {
             PlatformUI.getWorkbench().getDisplay().syncExec(runner);
-            if (!runner.shouldProceedAfterErrorDialog())
+            if (!runner.shouldProceedAfterErrorDialog()) {
                 throw new UserCanceledException();
+            }
         }
     }
 }

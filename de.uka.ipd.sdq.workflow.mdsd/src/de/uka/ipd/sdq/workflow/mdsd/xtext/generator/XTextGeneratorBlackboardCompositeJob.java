@@ -44,8 +44,9 @@ public class XTextGeneratorBlackboardCompositeJob extends MWE2OrderPreservingCom
         for (IJob job : this.myJobs) {
             if (job instanceof IBlackboardInteractingJob) {
                 ((IBlackboardInteractingJob) job).setBlackboard(this.blackboard);
-            } else if (job instanceof IBlackboardInteractingWorkflowComponent)
+            } else if (job instanceof IBlackboardInteractingWorkflowComponent) {
                 ((IBlackboardInteractingWorkflowComponent) job).setBlackboard(this.blackboard);
+            }
 
         }
         super.execute(monitor);

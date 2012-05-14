@@ -52,6 +52,7 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
      */
+    @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
         ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
@@ -90,6 +91,7 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#getName()
      */
+    @Override
     public String getName() {
         return "Check EMF Model Constraints";
     }
@@ -100,6 +102,7 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
      * Blackboard)
      */
+    @Override
     public void setBlackboard(MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
@@ -120,8 +123,9 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
             SeverityAndIssue sai = new SeverityAndIssue(severity, d.getMessage(), (EObject) d.getData().get(0));
             result.add(sai);
         }
-        for (Diagnostic child : d.getChildren())
+        for (Diagnostic child : d.getChildren()) {
             appendSeverityAndIssueFromDiagnostic(result, child);
+        }
     }
 
     /**

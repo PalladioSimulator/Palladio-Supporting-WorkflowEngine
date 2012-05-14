@@ -51,8 +51,9 @@ public abstract class ModelValidationJob implements IJobWithResult<List<Severity
      *            the jobResult to set
      */
     protected void setJobResult(List<SeverityAndIssue> jobResult) {
-        if (jobResult == null)
+        if (jobResult == null) {
             throw new IllegalArgumentException("Error list must not be null.");
+        }
         this.jobResult = jobResult;
     }
 
@@ -61,9 +62,11 @@ public abstract class ModelValidationJob implements IJobWithResult<List<Severity
      * 
      * @see de.uka.ipd.sdq.workflow.IJobWithResult#getResult()
      */
+    @Override
     public List<SeverityAndIssue> getResult() {
-        if (this.jobResult == null)
+        if (this.jobResult == null) {
             return Collections.emptyList();
+        }
         return Collections.unmodifiableList(jobResult);
     }
 
@@ -72,6 +75,7 @@ public abstract class ModelValidationJob implements IJobWithResult<List<Severity
      * 
      * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
      */
+    @Override
     public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
         // Not needed
     }

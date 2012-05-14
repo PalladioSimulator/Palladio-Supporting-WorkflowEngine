@@ -29,7 +29,7 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 public class QVTRTransformation extends AbstractWorkflowComponent {
 
     /** The logger. */
-    static Logger logger = Logger.getLogger(QVTRTransformation.class);
+    private static Logger logger = Logger.getLogger(QVTRTransformation.class);
 
     /** The Constant COMPONENT_NAME. */
     private static final String COMPONENT_NAME = "QVTRTransformation";
@@ -97,17 +97,9 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
 
         qvtrEngine.setDebug(getDebug());
 
-        QVTRScript qvtrScript = new QVTRScript();
-        qvtrScript.setMetaModels(getMetaModelsFromString(getMetaModelURIs()));
-        qvtrScript.setQVTFile(getQvtrScript());
-
-        /*
-         * if(configuration.getTracesPartitionName() != null) { ResourceSetPartition tracesPartition
-         * = this.blackboard.getPartition(configuration.getTracesPartitionName());
-         * if(tracesPartition == null) { tracesPartition = new ResourceSetPartition();
-         * this.blackboard.addPartition(configuration.getTracesPartitionName(), tracesPartition); }
-         * qvtrEngine.setTracesResourceSet(tracesPartition.getResourceSet()); }
-         */
+        QVTRScript qvtrScriptLocal = new QVTRScript();
+        qvtrScriptLocal.setMetaModels(getMetaModelsFromString(getMetaModelURIs()));
+        qvtrScriptLocal.setQVTFile(getQvtrScript());
 
         qvtrEngine.setWorkingDirectory(getTraceFileURI());
 
@@ -117,7 +109,7 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
 
         qvtrEngine.addModels(getResorces(inputModels));
 
-        qvtrEngine.setQVTRScript(qvtrScript);
+        qvtrEngine.setQVTRScript(qvtrScriptLocal);
 
         try {
             qvtrEngine.transform();

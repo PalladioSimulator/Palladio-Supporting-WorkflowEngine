@@ -117,7 +117,7 @@ public class ResourceSetPartition {
     }
 
     /**
-     * Resolve all model proxies, i.e., load all dependent models
+     * Resolve all model proxies, i.e., load all dependent models.
      */
     public void resolveAllProxies() {
         ArrayList<Resource> currentResources = null;
@@ -225,9 +225,10 @@ public class ResourceSetPartition {
                 result.add((T) r.getContents().get(0));
             }
         }
-        if (result.size() == 0)
+        if (result.size() == 0) {
             throw new RuntimeException("Failed to retrieve PCM model element " + targetType.eClass().getName());
-        else
+        } else {
             return result;
+        }
     }
 }

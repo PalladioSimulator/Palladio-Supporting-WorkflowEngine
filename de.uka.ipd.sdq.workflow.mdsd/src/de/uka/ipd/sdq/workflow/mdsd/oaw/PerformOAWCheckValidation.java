@@ -73,6 +73,7 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
      * 
      * @see de.uka.ipd.sdq.codegen.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
      */
+    @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
         Issues issues = new IssuesImpl();
@@ -93,6 +94,7 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
      * 
      * @see de.uka.ipd.sdq.codegen.workflow.IJob#getName()
      */
+    @Override
     public String getName() {
         return "Checking oAW constraints";
     }
@@ -103,6 +105,7 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
      * Blackboard)
      */
+    @Override
     public void setBlackboard(MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
@@ -155,13 +158,15 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
                 result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage(), (EObject) issue.getElement()));
             } else if (issue.getElement() == null) {
                 result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage(), null));
-            } else
+            } else {
                 result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage() + issue.getElement().toString(),
                         null));
+            }
         }
 
-        for (MWEDiagnostic issue : issues.getWarnings())
+        for (MWEDiagnostic issue : issues.getWarnings()) {
             result.add(new SeverityAndIssue(SeverityEnum.WARNING, issue.getMessage(), (EObject) issue.getElement()));
+        }
         return result;
     }
 

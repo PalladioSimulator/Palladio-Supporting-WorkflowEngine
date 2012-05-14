@@ -20,22 +20,22 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
  * @author Joerg Henss
  */
 public class XTextGeneratorConfiguration {
-    
+
     /** The module. */
     private XTextGeneratorModule module;
-    
+
     /** The setup. */
     private ISetup setup;
 
     /** The generator class. */
     private final Class<? extends IGenerator> generatorClass;
-    
+
     /** The language name. */
     private final String languageName;
-    
+
     /** The file extension. */
     private final String fileExtension;
-    
+
     /** The output package name. */
     private final String outputPackageName;
 
@@ -44,13 +44,13 @@ public class XTextGeneratorConfiguration {
 
     /** The slots. */
     private final Set<String> slots = new TreeSet<String>();
-    
+
     /** The outlets. */
     private final Set<Outlet> outlets = new TreeSet<Outlet>();
 
     /** The reader pathes. */
     private final Set<String> readerPathes = new TreeSet<String>();
-    
+
     /** The load entries. */
     private final Set<ResourceLoadingSlotEntry> loadEntries = new TreeSet<ResourceLoadingSlotEntry>();
 
@@ -61,9 +61,9 @@ public class XTextGeneratorConfiguration {
      * Create and init the StandaloneSetup for the MWE.
      */
     public void initMWEBean() {
-        StandaloneSetup setup = new StandaloneSetup();
-        setup.addRegisterGeneratedEPackage(outputPackageName);
-        setup.setScanClassPath(true);
+        StandaloneSetup standaloneSetup = new StandaloneSetup();
+        standaloneSetup.addRegisterGeneratedEPackage(outputPackageName);
+        standaloneSetup.setScanClassPath(true);
     }
 
     /**
@@ -156,14 +156,16 @@ public class XTextGeneratorConfiguration {
      * @return the reader
      */
     public Reader createReader() {
-        if (readerPathes.isEmpty())
+        if (readerPathes.isEmpty()) {
             throw new RuntimeException("XText Reader requires a path!");
+        }
 
         Reader reader = new Reader();
         setupReader(reader);
 
-        for (String path : readerPathes)
+        for (String path : readerPathes) {
             reader.addPath(path);
+        }
 
         return reader;
 
@@ -177,8 +179,9 @@ public class XTextGeneratorConfiguration {
      */
     private void setupReader(AbstractReader reader) {
         reader.addRegister(setup);
-        for (ResourceLoadingSlotEntry entry : loadEntries)
+        for (ResourceLoadingSlotEntry entry : loadEntries) {
             reader.addLoadResource(entry);
+        }
     }
 
     /**
@@ -189,11 +192,13 @@ public class XTextGeneratorConfiguration {
     public GeneratorComponent createGenerator() {
         generator = new GeneratorComponent();
         generator.setRegister(setup);
-        for (String slot : slots)
+        for (String slot : slots) {
             generator.addSlot(slot);
+        }
 
-        for (Outlet outlet : outlets)
+        for (Outlet outlet : outlets) {
             generator.addOutlet(outlet);
+        }
 
         return generator;
     }
@@ -249,8 +254,9 @@ public class XTextGeneratorConfiguration {
      * @return the blackboard reader
      */
     public BlackboardReader createBlackboardReader() {
-        if (modelLocation == null)
+        if (modelLocation == null) {
             throw new RuntimeException("XText BlackboardReader requires a modelLocation!");
+        }
 
         BlackboardReader reader = new BlackboardReader(modelLocation);
         setupReader(reader);

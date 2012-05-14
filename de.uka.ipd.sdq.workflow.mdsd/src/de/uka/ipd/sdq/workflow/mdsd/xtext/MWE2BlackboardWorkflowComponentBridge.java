@@ -52,8 +52,9 @@ public class MWE2BlackboardWorkflowComponentBridge<T extends IWorkflowComponent>
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void preExecute() {
-        if (mwe2Job instanceof IBlackboardInteractingWorkflowComponent)
+        if (mwe2Job instanceof IBlackboardInteractingWorkflowComponent) {
             ((IBlackboardInteractingWorkflowComponent) mwe2Job).setBlackboard(blackboard);
+        }
 
         super.preExecute();
     }

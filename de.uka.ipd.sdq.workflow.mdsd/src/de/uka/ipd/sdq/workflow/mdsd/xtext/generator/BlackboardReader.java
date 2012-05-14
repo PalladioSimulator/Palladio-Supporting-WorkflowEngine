@@ -37,8 +37,9 @@ public class BlackboardReader extends AbstractReader implements IBlackboardInter
     @Override
     protected void checkConfigurationInternal(Issues issues) {
         super.checkConfigurationInternal(issues);
-        if (modelLocation.getModelID() == null)
+        if (modelLocation.getModelID() == null) {
             issues.addError(this, "No model URIs configured");
+        }
 
     }
 
@@ -86,6 +87,7 @@ public class BlackboardReader extends AbstractReader implements IBlackboardInter
      * de.uka.ipd.sdq.codegen.workflow.IBlackboardInteractingJob#setBlackbard(de.uka.ipd.sdq.codegen
      * .workflow.Blackboard)
      */
+    @Override
     public void setBlackboard(MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }

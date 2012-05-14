@@ -29,7 +29,7 @@ public abstract class AbstractConfigBuilderBasedLaunchConfigurationDelegate<Work
             throws CoreException {
         WorkflowConfigurationType config = getConfigurationBuilder(configuration).build();
 
-        config.setDebug(mode == ILaunchManager.DEBUG_MODE);
+        config.setDebug(ILaunchManager.DEBUG_MODE.equals(mode));
         config.setInteractive(true);
 
         return config;

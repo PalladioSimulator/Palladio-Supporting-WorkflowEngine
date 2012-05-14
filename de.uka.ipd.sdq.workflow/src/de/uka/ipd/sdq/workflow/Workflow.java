@@ -28,9 +28,6 @@ public class Workflow
 	/** The my monitor. */
 	private IProgressMonitor myMonitor;
 	
-	/** The logger. */
-	protected Logger logger = null;
-	
 	/** The exception handler. */
 	protected WorkflowExceptionHandler exceptionHandler = null;
 

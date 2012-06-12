@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.launchconfig.tabs;
 
 import java.io.File;
+import java.util.StringTokenizer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -50,6 +51,26 @@ public class LocalFileSystemButtonSelectionAdapter extends FileSelectionAdapter 
             boolean useFolder) {
         super(field, fileExtension, dialogTitle, shell, useFolder);
     }
+    
+    /**
+     * Instantiates a new local file system button selection adapter.
+     * 
+     * @param field
+     *            the field
+     * @param fileExtension
+     *            the file extension
+     * @param dialogTitle
+     *            the dialog title
+     * @param shell
+     *            the shell
+     * @param useFolder
+     *            the use folder
+     * @param useMultipleSelection if true, multiple files can be selected.
+     */
+    public LocalFileSystemButtonSelectionAdapter(Text field, String[] fileExtension, String dialogTitle, Shell shell,
+            boolean useFolder, boolean useMultipleSelection) {
+        super(field, fileExtension, dialogTitle, shell, useFolder, useMultipleSelection);
+    }
 
     /*
      * (non-Javadoc)
@@ -69,6 +90,38 @@ public class LocalFileSystemButtonSelectionAdapter extends FileSelectionAdapter 
         if (dialog.open() != null) {
             String root = dialog.getFilterPath() + File.separatorChar;
             filename = root + dialog.getFileName();
+        }
+
+        return filename;
+    }
+    
+    @Override
+    public String openFileDialog(Text textField, String[] fileExtension, boolean multipleSelection) {
+        FileDialog dialog = new FileDialog(getShell(), SWT.MULTI);
+        dialog.setFilterExtensions(fileExtension);
+        dialog.setText(getDialogTitle());
+        String filename = "";
+        String fileName = textField.getText();
+        StringTokenizer tokenizer = new StringTokenizer(fileName, ";");
+        if (tokenizer.countTokens() > 0) {
+        	dialog.setFileName(tokenizer.nextToken());
+        } else {
+        	dialog.setFileName(fileName);
+        }
+        
+
+        if (dialog.open() != null) {
+            String root = dialog.getFilterPath() + File.separatorChar;
+            if (multipleSelection) {
+            	for (int i = 0; i < dialog.getFileNames().length; i++) {
+            		if (i > 0) {
+            			filename = filename + ";";
+            		}
+            		filename = filename + root + dialog.getFileNames()[i];
+            	}
+            } else {
+            	filename = root + dialog.getFileName();
+            }
         }
 
         return filename;

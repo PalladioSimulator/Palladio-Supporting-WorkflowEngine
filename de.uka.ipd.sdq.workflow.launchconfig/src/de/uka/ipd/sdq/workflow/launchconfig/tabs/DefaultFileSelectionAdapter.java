@@ -38,6 +38,18 @@ public class DefaultFileSelectionAdapter extends FileSelectionAdapter {
     protected String openFileDialog(Text textField, String[] fileExtension) {
         return defaultFileURI;
     }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * de.uka.ipd.sdq.workflow.launchconfig.tabs.FileSelectionAdapter#openFileDialog(org.eclipse
+     * .swt.widgets.Text, java.lang.String[], boolean)
+     */
+    @Override
+    protected String openFileDialog(Text textField, String[] fileExtension, boolean multipleSelection) {
+        return defaultFileURI;
+    }
 
     /*
      * (non-Javadoc)

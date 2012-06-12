@@ -18,6 +18,7 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
     private Shell shell;
     /** Title/message of the dialog. */
     private String dialogTitle;
+    private boolean useMultipleSelection;
 
     /**
      * Initializes a new file selection dialog.
@@ -36,6 +37,27 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
         this.extensions = fileExtension;
         this.shell = shell;
         this.dialogTitle = dialogTitle;
+    }
+    
+    /**
+     * Initializes a new file selection dialog.
+     * 
+     * @param field
+     *            Text field which receives the path of the selected file.
+     * @param fileExtension
+     *            List of file extension restriction for file selection.
+     * @param dialogTitle
+     *            Title/message of the dialog.
+     * @param shell
+     *            The shell which is used to open the dialog.
+     */
+    public FileSelectionAdapter(Text field, String[] fileExtension, String dialogTitle, Shell shell, boolean useFolder, boolean useMultipleSelection) {
+        this.field = field;
+        this.extensions = fileExtension;
+        this.shell = shell;
+        this.dialogTitle = dialogTitle;
+        this.useMultipleSelection = useMultipleSelection;
+        this.useFolder = useFolder;
     }
 
     /** The use folder. */
@@ -71,9 +93,13 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
     public void widgetSelected(SelectionEvent e) {
         String selectedFile = null;
         if (useFolder) {
-            selectedFile = openFolderDialog(field);
+        	selectedFile = openFolderDialog(field);
         } else {
-            selectedFile = openFileDialog(field, extensions);
+        	if (useMultipleSelection) {
+        		selectedFile = openFileDialog(field, extensions, true);
+        	} else {
+        		selectedFile = openFileDialog(field, extensions);
+        	}
         }
         if (selectedFile != null) {
             field.setText(selectedFile);
@@ -109,6 +135,19 @@ abstract class FileSelectionAdapter extends SelectionAdapter {
      * @return the string
      */
     protected abstract String openFileDialog(Text textField, String[] fileExtension);
+    
+    /**
+     * Opens a file selection dialog. Use {@link #getShell()} to retrieve the shell and
+     * {@link #getDialogTitle()} to retrieve the title within subclasses.
+     * 
+     * @param textField
+     *            The text field which receives the path of the selected file.
+     * @param fileExtension
+     *            The extension which are allowed for the selected file.
+     * @param multipleSelection indicates whether multiple elements can be selected in the file dialog.
+     * @return the string
+     */
+    protected abstract String openFileDialog(Text textField, String[] fileExtension, boolean multipleSelection);
 
     /**
      * Opens a folder selection dialog. Use {@link #getShell()} to retrieve the shell and

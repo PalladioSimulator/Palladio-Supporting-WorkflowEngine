@@ -62,7 +62,8 @@ public class SavePartitionToDiskJob implements IJob, IBlackboardInteractingJob<M
      */
     @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        logger.debug("Saving partition " + partitionID);
+    	if(logger.isDebugEnabled())
+    		logger.debug("Saving partition " + partitionID);
         ResourceSetPartition partition = this.blackboard.getPartition(this.partitionID);
         try {
             partition.storeAllResources(saveOptions);

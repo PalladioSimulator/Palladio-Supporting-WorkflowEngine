@@ -200,7 +200,8 @@ public class ResourceSetPartition {
      */
     public void storeAllResources(Map<String, Object> saveOptions) throws IOException {
         for (Resource r : rs.getResources()) {
-            logger.debug("Save resource " + r.getURI());
+        	if(logger.isDebugEnabled())
+        		logger.debug("Save resource " + r.getURI());
             if (r.getURI().isFile() || r.getURI().isPlatformResource()) {
                 r.save(saveOptions);
             }

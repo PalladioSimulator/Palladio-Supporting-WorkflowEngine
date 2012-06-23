@@ -77,14 +77,16 @@ implements IJob {
         try {
             setupOAWJob(oawJob);
 
-            logger.debug("Validating oAW configuration settings...");
+            if(logger.isDebugEnabled())
+            	logger.debug("Validating oAW configuration settings...");
             oawJob.checkConfiguration(issues);
             if (issues.hasErrors()) {
                 String message = issues.toString();
                 throw new JobFailedException("oAW Job configuration is invalid: " + message);
             }
 
-            logger.debug("Running oAW task....");
+            if(logger.isDebugEnabled())
+            	logger.debug("Running oAW task....");
             oawJob.invoke(ctx, new ProgressMonitorAdapter(monitor), issues);
             if (issues.hasErrors()) {
                 throw new JobFailedException("oAW Job failed");

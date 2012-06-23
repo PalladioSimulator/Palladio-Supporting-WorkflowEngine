@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -53,7 +54,8 @@ public class ExecutionTimeLoggingProgressMonitor extends SubProgressMonitor {
     public void done() {
         double endTime = System.nanoTime();
         super.done();
-        logger.info("Task " + taskName + " completed in " + (endTime - startTime) / Math.pow(10, 9) + " seconds");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Task " + taskName + " completed in " + (endTime - startTime) / Math.pow(10, 9) + " seconds");
     }
 
     /**

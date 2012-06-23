@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.qvtrengine.medini.impl;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import uk.ac.kent.cs.kmf.util.ILog;
@@ -117,7 +118,8 @@ public class LogWrapper implements ILog {
      */
     @Override
     public void printMessage(String arg0) {
-        logger.info(arg0);
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info(arg0);
     }
 
     /*
@@ -128,7 +130,8 @@ public class LogWrapper implements ILog {
     @Override
     public void reportError(String arg0) {
         errors++;
-        logger.error(arg0);
+        if(logger.isEnabledFor(Level.ERROR))
+        	logger.error(arg0);
     }
 
     /*
@@ -139,7 +142,8 @@ public class LogWrapper implements ILog {
     @Override
     public void reportError(String arg0, Exception arg1) {
         errors++;
-        logger.error(arg0, arg1);
+        if(logger.isEnabledFor(Level.ERROR))
+        	logger.error(arg0, arg1);
     }
 
     /*
@@ -149,7 +153,8 @@ public class LogWrapper implements ILog {
      */
     @Override
     public void reportMessage(String arg0) {
-        logger.info(arg0);
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info(arg0);
     }
 
     /*
@@ -160,7 +165,8 @@ public class LogWrapper implements ILog {
     @Override
     public void reportWarning(String arg0) {
         warnings++;
-        logger.warn(arg0);
+        if(logger.isEnabledFor(Level.WARN))
+        	logger.warn(arg0);
     }
 
     /*
@@ -171,7 +177,8 @@ public class LogWrapper implements ILog {
     @Override
     public void reportWarning(String arg0, Exception arg1) {
         warnings++;
-        logger.warn(arg0, arg1);
+        if(logger.isEnabledFor(Level.WARN))
+        	logger.warn(arg0, arg1);
     }
 
     /*

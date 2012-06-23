@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -107,7 +108,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
                 }
 
             } catch (CoreException e) {
-                logger.error("Could not find a configuration type for id " + launchTypeID + ", skipping it.");
+            	if(logger.isEnabledFor(Level.ERROR)) 
+            		logger.error("Could not find a configuration type for id " + launchTypeID + ", skipping it.");
                 e.printStackTrace();
             }
 

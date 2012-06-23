@@ -3,6 +3,7 @@ package de.uka.ipd.sdq.workflow.mdsd.validation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PlatformUI;
@@ -58,9 +59,11 @@ public class ShowValidationErrorsJob implements IJob {
         }
 
         if (result.size() > 0) {
-            logger.warn("Found validation problems in the models");
+        	if(logger.isEnabledFor(Level.WARN))
+        		logger.warn("Found validation problems in the models");
             displayValidationErrors(result);
-            logger.warn("Continuing workflow, ignoring model validation issues");
+            if(logger.isEnabledFor(Level.WARN))
+            	logger.warn("Continuing workflow, ignoring model validation issues");
         }
 
     }

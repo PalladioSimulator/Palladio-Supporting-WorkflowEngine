@@ -98,7 +98,8 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType
         try {
             tearDownProcessAndLogger(loggerList);
         } catch (DebugException e) {
-            logger.debug(e.getLocalizedMessage(), e);
+        	if(logger.isDebugEnabled())
+        		logger.debug(e.getLocalizedMessage(), e);
         }
     }
 
@@ -220,28 +221,35 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType
      * 
      */
     private void createAndRunWorkflow() {
-        logger.info("Create workflow configuration");
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info("Create workflow configuration");
 
         WorkflowConfigurationType workflowConfiguration = getConfiguration();
         if (workflowConfiguration == null) {
-            logger.error("No configuration instance has been created by the workflow [" + this.getClass().toString()
+        	if(logger.isEnabledFor(Level.ERROR))
+        		logger.error("No configuration instance has been created by the workflow [" + this.getClass().toString()
                     + "]", new NullPointerException());
             return;
         }
 
-        logger.info("Validating workflow configuration");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Validating workflow configuration");
         try {
             workflowConfiguration.validateAndFreeze();
         } catch (InvalidWorkflowJobConfiguration e) {
-            logger.error("Configuration invalid");
-            logger.error(e.getMessage());
+        	if(logger.isEnabledFor(Level.INFO)) {
+        		logger.error("Configuration invalid");
+        		logger.error(e.getMessage());
+        	}
             return;
         }
 
-        logger.info("Creating workflow engine");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Creating workflow engine");
         Workflow workflow = createWorkflow(workflowConfiguration);
 
-        logger.info("Executing workflow");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Executing workflow");
         workflow.run();
     }
 

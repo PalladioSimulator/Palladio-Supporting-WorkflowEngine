@@ -71,6 +71,7 @@ public class QVTOResult {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         this.diagnosticResult.printStackTrace(pw);
-        logger.log(level, sw.toString());
+        if(logger.isEnabledFor(level))
+        	logger.log(level, sw.toString());
     }
 }

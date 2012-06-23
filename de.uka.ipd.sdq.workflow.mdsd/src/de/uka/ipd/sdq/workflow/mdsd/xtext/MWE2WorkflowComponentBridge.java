@@ -56,7 +56,8 @@ implements IPrePostJob {
      */
     @Override
     public void preExecute() {
-        logger.debug("Running preInvoke....");
+    	if(logger.isDebugEnabled())
+    		logger.debug("Running preInvoke....");
         mwe2Job.preInvoke();
     }
 
@@ -67,7 +68,8 @@ implements IPrePostJob {
      */
     @Override
     public void postExecute() {
-        logger.debug("Running postInvoke....");
+    	if(logger.isDebugEnabled())
+    		logger.debug("Running postInvoke....");
         mwe2Job.postInvoke();
     }
 
@@ -79,7 +81,8 @@ implements IPrePostJob {
     @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         try {
-            logger.debug("Running MWE2 Workflow task....");
+        	if(logger.isDebugEnabled())
+        		logger.debug("Running MWE2 Workflow task....");
             mwe2Job.invoke(ctx);
         } catch (Exception e) {
             throw new JobFailedException("MWE2 workflow component failed", e);

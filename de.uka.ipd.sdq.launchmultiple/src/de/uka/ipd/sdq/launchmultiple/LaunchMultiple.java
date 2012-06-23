@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -70,7 +71,8 @@ public class LaunchMultiple implements ILaunchConfigurationDelegate {
                 } catch (Exception e) {
                     // Run all launches, whatever happens. Thus catch all exceptions, print
                     // something, then continue.
-                    logger.error("Running " + launchConfiguration.getName()
+                	if(logger.isEnabledFor(Level.ERROR)) 
+                		logger.error("Running " + launchConfiguration.getName()
                             + " failed. I will start the next one. Cause: " + e.getMessage());
                     e.printStackTrace();
                 }

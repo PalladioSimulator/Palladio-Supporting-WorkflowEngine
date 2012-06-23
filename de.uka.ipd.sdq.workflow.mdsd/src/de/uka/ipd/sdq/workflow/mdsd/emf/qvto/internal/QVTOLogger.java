@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.m2m.qvt.oml.util.Log;
 
@@ -49,7 +50,8 @@ public class QVTOLogger implements Log {
     @Override
     public void log(int level, String message, Object param) {
         String paramToString = param == null ? "" : " <" + param + ">";
-        logger.info(message + paramToString);
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info(message + paramToString);
     }
 
 }

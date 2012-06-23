@@ -42,7 +42,8 @@ public class PrepareXTextPartitionJob implements IJob, IBlackboardInteractingJob
     @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         // Create and add the PCM and middleware model partition
-        logger.debug("Creating XText model partition");
+    	if(logger.isDebugEnabled())
+    		logger.debug("Creating XText model partition");
 
         ResourceSetPartition modelPartition = new ResourceSetPartition();
         this.blackboard.addPartition(modelLocation.getPartitionID(), modelPartition);

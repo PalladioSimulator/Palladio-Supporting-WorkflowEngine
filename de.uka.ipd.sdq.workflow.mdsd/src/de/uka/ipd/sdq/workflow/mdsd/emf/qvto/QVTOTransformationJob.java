@@ -51,20 +51,25 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      */
     @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        logger.info("Executing QVTO Transformation...");
-        logger.debug("Script: " + configuration.getScriptFileURI());
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info("Executing QVTO Transformation...");
+    	if(logger.isDebugEnabled())
+    		logger.debug("Script: " + configuration.getScriptFileURI());
 
         List<EObject>[] parameter = getModelContents(); // parameter is used as inout parameter
         QVTOResult result = QVTOExecutor.execute(configuration.getScriptFileURI(), configuration.getOptions(),
                 parameter);
         if (!result.isSuccess()) {
-            logger.error("Transformation job failed");
-            logger.error(result.getDiagnosticResult().getMessage());
+        	if(logger.isEnabledFor(Level.ERROR)) {
+        		logger.error("Transformation job failed");
+        		logger.error(result.getDiagnosticResult().getMessage());
+        	}
             result.logStackTrace(logger, Level.ERROR);
             throw new JobFailedException("Transformation execution failed");
         }
         storeResultOnBlackboard(parameter);
-        logger.info("Transformation executed successfully");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Transformation executed successfully");
     }
 
     /**

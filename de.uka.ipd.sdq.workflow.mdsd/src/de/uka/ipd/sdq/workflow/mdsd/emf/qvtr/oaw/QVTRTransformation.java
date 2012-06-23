@@ -3,6 +3,7 @@ package de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.oaw;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -81,8 +82,10 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
      */
     public void run(Issues issues) {
 
-        logger.info("Executing QVTR Transformation...");
-        logger.debug("Script: " + getQvtrScript());
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info("Executing QVTR Transformation...");
+    	if(logger.isDebugEnabled())
+    		logger.debug("Script: " + getQvtrScript());
 
         this.resourceSet = new ResourceSetImpl();
         this.resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
@@ -118,7 +121,8 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
             return;
         }
 
-        logger.info("Transformation executed successfully");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Transformation executed successfully");
         issues.addInfo("Transformation executed successfully");
     }
 

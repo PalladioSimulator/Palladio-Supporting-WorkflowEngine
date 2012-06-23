@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow;
 
+import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
@@ -49,7 +50,8 @@ public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>
             if (job instanceof IBlackboardInteractingJob) {
                 ((IBlackboardInteractingJob) job).setBlackboard(this.myBlackboard);
             }
-            logger.debug("SDQ Workflow-Engine: Running job " + job.getName());
+            if(logger.isDebugEnabled())
+            	logger.debug("SDQ Workflow-Engine: Running job " + job.getName());
             subProgressMonitor.subTask(job.getName());
             job.execute(subProgressMonitor);
             subProgressMonitor.worked(1);
@@ -57,7 +59,8 @@ public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>
             try {
                 job.rollback(subProgressMonitor);
             } catch (RollbackFailedException e) {
-                logger.warn("Failed to cleanup job " + job.getName());
+            	if(logger.isEnabledFor(Level.WARN))
+            		logger.warn("Failed to cleanup job " + job.getName());
             }
             subProgressMonitor.worked(1);
             myJobs.removeFirst();

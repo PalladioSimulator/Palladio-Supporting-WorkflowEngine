@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Collection;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
@@ -127,7 +128,8 @@ public class QVTRScript {
             qvturl = URI.createURI(fileName);
 
         } catch (IllegalArgumentException e) {
-            logger.error("Wrong URI format.", e);
+        	if(logger.isEnabledFor(Level.ERROR))
+        		logger.error("Wrong URI format.", e);
         }
         try {
             InputStream stream = null;
@@ -152,7 +154,8 @@ public class QVTRScript {
             // logger.error("QVT file not found!",fileNotFoundException);
             return;
         } catch (IOException ioException) {
-            logger.info("Error reading the QVT file.", ioException);
+        	if(logger.isEnabledFor(Level.INFO))
+        		logger.info("Error reading the QVT file.", ioException);
         }
     }
 

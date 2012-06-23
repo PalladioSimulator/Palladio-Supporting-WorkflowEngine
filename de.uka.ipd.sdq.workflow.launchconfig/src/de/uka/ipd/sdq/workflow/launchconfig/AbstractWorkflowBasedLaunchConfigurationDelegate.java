@@ -189,28 +189,35 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      */
     private void createAndRunWorkflow(ILaunchConfiguration configuration, String mode, ILaunch launch,
             IProgressMonitor monitor) throws CoreException {
-        logger.info("Create workflow configuration");
+    	if(logger.isEnabledFor(Level.INFO))
+    		logger.info("Create workflow configuration");
 
         WorkflowConfigurationType workflowConfiguration = deriveConfiguration(configuration, mode);
         if (workflowConfiguration == null) {
-            logger.error("No configuration instance has been created by the workflow [" + this.getClass().toString()
+        	if(logger.isEnabledFor(Level.ERROR))
+        		logger.error("No configuration instance has been created by the workflow [" + this.getClass().toString()
                     + "]", new NullPointerException());
             return;
         }
 
-        logger.info("Validating workflow configuration");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Validating workflow configuration");
         try {
             workflowConfiguration.validateAndFreeze();
         } catch (InvalidWorkflowJobConfiguration e) {
-            logger.error("Configuration invalid");
-            logger.error(e.getMessage());
+        	if(logger.isEnabledFor(Level.ERROR)) {
+        		logger.error("Configuration invalid");
+        		logger.error(e.getMessage());
+        	}
             return;
         }
 
-        logger.info("Creating workflow engine");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Creating workflow engine");
         Workflow workflow = createWorkflow(workflowConfiguration, monitor, launch);
 
-        logger.info("Executing workflow");
+        if(logger.isEnabledFor(Level.INFO))
+        	logger.info("Executing workflow");
         workflow.run();
     }
 

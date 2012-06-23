@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -113,7 +114,8 @@ public final class QVTREngines {
         try {
             factory = (QVTREngineFactory) configElement.createExecutableExtension(ATT_CLASS);
         } catch (Exception e) {
-            logger.error("Failed to instantiate factory: " + configElement.getAttribute(ATT_CLASS) + " in type: " + id
+        	if(logger.isEnabledFor(Level.ERROR))
+        		logger.error("Failed to instantiate factory: " + configElement.getAttribute(ATT_CLASS) + " in type: " + id
                     + " in plugin: " + configElement.getDeclaringExtension().getNamespaceIdentifier(), e);
         }
         return factory;
@@ -198,7 +200,8 @@ public final class QVTREngines {
             }
             cachedEngines = (QVTREngines[]) found.toArray(new QVTREngines[found.size()]);
         } catch (InvalidRegistryObjectException e) {
-            logger.error(e);
+        	if(logger.isEnabledFor(Level.ERROR))
+        		logger.error(e);
         }
         return cachedEngines;
     }
@@ -225,7 +228,8 @@ public final class QVTREngines {
             }
             String msg = "Failed to load QVTREngine named " + name + " in "
                     + configElement.getDeclaringExtension().getNamespaceIdentifier();
-            logger.error(msg, e);
+            if(logger.isEnabledFor(Level.ERROR))
+            	logger.error(msg, e);
             return null;
         }
     }

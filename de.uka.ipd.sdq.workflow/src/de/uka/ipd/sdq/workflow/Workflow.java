@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -78,7 +79,8 @@ public class Workflow
      * Run.
      */
 	public void run() {
-		logger.info("Creating workflow engine and starting workflow");
+		if(logger.isEnabledFor(Level.INFO))
+			logger.info("Creating workflow engine and starting workflow");
 
 		myMonitor.beginTask("Workflow", 1);		
 		myMonitor.subTask(this.getName());	
@@ -86,21 +88,27 @@ public class Workflow
 		try {
 			this.execute(myMonitor);
 		} catch (JobFailedException e) {
-			logger.error("Workflow job failed, handling failure...");
-			logger.error("Failure reason was: ", e);
+			if(logger.isEnabledFor(Level.ERROR)) {
+				logger.error("Workflow job failed, handling failure...");
+				logger.error("Failure reason was: ", e);
+			}
 			this.exceptionHandler.handleJobFailed(e);
 		} catch (UserCanceledException e) {
-			logger.info("User canceled workflow");
+			if(logger.isEnabledFor(Level.INFO))
+				logger.info("User canceled workflow");
 			this.exceptionHandler.handleUserCanceled(e);
 		} catch (Exception e) {
-			logger.fatal("Workflow terminated unexpectedly", e);
+			if(logger.isEnabledFor(Level.FATAL))
+				logger.fatal("Workflow terminated unexpectedly", e);
 			this.exceptionHandler.handleFatalFailure(e);
 		} finally {
-			logger.info("Cleaning up...");
+			if(logger.isEnabledFor(Level.INFO))
+				logger.info("Cleaning up...");
 			try {
 				this.rollback(myMonitor);
 			} catch (RollbackFailedException e) {
-				logger.error("Critical failure during workflow rollback");
+				if(logger.isEnabledFor(Level.ERROR))
+					logger.error("Critical failure during workflow rollback");
 				this.exceptionHandler.handleRollbackFailed(e);
 			}
 		}
@@ -108,6 +116,7 @@ public class Workflow
 		myMonitor.worked(1);		
 		myMonitor.done();
 		
-		logger.info("Workflow engine completed task");
+		if(logger.isEnabledFor(Level.INFO))
+			logger.info("Workflow engine completed task");
 	}
 }

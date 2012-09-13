@@ -137,8 +137,8 @@ public class ParallelCompositeJob extends AbstractCompositeJob {
                     // Job terminated with exception
                     singleJobFailed = true;
                 } else {
-                    futures.remove(completedTask);
                     myExecutedJobs.add(futures.get(completedTask).getJob());
+                    futures.remove(completedTask);
                 }
             } catch (InterruptedException e) {
                 throw new JobFailedException("Failed waiting for job to finish", e);

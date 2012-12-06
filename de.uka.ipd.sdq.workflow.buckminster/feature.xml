@@ -213,13 +213,6 @@ Each party waives its rights to a jury trial in any resulting
 litigation.
    </license>
 
-   <url>
-      <discovery label="Medini QVT Update Site" url="http://www.ikv.de/qvt/update-site-indigo"/>
-      <discovery label="Indigo Update Site" url="http://download.eclipse.org/releases/indigo"/>
-      <discovery label="Palladio Commons" url="http://sdqweb.ipd.uka.de/eclipse/commons/releases/1.1"/>
-      <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/"/>
-   </url>
-
    <includes
          id="de.uka.ipd.sdq.workflow.feature.core"
          version="0.0.0"/>

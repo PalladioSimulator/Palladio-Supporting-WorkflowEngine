@@ -4,13 +4,13 @@ import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
  * A sequential workflow which may contain jobs which need access to a common blackboard for
  * information exchange. Compared to a OrderPreservingBlackboardCompositeJob, this job has a lower
- * memory footprint. In addition, a rollback of a nested job is being executed immediately after the
+ * memory footprint. In addition, a cleanup of a nested job is being executed immediately after the
  * nested job has completed.
  * 
  * @param <BlackboardType>
@@ -30,9 +30,9 @@ public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>
     /**
      * {@inheritDoc}
      * 
-     * Specialty: Calls rollback after the execution of each nested job and deletes the reference to
+     * Specialty: Calls cleanup after the execution of each nested job and deletes the reference to
      * that nested job. Thus, you need to make sure that no later jobs depend on these jobs
-     * intermediate results that are deleted during rollback.
+     * intermediate results that are deleted during cleanup.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -57,8 +57,8 @@ public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>
             subProgressMonitor.worked(1);
             subProgressMonitor.subTask("Cleaning up job " + job.getName());
             try {
-                job.rollback(subProgressMonitor);
-            } catch (RollbackFailedException e) {
+                job.cleanup(subProgressMonitor);
+            } catch (CleanupFailedException e) {
             	if(logger.isEnabledFor(Level.WARN))
             		logger.warn("Failed to cleanup job " + job.getName());
             }
@@ -73,14 +73,14 @@ public class LowMemoryFootprintCompositeJob<BlackboardType extends Blackboard<?>
      * {@inheritDoc}<br>
      * <br>
      * 
-     * Compared to a OrderPreservingBlackboardCompositeJob, this method does not invoke a rollback
-     * on nested jobs. For every nested job, the rollback method is being called immediately after
+     * Compared to a OrderPreservingBlackboardCompositeJob, this method does not invoke a cleanup
+     * on nested jobs. For every nested job, the cleanup method is being called immediately after
      * the job has completed (in {@link #execute(IProgressMonitor)}).
      * 
      */
     @Override
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-        // Do nothing. Rollback for every nested job is being called immediately after the job has
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+        // Do nothing. Cleanup for every nested job is being called immediately after the job has
         // been executed.
     }
 }

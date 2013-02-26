@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
@@ -98,10 +98,10 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
      * This method ensures to clean up all child jobs in the reverse order in which they were added.
      * 
      */
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-        monitor.subTask("Rollback of " + getName());
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+        monitor.subTask("Cleanup of " + getName());
         while (!myExecutedJobs.empty()) {
-            myExecutedJobs.pop().rollback(monitor);
+            myExecutedJobs.pop().cleanup(monitor);
             monitor.worked(1);
         }
     }

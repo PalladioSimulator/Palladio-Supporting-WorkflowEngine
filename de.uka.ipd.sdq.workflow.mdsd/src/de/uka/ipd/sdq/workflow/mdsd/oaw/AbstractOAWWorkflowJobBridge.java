@@ -13,7 +13,7 @@ import org.eclipse.xtend.expression.AbstractExpressionsUsingWorkflowComponent;
 
 import de.uka.ipd.sdq.workflow.IJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
@@ -129,10 +129,10 @@ implements IJob {
     /*
      * (non-Javadoc)
      * 
-     * @seede.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime. IProgressMonitor)
+     * @seede.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime. IProgressMonitor)
      */
     @Override
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
     }
 
 }

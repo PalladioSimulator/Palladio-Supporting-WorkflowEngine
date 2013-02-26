@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
@@ -176,10 +176,10 @@ public class QVTRTransformationJob implements IBlackboardInteractingJob<MDSDBlac
     /*
      * (non-Javadoc)
      * 
-     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void rollback(final IProgressMonitor monitor) throws RollbackFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
     } // Not needed
 
     /*

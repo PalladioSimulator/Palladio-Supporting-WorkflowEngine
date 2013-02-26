@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.IJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
@@ -37,8 +37,8 @@ public class MockJob implements IJob {
     /** The my was executed. */
     private boolean myWasExecuted = false;
 
-    /** The my was rolled back. */
-    private boolean myWasRolledBack = false;
+    /** The my was cleanup up. */
+    private boolean myWasCleanedUp = false;
 
     /** The my was asked name. */
     private boolean myWasAskedName = false;
@@ -71,11 +71,11 @@ public class MockJob implements IJob {
     /*
      * (non-Javadoc)
      * 
-     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
-        myWasRolledBack = true;
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    	myWasCleanedUp = true;
     }
 
     /**
@@ -88,12 +88,12 @@ public class MockJob implements IJob {
     }
 
     /**
-     * Was rolled back.
+     * Was cleaned up.
      * 
      * @return true, if successful
      */
-    public boolean wasRolledBack() {
-        return myWasRolledBack;
+    public boolean wasCleanedUp() {
+        return myWasCleanedUp;
     }
 
     /**

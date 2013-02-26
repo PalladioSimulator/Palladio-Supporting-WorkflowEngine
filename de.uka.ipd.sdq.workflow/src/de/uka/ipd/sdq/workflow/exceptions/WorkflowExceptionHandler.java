@@ -60,17 +60,18 @@ public class WorkflowExceptionHandler {
     }
 
     /**
-     * handle the case when a the user chooses to cancel a job.
+     * handle the case when the cleanup of a job fails.
      * 
      * @param e
      *            the exception containing more information
      */
-    public void handleRollbackFailed(RollbackFailedException e) {
+    public void handleCleanupFailed(CleanupFailedException e) {
         handleCriticalException(e);
     }
 
+   
     /**
-     * handle the case when the rollback of a job fails.
+     * handle the case when a the user chooses to cancel a job.
      * 
      * @param e
      *            the exception containing more information

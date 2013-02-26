@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.IJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
@@ -60,10 +60,10 @@ public class PrepareXTextPartitionJob implements IJob, IBlackboardInteractingJob
     }
 
     /* (non-Javadoc)
-     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
         this.blackboard.removePartition(modelLocation.getPartitionID());
     }
 

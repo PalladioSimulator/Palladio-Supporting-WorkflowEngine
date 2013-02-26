@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mocks.CancelingJob;
 import de.uka.ipd.sdq.workflow.mocks.FailingJob;
@@ -35,17 +35,17 @@ public class OrderPreservingCompositeJobTests extends TestCase {
     }
 
     /**
-     * add a job. execute the composite job. check if the added job was executed. roll back the
-     * composite job. check if the added job was rolled back.
+     * add a job. execute the composite job. check if the added job was executed. cleanup the
+     * composite job. check if the added job was cleaned up.
      * 
      * @throws JobFailedException
      *             the job failed exception
      * @throws UserCanceledException
      *             the user canceled exception
-     * @throws RollbackFailedException
-     *             the rollback failed exception
+     * @throws CleanupFailedException
+     *             the cleanup failed exception
      */
-    public void testJobHandling() throws JobFailedException, UserCanceledException, RollbackFailedException {
+    public void testJobHandling() throws JobFailedException, UserCanceledException, CleanupFailedException {
         MockJob job = new MockJob();
         myCompJob.addJob(job);
         NullProgressMonitor monitor = new NullProgressMonitor();
@@ -53,8 +53,8 @@ public class OrderPreservingCompositeJobTests extends TestCase {
         myCompJob.execute(monitor);
         assertEquals(true, job.wasExecuted());
 
-        myCompJob.rollback(monitor);
-        assertEquals(true, job.wasRolledBack());
+        myCompJob.cleanup(monitor);
+        assertEquals(true, job.wasCleanedUp());
     }
 
     /**

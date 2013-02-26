@@ -3,7 +3,7 @@ package de.uka.ipd.sdq.workflow;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
@@ -35,15 +35,15 @@ public interface IJob {
 	 * state in which the whole workflow run can be started again with
 	 * the same results (i.e. in which executed can be called again).
 	 * 
-	 * Usually, rollback is called after the whole workflow is completed to allow other
-	 * jobs to use intermediate results. In some cases, rollback can be called earlier. However,
+	 * Usually, cleanup is called after the whole workflow is completed to allow other
+	 * jobs to use intermediate results. In some cases, cleanup can be called earlier. However,
 	 * in those cases, later jobs might not be able to access the intermediate data anymore.
 	 *
 	 * @param monitor the monitor
-	 * @throws RollbackFailedException Thrown if a critical error occurred during clean up
+	 * @throws CleanupFailedException Thrown if a critical error occurred during clean up
 	 * so that the whole workflow should abort cleaning up further jobs.
 	 */
-	public void rollback(IProgressMonitor monitor) throws RollbackFailedException;
+	public void cleanup(IProgressMonitor monitor) throws CleanupFailedException;
 	
 	/**
 	 * Supply a name of this job. This could be used for

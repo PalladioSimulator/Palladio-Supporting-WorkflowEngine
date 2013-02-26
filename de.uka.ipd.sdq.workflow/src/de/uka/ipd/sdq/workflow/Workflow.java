@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
 
@@ -105,11 +105,11 @@ public class Workflow
 			if(logger.isEnabledFor(Level.INFO))
 				logger.info("Cleaning up...");
 			try {
-				this.rollback(myMonitor);
-			} catch (RollbackFailedException e) {
+				this.cleanup(myMonitor);
+			} catch (CleanupFailedException e) {
 				if(logger.isEnabledFor(Level.ERROR))
-					logger.error("Critical failure during workflow rollback");
-				this.exceptionHandler.handleRollbackFailed(e);
+					logger.error("Critical failure during workflow cleanup");
+				this.exceptionHandler.handleCleanupFailed(e);
 			}
 		}
 		

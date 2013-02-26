@@ -9,7 +9,7 @@ import de.uka.ipd.sdq.errorhandling.SeverityAndIssue;
 import de.uka.ipd.sdq.errorhandling.SeverityEnum;
 import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.IJobWithResult;
-import de.uka.ipd.sdq.workflow.exceptions.RollbackFailedException;
+import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 
 /**
@@ -73,10 +73,10 @@ public abstract class ModelValidationJob implements IJobWithResult<List<Severity
     /*
      * (non-Javadoc)
      * 
-     * @see de.uka.ipd.sdq.workflow.IJob#rollback(org.eclipse.core.runtime.IProgressMonitor)
+     * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void rollback(IProgressMonitor monitor) throws RollbackFailedException {
+    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
         // Not needed
     }
 }

@@ -1,41 +1,41 @@
 package de.uka.ipd.sdq.workflow.exceptions;
 
 /**
- * Exception to be thrown if the rollback method of a job terminates unrecoverable.
+ * Exception to be thrown if the cleanup method of a job terminates unrecoverable.
  * @author Steffen Becker
  *
  */
-public class RollbackFailedException extends Exception {
+public class CleanupFailedException extends Exception {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5121021317089764991L;
 
 	/**
-     * Instantiates a new rollback failed exception.
+     * Instantiates a new cleanup failed exception.
      */
-	public RollbackFailedException() {
+	public CleanupFailedException() {
 		super();
 	}
 	
 	/**
-     * Instantiates a new rollback failed exception.
+     * Instantiates a new cleanup failed exception.
      * 
      * @param string
      *            the string
      */
-	public RollbackFailedException(String string) {
+	public CleanupFailedException(String string) {
 		super(string);
 	}	
 	
 	/**
-     * Instantiates a new rollback failed exception.
+     * Instantiates a new cleanup failed exception.
      * 
      * @param string
      *            the string
      * @param e
      *            the e
      */
-	public RollbackFailedException(String string, Throwable e) {
+	public CleanupFailedException(String string, Throwable e) {
 		super(string, e);
 	}
 }

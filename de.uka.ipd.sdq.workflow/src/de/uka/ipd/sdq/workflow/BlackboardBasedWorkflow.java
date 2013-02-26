@@ -65,7 +65,7 @@ public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
      * (non-Javadoc)
      * 
      * @see
-     * de.uka.ipd.sdq.codegen.workflow.OrderPreservingCompositeJob#execute(org.eclipse.core.runtime
+     * de.uka.ipd.sdq.codegen.workflow.SequentialJob#execute(org.eclipse.core.runtime
      * .IProgressMonitor)
      */
     @SuppressWarnings("unchecked")

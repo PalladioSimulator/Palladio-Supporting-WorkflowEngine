@@ -10,8 +10,8 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  * blackboard instance during instantiation
  * 
  */
-public class ParallelBlackboardInteractingCompositeJob<BlackboardType extends Blackboard<?>> extends
-		ParallelCompositeJob implements
+public class ParallelBlackboardInteractingJob<BlackboardType extends Blackboard<?>> extends
+		ParallelJob implements
 		IBlackboardInteractingJob<BlackboardType> {
 
     /** The blackboard. */

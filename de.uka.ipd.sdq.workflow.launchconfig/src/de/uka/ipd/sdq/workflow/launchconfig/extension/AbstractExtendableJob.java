@@ -3,7 +3,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 import java.util.List;
 
 import de.uka.ipd.sdq.workflow.Blackboard;
-import de.uka.ipd.sdq.workflow.OrderPreservingBlackboardCompositeJob;
+import de.uka.ipd.sdq.workflow.SequentialBlackboardInteractingJob;
 
 /**
  * An extendible job which is able to look up and instantiate job extension which have registered
@@ -18,7 +18,7 @@ import de.uka.ipd.sdq.workflow.OrderPreservingBlackboardCompositeJob;
  * @author Benjamin Klatt
  */
 public abstract class AbstractExtendableJob<BlackboardType extends Blackboard<?>> extends
-        OrderPreservingBlackboardCompositeJob<Blackboard<?>> {
+        SequentialBlackboardInteractingJob<Blackboard<?>> {
 
     // ////////////////////////////////
     // ATTRIBUTES

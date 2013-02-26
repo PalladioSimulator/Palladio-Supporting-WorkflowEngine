@@ -2,7 +2,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import de.uka.ipd.sdq.workflow.Blackboard;
 import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
-import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
+import de.uka.ipd.sdq.workflow.SequentialJob;
 
 /**
  * Abstract extension job. This class specifies jobs which can be plugged in into an extendible
@@ -14,7 +14,7 @@ import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
  * @author Michael Hauck
  */
 public abstract class AbstractWorkflowExtensionJob<BlackboardType extends Blackboard<?>> extends
-        OrderPreservingCompositeJob implements IBlackboardInteractingJob<BlackboardType> {
+        SequentialJob implements IBlackboardInteractingJob<BlackboardType> {
 
     // ////////////////////////////////
     // ATTRIBUTES

@@ -5,15 +5,15 @@ import org.eclipse.emf.mwe2.runtime.workflow.WorkflowContextImpl;
 import org.eclipse.xtext.generator.GeneratorComponent;
 import org.eclipse.xtext.mwe.Reader;
 
+import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2SequentialJob;
 import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
-import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2OrderPreservingCompositeJob;
 
 /**
  * The Class XTextGeneratorCompositeJob.
  * 
  * @author Jörg Henss
  */
-public class XTextGeneratorCompositeJob extends MWE2OrderPreservingCompositeJob {
+public class XTextGeneratorJob extends MWE2SequentialJob {
 
     /**
      * Instantiates a new x text generator composite job.
@@ -21,7 +21,7 @@ public class XTextGeneratorCompositeJob extends MWE2OrderPreservingCompositeJob 
      * @param config
      *            the config
      */
-    public XTextGeneratorCompositeJob(XTextGeneratorConfiguration config) {
+    public XTextGeneratorJob(XTextGeneratorConfiguration config) {
 
         // Setup all
         config.initMWEBean();

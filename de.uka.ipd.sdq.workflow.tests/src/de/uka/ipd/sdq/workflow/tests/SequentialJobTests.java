@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.OrderPreservingCompositeJob;
+import de.uka.ipd.sdq.workflow.SequentialJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
@@ -16,12 +16,12 @@ import de.uka.ipd.sdq.workflow.mocks.FailingJob;
 import de.uka.ipd.sdq.workflow.mocks.MockJob;
 
 /**
- * The Class OrderPreservingCompositeJobTests.
+ * The Class SequentialJobTests.
  */
-public class OrderPreservingCompositeJobTests extends TestCase {
+public class SequentialJobTests extends TestCase {
 
     /** The my comp job. */
-    private OrderPreservingCompositeJob myCompJob = null;
+    private SequentialJob myCompJob = null;
 
     /*
      * (non-Javadoc)
@@ -30,7 +30,7 @@ public class OrderPreservingCompositeJobTests extends TestCase {
      */
     @Override
     protected void setUp() {
-        myCompJob = new OrderPreservingCompositeJob();
+        myCompJob = new SequentialJob();
         MockJob.resetExecutionNumber();
     }
 

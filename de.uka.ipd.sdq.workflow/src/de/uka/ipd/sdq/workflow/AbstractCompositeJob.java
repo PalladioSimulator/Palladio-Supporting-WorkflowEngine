@@ -26,7 +26,7 @@ public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> 
     protected Stack<IJob> myExecutedJobs;
 
     /** The logger. */
-    protected Logger logger = Logger.getLogger(OrderPreservingCompositeJob.class);
+    protected Logger logger = Logger.getLogger(SequentialJob.class);
 
     /** The my name. */
     private String myName = null;

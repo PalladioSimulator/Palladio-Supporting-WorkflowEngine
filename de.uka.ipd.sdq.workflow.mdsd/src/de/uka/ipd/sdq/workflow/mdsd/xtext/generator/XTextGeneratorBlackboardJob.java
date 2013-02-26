@@ -10,18 +10,17 @@ import de.uka.ipd.sdq.workflow.IJob;
 import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
 import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-
 import de.uka.ipd.sdq.workflow.mdsd.xtext.IBlackboardInteractingWorkflowComponent;
 import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2BlackboardWorkflowComponentBridge;
+import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2SequentialJob;
 import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
-import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2OrderPreservingCompositeJob;
 
 /**
  * The Class XTextGeneratorBlackboardCompositeJob.
  * 
  * @author Jörg Henss
  */
-public class XTextGeneratorBlackboardCompositeJob extends MWE2OrderPreservingCompositeJob implements
+public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
         IBlackboardInteractingJob<MDSDBlackboard> {
     
     /** The blackboard. */
@@ -58,7 +57,7 @@ public class XTextGeneratorBlackboardCompositeJob extends MWE2OrderPreservingCom
      * @param config
      *            the config
      */
-    public XTextGeneratorBlackboardCompositeJob(XTextGeneratorConfiguration config) {
+    public XTextGeneratorBlackboardJob(XTextGeneratorConfiguration config) {
 
         // Setup all
         config.initMWEBean();

@@ -73,7 +73,7 @@ class CallableJob implements Callable<Throwable> {
  * 
  * @author Steffen Becker
  */
-public class ParallelCompositeJob extends AbstractCompositeJob {
+public class ParallelJob extends AbstractCompositeJob {
 
     /**
      * Size of the threadpool to be used in the job executor. If -1 then the number of CPU cores is
@@ -94,7 +94,7 @@ public class ParallelCompositeJob extends AbstractCompositeJob {
      * Initialise a parallel job containing a number of child jobs with a thread pool size equal to
      * the number of CPU cores.
      */
-    public ParallelCompositeJob() {
+    public ParallelJob() {
         this(-1);
     }
 
@@ -104,7 +104,7 @@ public class ParallelCompositeJob extends AbstractCompositeJob {
      * @param threadPoolSize
      *            The amount of threads to be used to execute jobs
      */
-    public ParallelCompositeJob(int threadPoolSize) {
+    public ParallelJob(int threadPoolSize) {
         super();
 
         this.threadPoolSize = threadPoolSize;

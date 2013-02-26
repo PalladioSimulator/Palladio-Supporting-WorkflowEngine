@@ -13,8 +13,8 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  *            The type of the blackboard needed by all jobs in the sequential workflow
  * @author Steffen
  */
-public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackboard<?>> extends
-        OrderPreservingCompositeJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
+public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboard<?>> extends
+        SequentialJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
 
     /** The my blackboard. */
     protected BlackboardType myBlackboard;
@@ -22,7 +22,7 @@ public class OrderPreservingBlackboardCompositeJob<BlackboardType extends Blackb
     /**
      * Instantiates a new order preserving blackboard composite job.
      */
-    public OrderPreservingBlackboardCompositeJob() {
+    public SequentialBlackboardInteractingJob() {
         super();
     }
 

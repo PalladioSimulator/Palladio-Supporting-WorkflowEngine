@@ -12,12 +12,12 @@ import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
  * @author Philipp Meier
  */
 
-public class OrderPreservingCompositeJob extends AbstractCompositeJob implements ICompositeJob {
+public class SequentialJob extends AbstractCompositeJob implements ICompositeJob {
 
     /**
      * Instantiates a new order preserving composite job.
      */
-    public OrderPreservingCompositeJob() {
+    public SequentialJob() {
         super();
     }
 

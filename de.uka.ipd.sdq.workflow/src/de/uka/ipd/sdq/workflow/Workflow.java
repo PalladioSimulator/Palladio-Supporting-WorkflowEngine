@@ -23,7 +23,7 @@ import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
  * 		   Steffen Becker
  */
 public class Workflow 
-	extends OrderPreservingCompositeJob
+	extends SequentialJob
 	implements ICompositeJob {
 	
 	/** The my monitor. */

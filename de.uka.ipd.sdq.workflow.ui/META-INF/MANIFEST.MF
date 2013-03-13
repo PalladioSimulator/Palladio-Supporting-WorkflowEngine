@@ -9,5 +9,5 @@ Require-Bundle: de.uka.ipd.sdq.workflow.logging.console;bundle-version="1.0.0",
  org.eclipse.debug.core;bundle-version="3.5.0",
  de.uka.ipd.sdq.workflow;bundle-version="1.1.0",
  de.uka.ipd.sdq.dialogs;bundle-version="2.0.1",
- org.eclipse.ui;bundle-version="3.103.0"
+ org.eclipse.ui;bundle-version="3.5.0"
 Bundle-Vendor: sdq.ipd.uka.de

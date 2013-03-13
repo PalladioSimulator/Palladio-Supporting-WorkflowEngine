@@ -15,8 +15,7 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 /**
  * The Class ModelValidationJob.
  */
-public abstract class ModelValidationJob implements IJobWithResult<List<SeverityAndIssue>>,
-        IBlackboardInteractingJob<MDSDBlackboard> {
+public abstract class ModelValidationJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     /** The job result. */
     private List<SeverityAndIssue> jobResult = null;
@@ -57,12 +56,12 @@ public abstract class ModelValidationJob implements IJobWithResult<List<Severity
         this.jobResult = jobResult;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Returns the job result.
      * 
-     * @see de.uka.ipd.sdq.workflow.IJobWithResult#getResult()
+     * @param jobResult
+     *            the jobResult.
      */
-    @Override
     public List<SeverityAndIssue> getResult() {
         if (this.jobResult == null) {
             return Collections.emptyList();

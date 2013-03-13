@@ -44,7 +44,7 @@ public class SequentialJob extends AbstractCompositeJob implements
 				throw new UserCanceledException();
 			}
 			if (logger.isDebugEnabled()) {
-				logger.debug("SDQ Workflow-Engine: Running job "
+				logger.debug("Palladio Workflow-Engine: Running job "
 						+ job.getName());
 			}
 			subProgressMonitor.subTask(job.getName());

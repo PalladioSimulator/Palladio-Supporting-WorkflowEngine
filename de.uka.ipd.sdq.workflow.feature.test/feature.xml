@@ -6,7 +6,7 @@
       provider-name="sdq.ipd.uka.de">
 
    <description url="WorkflowEngine Update Site">
-      This feature contains tests for the SDQ workflow engine which provides
+      This feature contains tests for the Palladio workflow engine which provides
 a workflow for tasks being run under the Eclipse UI from the Run Dialog.
    </description>
 

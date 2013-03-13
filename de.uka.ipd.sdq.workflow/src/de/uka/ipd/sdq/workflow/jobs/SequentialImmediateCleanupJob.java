@@ -56,7 +56,7 @@ public class SequentialImmediateCleanupJob<BlackboardType extends Blackboard<?>>
 						.setBlackboard(this.myBlackboard);
 			}
 			if (logger.isDebugEnabled()) {
-				logger.debug("SDQ Workflow-Engine: Running job "
+				logger.debug("Palladio Workflow-Engine: Running job "
 						+ job.getName());
 			}
 			subProgressMonitor.subTask(job.getName());

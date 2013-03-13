@@ -41,7 +41,7 @@ implements IJob {
      * Constructor of the oAW bridge.
      * 
      * @param job
-     *            The oAW job to wrap for execution in the SDQ workflow engine
+     *            The oAW job to wrap for execution in the Palladio workflow engine
      */
     public AbstractOAWWorkflowJobBridge(T job) {
         this(job, new HashMap<String, Object>());
@@ -51,7 +51,7 @@ implements IJob {
      * Constructor of the oAW bridge.
      * 
      * @param job
-     *            The oAW job to wrap for execution in the SDQ workflow engine
+     *            The oAW job to wrap for execution in the Palladio workflow engine
      * @param slotContents
      *            Contains models of the oAW workflow engine's blackboard, i.e., models to be
      *            transformed by the encapsulated oAW job

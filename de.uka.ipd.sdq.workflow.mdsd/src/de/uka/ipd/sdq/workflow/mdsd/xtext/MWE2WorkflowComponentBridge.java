@@ -36,7 +36,7 @@ implements IPrePostJob {
      * Constructor of the oAW bridge.
      * 
      * @param job
-     *            The oAW job to wrap for execution in the SDQ workflow engine
+     *            The oAW job to wrap for execution in the Palladio workflow engine
      * @param ctx
      *            the ctx
      * @param name

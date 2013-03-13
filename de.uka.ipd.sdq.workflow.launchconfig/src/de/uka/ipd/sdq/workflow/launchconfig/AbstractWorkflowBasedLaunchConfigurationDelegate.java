@@ -27,7 +27,7 @@ import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
 
 /**
  * Abstract base class for Eclipse Launches (both Run and Debug mode are supported) which run based
- * on the SDQ workflow engine, i.e., the run has an IJob which gets executed. The class offers
+ * on the Palladio workflow engine, i.e., the run has an IJob which gets executed. The class offers
  * features to convert the information contained in ILaunchConfiguration into a strongly typed
  * configuration object for the workflow job, features to suport logging into the Eclipse console,
  * support for an Eclipse process which can be used to interrupt, terminate or debug the run,
@@ -281,7 +281,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
     protected ArrayList<LoggerAppenderStruct> setupLogging(Level logLevel) throws CoreException {
         ArrayList<LoggerAppenderStruct> loggerList = new ArrayList<LoggerAppenderStruct>();
 
-        // Setup SDQ workflow engine logging
+        // Setup Palladio workflow engine logging
         loggerList.add(setupLogger("de.uka.ipd.sdq.workflow", logLevel, Level.DEBUG == logLevel ? DETAILED_LOG_PATTERN
                 : SHORT_LOG_PATTERN));
 

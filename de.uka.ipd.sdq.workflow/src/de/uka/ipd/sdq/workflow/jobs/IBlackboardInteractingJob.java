@@ -1,4 +1,6 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
+
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
  * Interface of a job which needs access to a certain type of blackboard to retrieve or store data.

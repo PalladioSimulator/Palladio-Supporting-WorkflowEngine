@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
 
 import java.util.HashMap;
 import java.util.concurrent.Callable;
@@ -10,8 +10,6 @@ import java.util.concurrent.Future;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
  * Inner class which represents a job as Callable. This is needed to submit the job to an executor

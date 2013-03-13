@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.configuration;
 
 /**
  * Interface for Configuration Objects used to configure work flow jobs. Each Job should get an IJobConfiguration

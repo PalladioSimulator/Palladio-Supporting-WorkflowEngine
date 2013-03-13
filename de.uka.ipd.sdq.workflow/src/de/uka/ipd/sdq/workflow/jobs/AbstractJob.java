@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
 
 import org.apache.log4j.Logger;
 

@@ -1,6 +1,6 @@
 package de.uka.ipd.sdq.workflow.mdsd.xtext;
 
-import de.uka.ipd.sdq.workflow.Blackboard;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
  * The Interface IBlackboardInteractingWorkflowComponent.

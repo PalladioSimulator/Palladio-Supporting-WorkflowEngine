@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.exceptions;
+package de.uka.ipd.sdq.workflow.jobs;
 
 import org.eclipse.core.runtime.CoreException;
 

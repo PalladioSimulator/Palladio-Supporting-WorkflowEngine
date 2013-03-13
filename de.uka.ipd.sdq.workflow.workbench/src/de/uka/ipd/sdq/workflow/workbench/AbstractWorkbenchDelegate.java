@@ -25,11 +25,11 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 
-import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
-import de.uka.ipd.sdq.workflow.IJob;
 import de.uka.ipd.sdq.workflow.Workflow;
-import de.uka.ipd.sdq.workflow.exceptions.InvalidWorkflowJobConfiguration;
-import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
+import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
@@ -236,7 +236,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType
         	logger.info("Validating workflow configuration");
         try {
             workflowConfiguration.validateAndFreeze();
-        } catch (InvalidWorkflowJobConfiguration e) {
+        } catch (InvalidWorkflowJobConfigurationException e) {
         	if(logger.isEnabledFor(Level.INFO)) {
         		logger.error("Configuration invalid");
         		logger.error(e.getMessage());

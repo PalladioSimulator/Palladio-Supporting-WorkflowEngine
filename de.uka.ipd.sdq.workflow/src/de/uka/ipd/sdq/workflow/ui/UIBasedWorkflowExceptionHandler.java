@@ -3,8 +3,8 @@ package de.uka.ipd.sdq.workflow.ui;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.ui.PlatformUI;
 import de.uka.ipd.sdq.dialogs.error.ErrorDisplayDialog;
+import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
 import de.uka.ipd.sdq.workflow.WorkflowPlugin;
-import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
 
 /**
  * Workflow exception handler which is able to interact with the Eclipse UI.

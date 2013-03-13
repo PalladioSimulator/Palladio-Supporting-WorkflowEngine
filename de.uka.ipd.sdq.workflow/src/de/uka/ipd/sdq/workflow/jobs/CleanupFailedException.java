@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.exceptions;
+package de.uka.ipd.sdq.workflow.jobs;
 
 /**
  * Exception to be thrown if the cleanup method of a job terminates unrecoverable.

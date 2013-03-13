@@ -1,6 +1,5 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.configuration;
 
-import de.uka.ipd.sdq.workflow.exceptions.InvalidWorkflowJobConfiguration;
 
 /**
  * The Class AbstractJobConfiguration.
@@ -26,12 +25,12 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
      * 
      * If check fails it throws an Exception.
      * 
-     * @throws InvalidWorkflowJobConfiguration
+     * @throws InvalidWorkflowJobConfigurationException
      *             the invalid workflow job configuration
      */
-    public void validateAndFreeze() throws InvalidWorkflowJobConfiguration {
+    public void validateAndFreeze() throws InvalidWorkflowJobConfigurationException {
         if (!this.isValid()) {
-            throw new InvalidWorkflowJobConfiguration(this.getErrorMessage());
+            throw new InvalidWorkflowJobConfigurationException(this.getErrorMessage());
         }
         this.isFixed = true;
     }
@@ -60,7 +59,7 @@ public abstract class AbstractJobConfiguration implements IJobConfiguration, Clo
      * @see de.uka.ipd.sdq.workflow.IJobConfiguration#getErrorMessage()
      */
     @Override
-    abstract public String getErrorMessage();
+    public abstract String getErrorMessage();
 
     /*
      * (non-Javadoc)

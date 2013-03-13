@@ -1,4 +1,8 @@
-package de.uka.ipd.sdq.workflow.exceptions;
+package de.uka.ipd.sdq.workflow;
+
+import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
+import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
+import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 /**
  * Implementation of a work flow exception handler. Serious failures are logged and presented to the

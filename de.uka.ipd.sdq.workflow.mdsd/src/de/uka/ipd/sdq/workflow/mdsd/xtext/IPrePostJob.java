@@ -1,6 +1,6 @@
 package de.uka.ipd.sdq.workflow.mdsd.xtext;
 
-import de.uka.ipd.sdq.workflow.IJob;
+import de.uka.ipd.sdq.workflow.jobs.IJob;
 
 /**
  * A job supporting pre and post execute routines.

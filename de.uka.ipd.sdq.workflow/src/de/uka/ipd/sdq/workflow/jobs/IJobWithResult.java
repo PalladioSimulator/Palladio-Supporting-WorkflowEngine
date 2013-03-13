@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
 
 /**
  * An interface for jobs which return a result when they are done. The generic type parameter T

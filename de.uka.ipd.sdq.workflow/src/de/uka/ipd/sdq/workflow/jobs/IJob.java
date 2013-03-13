@@ -1,10 +1,7 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.CleanupFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
 
 /**
  * Interface for jobs to be added to a workflow (IWorkflow).

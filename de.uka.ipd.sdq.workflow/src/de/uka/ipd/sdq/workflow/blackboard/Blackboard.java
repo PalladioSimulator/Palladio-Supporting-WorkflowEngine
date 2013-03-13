@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.blackboard;
 
 import java.util.HashMap;
 

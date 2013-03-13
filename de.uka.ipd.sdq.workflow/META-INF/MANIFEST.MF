@@ -12,6 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.dialogs;bundle-version="2.0.1"
 Bundle-ActivationPolicy: lazy
 Export-Package: de.uka.ipd.sdq.workflow,
- de.uka.ipd.sdq.workflow.exceptions,
+ de.uka.ipd.sdq.workflow.blackboard,
+ de.uka.ipd.sdq.workflow.configuration,
+ de.uka.ipd.sdq.workflow.jobs,
  de.uka.ipd.sdq.workflow.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,25 +1,33 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.jobs;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
- * Parallel composite job which is capable to provide child jobs access to a
- * blackboard instance during instantiation
+ * A sequential workflow which may contain jobs which need access to a common blackboard for
+ * information exchange.
  * 
+ * @param <BlackboardType>
+ *            The type of the blackboard needed by all jobs in the sequential workflow
+ * @author Steffen
  */
-public class ParallelBlackboardInteractingJob<BlackboardType extends Blackboard<?>> extends
-		ParallelJob implements
-		IBlackboardInteractingJob<BlackboardType> {
+public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboard<?>> extends
+        SequentialJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
 
-    /** The blackboard. */
+    /** The my blackboard. */
     protected BlackboardType myBlackboard;
 
     /**
-     * Set the blackboard reference to all child jobs which are black board interacting
-     * and triggers the super class execution which takes care for the parallel execution itself.
+     * Instantiates a new order preserving blackboard composite job.
+     */
+    public SequentialBlackboardInteractingJob() {
+        super();
+    }
+
+    /**
+     * Executes all contained jobs, i.e. call execute() for them. Contained jobs can thus
+     * re-implement this method with functionality that should be executed.
      * 
      * @param monitor
      *            the monitor
@@ -39,8 +47,9 @@ public class ParallelBlackboardInteractingJob<BlackboardType extends Blackboard<
         super.execute(monitor);
     }
 
-    /**
-     * {@inheritDoc}
+    /*
+     * (non-Javadoc)
+     * 
      * @see
      * de.uka.ipd.sdq.codegen.workflow.IBlackboardInteractingJob#setBlackbard(de.uka.ipd.sdq.codegen
      * .workflow.Blackboard)
@@ -58,5 +67,4 @@ public class ParallelBlackboardInteractingJob<BlackboardType extends Blackboard<
     public BlackboardType getBlackboard() {
         return myBlackboard;
     }
-
 }

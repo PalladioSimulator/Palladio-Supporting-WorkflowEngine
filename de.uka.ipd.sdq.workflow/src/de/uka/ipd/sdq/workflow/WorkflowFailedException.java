@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.exceptions;
+package de.uka.ipd.sdq.workflow;
 
 /**
  * The Class WorkflowFailedException.

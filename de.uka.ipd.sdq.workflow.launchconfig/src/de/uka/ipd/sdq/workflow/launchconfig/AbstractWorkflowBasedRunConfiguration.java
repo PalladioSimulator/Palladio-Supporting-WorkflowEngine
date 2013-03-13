@@ -1,7 +1,7 @@
 package de.uka.ipd.sdq.workflow.launchconfig;
 
-import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
-import de.uka.ipd.sdq.workflow.IJobConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.IJobConfiguration;
 
 /**
  * Base class for all configurations used to configure an Eclipse based {@link Workflow} (or launch).

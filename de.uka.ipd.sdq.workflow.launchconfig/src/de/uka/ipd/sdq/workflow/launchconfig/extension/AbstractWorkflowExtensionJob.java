@@ -1,8 +1,8 @@
 package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
-import de.uka.ipd.sdq.workflow.Blackboard;
-import de.uka.ipd.sdq.workflow.IBlackboardInteractingJob;
-import de.uka.ipd.sdq.workflow.SequentialJob;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
+import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
+import de.uka.ipd.sdq.workflow.jobs.SequentialJob;
 
 /**
  * Abstract extension job. This class specifies jobs which can be plugged in into an extendible

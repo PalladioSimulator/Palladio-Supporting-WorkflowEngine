@@ -2,7 +2,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.configbuilder;
 
 import java.util.Map;
 
-import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 
 /**
  * Base class for all builder classes which take an Eclipse ILaunchConfig or its contained

@@ -1,9 +1,9 @@
-package de.uka.ipd.sdq.workflow.exceptions;
+package de.uka.ipd.sdq.workflow.configuration;
 
 /**
  * The Class InvalidWorkflowJobConfiguration.
  */
-public class InvalidWorkflowJobConfiguration extends Exception {
+public class InvalidWorkflowJobConfigurationException extends Exception {
 
 	/**
      * Instantiates a new invalid workflow job configuration.
@@ -11,7 +11,7 @@ public class InvalidWorkflowJobConfiguration extends Exception {
      * @param errorMessage
      *            the error message
      */
-	public InvalidWorkflowJobConfiguration(String errorMessage) {
+	public InvalidWorkflowJobConfigurationException(String errorMessage) {
 		super(errorMessage);
 	}
 

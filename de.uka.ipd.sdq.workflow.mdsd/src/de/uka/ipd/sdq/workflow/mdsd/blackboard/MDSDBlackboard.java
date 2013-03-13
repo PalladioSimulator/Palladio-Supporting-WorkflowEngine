@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import de.uka.ipd.sdq.workflow.Blackboard;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
  * A blackboard implementation whose partitions use {@link ResourceSet} to store EMF Model

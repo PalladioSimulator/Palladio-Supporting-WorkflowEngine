@@ -2,7 +2,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 
-import de.uka.ipd.sdq.workflow.Blackboard;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
  * A data class composing the relevant elements that form an instance of the work flow extension

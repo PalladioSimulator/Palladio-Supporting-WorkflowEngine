@@ -1,9 +1,8 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * Job configuration which is composed from several child job configurations.
  * 

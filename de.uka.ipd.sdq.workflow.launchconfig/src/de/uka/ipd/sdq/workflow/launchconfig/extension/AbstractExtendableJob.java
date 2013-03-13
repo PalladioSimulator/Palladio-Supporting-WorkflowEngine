@@ -2,8 +2,8 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import java.util.List;
 
-import de.uka.ipd.sdq.workflow.Blackboard;
-import de.uka.ipd.sdq.workflow.SequentialBlackboardInteractingJob;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
+import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 
 /**
  * An extendible job which is able to look up and instantiate job extension which have registered

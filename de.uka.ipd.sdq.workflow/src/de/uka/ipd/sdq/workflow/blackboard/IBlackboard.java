@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow;
+package de.uka.ipd.sdq.workflow.blackboard;
 
 /**
  * Interface of a blackboard as defined in POSA I. See also class Blackboard for further information.

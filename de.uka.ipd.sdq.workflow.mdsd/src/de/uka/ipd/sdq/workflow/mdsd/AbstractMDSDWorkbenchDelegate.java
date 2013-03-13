@@ -2,9 +2,9 @@ package de.uka.ipd.sdq.workflow.mdsd;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.BlackboardBasedWorkflow;
 import de.uka.ipd.sdq.workflow.Workflow;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.workbench.AbstractWorkbenchDelegate;
 

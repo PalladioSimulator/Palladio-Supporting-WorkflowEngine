@@ -2,9 +2,11 @@ package de.uka.ipd.sdq.workflow;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.exceptions.JobFailedException;
-import de.uka.ipd.sdq.workflow.exceptions.UserCanceledException;
-import de.uka.ipd.sdq.workflow.exceptions.WorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
+import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
+import de.uka.ipd.sdq.workflow.jobs.IJob;
+import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
+import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 /**
  * A workflow implementation which may contain jobs which need to access a blackboard.

@@ -10,8 +10,7 @@ import java.util.Map;
  *
  */
 public class AbstractComposedJobConfiguration 
-extends AbstractJobConfiguration
-implements IJobConfiguration {
+extends AbstractJobConfiguration {
 	
 	/** The child configurations. */
 	private Map<Integer, AbstractJobConfiguration> childConfigurations = new HashMap<Integer, AbstractJobConfiguration>();

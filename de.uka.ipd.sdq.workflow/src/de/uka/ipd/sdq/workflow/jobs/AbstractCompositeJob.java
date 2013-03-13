@@ -7,23 +7,19 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 
 /**
  * The Class AbstractCompositeJob.
  */
-public abstract class AbstractCompositeJob implements ICompositeJob, List<IJob> {
+public abstract class AbstractCompositeJob extends AbstractJob implements ICompositeJob, List<IJob> {
 
     /** The my jobs. */
     protected LinkedList<IJob> myJobs;
 
     /** The my executed jobs. */
     protected Stack<IJob> myExecutedJobs;
-
-    /** The logger. */
-    protected Logger logger = Logger.getLogger(SequentialJob.class);
 
     /** The my name. */
     private String myName = null;

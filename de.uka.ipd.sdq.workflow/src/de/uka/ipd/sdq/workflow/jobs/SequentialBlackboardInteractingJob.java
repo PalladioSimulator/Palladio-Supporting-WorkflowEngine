@@ -13,7 +13,7 @@ import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
  * @author Steffen
  */
 public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboard<?>> extends
-        SequentialJob implements ICompositeJob, IBlackboardInteractingJob<BlackboardType> {
+        SequentialJob implements IBlackboardInteractingJob<BlackboardType> {
 
     /** The my blackboard. */
     protected BlackboardType myBlackboard;

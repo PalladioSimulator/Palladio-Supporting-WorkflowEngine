@@ -11,8 +11,7 @@ import de.uka.ipd.sdq.workflow.ExecutionTimeLoggingProgressMonitor;
  * @author Philipp Meier
  */
 
-public class SequentialJob extends AbstractCompositeJob implements
-		ICompositeJob {
+public class SequentialJob extends AbstractCompositeJob {
 
 	/**
 	 * Instantiates a new order preserving composite job.

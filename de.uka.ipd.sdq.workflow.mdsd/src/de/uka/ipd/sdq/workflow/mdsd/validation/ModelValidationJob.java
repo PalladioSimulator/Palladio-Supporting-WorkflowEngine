@@ -9,7 +9,6 @@ import de.uka.ipd.sdq.errorhandling.SeverityAndIssue;
 import de.uka.ipd.sdq.errorhandling.SeverityEnum;
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
-import de.uka.ipd.sdq.workflow.jobs.IJobWithResult;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 
 /**
@@ -58,9 +57,7 @@ public abstract class ModelValidationJob implements IBlackboardInteractingJob<MD
 
     /**
      * Returns the job result.
-     * 
-     * @param jobResult
-     *            the jobResult.
+     * @return The list of issues tracked for the job.
      */
     public List<SeverityAndIssue> getResult() {
         if (this.jobResult == null) {

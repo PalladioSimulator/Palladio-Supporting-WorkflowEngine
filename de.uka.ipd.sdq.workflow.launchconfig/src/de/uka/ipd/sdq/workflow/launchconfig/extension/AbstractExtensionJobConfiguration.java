@@ -1,6 +1,6 @@
 package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
-import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 
 /**
  * An abstract job configuration which can be instantiated to provide custom configurations to a
@@ -9,7 +9,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
  * @author Benjamin Klatt
  * 
  */
-public abstract class AbstractExtensionJobConfiguration extends AbstractWorkflowBasedRunConfiguration {
+public abstract class AbstractExtensionJobConfiguration extends AbstractJobConfiguration {
 
     // ////////////////////////////////
     // ATTRIBUTES

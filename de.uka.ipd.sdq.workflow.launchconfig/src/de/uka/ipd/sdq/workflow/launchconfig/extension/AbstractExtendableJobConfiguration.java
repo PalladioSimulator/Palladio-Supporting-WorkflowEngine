@@ -2,7 +2,7 @@ package de.uka.ipd.sdq.workflow.launchconfig.extension;
 
 import java.util.Map;
 
-import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
+import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 
 /**
  * A configuration for extendible jobs which is able to carry the required launch information to
@@ -11,7 +11,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
  * @author Benjamin Klatt
  * 
  */
-public abstract class AbstractExtendableJobConfiguration extends AbstractWorkflowBasedRunConfiguration implements
+public abstract class AbstractExtendableJobConfiguration extends AbstractJobConfiguration implements
         ExtendableJobConfiguration {
 
     // ////////////////////////////////

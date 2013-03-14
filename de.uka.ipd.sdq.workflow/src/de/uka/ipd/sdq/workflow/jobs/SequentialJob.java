@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow.jobs;
 
+import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import de.uka.ipd.sdq.workflow.ExecutionTimeLoggingProgressMonitor;
@@ -9,15 +10,27 @@ import de.uka.ipd.sdq.workflow.ExecutionTimeLoggingProgressMonitor;
  * in the order they were added.
  * 
  * @author Philipp Meier
+ * @author Benjamin Klatt
  */
-
 public class SequentialJob extends AbstractCompositeJob {
+
+	/** Flag if the jobs should be cleaned up immediately after their execution. */
+	private boolean cleanUpImmediately = true;
 
 	/**
 	 * Instantiates a new order preserving composite job.
 	 */
 	public SequentialJob() {
 		super();
+	}
+
+	/**
+	 * Instantiates a new sequential job.
+	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
+	 */
+	public SequentialJob(boolean cleanUpImmediately) {
+		this();
+		this.cleanUpImmediately = cleanUpImmediately;
 	}
 
 	/**
@@ -34,9 +47,31 @@ public class SequentialJob extends AbstractCompositeJob {
 	 */
 	public void execute(IProgressMonitor monitor) throws JobFailedException,
 			UserCanceledException {
+
+		if (cleanUpImmediately) {
+			executeWithImmediateCleanUp(monitor);
+		} else {
+			executeWithDelayedCleanUp(monitor);
+		}
+	}
+
+	/**
+	 * Executes all contained jobs, and runs their clean up methods
+	 * when all jobs are finished.
+	 * 
+	 * @param monitor
+	 *            the monitor
+	 * @throws JobFailedException
+	 *             the job failed exception
+	 * @throws UserCanceledException
+	 *             the user canceled exception
+	 */
+	public void executeWithDelayedCleanUp(IProgressMonitor monitor) throws JobFailedException,
+			UserCanceledException {
+
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
 				monitor, 1);
-		subProgressMonitor.beginTask("Composite Job Execution", myJobs.size());
+		subProgressMonitor.beginTask("Sequential Job Execution", myJobs.size());
 
 		for (IJob job : myJobs) {
 			if (monitor.isCanceled()) {
@@ -52,5 +87,60 @@ public class SequentialJob extends AbstractCompositeJob {
 			subProgressMonitor.worked(1);
 		}
 		subProgressMonitor.done();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Specialty: Calls cleanup after the execution of each nested job and
+	 * deletes the reference to that nested job. Thus, you need to make sure
+	 * that no later jobs depend on these jobs intermediate results that are
+	 * deleted during cleanup.
+	 */
+	protected void executeWithImmediateCleanUp(IProgressMonitor monitor)
+			throws JobFailedException, UserCanceledException {
+
+		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
+				monitor, 1);
+		subProgressMonitor.beginTask("Composite Job Execution", myJobs.size());
+
+		int totalNumberOfJobs = myJobs.size();
+		for (int i = 0; i < totalNumberOfJobs; i++) {
+			if (monitor.isCanceled()) {
+				throw new UserCanceledException();
+			}
+			IJob job = myJobs.getFirst();
+			if (logger.isDebugEnabled()) {
+				logger.debug("Palladio Workflow-Engine: Running job "
+						+ job.getName());
+			}
+			subProgressMonitor.subTask(job.getName());
+			job.execute(subProgressMonitor);
+			subProgressMonitor.worked(1);
+			subProgressMonitor.subTask("Cleaning up job " + job.getName());
+			try {
+				job.cleanup(subProgressMonitor);
+			} catch (CleanupFailedException e) {
+				if (logger.isEnabledFor(Level.WARN)) {
+					logger.warn("Failed to cleanup job " + job.getName());
+				}
+			}
+			subProgressMonitor.worked(1);
+			myJobs.removeFirst();
+			job = null;
+		}
+		subProgressMonitor.done();
+	}
+
+	/**
+	 * If the sequential job is configured to not clean up immediately, the
+	 * parents behavior is triggered. Otherwise, the clean up has already be
+	 * done. {@inheritDoc}
+	 */
+	@Override
+	public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+		if (!cleanUpImmediately) {
+			super.cleanup(monitor);
+		}
 	}
 }

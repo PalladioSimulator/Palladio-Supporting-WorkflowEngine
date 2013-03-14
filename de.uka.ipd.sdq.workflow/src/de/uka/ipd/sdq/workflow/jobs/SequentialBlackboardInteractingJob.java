@@ -1,9 +1,7 @@
 package de.uka.ipd.sdq.workflow.jobs;
 
-import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
 
-import de.uka.ipd.sdq.workflow.ExecutionTimeLoggingProgressMonitor;
 import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
@@ -28,9 +26,6 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	/** The my blackboard. */
 	protected BlackboardType myBlackboard;
 
-	/** Flag if the jobs should be cleaned up immediately after their execution. */
-	private boolean cleanUpImmediately = true;
-
 	/**
 	 * Instantiates a new order preserving blackboard composite job.
 	 */
@@ -43,8 +38,7 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
 	 */
 	public SequentialBlackboardInteractingJob(boolean cleanUpImmediately) {
-		this();
-		this.cleanUpImmediately = cleanUpImmediately;
+		super(cleanUpImmediately);
 	}
 
 	/**
@@ -58,33 +52,10 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	 * @throws UserCanceledException
 	 *             the user canceled exception
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void execute(IProgressMonitor monitor) throws JobFailedException,
 			UserCanceledException {
-		if (cleanUpImmediately) {
-			executeWithImmediateCleanUp(monitor);
-		} else {
-			executeWithDelayedCleanUp(monitor);
-		}
-	}
-
-	/**
-	 * Executes all contained jobs, i.e. call execute() for them. Contained jobs
-	 * can thus re-implement this method with functionality that should be
-	 * executed.
-	 * 
-	 * The job's clean up method is called when all jobs are finished.
-	 * 
-	 * @param monitor
-	 *            the monitor
-	 * @throws JobFailedException
-	 *             the job failed exception
-	 * @throws UserCanceledException
-	 *             the user canceled exception
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void executeWithDelayedCleanUp(IProgressMonitor monitor)
-			throws JobFailedException, UserCanceledException {
 		for (IJob job : this.myJobs) {
 			if (job instanceof IBlackboardInteractingJob) {
 				((IBlackboardInteractingJob) job)
@@ -92,54 +63,6 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 			}
 		}
 		super.execute(monitor);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * Specialty: Calls cleanup after the execution of each nested job and
-	 * deletes the reference to that nested job. Thus, you need to make sure
-	 * that no later jobs depend on these jobs intermediate results that are
-	 * deleted during cleanup.
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void executeWithImmediateCleanUp(IProgressMonitor monitor)
-			throws JobFailedException, UserCanceledException {
-
-		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
-				monitor, 1);
-		subProgressMonitor.beginTask("Composite Job Execution", myJobs.size());
-
-		int totalNumberOfJobs = myJobs.size();
-		for (int i = 0; i < totalNumberOfJobs; i++) {
-			if (monitor.isCanceled()) {
-				throw new UserCanceledException();
-			}
-			IJob job = myJobs.getFirst();
-			if (job instanceof IBlackboardInteractingJob) {
-				((IBlackboardInteractingJob) job)
-						.setBlackboard(this.myBlackboard);
-			}
-			if (logger.isDebugEnabled()) {
-				logger.debug("Palladio Workflow-Engine: Running job "
-						+ job.getName());
-			}
-			subProgressMonitor.subTask(job.getName());
-			job.execute(subProgressMonitor);
-			subProgressMonitor.worked(1);
-			subProgressMonitor.subTask("Cleaning up job " + job.getName());
-			try {
-				job.cleanup(subProgressMonitor);
-			} catch (CleanupFailedException e) {
-				if (logger.isEnabledFor(Level.WARN)) {
-					logger.warn("Failed to cleanup job " + job.getName());
-				}
-			}
-			subProgressMonitor.worked(1);
-			myJobs.removeFirst();
-			job = null;
-		}
-		subProgressMonitor.done();
 	}
 
 	/*
@@ -161,17 +84,5 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	 */
 	public BlackboardType getBlackboard() {
 		return myBlackboard;
-	}
-
-	/**
-	 * If the sequential job is configured to not clean up immediately, the
-	 * parents behavior is triggered. Otherwise, the clean up has already be
-	 * done. {@inheritDoc}
-	 */
-	@Override
-	public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
-		if (!cleanUpImmediately) {
-			super.cleanup(monitor);
-		}
 	}
 }

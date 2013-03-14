@@ -26,7 +26,9 @@ public class SequentialJob extends AbstractCompositeJob {
 
 	/**
 	 * Instantiates a new sequential job.
-	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
+	 * 
+	 * @param cleanUpImmediately
+	 *            Flag if jobs should be cleaned up immediately or not.
 	 */
 	public SequentialJob(boolean cleanUpImmediately) {
 		this();
@@ -47,7 +49,6 @@ public class SequentialJob extends AbstractCompositeJob {
 	 */
 	public void execute(IProgressMonitor monitor) throws JobFailedException,
 			UserCanceledException {
-
 		if (cleanUpImmediately) {
 			executeWithImmediateCleanUp(monitor);
 		} else {
@@ -56,8 +57,8 @@ public class SequentialJob extends AbstractCompositeJob {
 	}
 
 	/**
-	 * Executes all contained jobs, and runs their clean up methods
-	 * when all jobs are finished.
+	 * Executes all contained jobs, and runs their clean up methods when all
+	 * jobs are finished.
 	 * 
 	 * @param monitor
 	 *            the monitor
@@ -66,8 +67,8 @@ public class SequentialJob extends AbstractCompositeJob {
 	 * @throws UserCanceledException
 	 *             the user canceled exception
 	 */
-	public void executeWithDelayedCleanUp(IProgressMonitor monitor) throws JobFailedException,
-			UserCanceledException {
+	private void executeWithDelayedCleanUp(IProgressMonitor monitor)
+			throws JobFailedException, UserCanceledException {
 
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
 				monitor, 1);
@@ -90,19 +91,24 @@ public class SequentialJob extends AbstractCompositeJob {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * 
 	 * Specialty: Calls cleanup after the execution of each nested job and
 	 * deletes the reference to that nested job. Thus, you need to make sure
 	 * that no later jobs depend on these jobs intermediate results that are
 	 * deleted during cleanup.
+	 * 
+	 * @param monitor
+	 *            The monitor to report the progress to.
+	 * @throws JobFailedException
+	 *             identifies a failed job execution.
+	 * @throws UserCanceledException
+	 *             Identifies a user has canceled the execution of the job.
 	 */
-	protected void executeWithImmediateCleanUp(IProgressMonitor monitor)
+	private void executeWithImmediateCleanUp(IProgressMonitor monitor)
 			throws JobFailedException, UserCanceledException {
 
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
 				monitor, 1);
-		subProgressMonitor.beginTask("Composite Job Execution", myJobs.size());
+		subProgressMonitor.beginTask("Sequential Job Execution", myJobs.size());
 
 		int totalNumberOfJobs = myJobs.size();
 		for (int i = 0; i < totalNumberOfJobs; i++) {

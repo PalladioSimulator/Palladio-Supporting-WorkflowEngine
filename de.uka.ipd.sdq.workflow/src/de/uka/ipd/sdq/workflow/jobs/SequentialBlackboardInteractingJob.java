@@ -39,6 +39,15 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	}
 
 	/**
+	 * Instantiates a new order preserving blackboard composite job.
+	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
+	 */
+	public SequentialBlackboardInteractingJob(boolean cleanUpImmediately) {
+		this();
+		this.cleanUpImmediately = cleanUpImmediately;
+	}
+
+	/**
 	 * Executes all contained jobs. Depending on the jobs configuration, the
 	 * execution cleans up immediately or when all jobs are done.
 	 * 

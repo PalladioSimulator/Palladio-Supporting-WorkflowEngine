@@ -9,6 +9,9 @@ import org.eclipse.debug.core.ILaunchManager;
 /**
  * Bridge for workflow engine-based configurations of type
  * {@link AbstractWorkflowBasedRunConfiguration} and eclipse launch configurations.
+ * 
+ * Reads a workflow engine configuration and fills an 
+ * eclipse launch configuration.
  */
 public abstract class AbstractWorkflowConfigurationBuilder {
 

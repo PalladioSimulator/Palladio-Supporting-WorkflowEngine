@@ -287,6 +287,37 @@ public class TabHelper {
 				allowMultipleSelection, false);
 	}
 
+	/**
+	 * Helper method to create a file selection section in the parent UI
+	 * container element.
+	 * 
+	 * @param parentContainer
+	 *            The parent UI container to place the elements in.
+	 * @param modifyListener
+	 *            The listener to register if the input changes.
+	 * @param groupLabel
+	 *            The label for the section group.
+	 * @param fileExtensionRestrictions
+	 *            Limitations for the files to be selectable.
+	 * @param textFileNameToLoad
+	 *            The text input field for the file name.
+	 * @param dialogTitle
+	 *            The title for the file selection dialog.
+	 * @param dialogShell
+	 *            The ui shell to interact with.
+	 * @param showWorkspaceSelectionButton
+	 *            Flag whether a button to select the file from the workspace
+	 *            should be provided.
+	 * @param showFileSystemSelectionButton
+	 *            Flag whether a button to select the file from the file system
+	 *            should be provided.
+	 * @param defaultFileURI
+	 *            The default file to present.
+	 * @param allowMultipleSelection
+	 *            Flag if the selection of multiple files should be allowed.
+	 * @param useFolder
+	 *            Flag if folders can be selected instead of files.
+	 */
 	private static void createInputSection(final Composite parentContainer,
 			final ModifyListener modifyListener, final String groupLabel,
 			final String[] fileExtensionRestrictions, Text textFileNameToLoad,
@@ -309,10 +340,12 @@ public class TabHelper {
 		glFileInputGroup.numColumns = numColumns;
 		fileInputGroup.setLayout(glFileInputGroup);
 		fileInputGroup.setText(groupLabel); // The group name
-		fileInputGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		fileInputGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false));
 
 		textFileNameToLoad.setParent(fileInputGroup);
-		final GridData gridDataTextFileName = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		final GridData gridDataTextFileName = new GridData(SWT.FILL,
+				SWT.CENTER, true, false);
 		gridDataTextFileName.widthHint = 200;
 		textFileNameToLoad.setLayoutData(gridDataTextFileName);
 		textFileNameToLoad.addModifyListener(modifyListener);
@@ -322,29 +355,52 @@ public class TabHelper {
 		if (showWorkspaceSelectionButton) {
 			final Button workspaceButton = new Button(fileInputGroup, SWT.NONE);
 			workspaceButton.setText("Workspace...");
-			workspaceButton.addSelectionListener(new WorkspaceButtonSelectionListener(
+			workspaceButton
+					.addSelectionListener(new WorkspaceButtonSelectionListener(
 							textFileNameToLoad, fileExtensionRestrictions,
 							dialogTitle, dialogShell, useFolder,
 							allowMultipleSelection));
 		}
 
 		if (showFileSystemSelectionButton) {
-			final Button localFileSystemButton = new Button(fileInputGroup, SWT.NONE);
+			final Button localFileSystemButton = new Button(fileInputGroup,
+					SWT.NONE);
 			localFileSystemButton.setText("File System...");
-			localFileSystemButton.addSelectionListener(new LocalFileSystemButtonSelectionAdapter(
+			localFileSystemButton
+					.addSelectionListener(new LocalFileSystemButtonSelectionAdapter(
 							textFileNameToLoad, fileExtensionRestrictions,
 							dialogTitle, dialogShell, useFolder,
 							allowMultipleSelection));
 		}
 		if (defaultFileURI != null) {
-			final Button defaultFileURIButton = new Button(fileInputGroup, SWT.NONE);
+			final Button defaultFileURIButton = new Button(fileInputGroup,
+					SWT.NONE);
 			defaultFileURIButton.setText("Default");
-			defaultFileURIButton.addSelectionListener(new DefaultFileSelectionAdapter(
+			defaultFileURIButton
+					.addSelectionListener(new DefaultFileSelectionAdapter(
 							textFileNameToLoad, fileExtensionRestrictions,
 							defaultFileURI));
 		}
 	}
 
+	/**
+	 * Helper method to create an input section for selecting a folder.
+	 * 
+	 * @param parentContainer
+	 *            The parent UI container to place the elements in.
+	 * @param modifyListener
+	 *            The listener to register if the input changes.
+	 * @param groupLabel
+	 *            The label for the section group.
+	 * @param textFileNameToLoad
+	 *            The text input field for the file name.
+	 * @param dialogTitle
+	 *            The title for the file selection dialog.
+	 * @param dialogShell
+	 *            The ui shell to interact with.
+	 * @param defaultFileURI
+	 *            The default file to present.
+	 */
 	public static void createFolderInputSection(
 			final Composite parentContainer,
 			final ModifyListener modifyListener, final String groupLabel,

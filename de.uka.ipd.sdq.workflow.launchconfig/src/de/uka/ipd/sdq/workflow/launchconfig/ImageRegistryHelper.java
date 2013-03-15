@@ -12,7 +12,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Roman Andrej
  * @author Benjamin Klatt
  */
-public class RunConfigImages {
+public class ImageRegistryHelper {
 
     /** For the toolbar images. */
     private static ImageRegistry imageRegistry = new ImageRegistry();

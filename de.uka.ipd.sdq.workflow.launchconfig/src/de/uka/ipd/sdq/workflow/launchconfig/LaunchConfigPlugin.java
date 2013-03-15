@@ -8,7 +8,7 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle.
  */
-public class RunConfigPlugin extends AbstractUIPlugin {
+public class LaunchConfigPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
     /** The Constant PLUGIN_ID. */
@@ -16,7 +16,7 @@ public class RunConfigPlugin extends AbstractUIPlugin {
 
     // The shared instance
     /** The plugin. */
-    private static RunConfigPlugin plugin;
+    private static LaunchConfigPlugin plugin;
 
     /*
      * (non-Javadoc)
@@ -45,7 +45,7 @@ public class RunConfigPlugin extends AbstractUIPlugin {
      * 
      * @return the default
      */
-    public static RunConfigPlugin getDefault() {
+    public static LaunchConfigPlugin getDefault() {
         return plugin;
     }
 

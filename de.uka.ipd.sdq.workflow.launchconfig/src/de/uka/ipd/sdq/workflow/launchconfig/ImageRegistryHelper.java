@@ -4,6 +4,8 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 
 /**
+ * Helper class to load and cache images from the plugin to present them in the UI.
+ * 
  * The class is used for the administration of the images stored in the Plug-Ins using the workflow
  * engine. This helper class manages an image registry in the background. To use this utility class
  * a plugin should provide the image file and call the static method getTabImage() with it's plugin
@@ -32,7 +34,7 @@ public class ImageRegistryHelper {
     public static Image getTabImage(String pluginID, String imageFilePath) {
         String key = pluginID + imageFilePath;
         if (imageRegistry.get(key) == null) {
-            imageRegistry.put(key, RunConfigPlugin.imageDescriptorFromPlugin(pluginID, imageFilePath));
+            imageRegistry.put(key, LaunchConfigPlugin.imageDescriptorFromPlugin(pluginID, imageFilePath));
         }
         return imageRegistry.get(key);
     }

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Run Config Plug-in
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.launchconfig;singleton:=true
 Bundle-Version: 1.1.0.qualifier
-Bundle-Activator: de.uka.ipd.sdq.workflow.launchconfig.RunConfigPlugin
+Bundle-Activator: de.uka.ipd.sdq.workflow.launchconfig.LaunchConfigPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.ui,

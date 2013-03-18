@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.mdsd"
       label="Palladio Workflow Engine MDSD"
-      version="1.4.0.qualifier">
+      version="2.0.0.qualifier">
 
    <description url="http://sdq.ipd.uka.de">
       
@@ -214,7 +214,6 @@ litigation.
 
    <requires>
       <import plugin="org.eclipse.core.runtime" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="de.uka.ipd.sdq.workflow" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf" version="2.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.common" version="2.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.4.2" match="greaterOrEqual"/>
@@ -231,12 +230,10 @@ litigation.
       <import plugin="org.eclipse.core.resources" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.debug.ui" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.5.0" match="greaterOrEqual"/>
-      <import plugin="de.uka.ipd.sdq.workflow.launchconfig" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.mwe.utils" version="0.7.0" match="greaterOrEqual"/>
       <import plugin="com.google.inject" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext" version="2.0.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.generator" version="2.0.1" match="greaterOrEqual"/>
-      <import plugin="de.uka.ipd.sdq.workflow.workbench" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="de.ikv.medini.qvt.plugin" version="1.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.5.0" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>

@@ -31,9 +31,9 @@ public abstract class ExtendableTabGroup extends AbstractLaunchConfigurationTabG
 
         List<ILaunchConfigurationTab> tabs = new ArrayList<ILaunchConfigurationTab>();
         List<AbstractLaunchConfigurationTab> extensionUiTabs = new ArrayList<AbstractLaunchConfigurationTab>();
-        for (WorkflowExtension workflowExtension : ExtensionHelper.getWorkflowExtensionsSortedByPriority(workflowId)) {
-            if (workflowExtension.getLaunchConfigurationTab() != null) {
-                AbstractLaunchConfigurationTab extensionTab = workflowExtension.getLaunchConfigurationTab();
+        for (WorkflowConfigurationTabExtension workflowConfigTabExtension : WorkflowConfigurationTabExtensionHelper.getWorkflowExtensionsSortedByPriority(workflowId)) {
+            if (workflowConfigTabExtension.getLaunchConfigurationTab() != null) {
+                AbstractLaunchConfigurationTab extensionTab = workflowConfigTabExtension.getLaunchConfigurationTab();
                 extensionUiTabs.add(extensionTab);
             }
         }

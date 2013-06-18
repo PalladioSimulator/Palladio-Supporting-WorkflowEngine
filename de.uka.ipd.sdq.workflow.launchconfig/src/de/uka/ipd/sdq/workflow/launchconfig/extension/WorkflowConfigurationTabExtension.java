@@ -5,7 +5,8 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
- * A data class composing the relevant elements that form an instance of the work flow extension
+ * A data class composing the relevant elements that form an 
+ * instance of the work flow configuration tab extension
  * point.
  * 
  * @param <BlackboardType>
@@ -13,18 +14,12 @@ import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
  * @author Benjamin Klatt
  * @author Michael Hauck
  */
-public class WorkflowExtension<BlackboardType extends Blackboard<?>> {
+public class WorkflowConfigurationTabExtension<BlackboardType extends Blackboard<?>> {
 
     /** The launch configuration tab. */
     private AbstractLaunchConfigurationTab launchConfigurationTab = null;
 
-    /** The workflow extension job. */
-    private AbstractWorkflowExtensionJob<BlackboardType> workflowExtensionJob = null;
-
-    /** The extension configuration builder. */
-    private AbstractWorkflowExtensionConfigurationBuilder extensionConfigurationBuilder = null;
-
-    /** The priority. */
+    /** The priority of the tab. Used to order the tabs in the UI. */
     private int priority = 50;
 
     /** The id. */
@@ -41,18 +36,9 @@ public class WorkflowExtension<BlackboardType extends Blackboard<?>> {
      * @param workflowId
      *            the workflow id
      */
-    public WorkflowExtension(String id, String workflowId) {
+    public WorkflowConfigurationTabExtension(String id, String workflowId) {
         this.id = id;
         this.workflowId = workflowId;
-    }
-
-    /**
-     * Gets the id.
-     * 
-     * @return the id
-     */
-    public String getId() {
-        return id;
     }
 
     /**
@@ -72,45 +58,6 @@ public class WorkflowExtension<BlackboardType extends Blackboard<?>> {
      */
     public void setLaunchConfigurationTab(AbstractLaunchConfigurationTab launchConfigurationTab) {
         this.launchConfigurationTab = launchConfigurationTab;
-    }
-
-    /**
-     * Gets the workflow extension job.
-     * 
-     * @return the workflow extension job
-     */
-    public AbstractWorkflowExtensionJob<?> getWorkflowExtensionJob() {
-        return workflowExtensionJob;
-    }
-
-    /**
-     * Sets the workflow extension job.
-     * 
-     * @param workflowExtensionJob
-     *            the new workflow extension job
-     */
-    public void setWorkflowExtensionJob(AbstractWorkflowExtensionJob<BlackboardType> workflowExtensionJob) {
-        this.workflowExtensionJob = workflowExtensionJob;
-    }
-
-    /**
-     * Gets the extension configuration builder.
-     * 
-     * @return the extension configuration builder
-     */
-    public AbstractWorkflowExtensionConfigurationBuilder getExtensionConfigurationBuilder() {
-        return extensionConfigurationBuilder;
-    }
-
-    /**
-     * Sets the extension configuration builder.
-     * 
-     * @param extensionConfigurationBuilder
-     *            the new extension configuration builder
-     */
-    public void setExtensionConfigurationBuilder(
-            AbstractWorkflowExtensionConfigurationBuilder extensionConfigurationBuilder) {
-        this.extensionConfigurationBuilder = extensionConfigurationBuilder;
     }
 
     /**
@@ -139,6 +86,15 @@ public class WorkflowExtension<BlackboardType extends Blackboard<?>> {
      */
     public String getWorkflowId() {
         return workflowId;
+    }
+
+    /**
+     * Gets the id.
+     * 
+     * @return the id
+     */
+    public String getId() {
+        return id;
     }
 
 }

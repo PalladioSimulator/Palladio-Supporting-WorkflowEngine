@@ -1,6 +1,7 @@
-package de.uka.ipd.sdq.workflow.launchconfig.extension;
+package de.uka.ipd.sdq.workflow.extension;
 
 import java.util.Map;
+
 
 /**
  * Provides an abstract class for which an implementation has to be provided by a workflow extension

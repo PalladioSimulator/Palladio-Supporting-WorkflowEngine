@@ -1,13 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="de.uka.ipd.sdq.workflow.launchconfig" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="de.uka.ipd.sdq.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="de.uka.ipd.sdq.workflow.launchconfig" id="de.uka.ipd.sdq.workflow.tab.extension" name="Workflow Job Extension"/>
+         <meta.schema plugin="de.uka.ipd.sdq.workflow" id="de.uka.ipd.sdq.workflow.job.extension" name="Workflow Job Extension"/>
       </appinfo>
       <documentation>
-         Extension point to extend a specific workflow with additional jobs. 
-The workflow to be extended by a job is identified by the workflow id identified by the extension.
+         [Enter description of this extension point.]
       </documentation>
    </annotation>
 
@@ -19,7 +18,7 @@ The workflow to be extended by a job is identified by the workflow id identified
       </annotation>
       <complexType>
          <sequence>
-            <element ref="workflow_extension"/>
+            <element ref="workflow_job" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -35,7 +34,7 @@ The workflow to be extended by a job is identified by the workflow id identified
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="name" type="string" use="required">
+         <attribute name="name" type="string">
             <annotation>
                <documentation>
                   
@@ -48,22 +47,8 @@ The workflow to be extended by a job is identified by the workflow id identified
       </complexType>
    </element>
 
-   <element name="workflow_extension">
+   <element name="workflow_job">
       <complexType>
-         <attribute name="description" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="name" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
          <attribute name="workflow_id" type="string" use="required">
             <annotation>
                <documentation>
@@ -71,20 +56,13 @@ The workflow to be extended by a job is identified by the workflow id identified
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="priority" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="runconfig_tab" type="string">
+         <attribute name="extension_job" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.debug.ui.AbstractLaunchConfigurationTab:"/>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractWorkflowExtensionJob:"/>
                </appinfo>
             </annotation>
          </attribute>

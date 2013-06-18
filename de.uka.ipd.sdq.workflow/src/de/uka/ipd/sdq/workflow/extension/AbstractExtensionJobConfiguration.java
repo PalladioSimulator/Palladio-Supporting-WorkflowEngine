@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig.extension;
+package de.uka.ipd.sdq.workflow.extension;
 
 import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 

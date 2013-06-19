@@ -6,11 +6,17 @@ import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 
 /**
- * An extendible job which is able to look up and instantiate job extension which have registered
- * for a specific work flow.
+ * The super class for an extendible job which is able to look up 
+ * and instantiate job extension which have registered for a specific work flow by it's id.
  * 
- * The job itself can call the handleJobExtension for a specific work flow id to load jobs
- * registered for the id of this work flow.
+ * Implementing an extendible job requires to define the jobs 
+ * that should be executed. This can be done in the constructor 
+ * of your class
+ * - implement the execute method
+ * - add the required jobs via this.addJob(job);
+ * - call  handleJobExtension("myworkflowid") at the point the job extensions should be loaded at
+ * 
+ * handleJobExtension() can be called multiple times with different or even the same workflow id
  * 
  * @param <BlackboardType>
  *            the generic type

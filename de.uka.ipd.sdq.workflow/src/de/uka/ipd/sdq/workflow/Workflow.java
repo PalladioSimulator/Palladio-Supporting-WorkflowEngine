@@ -72,6 +72,7 @@ public class Workflow extends SequentialJob implements ICompositeJob {
 			myMonitor = new NullProgressMonitor();
 		}
 		logger = Logger.getLogger(Workflow.class);
+		setName("Workflow");
 	}
 
 	/**

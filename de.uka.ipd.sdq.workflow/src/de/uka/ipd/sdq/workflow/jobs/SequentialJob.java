@@ -22,6 +22,7 @@ public class SequentialJob extends AbstractCompositeJob {
 	 */
 	public SequentialJob() {
 		super();
+		setName("Sequential Job");
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class SequentialJob extends AbstractCompositeJob {
 
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
 				monitor, 1);
-		subProgressMonitor.beginTask("Sequential Job Execution", myJobs.size());
+		subProgressMonitor.beginTask(getName() + " Execution", myJobs.size());
 
 		for (IJob job : myJobs) {
 			if (monitor.isCanceled()) {
@@ -108,7 +109,7 @@ public class SequentialJob extends AbstractCompositeJob {
 
 		IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
 				monitor, 1);
-		subProgressMonitor.beginTask("Sequential Job Execution", myJobs.size());
+		subProgressMonitor.beginTask(getName() + " Execution", myJobs.size());
 
 		int totalNumberOfJobs = myJobs.size();
 		for (int i = 0; i < totalNumberOfJobs; i++) {

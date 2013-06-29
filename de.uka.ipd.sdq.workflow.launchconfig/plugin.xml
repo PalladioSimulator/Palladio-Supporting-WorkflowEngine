@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="de.uka.ipd.sdq.workflow.extension" name="Workflow Tab Extension" schema="schema/workflow_extension.exsd"/>
+
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="de.uka.ipd.sdq.workflow.launchconfig.multiple.LaunchMultiple"
+            id="de.uka.ipd.sdq.workflow.launchconfig.multiple.launchMultipleType"
+            modes="run"
+            name="Multiple Launches"
+            public="true">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="de.uka.ipd.sdq.workflow.launchconfig.multiple.LaunchMultipleTabGroup"
+            description="Create a configuration that allows to select a number of other launch configurations to be started in sequence when run is clicked. The order is automatically defined by the Eclipse environment."
+            id="de.uka.ipd.sdq.workflow.launchconfig.multiple.LaunchMultipleTabGroup"
+            type="de.uka.ipd.sdq.workflow.launchconfig.multiple.launchMultipleType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="de.uka.ipd.sdq.workflow.launchconfig.multiple.launchMultipleType"
+            icon="icons/full/ctool16/wfe-launchmultiple.gif"
+            id="de.uka.ipd.sdq.workflow.launchconfig.multiple.launchMultipleTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+</plugin>

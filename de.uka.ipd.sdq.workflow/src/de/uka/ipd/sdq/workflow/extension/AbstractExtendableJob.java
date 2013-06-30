@@ -34,6 +34,21 @@ public abstract class AbstractExtendableJob<BlackboardType extends Blackboard<?>
     // CONSTRUCTORS
     // ////////////////////////////////
 
+	/**
+	 * Instantiates a new extendible job.
+	 */
+	public AbstractExtendableJob() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new extendible job composite job and setting the cleanup behavior.
+	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
+	 */
+	public AbstractExtendableJob(boolean cleanUpImmediately) {
+		super(cleanUpImmediately);
+	}
+
     // ////////////////////////////////
     // BUSINESS METHODS
     // ////////////////////////////////

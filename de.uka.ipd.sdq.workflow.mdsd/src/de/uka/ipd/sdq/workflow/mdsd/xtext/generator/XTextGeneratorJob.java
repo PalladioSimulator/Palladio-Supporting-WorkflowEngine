@@ -22,6 +22,44 @@ public class XTextGeneratorJob extends MWE2SequentialJob {
      *            the config
      */
     public XTextGeneratorJob(XTextGeneratorConfiguration config) {
+    	this(config, "XTextGenerator Job", true);
+    }
+
+    /**
+     * Instantiates a new x text generator composite job.
+     * 
+     * @param config
+     *            the config
+	 * @param name The name of the job sequence.
+     */
+    public XTextGeneratorJob(XTextGeneratorConfiguration config, String name) {
+    	this(config, name, true);
+    }
+
+    /**
+     * Instantiates a new x text generator composite job.
+     * 
+     * @param config
+     *            the config
+	 * @param cleanUpImmediately
+	 *            Flag if jobs should be cleaned up immediately or not.
+     */
+    public XTextGeneratorJob(XTextGeneratorConfiguration config, boolean cleanUpImmediately) {
+    	this(config, "XTextGenerator Job", cleanUpImmediately);
+    }
+    
+    /**
+     * Instantiates a new x text generator composite job.
+     * 
+     * @param config
+     *            the config
+	 * @param cleanUpImmediately
+	 *            Flag if jobs should be cleaned up immediately or not.
+	 * @param name The name of the job sequence.
+     */
+    public XTextGeneratorJob(XTextGeneratorConfiguration config, String name, boolean cleanUpImmediately) {
+    	
+    	super(name, cleanUpImmediately);
 
         // Setup all
         config.initMWEBean();

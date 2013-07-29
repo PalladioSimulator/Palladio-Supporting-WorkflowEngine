@@ -34,11 +34,31 @@ public class SequentialBlackboardInteractingJob<BlackboardType extends Blackboar
 	}
 
 	/**
+	 * Instantiates a new sequential blackboard job 
+	 * with a specific name.
+	 * @param name The name of the job.
+	 */
+	public SequentialBlackboardInteractingJob(String name) {
+		super(name);
+	}
+
+	/**
 	 * Instantiates a new order preserving blackboard composite job.
 	 * @param cleanUpImmediately Flag if jobs should be cleaned up immediately or not.
 	 */
 	public SequentialBlackboardInteractingJob(boolean cleanUpImmediately) {
 		super(cleanUpImmediately);
+	}
+
+	/**
+	 * Instantiates a new sequential blackboard job with a specific name and specifying the clean up strategy.
+	 * 
+	 * @param name The name of the job sequence.
+	 * @param cleanUpImmediately
+	 *            Flag if jobs should be cleaned up immediately or not.
+	 */
+	public SequentialBlackboardInteractingJob(String name, boolean cleanUpImmediately) {
+		super(name, cleanUpImmediately);
 	}
 
 	/**

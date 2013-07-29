@@ -21,8 +21,17 @@ public class SequentialJob extends AbstractCompositeJob {
 	 * Instantiates a new order preserving composite job.
 	 */
 	public SequentialJob() {
+		this("Sequential Job");
+	}
+
+	/**
+	 * Instantiates a new order preserving composite job
+	 * with a specific name.
+	 * @param name The name of the job sequence.
+	 */
+	public SequentialJob(String name) {
 		super();
-		setName("Sequential Job");
+		setName(name);
 	}
 
 	/**
@@ -34,6 +43,18 @@ public class SequentialJob extends AbstractCompositeJob {
 	public SequentialJob(boolean cleanUpImmediately) {
 		this();
 		this.cleanUpImmediately = cleanUpImmediately;
+	}
+
+	/**
+	 * Instantiates a new model workflow job with a specific name and specifying the clean up strategy.
+	 * 
+	 * @param name The name of the job sequence.
+	 * @param cleanUpImmediately
+	 *            Flag if jobs should be cleaned up immediately or not.
+	 */
+	public SequentialJob(String name, boolean cleanUpImmediately) {
+		this(cleanUpImmediately);
+		setName(name);
 	}
 
 	/**

@@ -215,7 +215,7 @@ litigation.
 
    <url>
       <discovery label="Medini QVT Update Site" url="http://www.ikv.de/qvt/update-site-indigo"/>
-      <discovery label="Palladio Commons" url="http://sdqweb.ipd.uka.de/eclipse/commons/releases/1.1"/>
+      <discovery label="Palladio Commons" url="http://sdqweb.ipd.uka.de/eclipse/commons/releases/1.3"/>
       <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
    </url>
 

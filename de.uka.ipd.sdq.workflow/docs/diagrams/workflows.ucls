@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="de.uka.ipd.sdq.workflow.Workflow" project="de.uka.ipd.sdq.workflow" 
+    file="/de.uka.ipd.sdq.workflow/src/de/uka/ipd/sdq/workflow/Workflow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="370" x="273" y="130"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="de.uka.ipd.sdq.workflow.jobs.SequentialJob" project="de.uka.ipd.sdq.workflow" 
+    file="/de.uka.ipd.sdq.workflow/src/de/uka/ipd/sdq/workflow/jobs/SequentialJob.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="196" width="340" x="295" y="-26"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <generalization id="3">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

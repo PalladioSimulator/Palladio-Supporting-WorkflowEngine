@@ -27,7 +27,7 @@ public class ShowValidationErrorsJob implements IJob {
 	private final ModelValidationJob[] validationJobs;
 
 	/** The Constant logger. */
-	private static final Logger logger = Logger
+	private final Logger logger = Logger
 			.getLogger(ShowValidationErrorsJob.class);
 
 	/** The configuration. */

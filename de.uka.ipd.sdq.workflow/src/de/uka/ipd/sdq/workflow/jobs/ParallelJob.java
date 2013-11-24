@@ -75,6 +75,7 @@ public class ParallelJob extends AbstractCompositeJob {
 		}
 
 		boolean singleJobFailed = false;
+		Throwable failedJobException = null;
 		while (futures.size() > 0 && !singleJobFailed && !monitor.isCanceled()) {
 			try {
 				Future<Throwable> completedTask = executorCompletionService
@@ -83,6 +84,7 @@ public class ParallelJob extends AbstractCompositeJob {
 				if (result != null) {
 					// Job terminated with exception
 					singleJobFailed = true;
+					failedJobException = result;
 				} else {
 					myExecutedJobs.add(futures.get(completedTask).getJob());
 					futures.remove(completedTask);
@@ -96,7 +98,7 @@ public class ParallelJob extends AbstractCompositeJob {
 			}
 		}
 		if (singleJobFailed) {
-			throw new JobFailedException("A parallel child job failed");
+			throw new JobFailedException("A parallel child job failed", failedJobException);
 		}
 		if (monitor.isCanceled()) {
 			throw new UserCanceledException();

@@ -11,3 +11,4 @@ Require-Bundle: de.uka.ipd.sdq.workflow.logging.console;bundle-version="1.0.0",
  de.uka.ipd.sdq.dialogs;bundle-version="2.0.1",
  org.eclipse.ui;bundle-version="3.5.0"
 Bundle-Vendor: Palladio Project
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

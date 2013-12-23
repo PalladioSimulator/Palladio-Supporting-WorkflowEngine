@@ -2,7 +2,6 @@ package de.uka.ipd.sdq.workflow.tests;
 
 import java.util.LinkedList;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -25,7 +24,7 @@ public class SequentialJobTests extends TestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -37,7 +36,7 @@ public class SequentialJobTests extends TestCase {
     /**
      * add a job. execute the composite job. check if the added job was executed. cleanup the
      * composite job. check if the added job was cleaned up.
-     * 
+     *
      * @throws JobFailedException
      *             the job failed exception
      * @throws UserCanceledException
@@ -60,7 +59,7 @@ public class SequentialJobTests extends TestCase {
     /**
      * add a number of jobs. execute the composite job. check if all jobs were executed in the order
      * they were added.
-     * 
+     *
      * @throws JobFailedException
      *             the job failed exception
      * @throws UserCanceledException
@@ -87,7 +86,7 @@ public class SequentialJobTests extends TestCase {
 
     /**
      * test a failed job.
-     * 
+     *
      * @throws JobFailedException
      *             the job failed exception
      * @throws UserCanceledException
@@ -100,15 +99,15 @@ public class SequentialJobTests extends TestCase {
             myCompJob.addJob(new FailingJob());
             myCompJob.execute(monitor);
         } catch (Exception e) {
-            Assert.assertTrue(e instanceof JobFailedException);
+            assertTrue(e instanceof JobFailedException);
             return;
         }
-        Assert.fail("Expected exception not thrown");
+        fail("Expected exception not thrown");
     }
 
     /**
      * test a canceled job.
-     * 
+     *
      * @throws JobFailedException
      *             the job failed exception
      * @throws UserCanceledException
@@ -121,9 +120,9 @@ public class SequentialJobTests extends TestCase {
             myCompJob.addJob(new CancelingJob());
             myCompJob.execute(monitor);
         } catch (Exception e) {
-            Assert.assertTrue(e instanceof UserCanceledException);
+            assertTrue(e instanceof UserCanceledException);
             return;
         }
-        Assert.fail("Expected exception not thrown");
+        fail("Expected exception not thrown");
     }
 }

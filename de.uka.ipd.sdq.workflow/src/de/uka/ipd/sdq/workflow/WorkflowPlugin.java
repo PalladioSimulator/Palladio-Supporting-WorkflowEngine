@@ -10,7 +10,7 @@ import org.osgi.framework.BundleContext;
 public class WorkflowPlugin extends Plugin {
 
     /** The Constant PLUGIN_ID. */
-    public static final String PLUGIN_ID = "de.uka.ipd.sdq.codegen.workflow";
+    public static final String PLUGIN_ID = "de.uka.ipd.sdq.workflow";
 
     /** The plugin. (The shared instance) */
     private static WorkflowPlugin plugin;
@@ -23,7 +23,7 @@ public class WorkflowPlugin extends Plugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
      */
     @Override
@@ -34,7 +34,7 @@ public class WorkflowPlugin extends Plugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
      */
     @Override
@@ -45,7 +45,7 @@ public class WorkflowPlugin extends Plugin {
 
     /**
      * Returns the shared instance.
-     * 
+     *
      * @return the shared instance
      */
     public static WorkflowPlugin getDefault() {
@@ -54,7 +54,7 @@ public class WorkflowPlugin extends Plugin {
 
     /**
      * Log.
-     * 
+     *
      * @param severity
      *            the severity
      * @param message

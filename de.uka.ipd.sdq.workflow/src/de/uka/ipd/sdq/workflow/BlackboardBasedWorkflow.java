@@ -10,7 +10,7 @@ import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 /**
  * A workflow implementation which may contain jobs which need to access a blackboard.
- * 
+ *
  * @param <T>
  *            The type of the blackboard which the jobs in the workflow can access
  * @author Steffen Becker
@@ -22,7 +22,7 @@ public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
 
     /**
      * Instantiates a new blackboard based workflow.
-     * 
+     *
      * @param job
      *            the job
      * @param blackboard
@@ -34,7 +34,7 @@ public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
 
     /**
      * Instantiates a new blackboard based workflow.
-     * 
+     *
      * @param job
      *            the job
      * @param handler
@@ -48,7 +48,7 @@ public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
 
     /**
      * Instantiates a new blackboard based workflow.
-     * 
+     *
      * @param job
      *            the job
      * @param monitor
@@ -65,10 +65,8 @@ public class BlackboardBasedWorkflow<T extends Blackboard<?>> extends Workflow {
 
     /*
      * (non-Javadoc)
-     * 
-     * @see
-     * de.uka.ipd.sdq.codegen.workflow.SequentialJob#execute(org.eclipse.core.runtime
-     * .IProgressMonitor)
+     *
+     * @see SequentialJob#execute(org.eclipse.core.runtime .IProgressMonitor)
      */
     @SuppressWarnings("unchecked")
     @Override

@@ -4,6 +4,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -43,9 +45,9 @@ import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
  * run, integration of the Eclipse progress bar, exception handling, etc. * The
  * class is abstract and defines some methods, which must be implemented by
  * subclasses. See method descriptions for details.
- * 
+ *
  * This class is based on code provided by Roman Andrej
- * 
+ *
  * @param <WorkflowConfigurationType>
  *            The type of the configuration object needed by the workflow job to
  *            configure itself. Out of the box support for the run mode (run or
@@ -53,7 +55,7 @@ import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
  * @param <WorkflowType>
  *            The type of the workflow to be executed. This can be simple
  *            workflows, workflows using a blackboard, etc.
- * 
+ *
  * @author Steffen Becker
  */
 public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extends AbstractJobConfiguration, WorkflowType extends Workflow>
@@ -80,7 +82,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	@Override
@@ -108,7 +110,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/**
 	 * Remove the IProcess associated to this launch and deinstall loggers used
 	 * in this run.
-	 * 
+	 *
 	 * @param loggerList
 	 *            the logger list
 	 * @throws DebugException
@@ -130,7 +132,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/**
 	 * Setup the Eclipse IProcess used to communicate with the Eclipse UI and
 	 * its logging.
-	 * 
+	 *
 	 * @return the list
 	 */
 	private List<LoggerAppenderStruct> setupProcessAndLogger() {
@@ -205,7 +207,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * DebugEnabledCommonTab TODO: Anne has set this to protected because the
 	 * logging has to be re-enabled during PerOpteryx. Check later whether there
 	 * is a better solution.
-	 * 
+	 *
 	 * @return The log level selected by the user
 	 */
 	protected Level getLogLevel() {
@@ -230,7 +232,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 
 	/**
 	 * Setup workflow engine and run workflow.
-	 * 
+	 *
 	 */
 	private void createAndRunWorkflow() {
 		if (logger.isEnabledFor(Level.INFO)) {
@@ -264,19 +266,27 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 		if (logger.isEnabledFor(Level.INFO)) {
 			logger.info("Creating workflow engine");
 		}
-		Workflow workflow = createWorkflow(workflowConfiguration);
+		final Workflow workflow = createWorkflow(workflowConfiguration);
 
 		if (logger.isEnabledFor(Level.INFO)) {
 			logger.info("Executing workflow");
 		}
-		workflow.run();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                workflow.run();
+            }
+        });
+
 	}
 
 	/**
 	 * Instanciate the workflow exception handler used to handle failures in the
 	 * workflow. By default returns an excpetion handler which uses Eclipse
 	 * Dialogs to inform the user about the failure.
-	 * 
+	 *
 	 * @param interactive
 	 *            Whether the workflow runs interactive
 	 * @return A workflow exception handler
@@ -289,7 +299,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/**
 	 * Instantiate the workflow engine. By default a standard workflow engine is
 	 * created.
-	 * 
+	 *
 	 * @param workflowConfiguration
 	 *            Configuration of the workflow job
 	 * @return The workflow engine to use for this launch
@@ -307,7 +317,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/**
 	 * Create a new classloader to be used by this thread. Return the old
 	 * classloader for later resets
-	 * 
+	 *
 	 * @return Old classloader
 	 */
 	private ClassLoader configureNewClassloader() {
@@ -323,7 +333,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * configure further logger for other namespaces than
 	 * de.uka.ipd.sdq.workflow. Use protected method setupLogger to configure
 	 * additional loggers
-	 * 
+	 *
 	 * @param logLevel
 	 *            The apache log4j log level requested by the user as log level
 	 * @return the array list
@@ -342,7 +352,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/**
 	 * Configure the named logger to log on the given log level with the given
 	 * PatternLayout.
-	 * 
+	 *
 	 * @param loggerName
 	 *            The name of the logger to configure
 	 * @param logLevel
@@ -370,7 +380,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * Instantiate the Eclipse process used by the workflow engine. Override
 	 * this method to return a different process if you need support for
 	 * debugging, etc.
-	 * 
+	 *
 	 * @return The process used to execute this launch
 	 */
 	protected WorkflowProcess getProcess() {
@@ -381,7 +391,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * Instantiate the main job to be executed by the workflow engine. The job
 	 * can be a single job or any other job type like composite jobs. The job
 	 * will be run by the workflow engine.
-	 * 
+	 *
 	 * @param config
 	 *            The strongly-typed configuration object used to configure the
 	 *            main workflow job
@@ -391,7 +401,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 
 	/**
 	 * Use separate console for each job run.
-	 * 
+	 *
 	 * @return true, if successful
 	 */
 	protected abstract boolean useSeparateConsoleForEachJobRun();
@@ -400,7 +410,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 * This method is called as template method and has to be overriden by
 	 * clients. Its purpose is to return a strongly typed configuration object
 	 * needed by this workflow's main workflow job.
-	 * 
+	 *
 	 * @return The strongly typed configuration object for the main workflow job
 	 */
 	protected abstract WorkflowConfigurationType getConfiguration();

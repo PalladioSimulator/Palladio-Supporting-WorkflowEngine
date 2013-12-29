@@ -18,6 +18,26 @@ public class ParallelBlackboardInteractingJob<BlackboardType extends Blackboard<
     protected BlackboardType myBlackboard;
 
     /**
+     * Initialize a parallel job interacting with a blackboard
+     * and containing a number of child jobs with a thread
+     * pool size equal to the number of CPU cores.
+     */
+    public ParallelBlackboardInteractingJob() {
+        super();
+    }
+
+    /**
+     * Initialize a parallel job with the given thread pool size to be used for
+     * job execution.
+     *
+     * @param threadPoolSize
+     *            The amount of threads to be used to execute jobs
+     */
+    public ParallelBlackboardInteractingJob(int threadPoolSize) {
+        super(threadPoolSize);
+    }
+
+    /**
      * Set the blackboard reference to all child jobs which are black board interacting and triggers
      * the super class execution which takes care for the parallel execution itself.
      *

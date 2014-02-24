@@ -6,7 +6,8 @@
          <meta.schema plugin="de.uka.ipd.sdq.workflow" id="de.uka.ipd.sdq.workflow.job.extension" name="Workflow Job Extension"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         Extension point to register jobs to extend a specific workflow.
+The workflow to be extended must provide an extendable job with a hook (workflow_id) this job extension registers for.
       </documentation>
    </annotation>
 
@@ -52,14 +53,14 @@
          <attribute name="workflow_id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The id of the hook to register this extension for.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="extension_job" type="string">
             <annotation>
                <documentation>
-                  
+                  The job implementation to extend the workflow with.
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractWorkflowExtensionJob:"/>

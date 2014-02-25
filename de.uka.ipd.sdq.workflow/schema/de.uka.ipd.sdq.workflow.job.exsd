@@ -63,7 +63,7 @@ The workflow to be extended must provide an extendable job with a hook (workflow
                   The job implementation to extend the workflow with.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.launchconfig.extension.AbstractWorkflowExtensionJob:"/>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.extension.AbstractWorkflowExtensionJob:"/>
                </appinfo>
             </annotation>
          </attribute>

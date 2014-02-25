@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.IStreamListener;
@@ -82,6 +83,12 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 
 	/** A list of listeners to inform about workflow status changes. */
 	protected final List<WorkflowStatusListener> workflowListener = new ArrayList<WorkflowStatusListener>();
+
+	/**
+	 * The progress monitor to set in the workflow and to report any process
+	 * progress to.
+	 */
+	private IProgressMonitor progressMonitor = new NullProgressMonitor();
 
 	/*
 	 * (non-Javadoc)
@@ -207,9 +214,13 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 
 	/**
 	 * Get the log level based on the extended CommonTab in
-	 * DebugEnabledCommonTab TODO: Anne has set this to protected because the
-	 * logging has to be re-enabled during PerOpteryx. Check later whether there
-	 * is a better solution.
+	 * DebugEnabledCommonTab.
+	 *
+	 * <p>
+	 * TODO: Anne has set this to protected because the logging has to be
+	 * re-enabled during PerOpteryx. Check later whether there is a better
+	 * solution.
+	 * </p>
 	 *
 	 * @return The log level selected by the user
 	 */
@@ -320,8 +331,7 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	protected WorkflowType createWorkflow(
 			WorkflowConfigurationType workflowConfiguration) {
 		return (WorkflowType) new Workflow(
-				createWorkflowJob(workflowConfiguration),
-				new NullProgressMonitor(),
+				createWorkflowJob(workflowConfiguration), progressMonitor,
 				// createExceptionHandler(workflowConfiguration.isInteractive()));
 				createExceptionHandler(true));
 	}
@@ -416,6 +426,19 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 */
 	public void register(WorkflowStatusListener listner) {
 		this.workflowListener.add(listner);
+	}
+
+	/**
+	 * Set another progress monitor the workflow should report to than the
+	 * default null progress one.
+	 *
+	 * Note: The progress monitor must be set before the workflow is triggered! (run method)
+	 *
+	 * @param progressMonitor
+	 *            The monitor to report to.
+	 */
+	public void setProgressMonitor(IProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
 	}
 
 	/**

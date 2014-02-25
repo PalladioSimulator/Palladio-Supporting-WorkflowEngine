@@ -6,8 +6,8 @@
          <meta.schema plugin="de.uka.ipd.sdq.workflow.launchconfig" id="de.uka.ipd.sdq.workflow.tab.extension" name="Workflow Job Extension"/>
       </appinfo>
       <documentation>
-         Extension point to extend a specific workflow with additional jobs. 
-The workflow to be extended by a job is identified by the workflow id identified by the extension.
+         Extension point to provide an additional launch configuration tab for a workflow extension. 
+Note: This extension point is for the UI configuration tab only. The job has to be provided separately through the &quot;de.uka.ipd.sdq.workflow.job&quot; extension point provided by the de.uka.ipd.sdq.workflow plugin.
       </documentation>
    </annotation>
 
@@ -67,7 +67,7 @@ The workflow to be extended by a job is identified by the workflow id identified
          <attribute name="workflow_id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The id of the workflow hook to register for.
                </documentation>
             </annotation>
          </attribute>
@@ -81,7 +81,7 @@ The workflow to be extended by a job is identified by the workflow id identified
          <attribute name="runconfig_tab" type="string">
             <annotation>
                <documentation>
-                  
+                  The launch configuration tab implementation for this job.
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.debug.ui.AbstractLaunchConfigurationTab:"/>

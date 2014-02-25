@@ -24,7 +24,7 @@ public class ExtensionHelper {
 	private static Logger logger = Logger.getLogger(ExtensionHelper.class);
 
 	/** The Constant WorkflowExtensionPointId. */
-	private static final String WORKFLOW_EXTENSION_POINT_ID = "de.uka.ipd.sdq.workflow.job.extension";
+	private static final String WORKFLOW_EXTENSION_POINT_ID = "de.uka.ipd.sdq.workflow.job";
 
 	/** The Constant WorkflowExtensionPointAttribute_ExtensionJob. */
 	private static final String WORKFLOW_EXTENSION_POINT_ATTRIBUTE_EXTENSION_JOB = "extension_job";
@@ -117,12 +117,15 @@ public class ExtensionHelper {
 						logger.error("Unable to load extension job");
 					}
 					try {
-						Object o = element
-								.createExecutableExtension(WORKFLOW_EXTENSION_POINT_ATTRIBUTE_EXTENSION_CONFIGURATION_BUILDER);
-						if ((o != null)
-								&& (o instanceof AbstractWorkflowExtensionConfigurationBuilder)) {
-							extension
-									.setExtensionConfigurationBuilder((AbstractWorkflowExtensionConfigurationBuilder) o);
+						String builderAttribute = element.getAttribute(WORKFLOW_EXTENSION_POINT_ATTRIBUTE_EXTENSION_CONFIGURATION_BUILDER);
+						if(builderAttribute != null && !builderAttribute.isEmpty()) {
+							Object o = element
+									.createExecutableExtension(WORKFLOW_EXTENSION_POINT_ATTRIBUTE_EXTENSION_CONFIGURATION_BUILDER);
+							if ((o != null)
+									&& (o instanceof AbstractWorkflowExtensionConfigurationBuilder)) {
+								extension
+										.setExtensionConfigurationBuilder((AbstractWorkflowExtensionConfigurationBuilder) o);
+							}
 						}
 					} catch (CoreException e) {
 						// No extension configuration builder specified

@@ -57,7 +57,7 @@ The workflow to be extended must provide an extendable job with a hook (workflow
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="extension_job" type="string">
+         <attribute name="extension_job" type="string" use="required">
             <annotation>
                <documentation>
                   The job implementation to extend the workflow with.
@@ -65,6 +65,24 @@ The workflow to be extended must provide an extendable job with a hook (workflow
                <appinfo>
                   <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.extension.AbstractWorkflowExtensionJob:"/>
                </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="extension_configurationbuilder" type="string">
+            <annotation>
+               <documentation>
+                  An optional bulder for job specific configurations.
+This will be triggered to fill a job specific configuration with a map of plain configuration values.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java" basedOn="de.uka.ipd.sdq.workflow.extension.AbstractWorkflowExtensionConfigurationBuilder:"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="priority" type="string">
+            <annotation>
+               <documentation>
+                  Must be an integer value specifying an execution order of the job. If multiple job extensions for the same workflow id specified with the same priority, they are randomly ordered.
+               </documentation>
             </annotation>
          </attribute>
       </complexType>

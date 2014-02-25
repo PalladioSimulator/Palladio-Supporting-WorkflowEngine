@@ -80,6 +80,9 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	/** The my process. */
 	private WorkflowProcess myProcess = null;
 
+	/** A list of listeners to inform about workflow status changes. */
+	protected final List<WorkflowStatusListener> workflowListener = new ArrayList<WorkflowStatusListener>();
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -255,6 +258,9 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 		}
 		try {
 			workflowConfiguration.validateAndFreeze();
+			for (WorkflowStatusListener listener : workflowListener) {
+				listener.notifyConfigurationValid();
+			}
 		} catch (InvalidWorkflowJobConfigurationException e) {
 			if (logger.isEnabledFor(Level.INFO)) {
 				logger.error("Configuration invalid");
@@ -267,18 +273,24 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 			logger.info("Creating workflow engine");
 		}
 		final Workflow workflow = createWorkflow(workflowConfiguration);
+		for (WorkflowStatusListener listener : workflowListener) {
+			listener.notifyCreated();
+		}
 
 		if (logger.isEnabledFor(Level.INFO)) {
 			logger.info("Executing workflow");
 		}
 
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                workflow.run();
-            }
-        });
+		ExecutorService executorService = Executors.newFixedThreadPool(1);
+		executorService.submit(new Runnable() {
+			@Override
+			public void run() {
+				workflow.run();
+				for (WorkflowStatusListener listener : workflowListener) {
+					listener.notifyFinished();
+				}
+			}
+		});
 
 	}
 
@@ -385,6 +397,25 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 	 */
 	protected WorkflowProcess getProcess() {
 		return new WorkflowProcess();
+	}
+
+	/**
+	 * Access the list of registered workflow status listeners.
+	 *
+	 * @return The currently registered listeners
+	 */
+	public List<WorkflowStatusListener> getWorkflowListener() {
+		return workflowListener;
+	}
+
+	/**
+	 * Register a workflow status listener to the delegate.
+	 *
+	 * @param listner
+	 *            The listener to register.
+	 */
+	public void register(WorkflowStatusListener listner) {
+		this.workflowListener.add(listner);
 	}
 
 	/**

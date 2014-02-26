@@ -4,8 +4,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -292,16 +290,10 @@ public abstract class AbstractWorkbenchDelegate<WorkflowConfigurationType extend
 			logger.info("Executing workflow");
 		}
 
-		ExecutorService executorService = Executors.newFixedThreadPool(1);
-		executorService.submit(new Runnable() {
-			@Override
-			public void run() {
-				workflow.run();
-				for (WorkflowStatusListener listener : workflowListener) {
-					listener.notifyFinished();
-				}
-			}
-		});
+		workflow.run();
+		for (WorkflowStatusListener listener : workflowListener) {
+			listener.notifyFinished();
+		}
 
 	}
 

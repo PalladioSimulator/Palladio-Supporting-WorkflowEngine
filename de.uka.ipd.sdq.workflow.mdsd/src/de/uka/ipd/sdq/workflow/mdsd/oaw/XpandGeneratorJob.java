@@ -9,13 +9,12 @@ import org.eclipse.xpand2.Generator;
 import org.eclipse.xpand2.output.JavaBeautifier;
 import org.eclipse.xpand2.output.Outlet;
 import org.eclipse.xpand2.output.PostProcessor;
-import org.eclipse.xpand2.output.XmlBeautifier;
 import org.eclipse.xtend.expression.AbstractExpressionsUsingWorkflowComponent.GlobalVarDef;
 import org.eclipse.xtend.typesystem.emf.EmfMetaModel;
 
 /**
  * Job which creates, configures and runs an XPand generator.
- * 
+ *
  * @author Steffen Becker
  * @author groenda
  */
@@ -26,13 +25,13 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
     private EPackage[] ePackages = null;
 
     /** The outlets. */
-    private Outlet[] outlets;
+    private final Outlet[] outlets;
 
     /** The expand expression. */
-    private String expandExpression;
+    private final String expandExpression;
 
     /** The advices. */
-    private List<String> advices = new ArrayList<String>();
+    private final List<String> advices = new ArrayList<String>();
 
     /** The check protected regions. */
     private boolean checkProtectedRegions;
@@ -43,11 +42,11 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
     /** The beautify code. */
     private boolean beautifyCode;
     /** Definition of global variables. */
-    private GlobalVarDef[] glovalVarDefs;
+    private final GlobalVarDef[] glovalVarDefs;
 
     /**
      * Creates a new XPand generator job.
-     * 
+     *
      * @param slotContents
      *            Slots and their content.
      * @param ePackages
@@ -59,8 +58,8 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @param globalVarDefs
      *            Definitions for global Variables.
      */
-    public XpandGeneratorJob(HashMap<String, Object> slotContents, EPackage[] ePackages, Outlet[] outlets,
-            String expandExpression, GlobalVarDef[] globalVarDefs) {
+    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages, final Outlet[] outlets,
+            final String expandExpression, final GlobalVarDef[] globalVarDefs) {
         super(new Generator(), slotContents);
 
         this.ePackages = ePackages;
@@ -75,7 +74,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Creates a new XPand generator job without global variables.
-     * 
+     *
      * @param slotContents
      *            Slots and their content.
      * @param ePackages
@@ -85,35 +84,35 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @param expandExpression
      *            Initial generation expression.
      */
-    public XpandGeneratorJob(HashMap<String, Object> slotContents, EPackage[] ePackages, Outlet[] outlets,
-            String expandExpression) {
+    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages, final Outlet[] outlets,
+            final String expandExpression) {
         this(slotContents, ePackages, outlets, expandExpression, null);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.mdsd.oaw.AbstractOAWWorkflowJobBridge#setupOAWJob(org.
      * openarchitectureware.workflow.lib.AbstractWorkflowComponent2)
      */
     @Override
-    protected void setupOAWJob(Generator generatorJob) {
+    protected void setupOAWJob(final Generator generatorJob) {
         generatorJob.setExpand(expandExpression);
         generatorJob.setFileEncoding(fileEncoding);
 
-        for (EPackage p : ePackages) {
+        for (final EPackage p : ePackages) {
             generatorJob.addMetaModel(new EmfMetaModel(p));
         }
 
         String prResolver = "";
-        for (Outlet o : outlets) {
+        for (final Outlet o : outlets) {
             generatorJob.addOutlet(o);
             prResolver += o.getPath() + ",";
         }
         prResolver = prResolver.substring(0, prResolver.length() - 1);
 
         if (glovalVarDefs != null) {
-            for (GlobalVarDef def : glovalVarDefs) {
+            for (final GlobalVarDef def : glovalVarDefs) {
                 generatorJob.addGlobalVarDef(def);
             }
         }
@@ -123,21 +122,21 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
             generatorJob.setPrExcludes(".svn");
         }
 
-        for (String advice : this.advices) {
+        for (final String advice : this.advices) {
             generatorJob.addAdvice(advice);
         }
 
         if (beautifyCode) {
-            ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
+            final ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
             beautifier.add(new JavaBeautifier());
-            beautifier.add(new XmlBeautifier());
+            // TODO: Is there any alternative to this? beautifier.add(new XmlBeautifier());
             generatorJob.setBeautifier(beautifier);
         }
     }
 
     /**
      * Gets the advices.
-     * 
+     *
      * @return the advices
      */
     public List<String> getAdvices() {
@@ -146,7 +145,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Checks if is check protected regions.
-     * 
+     *
      * @return true, if is check protected regions
      */
     public boolean isCheckProtectedRegions() {
@@ -155,17 +154,17 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Sets the check protected regions.
-     * 
+     *
      * @param checkProtectedRegions
      *            the new check protected regions
      */
-    public void setCheckProtectedRegions(boolean checkProtectedRegions) {
+    public void setCheckProtectedRegions(final boolean checkProtectedRegions) {
         this.checkProtectedRegions = checkProtectedRegions;
     }
 
     /**
      * Gets the file encoding.
-     * 
+     *
      * @return the file encoding
      */
     public String getFileEncoding() {
@@ -174,17 +173,17 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Sets the file encoding.
-     * 
+     *
      * @param fileEncoding
      *            the new file encoding
      */
-    public void setFileEncoding(String fileEncoding) {
+    public void setFileEncoding(final String fileEncoding) {
         this.fileEncoding = fileEncoding;
     }
 
     /**
      * Gets the expand expression.
-     * 
+     *
      * @return the expand expression
      */
     public String getExpandExpression() {
@@ -193,7 +192,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Checks if is beautify code.
-     * 
+     *
      * @return true, if is beautify code
      */
     public boolean isBeautifyCode() {
@@ -202,11 +201,11 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
 
     /**
      * Sets the beautify code.
-     * 
+     *
      * @param beautifyCode
      *            the new beautify code
      */
-    public void setBeautifyCode(boolean beautifyCode) {
+    public void setBeautifyCode(final boolean beautifyCode) {
         this.beautifyCode = beautifyCode;
     }
 }

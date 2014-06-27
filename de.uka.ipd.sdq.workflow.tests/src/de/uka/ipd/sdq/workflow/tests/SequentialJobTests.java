@@ -1,11 +1,15 @@
 package de.uka.ipd.sdq.workflow.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.LinkedList;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.junit.Before;
+import org.junit.Test;
 
+import de.uka.ipd.sdq.workflow.WorkflowFailedException;
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.SequentialJob;
@@ -17,7 +21,7 @@ import de.uka.ipd.sdq.workflow.mocks.MockJob;
 /**
  * The Class SequentialJobTests.
  */
-public class SequentialJobTests extends TestCase {
+public class SequentialJobTests {
 
     /** The my comp job. */
     private SequentialJob myCompJob = null;
@@ -27,8 +31,8 @@ public class SequentialJobTests extends TestCase {
      *
      * @see junit.framework.TestCase#setUp()
      */
-    @Override
-    protected void setUp() {
+    @Before
+    public void setUp() {
         myCompJob = new SequentialJob();
         MockJob.resetExecutionNumber();
     }
@@ -44,10 +48,11 @@ public class SequentialJobTests extends TestCase {
      * @throws CleanupFailedException
      *             the cleanup failed exception
      */
+    @Test
     public void testJobHandling() throws JobFailedException, UserCanceledException, CleanupFailedException {
-        MockJob job = new MockJob();
+        final MockJob job = new MockJob();
         myCompJob.addJob(job);
-        NullProgressMonitor monitor = new NullProgressMonitor();
+        final NullProgressMonitor monitor = new NullProgressMonitor();
 
         myCompJob.execute(monitor);
         assertEquals(true, job.wasExecuted());
@@ -65,9 +70,10 @@ public class SequentialJobTests extends TestCase {
      * @throws UserCanceledException
      *             the user canceled exception
      */
+    @Test
     public void testInOrderExecution() throws JobFailedException, UserCanceledException {
-        LinkedList<MockJob> jobs = new LinkedList<MockJob>();
-        NullProgressMonitor monitor = new NullProgressMonitor();
+        final LinkedList<MockJob> jobs = new LinkedList<MockJob>();
+        final NullProgressMonitor monitor = new NullProgressMonitor();
 
         for (int i = 0; i < 20; i++) {
             jobs.addLast(new MockJob());
@@ -78,7 +84,7 @@ public class SequentialJobTests extends TestCase {
 
         int executionNumber = 0;
         while (!jobs.isEmpty()) {
-            MockJob job = jobs.removeFirst();
+            final MockJob job = jobs.removeFirst();
             assertTrue("Job was executed in the wrong order!", job.getExecutionNumber() > executionNumber);
             executionNumber = job.getExecutionNumber();
         }
@@ -92,17 +98,12 @@ public class SequentialJobTests extends TestCase {
      * @throws UserCanceledException
      *             the user canceled exception
      */
+    @Test(expected=WorkflowFailedException.class)
     public void testFailedJob() throws JobFailedException, UserCanceledException {
-        try {
-            NullProgressMonitor monitor = new NullProgressMonitor();
+        final NullProgressMonitor monitor = new NullProgressMonitor();
 
-            myCompJob.addJob(new FailingJob());
-            myCompJob.execute(monitor);
-        } catch (Exception e) {
-            assertTrue(e instanceof JobFailedException);
-            return;
-        }
-        fail("Expected exception not thrown");
+        myCompJob.addJob(new FailingJob());
+        myCompJob.execute(monitor);
     }
 
     /**
@@ -113,16 +114,11 @@ public class SequentialJobTests extends TestCase {
      * @throws UserCanceledException
      *             the user canceled exception
      */
+    @Test(expected=WorkflowFailedException.class)
     public void testCanceledJob() throws JobFailedException, UserCanceledException {
-        try {
-            NullProgressMonitor monitor = new NullProgressMonitor();
+        final NullProgressMonitor monitor = new NullProgressMonitor();
 
-            myCompJob.addJob(new CancelingJob());
-            myCompJob.execute(monitor);
-        } catch (Exception e) {
-            assertTrue(e instanceof UserCanceledException);
-            return;
-        }
-        fail("Expected exception not thrown");
+        myCompJob.addJob(new CancelingJob());
+        myCompJob.execute(monitor);
     }
 }

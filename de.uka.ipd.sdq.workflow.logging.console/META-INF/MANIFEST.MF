@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workflow Logging Console
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.logging.console;singleton:=true
-Bundle-Version: 2.0.0.qualifier
+Bundle-Version: 2.1.0.qualifier
 Require-Bundle: org.eclipse.debug.core;bundle-version="3.5.0",
  org.apache.log4j;bundle-version="1.2.13"
 Export-Package: de.uka.ipd.sdq.workflow.logging.console

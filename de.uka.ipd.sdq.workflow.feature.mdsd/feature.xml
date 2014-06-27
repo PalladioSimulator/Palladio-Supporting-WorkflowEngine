@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.mdsd"
       label="Palladio Workflow Engine MDSD"
-      version="2.0.2.qualifier">
+      version="2.1.0.qualifier">
 
    <description url="http://sdq.ipd.uka.de">
       
@@ -247,14 +247,14 @@ litigation.
          id="de.uka.ipd.sdq.workflow.mdsd"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="de.uka.ipd.sdq.qvtrengine.medini"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="2.1.0.qualifier"
          unpack="false"/>
 
 </feature>

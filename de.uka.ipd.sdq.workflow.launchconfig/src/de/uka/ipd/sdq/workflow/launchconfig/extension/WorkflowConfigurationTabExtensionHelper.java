@@ -22,7 +22,7 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 public class WorkflowConfigurationTabExtensionHelper {
 
 	/** The logger. */
-	private static Logger logger = Logger
+	private static final Logger LOGGER = Logger
 			.getLogger(WorkflowConfigurationTabExtensionHelper.class);
 
 	/** The Constant WorkflowExtensionPointId. */
@@ -48,7 +48,8 @@ public class WorkflowConfigurationTabExtensionHelper {
 		List<WorkflowConfigurationTabExtension> extensions = getWorkflowExtensions(workflowId);
 		Collections.sort(extensions,
 				new Comparator<WorkflowConfigurationTabExtension>() {
-					public int compare(
+					@Override
+                    public int compare(
 							WorkflowConfigurationTabExtension workflowExtensionA,
 							WorkflowConfigurationTabExtension workflowExtensionB) {
 						if (workflowExtensionA.getPriority() < workflowExtensionB
@@ -106,7 +107,7 @@ public class WorkflowConfigurationTabExtensionHelper {
 								.setLaunchConfigurationTab((AbstractLaunchConfigurationTab) o);
 					}
 				} catch (CoreException e) {
-					logger.error("Unable to load config tab extension", e);
+					LOGGER.error("Unable to load config tab extension", e);
 					continue;
 				}
 				String priorityString = element
@@ -115,7 +116,7 @@ public class WorkflowConfigurationTabExtensionHelper {
 					try {
 						extension.setPriority(Integer.parseInt(priorityString));
 					} catch (NumberFormatException e) {
-						logger.error(
+						LOGGER.error(
 								"Unable to load config tab extension priority",
 								e);
 						continue;

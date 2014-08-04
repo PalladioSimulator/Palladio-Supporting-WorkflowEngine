@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.Platform;
 
 import de.uka.ipd.sdq.workflow.mdsd.Activator;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.AbstractQVTREngine;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngineFactory;
 
 /**
@@ -68,7 +69,7 @@ public final class QVTREngines {
 	/**
 	 * A log4j logger for this class.
 	 */
-	private static Logger logger = Logger.getLogger(QVTREngines.class);
+	private static final Logger LOGGER = Logger.getLogger(QVTREngines.class);
 
 	/**
 	 * Returns the id of the engine.
@@ -115,8 +116,8 @@ public final class QVTREngines {
 			factory = (QVTREngineFactory) configElement
 					.createExecutableExtension(ATT_CLASS);
 		} catch (Exception e) {
-			if (logger.isEnabledFor(Level.ERROR)) {
-				logger.error(
+			if (LOGGER.isEnabledFor(Level.ERROR)) {
+				LOGGER.error(
 						"Failed to instantiate factory: "
 								+ configElement.getAttribute(ATT_CLASS)
 								+ " in type: "
@@ -209,10 +210,10 @@ public final class QVTREngines {
 					}
 				}
 			}
-			cachedEngines = (QVTREngines[]) found.toArray(new QVTREngines[found
+			cachedEngines = found.toArray(new QVTREngines[found
 					.size()]);
 		} catch (InvalidRegistryObjectException e) {
-			logger.error(e);
+			LOGGER.error(e);
 		}
 		return cachedEngines;
 	}
@@ -243,7 +244,7 @@ public final class QVTREngines {
 					+ " in "
 					+ configElement.getDeclaringExtension()
 							.getNamespaceIdentifier();
-			logger.error(msg, e);
+			LOGGER.error(msg, e);
 			return null;
 		}
 	}

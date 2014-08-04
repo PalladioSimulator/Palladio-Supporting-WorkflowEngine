@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.Platform;
 public class ExtensionHelper {
 
 	/** The logger. */
-	private static Logger logger = Logger.getLogger(ExtensionHelper.class);
+	private static final Logger LOGGER = Logger.getLogger(ExtensionHelper.class);
 
 	/** The Constant WorkflowExtensionPointId. */
 	private static final String WORKFLOW_EXTENSION_POINT_ID = "de.uka.ipd.sdq.workflow.job";
@@ -53,7 +53,8 @@ public class ExtensionHelper {
 			String workflowId) {
 		List<WorkflowExtension> extensions = getWorkflowExtensions(workflowId);
 		Collections.sort(extensions, new Comparator<WorkflowExtension>() {
-			public int compare(WorkflowExtension workflowExtensionA,
+			@Override
+            public int compare(WorkflowExtension workflowExtensionA,
 					WorkflowExtension workflowExtensionB) {
 				if (workflowExtensionA.getPriority() < workflowExtensionB
 						.getPriority()) {
@@ -114,7 +115,7 @@ public class ExtensionHelper {
 						}
 					} catch (CoreException e) {
 						// No workflow extension job specified
-						logger.error("Unable to load extension job");
+						LOGGER.error("Unable to load extension job");
 					}
 					try {
 						String builderAttribute = element.getAttribute(WORKFLOW_EXTENSION_POINT_ATTRIBUTE_EXTENSION_CONFIGURATION_BUILDER);
@@ -129,7 +130,7 @@ public class ExtensionHelper {
 						}
 					} catch (CoreException e) {
 						// No extension configuration builder specified
-						logger.error("Failed to load extension job configuration builder");
+						LOGGER.error("Failed to load extension job configuration builder");
 					}
 					String priorityString = element
 							.getAttribute(WORKFLOW_EXTENSION_POINT_ATTRIBUTE_PRIORITY);
@@ -139,7 +140,7 @@ public class ExtensionHelper {
 									.parseInt(priorityString));
 						} catch (NumberFormatException e) {
 							// No extension configuration builder specified
-							logger.error("Failed to load process extension job priority.");
+							LOGGER.error("Failed to load process extension job priority.");
 						}
 					}
 

@@ -44,7 +44,7 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	private List<Button> buttons = new ArrayList<Button>();
 
 	/** Logger for log4j. */
-	private static Logger logger = Logger.getLogger(LaunchMultipleTab.class);
+	private static final Logger LOGGER = Logger.getLogger(LaunchMultipleTab.class);
 
 	/**
 	 * Create the view to configure the launch configuration as part of the ui
@@ -55,7 +55,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse.swt.widgets.Composite)
 	 */
-	public void createControl(Composite parent) {
+	@Override
+    public void createControl(Composite parent) {
 
 		// build the tab pane container
 		GridLayout layout = new GridLayout(NUMBER_OF_COLUMNS, false);
@@ -104,8 +105,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 				}
 
 			} catch (CoreException e) {
-				if (logger.isEnabledFor(Level.ERROR)) {
-					logger.error("Could not find a configuration type for id "
+				if (LOGGER.isEnabledFor(Level.ERROR)) {
+					LOGGER.error("Could not find a configuration type for id "
 							+ launchType.getIdentifier() + ", skipping it.");
 				}
 				e.printStackTrace();
@@ -147,7 +148,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	 * 
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
 	 */
-	public String getName() {
+	@Override
+    public String getName() {
 		return "Launch Multiple Runs Tab";
 	}
 
@@ -161,7 +163,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse.debug.core.
 	 *      ILaunchConfiguration)
 	 */
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	@Override
+    public void initializeFrom(ILaunchConfiguration configuration) {
 
 		try {
 			@SuppressWarnings("unchecked")
@@ -207,7 +210,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.core.
 	 *      ILaunchConfigurationWorkingCopy)
 	 */
-	public void performApply(ILaunchConfigurationWorkingCopy config) {
+	@Override
+    public void performApply(ILaunchConfigurationWorkingCopy config) {
 		LinkedList<String> selectedConfigs = new LinkedList<String>();
 		for (Button button : this.buttons) {
 			if (button.getSelection()) {
@@ -227,7 +231,8 @@ public class LaunchMultipleTab extends AbstractLaunchConfigurationTab {
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.core.
 	 *      ILaunchConfigurationWorkingCopy)
 	 */
-	public void setDefaults(ILaunchConfigurationWorkingCopy config) {
+	@Override
+    public void setDefaults(ILaunchConfigurationWorkingCopy config) {
 		for (Button button : this.buttons) {
 			config.setAttribute(button.getText(), true);
 		}

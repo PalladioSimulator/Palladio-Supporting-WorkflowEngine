@@ -30,7 +30,7 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 public class QVTRTransformation extends AbstractWorkflowComponent {
 
 	/** The logger. */
-	private static Logger logger = Logger.getLogger(QVTRTransformation.class);
+	private static final Logger LOGGER = Logger.getLogger(QVTRTransformation.class);
 
 	/** The Constant COMPONENT_NAME. */
 	private static final String COMPONENT_NAME = "QVTRTransformation";
@@ -48,16 +48,16 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
 	protected ResourceSet resourceSet;
 
 	/** The meta models. */
-	private Collection<String> metaModels = new ArrayList<String>();
+	private final Collection<String> metaModels = new ArrayList<String>();
 
 	/** The trace file uri. */
 	private URI traceFileURI = null;
 
 	/** The input models. */
-	private Collection<String> inputModels = new ArrayList<String>();
+	private final Collection<String> inputModels = new ArrayList<String>();
 
 	/** The output models. */
-	private Collection<String> outputModels = new ArrayList<String>();
+	private final Collection<String> outputModels = new ArrayList<String>();
 
 	/*
 	 * (non-Javadoc)
@@ -84,8 +84,8 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
 	 */
 	public void run(Issues issues) {
 
-		logger.info("Executing QVTR Transformation...");
-		logger.debug("Script: " + getQvtrScript());
+		LOGGER.info("Executing QVTR Transformation...");
+		LOGGER.debug("Script: " + getQvtrScript());
 
 		this.resourceSet = new ResourceSetImpl();
 		this.resourceSet
@@ -125,7 +125,7 @@ public class QVTRTransformation extends AbstractWorkflowComponent {
 			return;
 		}
 
-		logger.info("Transformation executed successfully");
+		LOGGER.info("Transformation executed successfully");
 		issues.addInfo("Transformation executed successfully");
 	}
 

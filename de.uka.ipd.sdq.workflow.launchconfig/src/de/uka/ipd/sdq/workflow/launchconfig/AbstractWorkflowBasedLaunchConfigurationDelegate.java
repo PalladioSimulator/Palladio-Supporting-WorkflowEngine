@@ -63,7 +63,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	protected static final String DETAILED_LOG_PATTERN = "%-8r [%-10t] %-5p: %m [%c]%n";
 
 	/** Logger of this class. */
-	private static Logger logger = Logger
+	private static final Logger LOGGER = Logger
 			.getLogger(AbstractWorkflowBasedLaunchConfigurationDelegate.class);
 
 	/** Name of the entry in the configuration hashmap containing the log level. */
@@ -103,7 +103,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	 * @param launch
 	 *            the launch
 	 * @param loggerList
-	 *            the logger list
+	 *            the LOGGER list
 	 * @throws DebugException
 	 *             the debug exception
 	 */
@@ -132,7 +132,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	private List<LoggerAppenderStruct> setupProcessAndLogger(
 			ILaunchConfiguration configuration, ILaunch launch)
 			throws CoreException {
-		// Reconfigure apache commons logging to use Log4J as backend logger
+		// Reconfigure apache commons logging to use Log4J as backend LOGGER
 		// FB: commented out according to bug 730.
 		// System.setProperty(LogFactoryImpl.LOG_PROPERTY,
 		// "org.apache.commons.logging.impl.Log4JLogger");
@@ -204,14 +204,14 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	private void createAndRunWorkflow(ILaunchConfiguration configuration,
 			String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
-		if (logger.isEnabledFor(Level.INFO)) {
-			logger.info("Create workflow configuration");
+		if (LOGGER.isEnabledFor(Level.INFO)) {
+			LOGGER.info("Create workflow configuration");
 		}
 		WorkflowConfigurationType workflowConfiguration = deriveConfiguration(
 				configuration, mode);
 		if (workflowConfiguration == null) {
-			if (logger.isEnabledFor(Level.ERROR)) {
-				logger.error(
+			if (LOGGER.isEnabledFor(Level.ERROR)) {
+				LOGGER.error(
 						"No configuration instance has been created by the workflow ["
 								+ this.getClass().toString() + "]",
 						new NullPointerException());
@@ -219,27 +219,27 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 			return;
 		}
 
-		if (logger.isEnabledFor(Level.INFO)) {
-			logger.info("Validating workflow configuration");
+		if (LOGGER.isEnabledFor(Level.INFO)) {
+			LOGGER.info("Validating workflow configuration");
 		}
 		try {
 			workflowConfiguration.validateAndFreeze();
 		} catch (InvalidWorkflowJobConfigurationException e) {
-			if (logger.isEnabledFor(Level.ERROR)) {
-				logger.error("Configuration invalid");
-				logger.error(e.getMessage());
+			if (LOGGER.isEnabledFor(Level.ERROR)) {
+				LOGGER.error("Configuration invalid");
+				LOGGER.error(e.getMessage());
 			}
 			return;
 		}
 
-		if (logger.isEnabledFor(Level.INFO)) {
-			logger.info("Creating workflow engine");
+		if (LOGGER.isEnabledFor(Level.INFO)) {
+			LOGGER.info("Creating workflow engine");
 		}
 		Workflow workflow = createWorkflow(workflowConfiguration, monitor,
 				launch);
 
-		if (logger.isEnabledFor(Level.INFO)) {
-			logger.info("Executing workflow");
+		if (LOGGER.isEnabledFor(Level.INFO)) {
+			LOGGER.info("Executing workflow");
 		}
 		workflow.run();
 	}
@@ -296,8 +296,8 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	}
 
 	/**
-	 * Setup logger for the workflow run. May be overridden by clients to
-	 * configure further logger for other namespaces than
+	 * Setup LOGGER for the workflow run. May be overridden by clients to
+	 * configure further LOGGER for other namespaces than
 	 * de.uka.ipd.sdq.workflow. Use protected method setupLogger to configure
 	 * additional loggers
 	 * 
@@ -320,18 +320,18 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	}
 
 	/**
-	 * Configure the named logger to log on the given log level with the given
+	 * Configure the named LOGGER to log on the given log level with the given
 	 * PatternLayout.
 	 * 
 	 * @param loggerName
-	 *            The name of the logger to configure
+	 *            The name of the LOGGER to configure
 	 * @param logLevel
-	 *            The log level to be used by the logger to configure
+	 *            The log level to be used by the LOGGER to configure
 	 * @param layout
 	 *            The layout for the pattern layout to be used to format log
 	 *            messages. The layout may reuse the defined constants in this
 	 *            class for short and detailed log outputs
-	 * @return the logger appender struct
+	 * @return the LOGGER appender struct
 	 */
 	protected LoggerAppenderStruct setupLogger(String loggerName,
 			Level logLevel, String layout) {

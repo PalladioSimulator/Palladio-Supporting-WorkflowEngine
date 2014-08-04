@@ -22,7 +22,7 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 public class LaunchMultiple implements ILaunchConfigurationDelegate {
 
 	/** Logger for log4j. */
-	private static Logger logger = Logger.getLogger(LaunchMultiple.class);
+	private static final Logger LOGGER = Logger.getLogger(LaunchMultiple.class);
 
 	/**
 	 * Load and execute the selected launch configurations.
@@ -38,7 +38,8 @@ public class LaunchMultiple implements ILaunchConfigurationDelegate {
 	 * @throws CoreException
 	 *             the core exception
 	 */
-	public void launch(ILaunchConfiguration configuration, String mode,
+	@Override
+    public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
 		@SuppressWarnings("unchecked")
@@ -89,8 +90,8 @@ public class LaunchMultiple implements ILaunchConfigurationDelegate {
 				delegate.launch(launchConfiguration, mode, launch, monitor);
 
 			} catch (Exception e) {
-				if (logger.isEnabledFor(Level.ERROR)) {
-					logger.error("Running " + launchConfiguration.getName()
+				if (LOGGER.isEnabledFor(Level.ERROR)) {
+					LOGGER.error("Running " + launchConfiguration.getName()
 							+ " failed. I will start the next one. Cause: "
 							+ e.getMessage());
 				}

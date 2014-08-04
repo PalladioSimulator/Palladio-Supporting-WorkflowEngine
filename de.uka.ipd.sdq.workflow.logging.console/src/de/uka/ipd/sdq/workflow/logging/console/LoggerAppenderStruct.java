@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 public class LoggerAppenderStruct {
 
     /** The logger. */
-    private Logger logger;
+    private final Logger logger;
 
     /** The appender. */
-    private StreamsProxyAppender appender;
+    private final StreamsProxyAppender appender;
 
     /**
      * Instantiates a new logger appender struct.

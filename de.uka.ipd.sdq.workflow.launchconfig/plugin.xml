@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="de.uka.ipd.sdq.workflow.extension" name="Workflow Tab Extension" schema="schema/workflow_extension.exsd"/>
+   <extension-point id="de.uka.ipd.sdq.workflow.tab.extension" name="Workflow Tab Extension" schema="schema/workflow_extension.exsd"/>
 
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">

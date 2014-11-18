@@ -6,4 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Palladio Project
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: de.uka.ipd.sdq.workflow;bundle-version="2.0.0",
- de.uka.ipd.sdq.workflow.launchconfig;bundle-version="2.0.0"
+ de.uka.ipd.sdq.workflow.launchconfig;bundle-version="2.0.0",
+ org.eclipse.jface;bundle-version="3.10.1",
+ de.uka.ipd.sdq.workflow.workbench;bundle-version="2.1.0"

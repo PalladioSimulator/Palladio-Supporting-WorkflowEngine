@@ -17,65 +17,65 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
 
 /**
  * The Class XTextGeneratorBlackboardCompositeJob.
- * 
- * @author Jörg Henss
+ *
+ * @author JÃ¶rg Henss
  */
 public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
-        IBlackboardInteractingJob<MDSDBlackboard> {
-    
+IBlackboardInteractingJob<MDSDBlackboard> {
+
     /** The blackboard. */
     private MDSDBlackboard blackboard;
 
     /**
      * Instantiates a new x text generator blackboard composite job.
-     * 
+     *
      * @param config
      *            the config
      */
-    public XTextGeneratorBlackboardJob(XTextGeneratorConfiguration config) {
-    	this(config, "XTextGenerator Job", true);
+    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config) {
+        this(config, "XTextGenerator Job", true);
     }
 
     /**
      * Instantiates a new x text generator blackboard composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param name The name of the job sequence.
+     * @param name The name of the job sequence.
      */
-    public XTextGeneratorBlackboardJob(XTextGeneratorConfiguration config, String name) {
-    	this(config, name, true);
+    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final String name) {
+        this(config, name, true);
     }
 
     /**
      * Instantiates a new x text generator blackboard composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param cleanUpImmediately
-	 *            Flag if jobs should be cleaned up immediately or not.
+     * @param cleanUpImmediately
+     *            Flag if jobs should be cleaned up immediately or not.
      */
-    public XTextGeneratorBlackboardJob(XTextGeneratorConfiguration config, boolean cleanUpImmediately) {
-    	this(config, "XTextGenerator Job", cleanUpImmediately);
+    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final boolean cleanUpImmediately) {
+        this(config, "XTextGenerator Job", cleanUpImmediately);
     }
-    
+
     /**
      * Instantiates a new x text generator blackboard composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param cleanUpImmediately
-	 *            Flag if jobs should be cleaned up immediately or not.
-	 * @param name The name of the job sequence.
+     * @param cleanUpImmediately
+     *            Flag if jobs should be cleaned up immediately or not.
+     * @param name The name of the job sequence.
      */
-    public XTextGeneratorBlackboardJob(XTextGeneratorConfiguration config, String name, boolean cleanUpImmediately) {
-    	
-    	super(name, cleanUpImmediately);
+    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final String name, final boolean cleanUpImmediately) {
+
+        super(name, cleanUpImmediately);
 
         // Setup all
         config.initMWEBean();
         // Create context
-        IWorkflowContext ctx = new WorkflowContextImpl();
+        final IWorkflowContext ctx = new WorkflowContextImpl();
         config.initGeneratorModuleAndGeneratorSetup();
 
         this.addJob(new PrepareXTextPartitionJob(config.getBlackboardModelLocation()));
@@ -94,7 +94,7 @@ public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
     /**
      * Executes all contained jobs, i.e. call execute() for them. Contained jobs can thus
      * re-implement this method with functionality that should be executed.
-     * 
+     *
      * @param monitor
      *            the monitor
      * @throws JobFailedException
@@ -104,8 +104,8 @@ public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        for (IJob job : this.myJobs) {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        for (final IJob job : this.myJobs) {
             if (job instanceof IBlackboardInteractingJob) {
                 ((IBlackboardInteractingJob) job).setBlackboard(this.blackboard);
             } else if (job instanceof IBlackboardInteractingWorkflowComponent) {
@@ -120,7 +120,7 @@ public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.Blackboard)
      */
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
 
     }

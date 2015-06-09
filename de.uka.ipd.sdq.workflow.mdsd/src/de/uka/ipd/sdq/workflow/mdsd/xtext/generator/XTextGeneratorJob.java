@@ -10,61 +10,61 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
 
 /**
  * The Class XTextGeneratorCompositeJob.
- * 
- * @author Jörg Henss
+ *
+ * @author JÃ¶rg Henss
  */
 public class XTextGeneratorJob extends MWE2SequentialJob {
 
     /**
      * Instantiates a new x text generator composite job.
-     * 
+     *
      * @param config
      *            the config
      */
-    public XTextGeneratorJob(XTextGeneratorConfiguration config) {
-    	this(config, "XTextGenerator Job", true);
+    public XTextGeneratorJob(final XTextGeneratorConfiguration config) {
+        this(config, "XTextGenerator Job", true);
     }
 
     /**
      * Instantiates a new x text generator composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param name The name of the job sequence.
+     * @param name The name of the job sequence.
      */
-    public XTextGeneratorJob(XTextGeneratorConfiguration config, String name) {
-    	this(config, name, true);
+    public XTextGeneratorJob(final XTextGeneratorConfiguration config, final String name) {
+        this(config, name, true);
     }
 
     /**
      * Instantiates a new x text generator composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param cleanUpImmediately
-	 *            Flag if jobs should be cleaned up immediately or not.
+     * @param cleanUpImmediately
+     *            Flag if jobs should be cleaned up immediately or not.
      */
-    public XTextGeneratorJob(XTextGeneratorConfiguration config, boolean cleanUpImmediately) {
-    	this(config, "XTextGenerator Job", cleanUpImmediately);
+    public XTextGeneratorJob(final XTextGeneratorConfiguration config, final boolean cleanUpImmediately) {
+        this(config, "XTextGenerator Job", cleanUpImmediately);
     }
-    
+
     /**
      * Instantiates a new x text generator composite job.
-     * 
+     *
      * @param config
      *            the config
-	 * @param cleanUpImmediately
-	 *            Flag if jobs should be cleaned up immediately or not.
-	 * @param name The name of the job sequence.
+     * @param cleanUpImmediately
+     *            Flag if jobs should be cleaned up immediately or not.
+     * @param name The name of the job sequence.
      */
-    public XTextGeneratorJob(XTextGeneratorConfiguration config, String name, boolean cleanUpImmediately) {
-    	
-    	super(name, cleanUpImmediately);
+    public XTextGeneratorJob(final XTextGeneratorConfiguration config, final String name, final boolean cleanUpImmediately) {
+
+        super(name, cleanUpImmediately);
 
         // Setup all
         config.initMWEBean();
         // Create context
-        IWorkflowContext ctx = new WorkflowContextImpl();
+        final IWorkflowContext ctx = new WorkflowContextImpl();
         config.initGeneratorModuleAndGeneratorSetup();
 
         this.addJob(new MWE2WorkflowComponentBridge<XTextGeneratorSupport>(config.createGeneratorSupport(), ctx,

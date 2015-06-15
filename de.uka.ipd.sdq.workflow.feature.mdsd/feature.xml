@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.mdsd"
       label="Palladio Workflow Engine MDSD"
-      version="2.1.0.qualifier">
+      version="2.2.0.qualifier">
 
    <description url="http://sdq.ipd.uka.de">
       

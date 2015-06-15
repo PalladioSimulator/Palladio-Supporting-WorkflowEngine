@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.core"
       label="Palladio Workflow Engine Core"
-      version="2.1.0.qualifier">
+      version="2.2.0.qualifier">
 
    <description url="http://sdq.ipd.uka.de">
       This feature contains the Palladio workflow engine which provides

@@ -11,12 +11,6 @@
 a workflow for tasks being run under the Eclipse UI from the Run Dialog.
    </description>
 
-   <copyright url="http://sdq.ipd.uka.de">
-      This plugin is protected by copyright held by the members of
-the Palladio Research Group, University of Karlsruhe.
-   </copyright>
-
-   
    <url>
       <discovery label="Medini QVT Update Site" url="http://www.ikv.de/qvt/update-site-indigo"/>
       <discovery label="Palladio Commons" url="http://sdqweb.ipd.uka.de/eclipse/commons/releases/1.3"/>

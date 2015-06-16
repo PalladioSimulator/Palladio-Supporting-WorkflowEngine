@@ -10,12 +10,6 @@
       This feature contains the Palladio workflow engine which provides
 a workflow for tasks being run under the Eclipse UI from the Run Dialog.
    </description>
-
-   <copyright url="http://sdq.ipd.uka.de">
-      This plugin is protected by copyright held by the members of
-the Palladio Research Group, University of Karlsruhe.
-   </copyright>
-
    
    <requires>
       <import plugin="org.eclipse.core.runtime"/>

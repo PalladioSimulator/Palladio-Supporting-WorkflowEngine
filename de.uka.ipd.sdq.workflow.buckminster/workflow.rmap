@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
-  <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="workflowengine" failOnError="false"/>
-  <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="palladio-commons" failOnError="false"/>
-  <rm:locator pattern="^org\.palladiosimulator\.commons.*" searchPathRef="palladio-commons" failOnError="false"/>
+
+  <rm:locator pattern="^de\.uka\.ipd\.sdq\.qvtrengine.*" searchPathRef="workflowengine" failOnError="true"/>
+  <rm:locator pattern="^de\.uka\.ipd\.sdq\.workflow.*" searchPathRef="workflowengine" failOnError="true"/>
+  
   <rm:locator pattern="^de\.ikv\.medini\.qvt\..*" searchPathRef="mediniqvt" failOnError="false"/>
-  <rm:redirect pattern=".*" href="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/Build/trunk/org.palladiosimulator.targetPlatformBuild/eclipse-platform.rmap"/>
+
+  <rm:redirect pattern=".*" href="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/Build/trunk/org.palladiosimulator.targetPlatformBuild/commons.rmap"/>
+
   <rm:searchPath name="workflowengine">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
       <rm:uri format="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk/{0}?moduleAfterTag&amp;moduleAfterBranch">
@@ -12,13 +15,7 @@
       </rm:uri>
     </rm:provider>
   </rm:searchPath>
-  <rm:searchPath name="palladio-commons">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/commons/releases/1.4.0/"/>
-    </rm:provider>
-  </rm:searchPath>
+
   <rm:searchPath name="mediniqvt">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
@@ -26,4 +23,5 @@
       <rm:uri format="http://www.ikv.de/qvt/update-site-indigo/"/>
     </rm:provider>
   </rm:searchPath>
+
 </rm:rmap>

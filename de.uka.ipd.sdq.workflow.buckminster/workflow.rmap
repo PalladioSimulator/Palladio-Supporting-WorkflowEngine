@@ -18,8 +18,6 @@
 
   <rm:searchPath name="mediniqvt">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://www.ikv.de/qvt/update-site-indigo/"/>
     </rm:provider>
   </rm:searchPath>

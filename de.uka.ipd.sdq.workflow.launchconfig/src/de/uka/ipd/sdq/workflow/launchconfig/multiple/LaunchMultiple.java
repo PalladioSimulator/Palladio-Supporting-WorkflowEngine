@@ -16,89 +16,88 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 
 /**
  * The Class LaunchMultiple.
- * 
+ *
  * @author Anne Martens
  */
 public class LaunchMultiple implements ILaunchConfigurationDelegate {
 
-	/** Logger for log4j. */
-	private static final Logger LOGGER = Logger.getLogger(LaunchMultiple.class);
+    /** Logger for log4j. */
+    private static final Logger LOGGER = Logger.getLogger(LaunchMultiple.class);
 
-	/**
-	 * Load and execute the selected launch configurations.
-	 * 
-	 * @param configuration
-	 *            the configuration
-	 * @param mode
-	 *            the mode
-	 * @param launch
-	 *            the launch
-	 * @param monitor
-	 *            the monitor
-	 * @throws CoreException
-	 *             the core exception
-	 */
-	@Override
-    public void launch(ILaunchConfiguration configuration, String mode,
-			ILaunch launch, IProgressMonitor monitor) throws CoreException {
+    /**
+     * Load and execute the selected launch configurations.
+     *
+     * @param configuration
+     *            the configuration
+     * @param mode
+     *            the mode
+     * @param launch
+     *            the launch
+     * @param monitor
+     *            the monitor
+     * @throws CoreException
+     *             the core exception
+     */
+    @Override
+    public void launch(final ILaunchConfiguration configuration, final String mode,
+            final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 
-		@SuppressWarnings("unchecked")
-		List<String> selectedLaunchConfigs = configuration.getAttribute(
-				LaunchMultipleTab.SELECTED_LAUNCHES, new LinkedList<String>());
+        final List<String> selectedLaunchConfigs = configuration.getAttribute(
+                LaunchMultipleTab.SELECTED_LAUNCHES, new LinkedList<String>());
 
-		LaunchMultipleTab tab = new LaunchMultipleTab();
-		List<ILaunchConfiguration> availableLaunchconfis = tab.getLaunchConfigs();
+        final LaunchMultipleTab tab = new LaunchMultipleTab();
+        final List<ILaunchConfiguration> availableLaunchconfis = tab.getLaunchConfigs();
 
-		List<ILaunchConfiguration> configsToBeLaunched = new ArrayList<ILaunchConfiguration>();
-		for (ILaunchConfiguration launchConfiguration : availableLaunchconfis) {
-			if (selectedLaunchConfigs.contains(launchConfiguration.getName())) {
-				configsToBeLaunched.add(launchConfiguration);
-			}
-		}
+        final List<ILaunchConfiguration> configsToBeLaunched = new ArrayList<ILaunchConfiguration>();
+        for (final ILaunchConfiguration launchConfiguration : availableLaunchconfis) {
+            if (selectedLaunchConfigs.contains(launchConfiguration.getName())) {
+                configsToBeLaunched.add(launchConfiguration);
+            }
+        }
 
-		executeLaunchConfigurations(mode, launch, monitor, configsToBeLaunched);
+        executeLaunchConfigurations(mode, launch, monitor, configsToBeLaunched);
 
-	}
+    }
 
-	/**
-	 * Launch the selected launch configurations.
-	 * 
-	 * Exceptions of single launches will be printed and the 
-	 * next launch will be started.
-	 * 
-	 * @param mode
-	 *            The mode to launch in (run or debug).
-	 * @param launch
-	 *            The launch context.
-	 * @param monitor
-	 *            The monitor for progress monitoring.
-	 * @param configsToBeLaunched
-	 *            The list of launch configs to start.
-	 */
-	private void executeLaunchConfigurations(String mode, ILaunch launch,
-			IProgressMonitor monitor,
-			List<ILaunchConfiguration> configsToBeLaunched) {
-		for (ILaunchConfiguration launchConfiguration : configsToBeLaunched) {
+    /**
+     * Launch the selected launch configurations.
+     *
+     * Exceptions of single launches will be printed and the
+     * next launch will be started.
+     *
+     * @param mode
+     *            The mode to launch in (run or debug).
+     * @param launch
+     *            The launch context.
+     * @param monitor
+     *            The monitor for progress monitoring.
+     * @param configsToBeLaunched
+     *            The list of launch configs to start.
+     */
+    private void executeLaunchConfigurations(final String mode, final ILaunch launch,
+            final IProgressMonitor monitor,
+            final List<ILaunchConfiguration> configsToBeLaunched) {
+        for (final ILaunchConfiguration launchConfiguration : configsToBeLaunched) {
 
-			try {
+            try {
 
-				// retrieve SimuCom Launch Delegate
-				Set<String> modes = new HashSet<String>();
-				modes.add(mode);
-				ILaunchConfigurationDelegate delegate = launchConfiguration
-						.getType().getDelegates(modes)[0].getDelegate();
-				delegate.launch(launchConfiguration, mode, launch, monitor);
+                // retrieve SimuCom Launch Delegate
+                final Set<String> modes = new HashSet<String>();
+                modes.add(mode);
+                final ILaunchConfigurationDelegate delegate = launchConfiguration
+                        .getType().getDelegates(modes)[0].getDelegate();
+                delegate.launch(launchConfiguration, mode, launch, monitor);
 
-			} catch (Exception e) {
-				if (LOGGER.isEnabledFor(Level.ERROR)) {
-					LOGGER.error("Running " + launchConfiguration.getName()
-							+ " failed. I will start the next one. Cause: "
-							+ e.getMessage());
-				}
-				e.printStackTrace();
-			}
+            } catch (final Exception e) {
+                if (LOGGER.isEnabledFor(Level.ERROR)) {
+                    LOGGER.error("Running " + launchConfiguration.getName()
+                            + " failed. I will start the next one. Cause: "
+                            + e.getMessage());
+                }
+                e.printStackTrace();
+            }
 
-		}
-	}
+        }
+    }
 
 }

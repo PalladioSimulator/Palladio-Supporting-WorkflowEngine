@@ -15,7 +15,7 @@
       <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/workflowengine/nightly/"/>
     </rm:provider>
     <rm:provider resolutionFilter="(resolveFrom=release)" componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/workflowengine/latest/"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/workflowengine/releases/latest/"/>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
       <rm:uri format="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/WorkflowEngine/trunk/{0}?moduleAfterTag&amp;moduleAfterBranch">

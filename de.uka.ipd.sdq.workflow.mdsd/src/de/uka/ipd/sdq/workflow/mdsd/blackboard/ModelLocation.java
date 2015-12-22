@@ -3,7 +3,7 @@ package de.uka.ipd.sdq.workflow.mdsd.blackboard;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * Immutable class used to uniquely identify a model (aka a resouce) on a MDSD blackboard.
+ * Immutable class used to uniquely identify a model (aka a resource) on an MDSD blackboard.
  * 
  * @author Steffen Becker
  */
@@ -24,7 +24,7 @@ public class ModelLocation {
      *            The URI of the model (the normalized URI is used to identify the model in a
      *            partition)
      */
-    public ModelLocation(String partitionID, URI modelID) {
+    public ModelLocation(final String partitionID, final URI modelID) {
         super();
         this.partitionID = partitionID;
         this.modelID = modelID;
@@ -36,7 +36,7 @@ public class ModelLocation {
      * @return the partitionID
      */
     public String getPartitionID() {
-        return partitionID;
+        return this.partitionID;
     }
 
     /**
@@ -45,6 +45,6 @@ public class ModelLocation {
      * @return the modelID
      */
     public URI getModelID() {
-        return modelID;
+        return this.modelID;
     }
 }

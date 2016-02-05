@@ -21,9 +21,9 @@ import de.uka.ipd.sdq.workflow.mdsd.validation.ModelValidationJob;
 /**
  * A job which checks all model constraints implemented by EMF directly or generated using the EMF
  * OCL extension.
- * 
+ *
  * @author Steffen Becker
- * 
+ *
  */
 public class CheckEMFConstraintsJob extends ModelValidationJob {
 
@@ -35,13 +35,13 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
 
     /**
      * Create a new constrains check job.
-     * 
+     *
      * @param errorLevel
      *            the error level
      * @param partitionName
      *            The blackboard partition containing the model to be checked
      */
-    public CheckEMFConstraintsJob(SeverityEnum errorLevel, String partitionName) {
+    public CheckEMFConstraintsJob(final SeverityEnum errorLevel, final String partitionName) {
         super(errorLevel);
 
         this.partitionName = partitionName;
@@ -49,37 +49,33 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
-        ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
-        ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
+        final ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
+        final ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
         partition.resolveAllProxies();
 
-        for (Resource r : partition.getResourceSet().getResources()) {
+        for (final Resource r : partition.getResourceSet().getResources()) {
 
             // Check that model is loaded.
             // If not, add an error to the resulting diagnostics regardless of the
             // error level of this CheckEMFConstraintsJob
-            List<EObject> contents = r.getContents();
+            final List<EObject> contents = r.getContents();
             if (contents == null || contents.size() == 0) {
-                Diagnostic d = new BasicDiagnostic(
-                        Diagnostic.ERROR,
-                        this.getClass().getCanonicalName(),
-                        0,
-                        "Requested file "
-                                + r.getURI()
+                final Diagnostic d = new BasicDiagnostic(Diagnostic.ERROR, this.getClass().getCanonicalName(), 0,
+                        "Requested file " + r.getURI()
                                 + " cannot be loaded. Make sure it exists and is valid, or fix your model's references.",
                         new Object[] { null });
-                appendSeverityAndIssueFromDiagnostic(result, d, SeverityEnum.ERROR);
+                this.appendSeverityAndIssueFromDiagnostic(result, d, SeverityEnum.ERROR);
             } else {
                 // Check model internal OCL constraints
-                Diagnostician diagnostician = new Diagnostician();
-                Diagnostic d = diagnostician.validate(contents.get(0));
-                appendSeverityAndIssueFromDiagnostic(result, d);
+                final Diagnostician diagnostician = new Diagnostician();
+                final Diagnostic d = diagnostician.validate(contents.get(0));
+                this.appendSeverityAndIssueFromDiagnostic(result, d);
             }
         }
 
@@ -88,7 +84,7 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.IJob#getName()
      */
     @Override
@@ -98,18 +94,18 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
      * Blackboard)
      */
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 
     /**
      * Append severity and issue from diagnostic.
-     * 
+     *
      * @param result
      *            the result
      * @param d
@@ -117,26 +113,26 @@ public class CheckEMFConstraintsJob extends ModelValidationJob {
      * @param severity
      *            the severity
      */
-    private void appendSeverityAndIssueFromDiagnostic(ArrayList<SeverityAndIssue> result, Diagnostic d,
-            SeverityEnum severity) {
+    private void appendSeverityAndIssueFromDiagnostic(final ArrayList<SeverityAndIssue> result, final Diagnostic d,
+            final SeverityEnum severity) {
         if (d.getSeverity() >= Diagnostic.ERROR) {
-            SeverityAndIssue sai = new SeverityAndIssue(severity, d.getMessage(), (EObject) d.getData().get(0));
+            final SeverityAndIssue sai = new SeverityAndIssue(severity, d.getMessage(), (EObject) d.getData().get(0));
             result.add(sai);
         }
-        for (Diagnostic child : d.getChildren()) {
-            appendSeverityAndIssueFromDiagnostic(result, child);
+        for (final Diagnostic child : d.getChildren()) {
+            this.appendSeverityAndIssueFromDiagnostic(result, child);
         }
     }
 
     /**
      * Append severity and issue from diagnostic.
-     * 
+     *
      * @param result
      *            the result
      * @param d
      *            the d
      */
-    private void appendSeverityAndIssueFromDiagnostic(ArrayList<SeverityAndIssue> result, Diagnostic d) {
-        appendSeverityAndIssueFromDiagnostic(result, d, this.getErrorLevel());
+    private void appendSeverityAndIssueFromDiagnostic(final ArrayList<SeverityAndIssue> result, final Diagnostic d) {
+        this.appendSeverityAndIssueFromDiagnostic(result, d, this.getErrorLevel());
     }
 }

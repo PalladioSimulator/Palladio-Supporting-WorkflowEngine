@@ -4,7 +4,7 @@ import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 
 /**
  * The Interface IBlackboardInteractingWorkflowComponent.
- * 
+ *
  * @param <BlackboardType>
  *            the generic type
  */
@@ -12,7 +12,7 @@ public interface IBlackboardInteractingWorkflowComponent<BlackboardType extends 
 
     /**
      * Sets the blackboard of this job to the given blackboard.
-     * 
+     *
      * @param blackboard
      *            The blackboard to be used by this job
      */

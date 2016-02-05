@@ -58,8 +58,8 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @param globalVarDefs
      *            Definitions for global Variables.
      */
-    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages, final Outlet[] outlets,
-            final String expandExpression, final GlobalVarDef[] globalVarDefs) {
+    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages,
+            final Outlet[] outlets, final String expandExpression, final GlobalVarDef[] globalVarDefs) {
         super(new Generator(), slotContents);
 
         this.ePackages = ePackages;
@@ -84,8 +84,8 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @param expandExpression
      *            Initial generation expression.
      */
-    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages, final Outlet[] outlets,
-            final String expandExpression) {
+    public XpandGeneratorJob(final HashMap<String, Object> slotContents, final EPackage[] ePackages,
+            final Outlet[] outlets, final String expandExpression) {
         this(slotContents, ePackages, outlets, expandExpression, null);
     }
 
@@ -97,22 +97,22 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      */
     @Override
     protected void setupOAWJob(final Generator generatorJob) {
-        generatorJob.setExpand(expandExpression);
-        generatorJob.setFileEncoding(fileEncoding);
+        generatorJob.setExpand(this.expandExpression);
+        generatorJob.setFileEncoding(this.fileEncoding);
 
-        for (final EPackage p : ePackages) {
+        for (final EPackage p : this.ePackages) {
             generatorJob.addMetaModel(new EmfMetaModel(p));
         }
 
         String prResolver = "";
-        for (final Outlet o : outlets) {
+        for (final Outlet o : this.outlets) {
             generatorJob.addOutlet(o);
             prResolver += o.getPath() + ",";
         }
         prResolver = prResolver.substring(0, prResolver.length() - 1);
 
-        if (glovalVarDefs != null) {
-            for (final GlobalVarDef def : glovalVarDefs) {
+        if (this.glovalVarDefs != null) {
+            for (final GlobalVarDef def : this.glovalVarDefs) {
                 generatorJob.addGlobalVarDef(def);
             }
         }
@@ -126,7 +126,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
             generatorJob.addAdvice(advice);
         }
 
-        if (beautifyCode) {
+        if (this.beautifyCode) {
             final ArrayList<PostProcessor> beautifier = new ArrayList<PostProcessor>();
             beautifier.add(new JavaBeautifier());
             // TODO: Is there any alternative to this? beautifier.add(new XmlBeautifier());
@@ -149,7 +149,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @return true, if is check protected regions
      */
     public boolean isCheckProtectedRegions() {
-        return checkProtectedRegions;
+        return this.checkProtectedRegions;
     }
 
     /**
@@ -168,7 +168,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @return the file encoding
      */
     public String getFileEncoding() {
-        return fileEncoding;
+        return this.fileEncoding;
     }
 
     /**
@@ -187,7 +187,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @return the expand expression
      */
     public String getExpandExpression() {
-        return expandExpression;
+        return this.expandExpression;
     }
 
     /**
@@ -196,7 +196,7 @@ public class XpandGeneratorJob extends AbstractOAWWorkflowJobBridge<Generator> {
      * @return true, if is beautify code
      */
     public boolean isBeautifyCode() {
-        return beautifyCode;
+        return this.beautifyCode;
     }
 
     /**

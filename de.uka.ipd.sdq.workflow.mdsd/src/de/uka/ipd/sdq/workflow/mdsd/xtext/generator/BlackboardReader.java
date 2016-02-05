@@ -16,10 +16,11 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.IBlackboardInteractingWorkflowComponen
 
 /**
  * The Class BlackboardReader.
- * 
+ *
  * @author Joerg Henss
  */
-public class BlackboardReader extends AbstractReader implements IBlackboardInteractingWorkflowComponent<MDSDBlackboard> {
+public class BlackboardReader extends AbstractReader
+        implements IBlackboardInteractingWorkflowComponent<MDSDBlackboard> {
 
     /** The blackboard. */
     private MDSDBlackboard blackboard;
@@ -29,15 +30,15 @@ public class BlackboardReader extends AbstractReader implements IBlackboardInter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.eclipse.xtext.mwe.AbstractReader#checkConfigurationInternal(org.eclipse.emf.mwe.core.
      * issues.Issues)
      */
     @Override
-    protected void checkConfigurationInternal(Issues issues) {
+    protected void checkConfigurationInternal(final Issues issues) {
         super.checkConfigurationInternal(issues);
-        if (modelLocation.getModelID() == null) {
+        if (this.modelLocation.getModelID() == null) {
             issues.addError(this, "No model URIs configured");
         }
 
@@ -45,50 +46,50 @@ public class BlackboardReader extends AbstractReader implements IBlackboardInter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent#invokeInternal(org.eclipse.emf.mwe
      * .core.WorkflowContext, org.eclipse.emf.mwe.core.monitor.ProgressMonitor,
      * org.eclipse.emf.mwe.core.issues.Issues)
      */
     @Override
-    protected void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor, Issues issues) {
-        ResourceSetPartition partition = blackboard.getPartition(modelLocation.getPartitionID());
-        ResourceSet resourceSet = partition.getResourceSet();
+    protected void invokeInternal(final WorkflowContext ctx, final ProgressMonitor monitor, final Issues issues) {
+        final ResourceSetPartition partition = this.blackboard.getPartition(this.modelLocation.getPartitionID());
+        final ResourceSet resourceSet = partition.getResourceSet();
 
-        URI modelURI = modelLocation.getModelID();
-        Resource resource = resourceSet.getResource(modelURI, true);
+        final URI modelURI = this.modelLocation.getModelID();
+        final Resource resource = resourceSet.getResource(modelURI, true);
         int numberResources;
         do {
             numberResources = resourceSet.getResources().size();
             EcoreUtil.resolveAll(resource);
         } while (numberResources != resourceSet.getResources().size());
 
-        getValidator().validate(resourceSet, getRegistry(), issues);
-        addModelElementsToContext(ctx, resourceSet);
+        this.getValidator().validate(resourceSet, this.getRegistry(), issues);
+        this.addModelElementsToContext(ctx, resourceSet);
 
     }
 
     /**
      * Instantiates a new blackboard reader.
-     * 
+     *
      * @param modelLocation
      *            the model location
      */
-    public BlackboardReader(ModelLocation modelLocation) {
+    public BlackboardReader(final ModelLocation modelLocation) {
         super();
         this.modelLocation = modelLocation;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * de.uka.ipd.sdq.codegen.workflow.IBlackboardInteractingJob#setBlackbard(de.uka.ipd.sdq.codegen
      * .workflow.Blackboard)
      */
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 }

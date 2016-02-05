@@ -15,32 +15,32 @@ public class TransformationExecutor extends InternalTransformationExecutor {
 
     /**
      * Instantiates a new transformation executor.
-     * 
+     *
      * @param uri
      *            the uri
      */
-    public TransformationExecutor(URI uri) {
+    public TransformationExecutor(final URI uri) {
         super(uri);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.eclipse.m2m.internal.qvt.oml.InternalTransformationExecutor#handleExecutionTraces(org
      * .eclipse.m2m.internal.qvt.oml.trace.Trace)
      */
     @Override
-    protected void handleExecutionTraces(Trace traces) {
-        trace = traces;
+    protected void handleExecutionTraces(final Trace traces) {
+        this.trace = traces;
     }
 
     /**
      * Gets the last trace.
-     * 
+     *
      * @return the last trace
      */
     public Trace getLastTrace() {
-        return trace;
+        return this.trace;
     }
 }

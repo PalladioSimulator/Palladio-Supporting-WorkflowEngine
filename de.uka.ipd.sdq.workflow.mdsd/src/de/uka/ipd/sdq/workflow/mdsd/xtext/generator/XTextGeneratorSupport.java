@@ -14,23 +14,23 @@ public class XTextGeneratorSupport extends AbstractGenericResourceSupport {
 
     /**
      * Instantiates a new x text generator support.
-     * 
+     *
      * @param module
      *            the module
      */
-    public XTextGeneratorSupport(XTextGeneratorModule module) {
+    public XTextGeneratorSupport(final XTextGeneratorModule module) {
         super();
         this.module = module;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.xtext.resource.generic.AbstractGenericResourceSupport#createGuiceModule()
      */
     @Override
     protected Module createGuiceModule() {
-        return module;
+        return this.module;
     }
 
 }

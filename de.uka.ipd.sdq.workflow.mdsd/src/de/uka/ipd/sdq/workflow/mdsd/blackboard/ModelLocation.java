@@ -4,7 +4,7 @@ import org.eclipse.emf.common.util.URI;
 
 /**
  * Immutable class used to uniquely identify a model (aka a resource) on an MDSD blackboard.
- * 
+ *
  * @author Steffen Becker
  */
 public class ModelLocation {
@@ -17,7 +17,7 @@ public class ModelLocation {
 
     /**
      * Constructor.
-     * 
+     *
      * @param partitionID
      *            The ID of the blackboard partition containing the model
      * @param modelID
@@ -32,7 +32,7 @@ public class ModelLocation {
 
     /**
      * Gets the partition id.
-     * 
+     *
      * @return the partitionID
      */
     public String getPartitionID() {
@@ -41,7 +41,7 @@ public class ModelLocation {
 
     /**
      * Gets the model id.
-     * 
+     *
      * @return the modelID
      */
     public URI getModelID() {

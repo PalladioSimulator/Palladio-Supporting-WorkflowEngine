@@ -20,7 +20,7 @@ import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflow;
  * manipulate, and transform EMF models along their job processing. The blackboard configured here
  * is a {@link MDSDBlackboard} containing partitions where each partition is a
  * {@link ResourceSetPartition}.
- * 
+ *
  * @param <WorkflowConfigurationType>
  *            The type of the workflow configuration which should be used to configure this workflow
  * @author Steffen Becker
@@ -31,7 +31,7 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
 
     /**
      * Factory method for the blackboard used in the workflow of this launch.
-     * 
+     *
      * @return The blackboard to be used in the workflow
      */
     protected MDSDBlackboard createBlackboard() {
@@ -40,30 +40,30 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedLaunchConfigurationDelegate#
      * createWorkflow(de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration,
      * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.debug.core.ILaunch)
      */
     @Override
-    protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(WorkflowConfigurationType workflowConfiguration,
-            IProgressMonitor monitor, ILaunch launch) throws CoreException {
-        return new UIBasedWorkflow<MDSDBlackboard>(createWorkflowJob(workflowConfiguration, launch), monitor,
-                createExcpetionHandler(workflowConfiguration.isInteractive()), createBlackboard());
+    protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(final WorkflowConfigurationType workflowConfiguration,
+            final IProgressMonitor monitor, final ILaunch launch) throws CoreException {
+        return new UIBasedWorkflow<MDSDBlackboard>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
+                this.createExcpetionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedLaunchConfigurationDelegate#
      * setupLogging(org.apache.log4j.Level)
      */
     @Override
-    protected ArrayList<LoggerAppenderStruct> setupLogging(Level logLevel) throws CoreException {
-        ArrayList<LoggerAppenderStruct> loggerList = super.setupLogging(logLevel);
+    protected ArrayList<LoggerAppenderStruct> setupLogging(final Level logLevel) throws CoreException {
+        final ArrayList<LoggerAppenderStruct> loggerList = super.setupLogging(logLevel);
 
         // Setup openArchitectureWare Logging
-        loggerList.add(setupLogger("org.openarchitectureware", logLevel, SHORT_LOG_PATTERN));
+        loggerList.add(this.setupLogger("org.openarchitectureware", logLevel, SHORT_LOG_PATTERN));
 
         return loggerList;
     }

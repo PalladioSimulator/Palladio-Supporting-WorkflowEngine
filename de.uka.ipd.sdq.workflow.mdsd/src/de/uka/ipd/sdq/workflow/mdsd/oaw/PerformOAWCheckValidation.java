@@ -3,7 +3,6 @@ package de.uka.ipd.sdq.workflow.mdsd.oaw;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -30,7 +29,7 @@ import de.uka.ipd.sdq.workflow.mdsd.validation.ModelValidationJob;
 /**
  * Execute a model validation check using a given oAW check file. The oAW check language allows
  * powerfull specification of model validation rules similar to OCL constraints.
- * 
+ *
  * @author Steffen Becker
  */
 public class PerformOAWCheckValidation extends ModelValidationJob {
@@ -42,17 +41,17 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
     private ExecutionContextImpl ctx;
 
     /** The partition name. */
-    private String partitionName;
+    private final String partitionName;
 
     /** The check filename. */
-    private String checkFilename;
+    private final String checkFilename;
 
     /** The e packages. */
-    private EPackage[] ePackages;
+    private final EPackage[] ePackages;
 
     /**
      * Create a new oAW check job.
-     * 
+     *
      * @param partitionName
      *            The blackboard model partition containing the model to validate
      * @param checkFilename
@@ -60,38 +59,39 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
      * @param packages
      *            The EPackages used in the model to be checked
      */
-    public PerformOAWCheckValidation(String partitionName, String checkFilename, EPackage[] packages) {
+    public PerformOAWCheckValidation(final String partitionName, final String checkFilename,
+            final EPackage[] packages) {
         super(SeverityEnum.ERROR);
 
         this.partitionName = partitionName;
         this.checkFilename = checkFilename;
-        ePackages = packages;
+        this.ePackages = packages;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.codegen.workflow.IJob#execute(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
-        Issues issues = new IssuesImpl();
+        final Issues issues = new IssuesImpl();
 
-        ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
+        final ResourceSetPartition partition = this.blackboard.getPartition(this.partitionName);
         partition.resolveAllProxies();
 
-        for (Resource r : partition.getResourceSet().getResources()) {
+        for (final Resource r : partition.getResourceSet().getResources()) {
             // Check resource with oAW's check language
-            CheckFacade.checkAll(this.checkFilename, getElementsInResource(r), getExecutionContext(), issues);
+            CheckFacade.checkAll(this.checkFilename, this.getElementsInResource(r), this.getExecutionContext(), issues);
         }
 
-        this.setJobResult(getSeverityAndIssues(issues));
+        this.setJobResult(this.getSeverityAndIssues(issues));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.codegen.workflow.IJob#getName()
      */
     @Override
@@ -101,25 +101,25 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
      * Blackboard)
      */
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 
     /**
      * Gets the elements in resource.
-     * 
+     *
      * @param resource
      *            the resource
      * @return the elements in resource
      */
-    private Collection<EObject> getElementsInResource(Resource resource) {
-        TreeIterator<EObject> items = resource.getAllContents();
-        ArrayList<EObject> result = new ArrayList<EObject>();
+    private Collection<EObject> getElementsInResource(final Resource resource) {
+        final TreeIterator<EObject> items = resource.getAllContents();
+        final ArrayList<EObject> result = new ArrayList<EObject>();
         for (; items.hasNext();) {
             result.add(items.next());
         }
@@ -129,31 +129,30 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
 
     /**
      * Gets the execution context.
-     * 
+     *
      * @return the execution context
      */
     private ExecutionContext getExecutionContext() {
-        if (ctx == null) {
-            ctx = new ExecutionContextImpl();
-            List<EPackage> l = getMetamodelPackages();
-            for (Iterator<EPackage> iter = l.iterator(); iter.hasNext();) {
-                EPackage pkg = iter.next();
-                ctx.registerMetaModel(new EmfMetaModel(pkg));
+        if (this.ctx == null) {
+            this.ctx = new ExecutionContextImpl();
+            final List<EPackage> l = this.getMetamodelPackages();
+            for (EPackage pkg : l) {
+                this.ctx.registerMetaModel(new EmfMetaModel(pkg));
             }
         }
-        return ctx;
+        return this.ctx;
     }
 
     /**
      * Gets the severity and issues.
-     * 
+     *
      * @param issues
      *            the issues
      * @return the severity and issues
      */
-    private List<SeverityAndIssue> getSeverityAndIssues(Issues issues) {
-        ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
-        for (MWEDiagnostic issue : issues.getErrors()) {
+    private List<SeverityAndIssue> getSeverityAndIssues(final Issues issues) {
+        final ArrayList<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
+        for (final MWEDiagnostic issue : issues.getErrors()) {
             if (issue.getElement() instanceof EObject) {
                 result.add(new SeverityAndIssue(SeverityEnum.ERROR, issue.getMessage(), (EObject) issue.getElement()));
             } else if (issue.getElement() == null) {
@@ -164,7 +163,7 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
             }
         }
 
-        for (MWEDiagnostic issue : issues.getWarnings()) {
+        for (final MWEDiagnostic issue : issues.getWarnings()) {
             result.add(new SeverityAndIssue(SeverityEnum.WARNING, issue.getMessage(), (EObject) issue.getElement()));
         }
         return result;
@@ -172,7 +171,7 @@ public class PerformOAWCheckValidation extends ModelValidationJob {
 
     /**
      * Gets the metamodel packages.
-     * 
+     *
      * @return the metamodel packages
      */
     private List<EPackage> getMetamodelPackages() {

@@ -15,22 +15,22 @@ public class XTextGeneratorSetup implements ISetup {
 
     /**
      * Instantiates a new x text generator setup.
-     * 
+     *
      * @param module
      *            the module
      */
-    public XTextGeneratorSetup(XTextGeneratorModule module) {
+    public XTextGeneratorSetup(final XTextGeneratorModule module) {
         super();
         this.module = module;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.xtext.ISetup#createInjectorAndDoEMFRegistration()
      */
     @Override
     public Injector createInjectorAndDoEMFRegistration() {
-        return Guice.createInjector(module);
+        return Guice.createInjector(this.module);
     }
 }

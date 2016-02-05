@@ -20,8 +20,8 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
  *
  * @author Jörg Henss
  */
-public class XTextGeneratorBlackboardJob extends MWE2SequentialJob implements
-IBlackboardInteractingJob<MDSDBlackboard> {
+public class XTextGeneratorBlackboardJob extends MWE2SequentialJob
+        implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     /** The blackboard. */
     private MDSDBlackboard blackboard;
@@ -41,7 +41,8 @@ IBlackboardInteractingJob<MDSDBlackboard> {
      *
      * @param config
      *            the config
-     * @param name The name of the job sequence.
+     * @param name
+     *            The name of the job sequence.
      */
     public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final String name) {
         this(config, name, true);
@@ -66,9 +67,11 @@ IBlackboardInteractingJob<MDSDBlackboard> {
      *            the config
      * @param cleanUpImmediately
      *            Flag if jobs should be cleaned up immediately or not.
-     * @param name The name of the job sequence.
+     * @param name
+     *            The name of the job sequence.
      */
-    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final String name, final boolean cleanUpImmediately) {
+    public XTextGeneratorBlackboardJob(final XTextGeneratorConfiguration config, final String name,
+            final boolean cleanUpImmediately) {
 
         super(name, cleanUpImmediately);
 
@@ -116,8 +119,11 @@ IBlackboardInteractingJob<MDSDBlackboard> {
         super.execute(monitor);
     }
 
-    /* (non-Javadoc)
-     * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.Blackboard)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IBlackboardInteractingJob#setBlackboard(de.uka.ipd.sdq.workflow.
+     * Blackboard)
      */
     @Override
     public void setBlackboard(final MDSDBlackboard blackboard) {

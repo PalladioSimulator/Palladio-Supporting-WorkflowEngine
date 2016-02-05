@@ -26,20 +26,20 @@ public class QVTOExecutor {
 
     /**
      * Execute.
-     * 
+     *
      * @param transformationURI
      *            the transformation uri
      * @param inoutParameter
      *            the inout parameter
      * @return the qVTO result
      */
-    public static QVTOResult execute(URI transformationURI, List<EObject>[] inoutParameter) {
+    public static QVTOResult execute(final URI transformationURI, final List<EObject>[] inoutParameter) {
         return QVTOExecutor.execute(transformationURI, new HashMap<String, Object>(), inoutParameter);
     }
 
     /**
      * Execute.
-     * 
+     *
      * @param transformationURI
      *            the transformation uri
      * @param parameters
@@ -48,16 +48,17 @@ public class QVTOExecutor {
      *            the inout parameter
      * @return the qVTO result
      */
-    public static QVTOResult execute(URI transformationURI, Map<String, Object> parameters, List<EObject>[] inoutParameter) {
+    public static QVTOResult execute(final URI transformationURI, final Map<String, Object> parameters,
+            final List<EObject>[] inoutParameter) {
         // create executor for the given transformation
-        TransformationExecutor executor = new TransformationExecutor(transformationURI);
+        final TransformationExecutor executor = new TransformationExecutor(transformationURI);
 
         // create the input extent with its initial contents
-        ModelExtent[] transformationParameter = new ModelExtent[inoutParameter.length];
+        final ModelExtent[] transformationParameter = new ModelExtent[inoutParameter.length];
         for (int i = 0; i < inoutParameter.length; i++) {
             transformationParameter[i] = new BasicModelExtent();
             if (inoutParameter[i] != null) {
-                ArrayList<EObject> contents = new ArrayList<EObject>();
+                final ArrayList<EObject> contents = new ArrayList<EObject>();
                 contents.addAll(inoutParameter[i]);
                 transformationParameter[i].setContents(contents);
             }
@@ -65,8 +66,8 @@ public class QVTOExecutor {
 
         // setup the execution environment details ->
         // configuration properties, logger, monitor object etc.
-        ExecutionContextImpl context = new ExecutionContextImpl();
-        for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
+        final ExecutionContextImpl context = new ExecutionContextImpl();
+        for (final Map.Entry<String, Object> parameter : parameters.entrySet()) {
             context.setConfigProperty(parameter.getKey(), parameter.getValue());
         }
         context.setLog(new QVTOLogger());
@@ -74,14 +75,14 @@ public class QVTOExecutor {
         // run the transformation assigned to the executor with the given
         // input and output and execution context -> ChangeTheWorld(in, out)
         // Remark: variable arguments count is supported
-        ExecutionDiagnostic result = executor.execute(context, transformationParameter);
+        final ExecutionDiagnostic result = executor.execute(context, transformationParameter);
 
         QVTOResult qvtResult = null;
         // check the result for success
         if (result.getSeverity() != Diagnostic.OK) {
             qvtResult = new QVTOResult(result);
             // turn the result diagnostic into status and send it to error log
-            IStatus status = BasicDiagnostic.toIStatus(result);
+            final IStatus status = BasicDiagnostic.toIStatus(result);
             Activator.getDefault().getLog().log(status);
         } else {
             qvtResult = new QVTOResult(result, executor.getLastTrace());

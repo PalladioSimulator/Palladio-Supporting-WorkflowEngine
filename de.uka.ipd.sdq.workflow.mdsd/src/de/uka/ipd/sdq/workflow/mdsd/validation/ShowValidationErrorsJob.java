@@ -18,105 +18,98 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
 
 /**
  * The Class ShowValidationErrorsJob.
- * 
+ *
  * @author Steffen Becker
  */
 public class ShowValidationErrorsJob implements IJob {
 
-	/** The validation jobs. */
-	private final ModelValidationJob[] validationJobs;
+    /** The validation jobs. */
+    private final ModelValidationJob[] validationJobs;
 
-	/** The Constant logger. */
-	private final Logger logger = Logger
-			.getLogger(ShowValidationErrorsJob.class);
+    /** The Constant logger. */
+    private final Logger logger = Logger.getLogger(ShowValidationErrorsJob.class);
 
-	/** The configuration. */
-	private final AbstractWorkflowBasedRunConfiguration configuration;
+    /** The configuration. */
+    private final AbstractWorkflowBasedRunConfiguration configuration;
 
-	/**
-	 * Instantiates a new show validation errors job.
-	 * 
-	 * @param configuration
-	 *            the configuration
-	 * @param validationJobs
-	 *            the validation jobs
-	 */
-	public ShowValidationErrorsJob(
-			AbstractWorkflowBasedRunConfiguration configuration,
-			ModelValidationJob... validationJobs) {
-		super();
-		this.validationJobs = validationJobs;
-		this.configuration = configuration;
-	}
+    /**
+     * Instantiates a new show validation errors job.
+     * 
+     * @param configuration
+     *            the configuration
+     * @param validationJobs
+     *            the validation jobs
+     */
+    public ShowValidationErrorsJob(final AbstractWorkflowBasedRunConfiguration configuration,
+            final ModelValidationJob... validationJobs) {
+        super();
+        this.validationJobs = validationJobs;
+        this.configuration = configuration;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime.
-	 * IProgressMonitor)
-	 */
-	@Override
-	public void execute(IProgressMonitor monitor) throws JobFailedException,
-			UserCanceledException {
-		List<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
-		for (ModelValidationJob validationJob : validationJobs) {
-			result.addAll(validationJob.getResult());
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#execute(org.eclipse.core.runtime. IProgressMonitor)
+     */
+    @Override
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        final List<SeverityAndIssue> result = new ArrayList<SeverityAndIssue>();
+        for (final ModelValidationJob validationJob : this.validationJobs) {
+            result.addAll(validationJob.getResult());
+        }
 
-		if (result.size() > 0) {
-			if (logger.isEnabledFor(Level.WARN)) {
-				logger.warn("Found validation problems in the models");
-			}
-			displayValidationErrors(result);
-			if (logger.isEnabledFor(Level.WARN)) {
-				logger.warn("Continuing workflow, ignoring model validation issues");
-			}
-		}
+        if (result.size() > 0) {
+            if (this.logger.isEnabledFor(Level.WARN)) {
+                this.logger.warn("Found validation problems in the models");
+            }
+            this.displayValidationErrors(result);
+            if (this.logger.isEnabledFor(Level.WARN)) {
+                this.logger.warn("Continuing workflow, ignoring model validation issues");
+            }
+        }
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.uka.ipd.sdq.workflow.IJob#getName()
-	 */
-	@Override
-	public String getName() {
-		return "Show validation errors";
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#getName()
+     */
+    @Override
+    public String getName() {
+        return "Show validation errors";
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.
-	 * IProgressMonitor)
-	 */
-	@Override
-	public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
-		// Not needed
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime. IProgressMonitor)
+     */
+    @Override
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
+        // Not needed
+    }
 
-	/**
-	 * Display validation errors.
-	 * 
-	 * @param overallResult
-	 *            the overall result
-	 * @throws UserCanceledException
-	 *             the user canceled exception
-	 */
-	private void displayValidationErrors(List<SeverityAndIssue> overallResult)
-			throws UserCanceledException {
-		DisplayIssuesDialog runner = new DisplayIssuesDialog(overallResult);
+    /**
+     * Display validation errors.
+     * 
+     * @param overallResult
+     *            the overall result
+     * @throws UserCanceledException
+     *             the user canceled exception
+     */
+    private void displayValidationErrors(final List<SeverityAndIssue> overallResult) throws UserCanceledException {
+        final DisplayIssuesDialog runner = new DisplayIssuesDialog(overallResult);
 
-		/**
-		 * Disable the IssuesDialog, if SimuComConfig.SHOULD_THROW_EXCEPTION set
-		 * of false
-		 */
-		if (configuration.isInteractive()) {
-			PlatformUI.getWorkbench().getDisplay().syncExec(runner);
-			if (!runner.shouldProceedAfterErrorDialog()) {
-				throw new UserCanceledException();
-			}
-		}
-	}
+        /**
+         * Disable the IssuesDialog, if SimuComConfig.SHOULD_THROW_EXCEPTION set of false
+         */
+        if (this.configuration.isInteractive()) {
+            PlatformUI.getWorkbench().getDisplay().syncExec(runner);
+            if (!runner.shouldProceedAfterErrorDialog()) {
+                throw new UserCanceledException();
+            }
+        }
+    }
 }

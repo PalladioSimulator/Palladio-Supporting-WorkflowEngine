@@ -10,7 +10,7 @@ import de.uka.ipd.sdq.workflow.workbench.AbstractWorkbenchDelegate;
 
 /**
  * The Class AbstractMDSDWorkbenchDelegate.
- * 
+ *
  * @param <WorkflowConfigurationType>
  *            the generic type
  * @param <WorkflowType>
@@ -21,17 +21,18 @@ public abstract class AbstractMDSDWorkbenchDelegate<WorkflowConfigurationType ex
 
     /**
      * Instantiate the workflow engine. By default a standard workflow engine is created.
-     * 
+     *
      * @param workflowConfiguration
      *            Configuration of the workflow job
      * @return The workflow engine to use for this launch
      */
+    @Override
     @SuppressWarnings("unchecked")
-    protected WorkflowType createWorkflow(WorkflowConfigurationType workflowConfiguration) {
-        return (WorkflowType) new BlackboardBasedWorkflow<MDSDBlackboard>(createWorkflowJob(workflowConfiguration),
+    protected WorkflowType createWorkflow(final WorkflowConfigurationType workflowConfiguration) {
+        return (WorkflowType) new BlackboardBasedWorkflow<MDSDBlackboard>(this.createWorkflowJob(workflowConfiguration),
                 new NullProgressMonitor(),
                 // createExceptionHandler(workflowConfiguration.isInteractive()));
-                createExceptionHandler(true), new MDSDBlackboard());
+                this.createExceptionHandler(true), new MDSDBlackboard());
     }
 
 }

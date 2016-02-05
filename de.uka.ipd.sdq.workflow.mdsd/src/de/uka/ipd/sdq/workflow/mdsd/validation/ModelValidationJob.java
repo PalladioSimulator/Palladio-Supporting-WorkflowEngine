@@ -24,31 +24,31 @@ public abstract class ModelValidationJob implements IBlackboardInteractingJob<MD
 
     /**
      * Instantiates a new model validation job.
-     * 
+     *
      * @param errorLevel
      *            the error level
      */
-    public ModelValidationJob(SeverityEnum errorLevel) {
+    public ModelValidationJob(final SeverityEnum errorLevel) {
         super();
         this.errorLevel = errorLevel;
     }
 
     /**
      * Gets the error level.
-     * 
+     *
      * @return the errorLevel
      */
     public SeverityEnum getErrorLevel() {
-        return errorLevel;
+        return this.errorLevel;
     }
 
     /**
      * Sets the job result.
-     * 
+     *
      * @param jobResult
      *            the jobResult to set
      */
-    protected void setJobResult(List<SeverityAndIssue> jobResult) {
+    protected void setJobResult(final List<SeverityAndIssue> jobResult) {
         if (jobResult == null) {
             throw new IllegalArgumentException("Error list must not be null.");
         }
@@ -57,22 +57,23 @@ public abstract class ModelValidationJob implements IBlackboardInteractingJob<MD
 
     /**
      * Returns the job result.
+     * 
      * @return The list of issues tracked for the job.
      */
     public List<SeverityAndIssue> getResult() {
         if (this.jobResult == null) {
             return Collections.emptyList();
         }
-        return Collections.unmodifiableList(jobResult);
+        return Collections.unmodifiableList(this.jobResult);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.uka.ipd.sdq.workflow.IJob#cleanup(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // Not needed
     }
 }

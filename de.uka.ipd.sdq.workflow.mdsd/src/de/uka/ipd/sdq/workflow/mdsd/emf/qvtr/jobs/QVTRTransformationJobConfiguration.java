@@ -8,13 +8,15 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
+import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTREngine;
 import de.uka.ipd.sdq.workflow.mdsd.emf.qvtr.QVTRScript;
 
 /**
  * A {@link QVTRTransformationJob} configuration. See also {@link QVTREngine} and {@link QVTRScript}
- * 
+ *
  * @author Thomas Schuischel
- * 
+ *
  */
 public class QVTRTransformationJobConfiguration {
 
@@ -24,7 +26,7 @@ public class QVTRTransformationJobConfiguration {
     /**
      * A collection of all model sets needed by the transformation.
      */
-    private Collection<ModelLocation[]> modelLocationSets = new ArrayList<ModelLocation[]>();
+    private final Collection<ModelLocation[]> modelLocationSets = new ArrayList<ModelLocation[]>();
 
     /**
      * Name of the traces partition.
@@ -63,16 +65,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns the id of the {@link QVTREngine}.
-     * 
+     *
      * @return id of a QVT-R engine.
      */
     public String getQvtEngineID() {
-        return qvtEngineID;
+        return this.qvtEngineID;
     }
 
     /**
      * Sets the id for the {@link QVTREngine} to use.
-     * 
+     *
      * @param qvtEngineID
      *            id of the QVT-R engine
      */
@@ -82,16 +84,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns the {@link QVTRScript} to execute.
-     * 
+     *
      * @return the QVT-R script
      */
     public QVTRScript getQVTRScript() {
-        return qvtScript;
+        return this.qvtScript;
     }
 
     /**
      * Sets the {@link QVTRScript} to execute.
-     * 
+     *
      * @param qvtScript
      *            the QVT-R script
      */
@@ -101,16 +103,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns if the engine is in debug mode. See also {@link QVTREngine}
-     * 
+     *
      * @return true id the engine is in debug mode
      */
     public Boolean isDebug() {
-        return debug;
+        return this.debug;
     }
 
     /**
      * Sets the engine debug mode. See also {@link QVTREngine}
-     * 
+     *
      * @param debug
      *            true to enable debug mode
      */
@@ -120,16 +122,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns the {@link URI} of the traces folder.
-     * 
+     *
      * @return traces folder URI
      */
     public URI getTraceFileURI() {
-        return traceFileURI;
+        return this.traceFileURI;
     }
 
     /**
      * Sets the traces folder {@link URI}.
-     * 
+     *
      * @param traceFileURI
      *            traces folder URI
      */
@@ -139,16 +141,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns PrintStream the engine sends the extended logging information to.
-     * 
+     *
      * @return PrintStream for extended logging
      */
     public PrintStream getExtendedDebuggingLog() {
-        return extendedDebuggingLog;
+        return this.extendedDebuggingLog;
     }
 
     /**
      * Sets PrintStream the engine sends the extended logging information to.
-     * 
+     *
      * @param extendedDebuggingLog
      *            PrintStream for extended logging
      */
@@ -158,16 +160,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns the name of the {@link ResourceSetPartition} for traces.
-     * 
+     *
      * @return name of the traces {@link ResourceSetPartition}
      */
     public String getTracesPartitionName() {
-        return tracesPartitionName;
+        return this.tracesPartitionName;
     }
 
     /**
      * Sets the name of the {@link ResourceSetPartition} for traces.
-     * 
+     *
      * @param tracesPartitionName
      *            name of the traces {@link ResourceSetPartition}
      */
@@ -177,16 +179,16 @@ public class QVTRTransformationJobConfiguration {
 
     /**
      * Returns the name of the {@link ResourceSetPartition} for previous traces.
-     * 
+     *
      * @return name of the previous traces {@link ResourceSetPartition}
      */
     public String getOldTracesPartitionName() {
-        return oldTracesPartitionName;
+        return this.oldTracesPartitionName;
     }
 
     /**
      * Sets the name of the {@link ResourceSetPartition} with previous traces.
-     * 
+     *
      * @param oldTracesPartitionName
      *            name of the previous traces {@link ResourceSetPartition}
      */
@@ -197,40 +199,40 @@ public class QVTRTransformationJobConfiguration {
     /**
      * Returns the {@link Collection} of {@link ModelLocation}[]. Each array of
      * {@link ModelLocation} is a model set needed by the transformation.
-     * 
+     *
      * @return collection of model sets
      */
     public Collection<ModelLocation[]> getModelLocationSets() {
-        return modelLocationSets;
+        return this.modelLocationSets;
     }
 
     /**
      * Adds a array of {@link ModelLocation} to {@link Collection}. Each array of
      * {@link ModelLocation} added is a model set needed by the transformation.
-     * 
+     *
      * @param modelLocations
      *            a model sets
      */
     public void addModelLocationSets(final ModelLocation[] modelLocations) {
-        modelLocationSets.add(modelLocations);
+        this.modelLocationSets.add(modelLocations);
     }
 
     /**
      * Get the properties for the engine.
-     * 
+     *
      * @return The properties
      */
     public Map<String, String> getProperties() {
-        return properties;
+        return this.properties;
     }
 
     /**
      * Set the properties for the engine as key value pair.
-     * 
+     *
      * @param properties
      *            The properties
      */
-    public void setProperties(Map<String, String> properties) {
+    public void setProperties(final Map<String, String> properties) {
         this.properties = properties;
     }
 

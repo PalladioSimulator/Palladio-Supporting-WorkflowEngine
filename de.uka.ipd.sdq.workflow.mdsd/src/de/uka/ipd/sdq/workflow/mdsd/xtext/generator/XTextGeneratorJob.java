@@ -30,7 +30,8 @@ public class XTextGeneratorJob extends MWE2SequentialJob {
      *
      * @param config
      *            the config
-     * @param name The name of the job sequence.
+     * @param name
+     *            The name of the job sequence.
      */
     public XTextGeneratorJob(final XTextGeneratorConfiguration config, final String name) {
         this(config, name, true);
@@ -55,9 +56,11 @@ public class XTextGeneratorJob extends MWE2SequentialJob {
      *            the config
      * @param cleanUpImmediately
      *            Flag if jobs should be cleaned up immediately or not.
-     * @param name The name of the job sequence.
+     * @param name
+     *            The name of the job sequence.
      */
-    public XTextGeneratorJob(final XTextGeneratorConfiguration config, final String name, final boolean cleanUpImmediately) {
+    public XTextGeneratorJob(final XTextGeneratorConfiguration config, final String name,
+            final boolean cleanUpImmediately) {
 
         super(name, cleanUpImmediately);
 

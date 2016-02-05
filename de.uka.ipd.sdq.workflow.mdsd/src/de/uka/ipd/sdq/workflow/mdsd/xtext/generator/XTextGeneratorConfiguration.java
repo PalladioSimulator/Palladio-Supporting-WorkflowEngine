@@ -16,7 +16,7 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
 
 /**
  * A configuration for using the XText Generator.
- * 
+ *
  * @author Joerg Henss
  */
 public class XTextGeneratorConfiguration {
@@ -61,77 +61,77 @@ public class XTextGeneratorConfiguration {
      * Create and init the StandaloneSetup for the MWE.
      */
     public void initMWEBean() {
-        StandaloneSetup standaloneSetup = new StandaloneSetup();
-        standaloneSetup.addRegisterGeneratedEPackage(outputPackageName);
+        final StandaloneSetup standaloneSetup = new StandaloneSetup();
+        standaloneSetup.addRegisterGeneratedEPackage(this.outputPackageName);
         standaloneSetup.setScanClassPath(true);
     }
 
     /**
      * Set the file path to the model directory.
-     * 
+     *
      * @param modelPath
      *            the new model file path
      */
-    public void setModelFilePath(String modelPath) {
-        readerPathes.add(modelPath);
+    public void setModelFilePath(final String modelPath) {
+        this.readerPathes.add(modelPath);
     }
 
     /**
      * Set the target directory for the generator.
-     * 
+     *
      * @param targetDir
      *            the new target dir
      */
-    public void setTargetDir(String targetDir) {
-        Outlet o = new Outlet();
+    public void setTargetDir(final String targetDir) {
+        final Outlet o = new Outlet();
         o.setPath(targetDir);
-        outlets.add(o);
+        this.outlets.add(o);
     }
 
     /**
      * Set the slot that is used for loading the model.
-     * 
+     *
      * @param slotName
      *            the new source slot
      */
-    public void setSourceSlot(String slotName) {
-        slots.add(slotName);
-        ResourceLoadingSlotEntry loadEntry = new ResourceLoadingSlotEntry();
+    public void setSourceSlot(final String slotName) {
+        this.slots.add(slotName);
+        final ResourceLoadingSlotEntry loadEntry = new ResourceLoadingSlotEntry();
         loadEntry.setSlot(slotName);
-        loadEntries.add(loadEntry);
+        this.loadEntries.add(loadEntry);
 
     }
 
     /**
      * Gets the generator class.
-     * 
+     *
      * @return the generatorClass
      */
     public Class<? extends IGenerator> getGeneratorClass() {
-        return generatorClass;
+        return this.generatorClass;
     }
 
     /**
      * Gets the language name.
-     * 
+     *
      * @return the languageName
      */
     public String getLanguageName() {
-        return languageName;
+        return this.languageName;
     }
 
     /**
      * Gets the file extension.
-     * 
+     *
      * @return the fileExtension
      */
     public String getFileExtension() {
-        return fileExtension;
+        return this.fileExtension;
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param generatorClass
      *            The generator class that is used
      * @param languageName
@@ -141,8 +141,8 @@ public class XTextGeneratorConfiguration {
      * @param outputPackageName
      *            The package name used for output
      */
-    public XTextGeneratorConfiguration(Class<? extends IGenerator> generatorClass, String languageName,
-            String fileExtension, String outputPackageName) {
+    public XTextGeneratorConfiguration(final Class<? extends IGenerator> generatorClass, final String languageName,
+            final String fileExtension, final String outputPackageName) {
         super();
         this.generatorClass = generatorClass;
         this.languageName = languageName;
@@ -152,18 +152,18 @@ public class XTextGeneratorConfiguration {
 
     /**
      * Creates a MWE Reader for the model based on the path and slots.
-     * 
+     *
      * @return the reader
      */
     public Reader createReader() {
-        if (readerPathes.isEmpty()) {
+        if (this.readerPathes.isEmpty()) {
             throw new RuntimeException("XText Reader requires a path!");
         }
 
-        Reader reader = new Reader();
-        setupReader(reader);
+        final Reader reader = new Reader();
+        this.setupReader(reader);
 
-        for (String path : readerPathes) {
+        for (final String path : this.readerPathes) {
             reader.addPath(path);
         }
 
@@ -173,93 +173,93 @@ public class XTextGeneratorConfiguration {
 
     /**
      * Sets the up reader.
-     * 
+     *
      * @param reader
      *            the new up reader
      */
-    private void setupReader(AbstractReader reader) {
-        reader.addRegister(setup);
-        for (ResourceLoadingSlotEntry entry : loadEntries) {
+    private void setupReader(final AbstractReader reader) {
+        reader.addRegister(this.setup);
+        for (final ResourceLoadingSlotEntry entry : this.loadEntries) {
             reader.addLoadResource(entry);
         }
     }
 
     /**
      * Creates and inits the XText generator.
-     * 
+     *
      * @return the generator component
      */
     public GeneratorComponent createGenerator() {
-        generator = new GeneratorComponent();
-        generator.setRegister(setup);
-        for (String slot : slots) {
-            generator.addSlot(slot);
+        this.generator = new GeneratorComponent();
+        this.generator.setRegister(this.setup);
+        for (final String slot : this.slots) {
+            this.generator.addSlot(slot);
         }
 
-        for (Outlet outlet : outlets) {
-            generator.addOutlet(outlet);
+        for (final Outlet outlet : this.outlets) {
+            this.generator.addOutlet(outlet);
         }
 
-        return generator;
+        return this.generator;
     }
 
     /**
      * Initialises the GeneratorModule and GeneratorSetup.
      */
     public void initGeneratorModuleAndGeneratorSetup() {
-        this.module = new XTextGeneratorModule(generatorClass, languageName, fileExtension);
+        this.module = new XTextGeneratorModule(this.generatorClass, this.languageName, this.fileExtension);
         this.setup = new XTextGeneratorSetup(this.module);
     }
 
     /**
      * Create the GeneratorSupport.
-     * 
+     *
      * @return the x text generator support
      */
     public XTextGeneratorSupport createGeneratorSupport() {
-        return new XTextGeneratorSupport(module);
+        return new XTextGeneratorSupport(this.module);
     }
 
     /**
      * Gets the slots.
-     * 
+     *
      * @return the slots
      */
     public Set<String> getSlots() {
-        return slots;
+        return this.slots;
     }
 
     /**
      * Gets the blackboard model location.
-     * 
+     *
      * @return the blackboard model location
      */
     public ModelLocation getBlackboardModelLocation() {
-        return modelLocation;
+        return this.modelLocation;
     }
 
     /**
      * Sets the blackboard model location.
-     * 
+     *
      * @param modelLocation
      *            the new blackboard model location
      */
-    public void setBlackboardModelLocation(ModelLocation modelLocation) {
+    public void setBlackboardModelLocation(final ModelLocation modelLocation) {
         this.modelLocation = modelLocation;
     }
 
     /**
      * Creates the blackboard reader.
-     * 
+     *
      * @return the blackboard reader
      */
     public BlackboardReader createBlackboardReader() {
-        if (modelLocation == null) {
+        if (this.modelLocation == null) {
             throw new RuntimeException("XText BlackboardReader requires a modelLocation!");
         }
 
-        BlackboardReader reader = new BlackboardReader(modelLocation);
-        setupReader(reader);
+        final BlackboardReader reader = new BlackboardReader(this.modelLocation);
+        this.setupReader(reader);
 
         return reader;
     }

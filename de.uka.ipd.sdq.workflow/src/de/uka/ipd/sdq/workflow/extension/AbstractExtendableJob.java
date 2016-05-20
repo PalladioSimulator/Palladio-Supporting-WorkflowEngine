@@ -24,7 +24,7 @@ import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
  * @author Benjamin Klatt
  */
 public abstract class AbstractExtendableJob<BlackboardType extends Blackboard<?>> extends
-        SequentialBlackboardInteractingJob<Blackboard<?>> {
+        SequentialBlackboardInteractingJob<BlackboardType> {
 
     // ////////////////////////////////
     // ATTRIBUTES

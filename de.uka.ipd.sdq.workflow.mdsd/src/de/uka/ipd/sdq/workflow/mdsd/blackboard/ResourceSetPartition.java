@@ -222,7 +222,7 @@ public class ResourceSetPartition {
         final ArrayList<T> result = new ArrayList<T>();
         for (final Resource r : this.rs.getResources()) {
             if (this.isTargetInResource(targetType, r)) {
-            	result.addAll(EcoreUtil.getObjectsByType(r.getContents(), targetType));
+            	result.addAll(EcoreUtil.<T>getObjectsByType(r.getContents(), targetType));
             }
         }
         
@@ -230,8 +230,14 @@ public class ResourceSetPartition {
     }
 
     private boolean isTargetInResource(final EClass targetType, final Resource r) {
-        return r != null && r.getContents().size() > 0 && 
-    		r.getContents().stream().map(EObject::eClass).anyMatch(targetType::isSuperTypeOf);
+    	if (r != null) {
+	    	for (EObject c : r.getContents()) {
+	    		if (targetType.isSuperTypeOf(c.eClass())) {
+	    			return true;
+	    		}
+	    	}
+    	}
+    	return false;
     }
 
     /**

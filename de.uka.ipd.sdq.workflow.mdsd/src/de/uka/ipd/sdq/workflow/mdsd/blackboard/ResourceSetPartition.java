@@ -65,19 +65,16 @@ public class ResourceSetPartition {
 
     /**
      * Returns all top level EObjects of the given model stored under the given URI. The model has
-     * to be created first and it has to have at least one top level element
+     * to be created first.
      *
      * @param modelURI
      *            The model URI
-     * @return All top level elements of the model
+     * @return All top level elements of the model. Empty list if none have been found.
      */
     public List<EObject> getContents(final URI modelURI) {
         final Resource r = this.rs.getResource(modelURI, false);
         if (r == null) {
             throw new IllegalArgumentException("Model with URI " + modelURI + " must be loaded first");
-        }
-        if (r.getContents().size() == 0) {
-            throw new IllegalArgumentException("Model does not contain any model elements yet");
         }
         return r.getContents();
     }
@@ -221,23 +218,20 @@ public class ResourceSetPartition {
      *            the target type
      * @return The list of found root elements. Empty list if none have been found.
      */
-    @SuppressWarnings("unchecked")
     public <T extends EObject> List<T> getElement(final EClass targetType) {
         final ArrayList<T> result = new ArrayList<T>();
         for (final Resource r : this.rs.getResources()) {
             if (this.isTargetInResource(targetType, r)) {
-                result.add((T) r.getContents().get(0));
+            	result.addAll(EcoreUtil.getObjectsByType(r.getContents(), targetType));
             }
         }
-        if (result.size() == 0) {
-            throw new RuntimeException("Failed to retrieve PCM model element " + targetType.getName());
-        } else {
-            return result;
-        }
+        
+        return result;
     }
 
     private boolean isTargetInResource(final EClass targetType, final Resource r) {
-        return r != null && r.getContents().size() > 0 && targetType.isSuperTypeOf(r.getContents().get(0).eClass());
+        return r != null && r.getContents().size() > 0 && 
+    		r.getContents().stream().map(EObject::eClass).anyMatch(targetType::isSuperTypeOf);
     }
 
     /**

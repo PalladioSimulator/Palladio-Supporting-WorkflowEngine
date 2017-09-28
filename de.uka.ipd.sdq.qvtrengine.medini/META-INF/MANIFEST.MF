@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Medini QVT Engine
 Bundle-SymbolicName: de.uka.ipd.sdq.qvtrengine.medini;singleton:=true
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.2.1.qualifier
 Bundle-Activator: de.uka.ipd.sdq.qvtrengine.medini.QVTMediniEnginePlugin
 Require-Bundle: org.eclipse.core.runtime,
  de.ikv.medini.qvt.plugin;bundle-version="1.4.0",

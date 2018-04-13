@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.core_2.2.3.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.core" version="2.2.3.qualifier">
+      <category name="org.palladiosimulator.support.category"/>
+   </feature>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd_2.2.3.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd" version="2.2.3.qualifier">
+      <category name="org.palladiosimulator.support.category"/>
+   </feature>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.core.source_2.2.3.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.core.source" version="2.2.3.qualifier">
+      <category name="org.palladiosimulator.support.source.category"/>
+   </feature>
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd.source_2.2.3.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd.source" version="2.2.3.qualifier">
+      <category name="org.palladiosimulator.support.source.category"/>
+   </feature>
+   <category-def name="org.palladiosimulator.support.category" label="Palladio Supporting Features">
+      <description>
+         Features that support the Palladio Bench tooling, but also could be used independently
+      </description>
+   </category-def>
+   <category-def name="org.palladiosimulator.support.source.category" label="Palladio Supporting Features Source">
+      <description>
+         Source code of the features that support the Palladio Bench tooling, but also could be used independently
+      </description>
+   </category-def>
+</site>

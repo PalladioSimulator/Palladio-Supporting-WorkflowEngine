@@ -2,17 +2,22 @@
 <?pde version="3.8"?><target name="Oxygen Modeling" sequenceNumber="4">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.palladiosimulator.externals.mediniqvt.feature.feature.group" version="1.7.0.201804131426"/>
-<repository location="https://sdqweb.ipd.kit.edu/eclipse/palladio/supporting/mediniqvtcore/nightly/"/>
+<unit id="org.palladiosimulator.externals.mediniqvt.feature.feature.group" version="1.7.0.201804161147"/>
+<repository location="https://sdqweb.ipd.kit.edu/eclipse/palladio/supporting/mediniqvtcore/releases/1.7.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.m2m.qvt.oml.sdk.feature.group" version="3.7.0.v20170604-1316"/>
 <repository location="http://download.eclipse.org/releases/oxygen/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
 <unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
 <unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
 <repository location="https://sdqweb.ipd.kit.edu/eclipse/commons/releases/latest/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+<unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
+<unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
+<repository location="https://sdqweb.ipd.kit.edu/eclipse/commons/nightly/"/>
 </location>
 </locations>
 </target>

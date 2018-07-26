@@ -12,7 +12,6 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-		<module>de.uka.ipd.sdq.qvtrengine.medini</module>
 		<module>de.uka.ipd.sdq.workflow</module>
 		<module>de.uka.ipd.sdq.workflow.helloworld</module>
 		<module>de.uka.ipd.sdq.workflow.launchconfig</module>

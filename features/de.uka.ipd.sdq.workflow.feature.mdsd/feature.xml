@@ -40,6 +40,7 @@
       <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>
       <import feature="de.uka.ipd.sdq.workflow.feature.core" version="1.0.0"/>
       <import plugin="de.uka.ipd.sdq.workflow.mdsd"/>
+      <import plugin="org.palladiosimulator.branding"/>
    </requires>
 
    <plugin
@@ -47,13 +48,6 @@
          download-size="0"
          install-size="0"
          version="2.2.3.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.palladiosimulator.branding"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
          unpack="false"/>
 
 </feature>

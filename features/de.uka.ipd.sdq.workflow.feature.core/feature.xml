@@ -32,6 +32,7 @@ a workflow for tasks being run under the Eclipse UI from the Run Dialog.
       <import plugin="org.eclipse.ui" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui" version="3.5.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.console" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.palladiosimulator.branding"/>
    </requires>
 
    <plugin
@@ -67,13 +68,6 @@ a workflow for tasks being run under the Eclipse UI from the Run Dialog.
          download-size="0"
          install-size="0"
          version="2.2.3.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="org.palladiosimulator.branding"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
          unpack="false"/>
 
 </feature>

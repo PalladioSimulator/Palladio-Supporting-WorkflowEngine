@@ -1,4 +1,4 @@
 palladioBuild {  
-	webserverDir = 'workflowengine2'
+	webserverDir = 'workflowengine'
 	updateSiteLocation = 'releng/de.uka.ipd.sdq.workflow.updatesite/target/repository'
 } 

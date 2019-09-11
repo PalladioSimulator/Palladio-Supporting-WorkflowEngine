@@ -8,12 +8,12 @@
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
 <unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
 <unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
-<repository location="https://sdqweb.ipd.kit.edu/eclipse/commons/releases/latest/"/>
+<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
 <unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
 <unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
-<repository location="https://sdqweb.ipd.kit.edu/eclipse/commons/nightly/"/>
+<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/"/>
 </location>
 </locations>
 </target>

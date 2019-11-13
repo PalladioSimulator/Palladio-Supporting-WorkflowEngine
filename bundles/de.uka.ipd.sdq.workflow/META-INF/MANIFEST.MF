@@ -13,4 +13,4 @@ Export-Package: de.uka.ipd.sdq.workflow,
  de.uka.ipd.sdq.workflow.configuration,
  de.uka.ipd.sdq.workflow.extension,
  de.uka.ipd.sdq.workflow.jobs
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-11

@@ -6,8 +6,11 @@ import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowContext;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 
 /**
- * The Class MWE2BlackboardWorkflowComponentBridge.
+ * An {@link MDSDBlackboard} enabled version of the {@link MWE2WorkflowComponentBridge}.
  *
+ * This component assumes that the provided job implements the
+ * {@link IBlackboardInteractingWorkflowComponent} interface and sets the blackboard accordingly.
+ * 
  * @param <T>
  *            the generic type
  */
@@ -34,9 +37,8 @@ public class MWE2BlackboardWorkflowComponentBridge<T extends IWorkflowComponent>
     /*
      * (non-Javadoc)
      *
-     * @see
-     * de.uka.ipd.sdq.workflow.mdsd.xtext.IBlackboardInteractingWorkflowComponent#setBlackboard(
-     * de.uka.ipd.sdq.workflow.Blackboard)
+     * @see de.uka.ipd.sdq.workflow.mdsd.xtext.IBlackboardInteractingWorkflowComponent#
+     * setBlackboard( de.uka.ipd.sdq.workflow.Blackboard)
      */
     @Override
     public void setBlackboard(final MDSDBlackboard blackboard) {

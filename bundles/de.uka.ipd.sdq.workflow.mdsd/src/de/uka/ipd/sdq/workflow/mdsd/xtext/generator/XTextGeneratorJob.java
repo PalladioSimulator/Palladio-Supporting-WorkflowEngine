@@ -9,9 +9,9 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2SequentialJob;
 import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
 
 /**
- * The Class XTextGeneratorCompositeJob.
+ * XTextGeneratorCompositeJob for using XText Generators in the WFE.
  *
- * @author Jörg Henss
+ * @author Joerg Henss
  */
 public class XTextGeneratorJob extends MWE2SequentialJob {
 

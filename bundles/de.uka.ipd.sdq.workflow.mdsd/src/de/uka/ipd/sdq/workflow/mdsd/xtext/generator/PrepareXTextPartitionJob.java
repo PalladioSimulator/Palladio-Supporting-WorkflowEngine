@@ -13,7 +13,10 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
 /**
- * The Class PrepareXTextPartitionJob.
+ * The PrepareXTextPartitionJob loads selected models from the modelLocation into the blackboard.
+ * 
+ * Used in the {@link XTextGeneratorBlackboardJob}.
+ * 
  */
 public class PrepareXTextPartitionJob implements IJob, IBlackboardInteractingJob<MDSDBlackboard> {
 

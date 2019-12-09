@@ -17,8 +17,11 @@ import de.uka.ipd.sdq.workflow.mdsd.xtext.MWE2WorkflowComponentBridge;
 
 /**
  * The Class XTextGeneratorBlackboardCompositeJob.
+ * 
+ * An MWE2SequentialJob for executing XText Generators on models in the blackboard.
+ * It heavily uses the {@link MWE2WorkflowComponentBridge} for using MWE2 in the WFE.
  *
- * @author Jörg Henss
+ * @author Joerg Henss
  */
 public class XTextGeneratorBlackboardJob extends MWE2SequentialJob
         implements IBlackboardInteractingJob<MDSDBlackboard> {

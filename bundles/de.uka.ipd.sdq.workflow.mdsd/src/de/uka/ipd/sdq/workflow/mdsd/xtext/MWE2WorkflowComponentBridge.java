@@ -10,7 +10,8 @@ import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 /**
- * A bridge allowing the simple execution of MWE2 WorkflowComponents.
+ * A bridge allowing the simple execution of MWE2 {@link IWorkflowComponents} used in XText
+ * projects.
  *
  * @param <T>
  *            the generic type

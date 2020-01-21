@@ -13,6 +13,7 @@
 	
 	<modules>
 		<module>de.uka.ipd.sdq.workflow.tests</module>
+		<module>de.uka.ipd.sdq.workflow.mdsd.tests</module>
 	</modules>
 	
 </project>

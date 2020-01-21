@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WFE MDSD Tests
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.tests
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 4.2.0.qualifier
 Automatic-Module-Name: de.uka.ipd.sdq.workflow.mdsd.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: de.uka.ipd.sdq.workflow.mdsd,

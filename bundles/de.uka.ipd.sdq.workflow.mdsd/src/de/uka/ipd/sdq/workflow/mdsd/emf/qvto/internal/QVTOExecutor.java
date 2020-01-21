@@ -87,7 +87,6 @@ public class QVTOExecutor {
         } else {
             qvtResult = new QVTOResult(result, executor.getLastTrace());
             for (int i = 0; i < inoutParameter.length; i++) {
-                assert transformationParameter[i].getContents().size() == 1;
                 inoutParameter[i] = transformationParameter[i].getContents();
             }
         }

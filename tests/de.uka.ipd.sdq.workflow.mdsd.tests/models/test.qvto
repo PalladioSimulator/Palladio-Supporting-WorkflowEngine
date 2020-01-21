@@ -1,0 +1,14 @@
+transformation Textual_to_Graphical_for_Component(in input : ECORE, out output : ECORE);
+
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
+
+
+main() {
+	var packages := input.rootObjects()[ecore::EPackage];
+	packages->map foo();
+}
+
+mapping ecore::EPackage::foo() : ecore::EPackage
+{
+	name := self.name;
+}

@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,6 +32,7 @@ public class QVTOTests {
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("ecore", new XMIResourceFactoryImpl());
+		
 	}
 
 	/*
@@ -47,9 +49,10 @@ public class QVTOTests {
 	public void testQVTOTransformationJob() throws JobFailedException, UserCanceledException, IOException {
 
 		ModelLocation[] inoutLocations = new ModelLocation[2];
-		URI inputModelURI = URI.createFileURI("models/test.ecore");
-		URI outputModelURI = URI.createFileURI("models/output.ecore");
-		URI scriptFileURI = URI.createFileURI("models/test.qvto");
+		
+		URI inputModelURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/test.ecore", true);
+		URI outputModelURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/output.ecore", true);
+		URI scriptFileURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/test.qvto", true);
 
 		ResourceSetPartition inputPartition = new ResourceSetPartition();
 		inputPartition.loadModel(inputModelURI);

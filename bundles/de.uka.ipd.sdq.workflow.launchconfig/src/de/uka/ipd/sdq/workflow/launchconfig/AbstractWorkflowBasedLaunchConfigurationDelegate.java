@@ -253,7 +253,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 	 *            Whether the workflow runs interactive
 	 * @return A workflow exception handler
 	 */
-	protected WorkflowExceptionHandler createExcpetionHandler(
+	protected WorkflowExceptionHandler createExceptionHandler(
 			boolean interactive) {
 		return new UIBasedWorkflowExceptionHandler(!interactive);
 	}
@@ -278,7 +278,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 			IProgressMonitor monitor, ILaunch launch) throws CoreException {
 		return (WorkflowType) new Workflow(createWorkflowJob(
 				workflowConfiguration, launch), monitor,
-				createExcpetionHandler(workflowConfiguration.isInteractive()));
+				createExceptionHandler(workflowConfiguration.isInteractive()));
 	}
 
 	/**

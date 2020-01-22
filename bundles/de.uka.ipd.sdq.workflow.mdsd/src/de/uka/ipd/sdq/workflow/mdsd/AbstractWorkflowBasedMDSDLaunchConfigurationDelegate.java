@@ -49,7 +49,7 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
     protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(final WorkflowConfigurationType workflowConfiguration,
             final IProgressMonitor monitor, final ILaunch launch) throws CoreException {
         return new UIBasedWorkflow<MDSDBlackboard>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
-                this.createExcpetionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
+                this.createExceptionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 
     /*

@@ -8,7 +8,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,60 +24,66 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.QVTOTransformationJobConfiguration;
 
 public class QVTOTests {
 
-	MDSDBlackboard blackboard;
+    MDSDBlackboard blackboard;
 
-	@BeforeClass
-	public static void registerFactories() {
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("ecore", new XMIResourceFactoryImpl());
-		
-	}
+    @BeforeClass
+    public static void registerFactories() {
+        final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        final Map<String, Object> m = reg.getExtensionToFactoryMap();
+        m.put("ecore", new XMIResourceFactoryImpl());
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Before
-	public void setUp() {
-		this.blackboard = new MDSDBlackboard();
-	}
+    }
 
-	@Test
-	public void testQVTOTransformationJob() throws JobFailedException, UserCanceledException, IOException {
+    /*
+     * (non-Javadoc)
+     *
+     * @see junit.framework.TestCase#setUp()
+     */
+    @Before
+    public void setUp() {
+        this.blackboard = new MDSDBlackboard();
+    }
 
-		ModelLocation[] inoutLocations = new ModelLocation[2];
-		
-		URI inputModelURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/test.ecore", true);
-		URI outputModelURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/output.ecore", true);
-		URI scriptFileURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests//models/test.qvto", true);
+    @Test
+    public void testQVTOTransformationJob() throws JobFailedException, UserCanceledException, IOException {
 
-		ResourceSetPartition inputPartition = new ResourceSetPartition();
-		inputPartition.loadModel(inputModelURI);
-		blackboard.addPartition("inputPartitionId", inputPartition);
-		inoutLocations[0] = new ModelLocation("inputPartitionId", inputModelURI);
+        final ModelLocation[] inoutLocations = new ModelLocation[2];
 
-		ResourceSetPartition outputPartition = new ResourceSetPartition();
-		blackboard.addPartition("outputPartitionId", outputPartition);
-		inoutLocations[1] = new ModelLocation("outputPartitionId", outputModelURI);
+        final URI inputModelURI = URI.createFileURI("models/test.ecore");
+        final URI outputModelURI = URI.createFileURI("models/output.ecore");
 
-		QVTOTransformationJobConfiguration config = new QVTOTransformationJobConfiguration();
-		config.setInoutModels(inoutLocations);
-		config.setScriptFileURI(scriptFileURI);
-		config.setOptions(Collections.emptyMap());
+        URI scriptFileURI;
+        if (org.eclipse.core.runtime.Platform.isRunning()) {
+            scriptFileURI = URI.createPlatformPluginURI("/de.uka.ipd.sdq.workflow.mdsd.tests/models/test.qvto", true);
+        } else {
+            scriptFileURI = URI.createFileURI("models/test.qvto");
+        }
 
-		QVTOTransformationJob job = new QVTOTransformationJob(config);
+        final ResourceSetPartition inputPartition = new ResourceSetPartition();
+        inputPartition.loadModel(inputModelURI);
+        this.blackboard.addPartition("inputPartitionId", inputPartition);
+        inoutLocations[0] = new ModelLocation("inputPartitionId", inputModelURI);
 
-		job.setBlackboard(blackboard);
+        final ResourceSetPartition outputPartition = new ResourceSetPartition();
+        this.blackboard.addPartition("outputPartitionId", outputPartition);
+        inoutLocations[1] = new ModelLocation("outputPartitionId", outputModelURI);
 
-		final NullProgressMonitor monitor = new NullProgressMonitor();
-		job.execute(monitor);
+        final QVTOTransformationJobConfiguration config = new QVTOTransformationJobConfiguration();
+        config.setInoutModels(inoutLocations);
+        config.setScriptFileURI(scriptFileURI);
+        config.setOptions(Collections.emptyMap());
 
-		Assert.assertNotNull(outputPartition.getFirstContentElement(outputModelURI));
-		//check if name was set in transformation
-		Assert.assertEquals("test", ((EPackage)outputPartition.getFirstContentElement(outputModelURI)).getName());
+        final QVTOTransformationJob job = new QVTOTransformationJob(config);
 
-	}
+        job.setBlackboard(this.blackboard);
+
+        final NullProgressMonitor monitor = new NullProgressMonitor();
+        job.execute(monitor);
+
+        Assert.assertNotNull(outputPartition.getFirstContentElement(outputModelURI));
+        // check if name was set in transformation
+        Assert.assertEquals("test", ((EPackage) outputPartition.getFirstContentElement(outputModelURI)).getName());
+
+    }
 
 }

@@ -97,13 +97,13 @@ public class QVTOExecutor {
 
         return qvtResult;
     }
-    
+
     public static void log(IStatus status) {
-    	Optional<ILog> bundleLogger = Optional.ofNullable(Activator.getDefault()).map(Plugin::getLog);
-    	if (bundleLogger.isPresent()) {
-    		bundleLogger.get().log(status);
-    	} else {
-    		new QVTOLogger().log(Level.ERROR.toInt(), status.getMessage());
-    	}
+        Optional<ILog> bundleLogger = Optional.ofNullable(Activator.getDefault()).map(Plugin::getLog);
+        if (bundleLogger.isPresent()) {
+            bundleLogger.get().log(status);
+        } else {
+            new QVTOLogger().log(Level.ERROR.toInt(), status.getMessage());
+        }
     }
 }

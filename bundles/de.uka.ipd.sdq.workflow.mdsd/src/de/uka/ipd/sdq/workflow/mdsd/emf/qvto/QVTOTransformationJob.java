@@ -111,35 +111,37 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
         return modelContents;
     }
 
-	/**
-	 * Produces a full diagnostic message consisting of the main and all child
-	 * messages.
-	 * 
-	 * @param diagnostic The diagnostic to convert to a message.
-	 * @return Multiline string containing all diagnostic messages.
-	 */
+    /**
+     * Produces a full diagnostic message consisting of the main and all child messages.
+     * 
+     * @param diagnostic
+     *            The diagnostic to convert to a message.
+     * @return Multiline string containing all diagnostic messages.
+     */
     private static String getFullDiagnosticMessage(Diagnostic diagnostic) {
-    	String mainStatus = String.format("code %d: %s", diagnostic.getCode(), diagnostic.getMessage());
-    	return mainStatus + getFullDiagnosticMessage(diagnostic.getChildren(), 1);
+        String mainStatus = String.format("code %d: %s", diagnostic.getCode(), diagnostic.getMessage());
+        return mainStatus + getFullDiagnosticMessage(diagnostic.getChildren(), 1);
     }
 
-	/**
-	 * Recursive method to produce multiline diagnostic messages.
-	 * 
-	 * The diagnostic messages will be indented by one level compared to its parent.
-	 * One line represents one diagnostic message.
-	 * 
-	 * @param diagnostics The set of diagnostics to be converted.
-	 * @param indentation The level of indentation to apply to each serialized line.
-	 * @return A multiline string containing the given diagnostic messages.
-	 */
+    /**
+     * Recursive method to produce multiline diagnostic messages.
+     * 
+     * The diagnostic messages will be indented by one level compared to its parent. One line
+     * represents one diagnostic message.
+     * 
+     * @param diagnostics
+     *            The set of diagnostics to be converted.
+     * @param indentation
+     *            The level of indentation to apply to each serialized line.
+     * @return A multiline string containing the given diagnostic messages.
+     */
     private static String getFullDiagnosticMessage(Iterable<Diagnostic> diagnostics, int indentation) {
-    	String buffer = "";
-    	for (Diagnostic diagnostic : diagnostics) {
-    		buffer += System.lineSeparator() + Strings.repeat("\t", indentation) + diagnostic;
-    		buffer += getFullDiagnosticMessage(diagnostic.getChildren(), indentation + 1);
-    	}
-    	return buffer;
+        String buffer = "";
+        for (Diagnostic diagnostic : diagnostics) {
+            buffer += System.lineSeparator() + Strings.repeat("\t", indentation) + diagnostic;
+            buffer += getFullDiagnosticMessage(diagnostic.getChildren(), indentation + 1);
+        }
+        return buffer;
     }
 
     /*

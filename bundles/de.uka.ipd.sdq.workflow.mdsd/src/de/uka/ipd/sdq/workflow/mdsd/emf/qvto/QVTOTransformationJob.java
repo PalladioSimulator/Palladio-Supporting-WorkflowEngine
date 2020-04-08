@@ -6,7 +6,10 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+
+import com.google.common.base.Strings;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
@@ -65,7 +68,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
         if (!result.isSuccess()) {
             if (this.logger.isEnabledFor(Level.ERROR)) {
                 this.logger.error("Transformation job failed");
-                this.logger.error(result.getDiagnosticResult().getMessage());
+                this.logger.error(getFullDiagnosticMessage(result.getDiagnosticResult()));
             }
             result.logStackTrace(this.logger, Level.ERROR);
             throw new JobFailedException("Transformation execution failed");
@@ -106,6 +109,37 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
         }
 
         return modelContents;
+    }
+
+	/**
+	 * Produces a full diagnostic message consisting of the main and all child
+	 * messages.
+	 * 
+	 * @param diagnostic The diagnostic to convert to a message.
+	 * @return Multiline string containing all diagnostic messages.
+	 */
+    private static String getFullDiagnosticMessage(Diagnostic diagnostic) {
+    	String mainStatus = String.format("code %d: %s", diagnostic.getCode(), diagnostic.getMessage());
+    	return mainStatus + getFullDiagnosticMessage(diagnostic.getChildren(), 1);
+    }
+
+	/**
+	 * Recursive method to produce multiline diagnostic messages.
+	 * 
+	 * The diagnostic messages will be indented by one level compared to its parent.
+	 * One line represents one diagnostic message.
+	 * 
+	 * @param diagnostics The set of diagnostics to be converted.
+	 * @param indentation The level of indentation to apply to each serialized line.
+	 * @return A multiline string containing the given diagnostic messages.
+	 */
+    private static String getFullDiagnosticMessage(Iterable<Diagnostic> diagnostics, int indentation) {
+    	String buffer = "";
+    	for (Diagnostic diagnostic : diagnostics) {
+    		buffer += System.lineSeparator() + Strings.repeat("\t", indentation) + diagnostic;
+    		buffer += getFullDiagnosticMessage(diagnostic.getChildren(), indentation + 1);
+    	}
+    	return buffer;
     }
 
     /*

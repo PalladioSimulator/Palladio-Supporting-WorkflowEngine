@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.log4j.Level;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -83,7 +87,7 @@ public class QVTOExecutor {
             qvtResult = new QVTOResult(result);
             // turn the result diagnostic into status and send it to error log
             final IStatus status = BasicDiagnostic.toIStatus(result);
-            Activator.getDefault().getLog().log(status);
+            log(status);
         } else {
             qvtResult = new QVTOResult(result, executor.getLastTrace());
             for (int i = 0; i < inoutParameter.length; i++) {
@@ -92,5 +96,14 @@ public class QVTOExecutor {
         }
 
         return qvtResult;
+    }
+    
+    public static void log(IStatus status) {
+    	Optional<ILog> bundleLogger = Optional.ofNullable(Activator.getDefault()).map(Plugin::getLog);
+    	if (bundleLogger.isPresent()) {
+    		bundleLogger.get().log(status);
+    	} else {
+    		new QVTOLogger().log(Level.ERROR.toInt(), status.getMessage());
+    	}
     }
 }

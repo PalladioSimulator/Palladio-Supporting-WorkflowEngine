@@ -16,6 +16,7 @@ public class QVTOResult {
 
     /** The diagnostic result. */
     private final org.eclipse.m2m.qvt.oml.ExecutionDiagnostic diagnosticResult;
+    private final Trace trace;
 
     /**
      * Instantiates a new qVTO result.
@@ -37,8 +38,8 @@ public class QVTOResult {
      */
     public QVTOResult(final org.eclipse.m2m.qvt.oml.ExecutionDiagnostic result, final Trace trace) {
         super();
-
         this.diagnosticResult = result;
+        this.trace = trace;
     }
 
     /**
@@ -48,6 +49,15 @@ public class QVTOResult {
      */
     public org.eclipse.m2m.qvt.oml.ExecutionDiagnostic getDiagnosticResult() {
         return this.diagnosticResult;
+    }
+
+    /**
+     * Gets the trace of the transformation execution.
+     * 
+     * @return the transformation trace.
+     */
+    public Trace getTrace() {
+        return this.trace;
     }
 
     /**

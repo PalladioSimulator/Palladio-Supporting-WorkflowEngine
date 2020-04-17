@@ -25,8 +25,8 @@ public class QVTOTransformationJobConfiguration {
     /** The script file. */
     private URI scriptFile;
 
-    /** The trace file. */
-    private URI traceFile;
+    /** The trace model location. */
+    private ModelLocation traceLocation;
 
     /**
      * Gets the options.
@@ -90,21 +90,21 @@ public class QVTOTransformationJobConfiguration {
     }
 
     /**
-     * Sets the trace file uri.
+     * Sets the trace model location.
      *
      * @param traceFilePath
-     *            the new trace file uri
+     *            the new trace model location
      */
-    public void setTraceFileURI(final URI traceFilePath) {
-        this.traceFile = traceFilePath;
+    public void setTraceLocation(final ModelLocation traceLocation) {
+        this.traceLocation = traceLocation;
     }
 
     /**
-     * Gets the trace file uri.
+     * Gets the trace model location.
      *
-     * @return the trace file uri
+     * @return the trace model location
      */
-    public URI getTraceFileURI() {
-        return this.traceFile;
+    public ModelLocation getTraceLocation() {
+        return this.traceLocation;
     }
 }

@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow.mdsd.emf.qvto;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.m2m.internal.qvt.oml.trace.Trace;
 
 import com.google.common.base.Strings;
 
@@ -24,6 +26,7 @@ import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal.QVTOExecutor;
  * @author Michael Hauck
  *
  */
+@SuppressWarnings("restriction")
 public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     /** The Constant logger. */
@@ -73,7 +76,7 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
             result.logStackTrace(this.logger, Level.ERROR);
             throw new JobFailedException("Transformation execution failed");
         }
-        this.storeResultOnBlackboard(parameter);
+        this.storeResultOnBlackboard(parameter, result.getTrace());
         if (this.logger.isEnabledFor(Level.INFO)) {
             this.logger.info("Transformation executed successfully");
         }
@@ -85,9 +88,12 @@ public class QVTOTransformationJob implements IBlackboardInteractingJob<MDSDBlac
      * @param parameter
      *            the parameter
      */
-    private void storeResultOnBlackboard(final List<EObject>[] parameter) {
+    private void storeResultOnBlackboard(final List<EObject>[] parameter, Trace transformationTrace) {
         for (int i = 0; i < parameter.length; i++) {
             this.blackboard.setContents(this.configuration.getInoutModels()[i], parameter[i]);
+        }
+        if (this.configuration.getTraceLocation() != null) {
+            this.blackboard.setContents(this.configuration.getTraceLocation(), Arrays.asList(transformationTrace));
         }
     }
 

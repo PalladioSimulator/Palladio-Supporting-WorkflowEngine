@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workflow Engine Hello World
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.helloworld
-Bundle-Version: 4.2.0.qualifier
+Bundle-Version: 4.3.0.qualifier
 Bundle-Vendor: Palladio Project
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: de.uka.ipd.sdq.workflow;bundle-version="2.0.0",

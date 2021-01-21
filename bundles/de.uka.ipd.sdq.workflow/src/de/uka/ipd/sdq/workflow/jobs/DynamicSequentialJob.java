@@ -70,6 +70,7 @@ public class DynamicSequentialJob extends SequentialJob {
      * @throws UserCanceledException
      *             the user canceled exception
      */
+    @Override
     protected void executeWithDelayedCleanUp(final IProgressMonitor monitor)
             throws JobFailedException, UserCanceledException {
 
@@ -105,6 +106,7 @@ public class DynamicSequentialJob extends SequentialJob {
      * @throws UserCanceledException
      *             Identifies a user has canceled the execution of the job.
      */
+    @Override
     protected void executeWithImmediateCleanUp(final IProgressMonitor monitor)
             throws JobFailedException, UserCanceledException {
 

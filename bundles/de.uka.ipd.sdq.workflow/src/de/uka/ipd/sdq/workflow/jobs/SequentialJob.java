@@ -91,7 +91,7 @@ public class SequentialJob extends AbstractCompositeJob {
      * @throws UserCanceledException
      *             the user canceled exception
      */
-    private void executeWithDelayedCleanUp(final IProgressMonitor monitor)
+    protected void executeWithDelayedCleanUp(final IProgressMonitor monitor)
             throws JobFailedException, UserCanceledException {
 
         final IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(
@@ -127,7 +127,7 @@ public class SequentialJob extends AbstractCompositeJob {
      * @throws UserCanceledException
      *             Identifies a user has canceled the execution of the job.
      */
-    private void executeWithImmediateCleanUp(final IProgressMonitor monitor)
+    protected void executeWithImmediateCleanUp(final IProgressMonitor monitor)
             throws JobFailedException, UserCanceledException {
 
         final IProgressMonitor subProgressMonitor = new ExecutionTimeLoggingProgressMonitor(

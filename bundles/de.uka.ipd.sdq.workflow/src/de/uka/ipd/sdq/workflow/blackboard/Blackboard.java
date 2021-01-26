@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.blackboard;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * A blackboard is a storage space where workflow jobs can retrieve and store data from respectively
@@ -67,6 +68,11 @@ public class Blackboard<T> implements IBlackboard<T> {
     @Override
     public void removePartition(String id) {
         blackboardStore.remove(id);
+    }
+    
+    @Override
+    public Set<String> getPartitionIds() {
+        return blackboardStore.keySet();
     }
 
 }

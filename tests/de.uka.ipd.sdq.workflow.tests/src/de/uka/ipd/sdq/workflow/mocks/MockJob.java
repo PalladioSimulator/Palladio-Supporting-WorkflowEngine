@@ -2,7 +2,9 @@ package de.uka.ipd.sdq.workflow.mocks;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
+import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
@@ -13,6 +15,14 @@ import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
  * @author Philipp Meier
  */
 public class MockJob implements IJob {
+    public static class WithBlackboard extends MockJob implements IBlackboardInteractingJob<Blackboard<?>> {
+        public Blackboard<?> blackboard;
+
+        @Override
+        public void setBlackboard(Blackboard<?> blackboard) {
+            this.blackboard = blackboard;
+        }   
+    }
 
     /** The execution number. */
     private static int executionNumber = 0;

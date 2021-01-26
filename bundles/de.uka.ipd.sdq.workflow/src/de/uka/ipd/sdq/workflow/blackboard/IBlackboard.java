@@ -1,5 +1,7 @@
 package de.uka.ipd.sdq.workflow.blackboard;
 
+import java.util.Set;
+
 /**
  * Interface of a blackboard as defined in POSA I. See also class Blackboard for further information.
  *
@@ -36,4 +38,12 @@ public interface IBlackboard<T> {
 	 * @param id ID of the partition to removeS
 	 */
 	void removePartition(String id);
+	
+	/**
+	 * Get the set of partitions currently present on this blackboard.
+	 * 
+	 * @return the set of partition ids.
+	 */
+	Set<String> getPartitionIds();
+	
 }

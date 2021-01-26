@@ -1,6 +1,7 @@
 package de.uka.ipd.sdq.workflow.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.function.Supplier;
 
@@ -8,8 +9,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
+import de.uka.ipd.sdq.workflow.jobs.BlackboardAwareJobProxy;
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
-import de.uka.ipd.sdq.workflow.jobs.DynamicSequentialJob;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.JobProxy;
@@ -53,6 +55,29 @@ public class JobProxyTests {
         assertEquals(false, supplierExecuted);
         proxy.execute(monitor);
         assertEquals(true, supplierExecuted);
+        assertEquals(true, job.wasExecuted());
+    }
+    
+    
+    @Test
+    public void testBlackboardAwareVariant() throws JobFailedException, UserCanceledException {
+        var bb = new Blackboard<>();
+        
+        final var job = new MockJob.WithBlackboard() {
+            public void execute(org.eclipse.core.runtime.IProgressMonitor monitor) throws JobFailedException ,UserCanceledException {
+                super.execute(monitor);
+                assertEquals(bb, this.blackboard);
+            };
+        };
+        var proxy = new BlackboardAwareJobProxy<>("test proxy", () -> job);
+        
+        assertNull(job.blackboard);
+        proxy.setBlackboard(bb);
+        assertNull(job.blackboard);
+        
+        final NullProgressMonitor monitor = new NullProgressMonitor();
+        proxy.execute(monitor);
+        
         assertEquals(true, job.wasExecuted());
     }
     

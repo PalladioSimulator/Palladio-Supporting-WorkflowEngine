@@ -26,10 +26,14 @@ public class JobProxy implements IJob {
         this.name = name;
         this.jobSupplier = jobSupplier;
     }
+    
+    protected IJob supplyJob() {
+        return delegate != null ? delegate : jobSupplier.get();
+    }
 
     @Override
     public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        delegate = jobSupplier.get();
+        delegate = supplyJob();
         delegate.execute(monitor);
     }
 

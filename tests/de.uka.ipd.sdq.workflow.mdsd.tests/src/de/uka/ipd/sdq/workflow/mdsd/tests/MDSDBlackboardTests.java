@@ -20,6 +20,9 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 import de.uka.ipd.sdq.workflow.mdsd.mocks.MockResourceSetPartition;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+
 public class MDSDBlackboardTests {
 
     MDSDBlackboard blackboard;
@@ -52,6 +55,8 @@ public class MDSDBlackboardTests {
 
         // partition should be present
         Assert.assertTrue(this.blackboard.hasPartition("testPartitionId"));
+        
+        assertThat(this.blackboard.getPartitionIds(), containsInAnyOrder("testPartitionId"));
 
         // model should be present for modelLocation
         final ModelLocation modelLocation = new ModelLocation("testPartitionId", modelURI);

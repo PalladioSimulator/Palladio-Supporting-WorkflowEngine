@@ -47,7 +47,11 @@ public class TabHelper {
 			ILaunchConfigurationTabGroup tabGroup,
 			ILaunchConfigurationDialog dialog, String mode, Composite parent,
 			int style) {
-		tabGroup.createTabs(dialog, mode);
+	    // This is to support the legacy behavior which violated the eclipse protocol.
+	    // The nested tabs need be created ahead of creating the controls to support providing defaults.
+	    if (tabGroup.getTabs() == null) {
+	        tabGroup.createTabs(dialog, mode);
+	    }
 		ILaunchConfigurationTab[] tabs = tabGroup.getTabs();
 
 		CTabFolder tabFolder = new CTabFolder(parent, style);

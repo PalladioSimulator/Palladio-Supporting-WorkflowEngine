@@ -138,12 +138,10 @@ public class LocalFileSystemButtonSelectionAdapter extends FileSelectionAdapter 
     public String openFolderDialog(Text textField) {
         DirectoryDialog dialog = new DirectoryDialog(getShell(), SWT.OPEN);
         dialog.setText(getDialogTitle());
-        String filename = null;
-        if (dialog.open() != null) {
-            String root = dialog.getFilterPath() + File.separatorChar;
-            filename = root;
+        String filename = dialog.open();
+        if (filename != null) {
+            filename += File.separatorChar;
         }
-
         return filename;
     }
 }

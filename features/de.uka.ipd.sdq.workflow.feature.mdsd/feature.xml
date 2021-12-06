@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.mdsd"
       label="Palladio Workflow Engine MDSD"
-      version="5.0.0.qualifier"
+      version="5.1.0.qualifier"
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license"
       license-feature-version="1.0.0">
@@ -47,7 +47,7 @@
          id="de.uka.ipd.sdq.workflow.mdsd"
          download-size="0"
          install-size="0"
-         version="5.0.0.qualifier"
+         version="5.1.0.qualifier"
          unpack="false"/>
 
 </feature>

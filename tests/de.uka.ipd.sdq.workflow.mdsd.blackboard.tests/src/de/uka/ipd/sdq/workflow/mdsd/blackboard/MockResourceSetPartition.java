@@ -1,12 +1,10 @@
-package de.uka.ipd.sdq.workflow.mdsd.mocks;
+package de.uka.ipd.sdq.workflow.mdsd.blackboard;
 
 import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
 public class MockResourceSetPartition extends ResourceSetPartition {
 	

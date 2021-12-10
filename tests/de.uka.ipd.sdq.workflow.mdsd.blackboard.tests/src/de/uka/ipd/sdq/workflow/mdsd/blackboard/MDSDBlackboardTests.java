@@ -1,4 +1,7 @@
-package de.uka.ipd.sdq.workflow.mdsd.tests;
+package de.uka.ipd.sdq.workflow.mdsd.blackboard;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 
 import java.util.Map;
 
@@ -14,14 +17,6 @@ import org.junit.Test;
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
-import de.uka.ipd.sdq.workflow.mdsd.mocks.MockResourceSetPartition;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 
 public class MDSDBlackboardTests {
 

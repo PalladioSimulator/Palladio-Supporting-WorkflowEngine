@@ -50,4 +50,11 @@
          version="5.1.0.qualifier"
          unpack="false"/>
 
+   <plugin
+         id="de.uka.ipd.sdq.workflow.mdsd.blackboard"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

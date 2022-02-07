@@ -9,9 +9,21 @@
 <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
 <repository location="https://download.eclipse.org/tools/orbit/downloads/2021-12/"/>
 </location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.1.0.202004172117"/>
-<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/releases/0.1.0"/>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release">
+<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.0.0"/>
+<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/releases/latest/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
+<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.0.0"/>
+<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release">
+<unit id="tools.mdsd.license.epl2.feature.group" version="0.0.0"/>
+<repository location="https://updatesite.mdsd.tools/build-licensefeature/releases/latest/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
+<unit id="tools.mdsd.license.epl2.feature.group" version="0.0.0"/>
+<repository location="https://updatesite.mdsd.tools/build-licensefeature/nightly/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
 <unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>

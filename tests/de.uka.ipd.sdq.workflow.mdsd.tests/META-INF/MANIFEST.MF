@@ -4,7 +4,7 @@ Bundle-Name: WFE MDSD Tests
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.tests
 Bundle-Version: 5.1.0.qualifier
 Automatic-Module-Name: de.uka.ipd.sdq.workflow.mdsd.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: de.uka.ipd.sdq.workflow.mdsd,
  org.junit,
  org.eclipse.emf.common,

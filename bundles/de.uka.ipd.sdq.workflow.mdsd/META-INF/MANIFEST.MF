@@ -4,7 +4,7 @@ Bundle-Name: MDSD Jobs for Palladio Workflow Engine
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd;singleton:=true
 Bundle-Version: 5.1.0.qualifier
 Bundle-Vendor: sdq.ipd.uka.de
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: de.uka.ipd.sdq.workflow.mdsd,
  de.uka.ipd.sdq.workflow.mdsd.emf,
  de.uka.ipd.sdq.workflow.mdsd.emf.qvto,

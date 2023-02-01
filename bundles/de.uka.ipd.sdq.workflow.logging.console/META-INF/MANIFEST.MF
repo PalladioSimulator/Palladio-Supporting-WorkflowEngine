@@ -7,4 +7,4 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.5.0",
  org.apache.log4j;bundle-version="1.2.13"
 Export-Package: de.uka.ipd.sdq.workflow.logging.console
 Bundle-Vendor: sdq.ipd.uka.de
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17

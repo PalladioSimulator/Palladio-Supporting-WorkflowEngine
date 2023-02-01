@@ -23,4 +23,4 @@ Export-Package: de.uka.ipd.sdq.workflow.launchconfig,
  de.uka.ipd.sdq.workflow.launchconfig.configbuilder,
  de.uka.ipd.sdq.workflow.launchconfig.extension,
  de.uka.ipd.sdq.workflow.launchconfig.tabs
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17

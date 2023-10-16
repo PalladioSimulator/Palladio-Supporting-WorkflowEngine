@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MDSD Jobs for Palladio Workflow Engine
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.blackboard
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 5.2.0
 Automatic-Module-Name: de.uka.ipd.sdq.workflow.mdsd.blackboard
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: sdq.ipd.uka.de
 Export-Package: de.uka.ipd.sdq.workflow.mdsd.blackboard
-Require-Bundle: de.uka.ipd.sdq.workflow;bundle-version="5.1.0";visibility:=reexport,
+Require-Bundle: de.uka.ipd.sdq.workflow;bundle-version="5.2.0";visibility:=reexport,
  org.eclipse.emf.ecore;bundle-version="2.23.0";visibility:=reexport

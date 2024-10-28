@@ -129,18 +129,22 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
         // System.setProperty(LogFactoryImpl.LOG_PROPERTY,
         // "org.apache.commons.logging.impl.Log4JLogger");
 
-        WorkflowProcess myProcess;
         // Add a process to this launch, needed for Eclipse UI updates
-        myProcess = getProcess(launch);
+        WorkflowProcess workflowProcess = getProcess(launch);
 
         // Configure logging output to the Eclipse console
-        List<LoggerAppenderStruct> loggerList = setupLogging(getLogLevel(configuration));
+        List<LoggerAppenderStruct> loggerList = configureLogging(configuration);
         for (LoggerAppenderStruct currentLogger : loggerList) {
-            myProcess.addAppender(currentLogger.getAppender());
+            workflowProcess.addAppender(currentLogger.getAppender());
         }
 
-        launch.addProcess(myProcess);
+        launch.addProcess(workflowProcess);
         return loggerList;
+    }
+
+    protected List<LoggerAppenderStruct> configureLogging(ILaunchConfiguration configuration) throws CoreException {
+        Level logLevel = getLogLevel(configuration);
+        return setupLogging(logLevel);
     }
 
     /**

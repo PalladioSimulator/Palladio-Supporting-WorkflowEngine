@@ -6,7 +6,7 @@ import org.eclipse.debug.core.ILaunchManager;
 
 import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractUIBasedConfigurationBuilder;
+import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractAttributeBasedConfigurationBuilder;
 
 /**
  * The Class AbstractConfigBuilderBasedLaunchConfigurationDelegate.
@@ -49,6 +49,6 @@ public abstract class AbstractConfigBuilderBasedLaunchConfigurationDelegate<Work
      * @throws CoreException
      *             the core exception
      */
-    protected abstract AbstractUIBasedConfigurationBuilder<WorkflowConfigurationType> getConfigurationBuilder(
+    protected abstract AbstractAttributeBasedConfigurationBuilder<WorkflowConfigurationType> getConfigurationBuilder(
             ILaunchConfiguration configuration) throws CoreException;
 }

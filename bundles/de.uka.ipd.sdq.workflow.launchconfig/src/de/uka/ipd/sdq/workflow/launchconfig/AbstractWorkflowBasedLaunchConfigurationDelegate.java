@@ -20,7 +20,7 @@ import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.tabs.DebugEnabledCommonTab;
+import de.uka.ipd.sdq.workflow.launchconfig.core.DebugConfigConstants;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
@@ -160,7 +160,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      */
     protected Level getLogLevel(ILaunchConfiguration configuration) {
         try {
-            switch (configuration.getAttribute(DebugEnabledCommonTab.WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
+            switch (configuration.getAttribute(DebugConfigConstants.WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
             case 0:
                 return Level.TRACE;
             case 1:

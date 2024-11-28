@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig;
+package de.uka.ipd.sdq.workflow.launchconfig.core;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -19,9 +19,6 @@ import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
-import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.core.DebugConfigConstants;
-import de.uka.ipd.sdq.workflow.launchconfig.core.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 

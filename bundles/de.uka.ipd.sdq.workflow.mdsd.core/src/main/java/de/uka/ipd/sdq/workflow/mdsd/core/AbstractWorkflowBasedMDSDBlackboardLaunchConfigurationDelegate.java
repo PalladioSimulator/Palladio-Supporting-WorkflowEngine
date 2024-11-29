@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd;
+package de.uka.ipd.sdq.workflow.mdsd.core;
 
 import java.util.List;
 

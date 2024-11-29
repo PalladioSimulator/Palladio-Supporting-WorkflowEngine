@@ -3,6 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: MDSD Jobs Core for Palladio Workflow Engine
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.core
 Bundle-Version: 5.2.0.qualifier
+Export-Package: de.uka.ipd.sdq.workflow.mdsd.core
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.26.100",
+ org.eclipse.debug.core;bundle-version="3.20.0",
+ org.apache.log4j;bundle-version="1.2.19",
+ de.uka.ipd.sdq.workflow.logging.console;bundle-version="5.2.0",
+ de.uka.ipd.sdq.workflow.launchconfig.core;bundle-version="5.2.0",
+ de.uka.ipd.sdq.workflow;bundle-version="5.2.0",
+ de.uka.ipd.sdq.workflow.mdsd.blackboard;bundle-version="5.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: sdq.ipd.uka.de
 Bundle-RequiredExecutionEnvironment: JavaSE-17

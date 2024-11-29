@@ -9,6 +9,7 @@ import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
+import de.uka.ipd.sdq.workflow.mdsd.core.AbstractWorkflowBasedMDSDBlackboardLaunchConfigurationDelegate;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflow;
 
 /**

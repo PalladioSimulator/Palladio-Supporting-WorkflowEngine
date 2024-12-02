@@ -43,13 +43,6 @@
    </requires>
 
    <plugin
-         id="de.uka.ipd.sdq.workflow.mdsd.core"
-         download-size="0"
-         install-size="0"
-         version="5.2.0.qualifier"
-         unpack="false"/>
-
-   <plugin
          id="de.uka.ipd.sdq.workflow.mdsd"
          download-size="0"
          install-size="0"

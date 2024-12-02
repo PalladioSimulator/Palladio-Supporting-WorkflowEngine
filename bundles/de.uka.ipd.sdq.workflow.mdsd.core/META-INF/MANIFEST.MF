@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: MDSD Jobs Core for Palladio Workflow Engine
-Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.core
-Bundle-Version: 5.2.0.qualifier
-Bundle-ActivationPolicy: lazy
-Bundle-Vendor: sdq.ipd.uka.de
-Bundle-RequiredExecutionEnvironment: JavaSE-17

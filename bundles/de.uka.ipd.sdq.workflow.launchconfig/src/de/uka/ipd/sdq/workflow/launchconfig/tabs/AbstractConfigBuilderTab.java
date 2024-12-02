@@ -5,7 +5,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 
 import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractUIBasedConfigurationBuilder;
+import de.uka.ipd.sdq.workflow.launchconfig.configbuilder.AbstractUIBasedConfigurationBuilder;
 
 /**
  * The Class AbstractConfigBuilderTab.

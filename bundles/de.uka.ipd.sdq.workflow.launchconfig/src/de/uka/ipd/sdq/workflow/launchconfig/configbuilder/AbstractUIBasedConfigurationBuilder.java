@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder;
+package de.uka.ipd.sdq.workflow.launchconfig.configbuilder;
 
 import java.util.Map;
 

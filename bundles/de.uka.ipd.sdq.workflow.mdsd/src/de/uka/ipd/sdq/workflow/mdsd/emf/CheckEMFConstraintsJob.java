@@ -10,8 +10,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 
-import de.uka.ipd.sdq.errorhandling.core.SeverityAndIssue;
-import de.uka.ipd.sdq.errorhandling.core.SeverityEnum;
+import de.uka.ipd.sdq.errorhandling.SeverityAndIssue;
+import de.uka.ipd.sdq.errorhandling.SeverityEnum;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;

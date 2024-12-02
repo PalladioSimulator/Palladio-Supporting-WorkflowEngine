@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.ui,
  de.uka.ipd.sdq.workflow;visibility:=reexport,
  org.apache.log4j;bundle-version="1.2.13";visibility:=reexport,
  org.apache.commons.logging;bundle-version="1.1.1",
- de.uka.ipd.sdq.workflow.logging.console;bundle-version="5.2.0",
+ de.uka.ipd.sdq.workflow.logging.console;bundle-version="1.0.0";visibility:=reexport,
  de.uka.ipd.sdq.workflow.ui;bundle-version="1.0.0";visibility:=reexport,
  de.uka.ipd.sdq.workflow.launchconfig.core;bundle-version="5.2.0"
 Bundle-ActivationPolicy: lazy

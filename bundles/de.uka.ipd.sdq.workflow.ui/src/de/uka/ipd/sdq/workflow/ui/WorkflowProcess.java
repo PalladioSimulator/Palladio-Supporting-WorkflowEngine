@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig.core;
+package de.uka.ipd.sdq.workflow.ui;
 
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.debug.core.DebugEvent;
@@ -114,7 +114,7 @@ public class WorkflowProcess extends PlatformObject implements IProcess {
      * 
      * @see org.eclipse.core.runtime.PlatformObject#getAdapter(java.lang.Class)
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("rawtypes")
     @Override
     public Object getAdapter(Class adapter) {
         return null;
@@ -151,8 +151,7 @@ public class WorkflowProcess extends PlatformObject implements IProcess {
 
         this.myStreamsProxy.dispose();
 
-        DebugPlugin.getDefault()
-            .fireDebugEventSet(new DebugEvent[] { new DebugEvent(this, DebugEvent.TERMINATE) });
+        DebugPlugin.getDefault().fireDebugEventSet(new DebugEvent[] { new DebugEvent(this, DebugEvent.TERMINATE) });
     }
 
     /**

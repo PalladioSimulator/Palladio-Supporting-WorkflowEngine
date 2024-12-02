@@ -5,7 +5,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 
 import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractAttributeBasedConfigurationBuilder;
+import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractUIBasedConfigurationBuilder;
 
 /**
  * The Class AbstractConfigBuilderTab.
@@ -20,7 +20,7 @@ public abstract class AbstractConfigBuilderTab extends AbstractLaunchConfigurati
      */
     @Override
     public boolean isValid(ILaunchConfiguration launchConfig) {
-        AbstractAttributeBasedConfigurationBuilder<?> builder;
+        AbstractUIBasedConfigurationBuilder<?> builder;
         try {
             builder = getConfigurationBuilder(launchConfig);
         } catch (CoreException e) {
@@ -48,6 +48,6 @@ public abstract class AbstractConfigBuilderTab extends AbstractLaunchConfigurati
      * @throws CoreException
      *             the core exception
      */
-    protected abstract AbstractAttributeBasedConfigurationBuilder<?> getConfigurationBuilder(ILaunchConfiguration launchConfig)
+    protected abstract AbstractUIBasedConfigurationBuilder<?> getConfigurationBuilder(ILaunchConfiguration launchConfig)
             throws CoreException;
 }

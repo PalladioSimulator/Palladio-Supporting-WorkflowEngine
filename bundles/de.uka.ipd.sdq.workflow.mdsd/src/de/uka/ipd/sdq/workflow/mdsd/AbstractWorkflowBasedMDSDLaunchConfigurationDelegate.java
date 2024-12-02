@@ -1,6 +1,6 @@
 package de.uka.ipd.sdq.workflow.mdsd;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.CoreException;
@@ -48,7 +48,7 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
     @Override
     protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(final WorkflowConfigurationType workflowConfiguration,
             final IProgressMonitor monitor, final ILaunch launch) throws CoreException {
-        return new UIBasedWorkflow<>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
+        return new UIBasedWorkflow<MDSDBlackboard>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
                 this.createExceptionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 
@@ -59,8 +59,8 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
      * setupLogging(org.apache.log4j.Level)
      */
     @Override
-    protected List<LoggerAppenderStruct> setupLogging(final Level logLevel) throws CoreException {
-        List<LoggerAppenderStruct> loggerList = super.setupLogging(logLevel);
+    protected ArrayList<LoggerAppenderStruct> setupLogging(final Level logLevel) throws CoreException {
+        final ArrayList<LoggerAppenderStruct> loggerList = super.setupLogging(logLevel);
 
         // Setup openArchitectureWare Logging
         loggerList.add(this.setupLogger("org.openarchitectureware", logLevel, SHORT_LOG_PATTERN));

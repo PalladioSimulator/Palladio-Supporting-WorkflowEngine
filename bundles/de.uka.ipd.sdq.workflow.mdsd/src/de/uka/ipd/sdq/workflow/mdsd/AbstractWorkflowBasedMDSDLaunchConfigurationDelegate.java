@@ -4,8 +4,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 
-import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
-import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
@@ -32,12 +30,10 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
      * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.debug.core.ILaunch)
      */
     @Override
-    protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(WorkflowConfigurationType workflowConfiguration,
-            IProgressMonitor monitor, ILaunch launch) throws CoreException {
-        WorkflowExceptionHandler exceptionHandler = createExceptionHandler(workflowConfiguration.isInteractive());
-        MDSDBlackboard blackboard = createBlackboard();
-        IJob workflowJob = createWorkflowJob(workflowConfiguration, launch);
-        return new UIBasedWorkflow<>(workflowJob, monitor, exceptionHandler, blackboard);
+    protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(final WorkflowConfigurationType workflowConfiguration,
+            final IProgressMonitor monitor, final ILaunch launch) throws CoreException {
+        return new UIBasedWorkflow<>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
+                this.createExceptionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 
 }

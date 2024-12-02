@@ -24,6 +24,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.core.DebugConfigConstants;
 import de.uka.ipd.sdq.workflow.launchconfig.core.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
+import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
 
 /**
  * Abstract base class for Eclipse Launches (both Run and Debug mode are supported) which run based
@@ -234,14 +235,15 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 
     /**
      * Instanciate the workflow exception handler used to handle failures in the workflow. By
-     * default re-throws the exception.
+     * default returns an excpetion handler which uses Eclipse Dialogs to inform the user about the
+     * failure.
      * 
      * @param interactive
      *            Whether the workflow runs interactive
      * @return A workflow exception handler
      */
     protected WorkflowExceptionHandler createExceptionHandler(boolean interactive) {
-        return new WorkflowExceptionHandler(!interactive);
+        return new UIBasedWorkflowExceptionHandler(!interactive);
     }
 
     /**

@@ -4,12 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.debug.core.ILaunch;
 
 import de.uka.ipd.sdq.workflow.BlackboardBasedWorkflow;
-import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
-import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedLaunchConfigurationDelegate;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
@@ -26,15 +22,6 @@ public abstract class AbstractWorkflowBasedMDSDBlackboardLaunchConfigurationDele
      */
     protected MDSDBlackboard createBlackboard() {
         return new MDSDBlackboard();
-    }
-
-    @Override
-    protected BlackboardBasedWorkflow<MDSDBlackboard> createWorkflow(WorkflowConfigurationType workflowConfiguration,
-            IProgressMonitor monitor, ILaunch launch) throws CoreException {
-        WorkflowExceptionHandler exceptionHandler = createExceptionHandler(workflowConfiguration.isInteractive());
-        MDSDBlackboard blackboard = createBlackboard();
-        IJob workflowJob = createWorkflowJob(workflowConfiguration, launch);
-        return new BlackboardBasedWorkflow<>(workflowJob, monitor, exceptionHandler, blackboard);
     }
 
     /*

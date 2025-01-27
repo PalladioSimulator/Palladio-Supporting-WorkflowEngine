@@ -46,9 +46,10 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
      * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.debug.core.ILaunch)
      */
     @Override
-    protected UIBasedWorkflow<MDSDBlackboard> createWorkflow(final WorkflowConfigurationType workflowConfiguration,
-            final IProgressMonitor monitor, final ILaunch launch) throws CoreException {
-        return new UIBasedWorkflow<MDSDBlackboard>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
+    protected BlackboardBasedWorkflow<MDSDBlackboard> createWorkflow(
+            final WorkflowConfigurationType workflowConfiguration, final IProgressMonitor monitor, final ILaunch launch)
+            throws CoreException {
+        return new UIBasedWorkflow<>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
                 this.createExceptionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 

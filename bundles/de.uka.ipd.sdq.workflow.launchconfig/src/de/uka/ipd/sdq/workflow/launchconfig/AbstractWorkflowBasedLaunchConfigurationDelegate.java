@@ -291,7 +291,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      * @throws CoreException
      *             the core exception
      */
-    protected ArrayList<LoggerAppenderStruct> setupLogging(Level logLevel) throws CoreException {
+    protected List<LoggerAppenderStruct> setupLogging(Level logLevel) throws CoreException {
         ArrayList<LoggerAppenderStruct> loggerList = new ArrayList<>();
 
         // Setup Palladio workflow engine logging

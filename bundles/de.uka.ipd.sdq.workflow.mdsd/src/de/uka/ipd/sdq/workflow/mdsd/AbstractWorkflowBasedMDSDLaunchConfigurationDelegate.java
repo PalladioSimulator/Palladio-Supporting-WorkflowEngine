@@ -61,7 +61,7 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
      */
     @Override
     protected ArrayList<LoggerAppenderStruct> setupLogging(final Level logLevel) throws CoreException {
-        final ArrayList<LoggerAppenderStruct> loggerList = super.setupLogging(logLevel);
+        final ArrayList<LoggerAppenderStruct> loggerList = new ArrayList<>(super.setupLogging(logLevel));
 
         // Setup openArchitectureWare Logging
         loggerList.add(this.setupLogger("org.openarchitectureware", logLevel, SHORT_LOG_PATTERN));

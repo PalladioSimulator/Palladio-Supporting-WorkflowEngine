@@ -18,8 +18,8 @@ import org.eclipse.xtend.expression.ExecutionContext;
 import org.eclipse.xtend.expression.ExecutionContextImpl;
 import org.eclipse.xtend.typesystem.emf.EmfMetaModel;
 
-import de.uka.ipd.sdq.errorhandling.SeverityAndIssue;
-import de.uka.ipd.sdq.errorhandling.SeverityEnum;
+import de.uka.ipd.sdq.errorhandling.core.SeverityAndIssue;
+import de.uka.ipd.sdq.errorhandling.core.SeverityEnum;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;

@@ -5,8 +5,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 
 import de.uka.ipd.sdq.workflow.Workflow;
-import de.uka.ipd.sdq.workflow.launchconfig.configbuilder.AbstractJobConfigurationBuilder;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
+import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractJobConfigurationBuilder;
 
 /**
  * The Class AbstractConfigBuilderBasedLaunchConfigurationDelegate.

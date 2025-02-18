@@ -1,3 +1,4 @@
+/** */
 package de.uka.ipd.sdq.workflow.launchconfig.core;
 
 import java.util.Map;
@@ -10,8 +11,7 @@ import org.eclipse.debug.core.ILaunchManager;
  * Bridge for workflow engine-based configurations of type
  * {@link AbstractWorkflowBasedRunConfiguration} and eclipse launch configurations.
  *
- * Reads a workflow engine configuration and fills an
- * eclipse launch configuration.
+ * Reads a workflow engine configuration and fills an eclipse launch configuration.
  */
 public abstract class AbstractWorkflowConfigurationBuilder {
 
@@ -37,7 +37,8 @@ public abstract class AbstractWorkflowConfigurationBuilder {
      * @throws CoreException
      *             the core exception
      */
-    public AbstractWorkflowConfigurationBuilder(final ILaunchConfiguration configuration, final String mode) throws CoreException {
+    public AbstractWorkflowConfigurationBuilder(final ILaunchConfiguration configuration, final String mode)
+            throws CoreException {
         super();
         this.configuration = configuration;
         this.mode = mode;
@@ -183,12 +184,11 @@ public abstract class AbstractWorkflowConfigurationBuilder {
      */
     private void ensureAttributeExists(final String attribute) throws CoreException {
         if (!configuration.hasAttribute(attribute)) {
-            throw new IllegalStateException(
-                    "Tried to read non-existing configuration attribute."
-                            + " If you have recently updated your Eclipse installation,"
-                            + " please visit every tab of your launch configuration to make"
-                            + " sure that newly added configuration entries are added to the"
-                            + " internally stored launch configuration.");
+            throw new IllegalStateException("Tried to read non-existing configuration attribute."
+                    + " If you have recently updated your Eclipse installation,"
+                    + " please visit every tab of your launch configuration to make"
+                    + " sure that newly added configuration entries are added to the"
+                    + " internally stored launch configuration.");
         }
     }
 

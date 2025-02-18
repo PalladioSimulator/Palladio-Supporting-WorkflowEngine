@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.debug.core.ILaunch;
 
 import de.uka.ipd.sdq.workflow.BlackboardBasedWorkflow;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedLaunchConfigurationDelegate;
@@ -13,7 +11,6 @@ import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfigu
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
-import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflow;
 
 /**
  * Base class of workflows running as Eclipse run or debug launches which need a blackboard to load,
@@ -36,21 +33,6 @@ public abstract class AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<Workf
      */
     protected MDSDBlackboard createBlackboard() {
         return new MDSDBlackboard();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedLaunchConfigurationDelegate#
-     * createWorkflow(de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration,
-     * org.eclipse.core.runtime.IProgressMonitor, org.eclipse.debug.core.ILaunch)
-     */
-    @Override
-    protected BlackboardBasedWorkflow<MDSDBlackboard> createWorkflow(
-            final WorkflowConfigurationType workflowConfiguration, final IProgressMonitor monitor, final ILaunch launch)
-            throws CoreException {
-        return new UIBasedWorkflow<>(this.createWorkflowJob(workflowConfiguration, launch), monitor,
-                this.createExceptionHandler(workflowConfiguration.isInteractive()), this.createBlackboard());
     }
 
     /*

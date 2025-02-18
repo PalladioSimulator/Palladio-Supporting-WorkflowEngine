@@ -15,13 +15,12 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
+import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedLaunchConfigurationDelegate;
+
 /**
  * The Class DebugEnabledCommonTab.
  */
 public class DebugEnabledCommonTab extends CommonTab {
-
-    /** The Constant WORKFLOW_ENGINE_DEBUG_LEVEL. */
-    public static final String WORKFLOW_ENGINE_DEBUG_LEVEL = "de.uka.ipd.sdq.workflowengine.debuglevel";
 
     /** The debug level. */
     private Combo debuglvl;
@@ -35,6 +34,7 @@ public class DebugEnabledCommonTab extends CommonTab {
     public void createControl(Composite parent) {
         final ModifyListener modifyListener = new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 setDirty(true);
                 updateLaunchConfigurationDialog();
@@ -84,7 +84,8 @@ public class DebugEnabledCommonTab extends CommonTab {
     public void initializeFrom(ILaunchConfiguration configuration) {
         super.initializeFrom(configuration);
         try {
-            debuglvl.select(configuration.getAttribute(WORKFLOW_ENGINE_DEBUG_LEVEL, 2));
+            debuglvl.select(configuration
+                .getAttribute(AbstractWorkflowBasedLaunchConfigurationDelegate.WORKFLOW_ENGINE_DEBUG_LEVEL, 2));
         } catch (CoreException e) {
             debuglvl.select(2);
         }
@@ -99,19 +100,19 @@ public class DebugEnabledCommonTab extends CommonTab {
     @Override
     public void performApply(ILaunchConfigurationWorkingCopy configuration) {
         super.performApply(configuration);
-        configuration.setAttribute(WORKFLOW_ENGINE_DEBUG_LEVEL, debuglvl.getSelectionIndex());
+        configuration.setAttribute(AbstractWorkflowBasedLaunchConfigurationDelegate.WORKFLOW_ENGINE_DEBUG_LEVEL,
+                debuglvl.getSelectionIndex());
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.eclipse.debug.ui.CommonTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
-     * )
+     * @see org.eclipse.debug.ui.CommonTab#setDefaults(org.eclipse.debug.core.
+     * ILaunchConfigurationWorkingCopy )
      */
     @Override
     public void setDefaults(ILaunchConfigurationWorkingCopy config) {
         super.setDefaults(config);
-        config.setAttribute(WORKFLOW_ENGINE_DEBUG_LEVEL, 2);
+        config.setAttribute(AbstractWorkflowBasedLaunchConfigurationDelegate.WORKFLOW_ENGINE_DEBUG_LEVEL, 2);
     }
 }

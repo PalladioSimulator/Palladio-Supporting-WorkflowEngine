@@ -21,7 +21,6 @@ import de.uka.ipd.sdq.workflow.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
-import de.uka.ipd.sdq.workflow.launchconfig.tabs.DebugEnabledCommonTab;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
@@ -66,6 +65,9 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 
     /** Name of the entry in the configuration hashmap containing the log level. */
     public static final String VERBOSE_LOGGING = "verboseLogging";
+
+    /** The Constant WORKFLOW_ENGINE_DEBUG_LEVEL. */
+    public static final String WORKFLOW_ENGINE_DEBUG_LEVEL = "de.uka.ipd.sdq.workflowengine.debuglevel";
 
     /*
      * (non-Javadoc)
@@ -160,7 +162,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      */
     protected Level getLogLevel(ILaunchConfiguration configuration) {
         try {
-            switch (configuration.getAttribute(DebugEnabledCommonTab.WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
+            switch (configuration.getAttribute(WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
             case 0:
                 return Level.TRACE;
             case 1:

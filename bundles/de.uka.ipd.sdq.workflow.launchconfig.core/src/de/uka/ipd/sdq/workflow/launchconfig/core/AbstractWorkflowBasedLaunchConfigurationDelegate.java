@@ -321,7 +321,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
         localLogger.setAdditivity(false);
         localLogger.addAppender(appender);
 
-        return new LoggerAppenderStruct(localLogger, appender);
+        return new LoggerAppenderStruct(localLogger, logLevel, appender);
     }
 
     /**

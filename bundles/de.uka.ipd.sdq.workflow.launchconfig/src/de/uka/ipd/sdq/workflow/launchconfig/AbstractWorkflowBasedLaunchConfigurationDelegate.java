@@ -23,7 +23,6 @@ import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
-import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
 
 /**
  * Abstract base class for Eclipse Launches (both Run and Debug mode are supported) which run based
@@ -244,9 +243,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      *            Whether the workflow runs interactive
      * @return A workflow exception handler
      */
-    protected WorkflowExceptionHandler createExceptionHandler(boolean interactive) {
-        return new UIBasedWorkflowExceptionHandler(!interactive);
-    }
+    protected abstract WorkflowExceptionHandler createExceptionHandler(boolean interactive);
 
     /**
      * Instantiate the workflow engine. By default a standard workflow engine is created.

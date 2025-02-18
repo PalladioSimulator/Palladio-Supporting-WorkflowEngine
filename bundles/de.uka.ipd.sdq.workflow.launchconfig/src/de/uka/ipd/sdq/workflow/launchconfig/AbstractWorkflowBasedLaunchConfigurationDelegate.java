@@ -17,6 +17,7 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 
 import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.core.AbstractWorkflowBasedRunConfiguration;
@@ -24,7 +25,6 @@ import de.uka.ipd.sdq.workflow.launchconfig.tabs.DebugEnabledCommonTab;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
-import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
 
 /**
  * Abstract base class for Eclipse Launches (both Run and Debug mode are supported) which run based

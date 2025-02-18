@@ -6,7 +6,9 @@ Bundle-Version: 5.2.1.qualifier
 Bundle-Activator: de.uka.ipd.sdq.workflow.WorkflowPlugin
 Bundle-Vendor: sdq.ipd.uka.de
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
- org.apache.log4j;visibility:=reexport
+ org.eclipse.debug.core;bundle-version="3.20.0",
+ org.apache.log4j;visibility:=reexport,
+ de.uka.ipd.sdq.workflow.logging.console;bundle-version="5.2.1"
 Bundle-ActivationPolicy: lazy
 Export-Package: de.uka.ipd.sdq.workflow,
  de.uka.ipd.sdq.workflow.blackboard,

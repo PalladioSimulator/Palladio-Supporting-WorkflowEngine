@@ -28,13 +28,13 @@ import org.eclipse.ui.console.MessageConsole;
 
 import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
 import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
-import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
 
 /**
  * Abstract base class for Eclipse Workbench Actions which run based on the

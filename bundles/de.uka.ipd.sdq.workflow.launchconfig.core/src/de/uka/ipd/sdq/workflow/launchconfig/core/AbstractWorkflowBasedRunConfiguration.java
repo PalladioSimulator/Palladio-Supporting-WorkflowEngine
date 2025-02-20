@@ -1,20 +1,23 @@
-package de.uka.ipd.sdq.workflow.launchconfig;
+/**
+ * 
+ */
+package de.uka.ipd.sdq.workflow.launchconfig.core;
 
+import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
 import de.uka.ipd.sdq.workflow.configuration.IJobConfiguration;
 
 /**
- * An adapted job configuration with specifics for the Eclipse IDE 
- * - run mode (run or debug)
- * - interactice
- * - clonable
+ * An adapted job configuration with specifics for the Eclipse IDE - run mode (run or debug) -
+ * interactice - clonable
  * 
- * Base class for all configurations used to configure an Eclipse based {@link Workflow} (or launch).
- * which internally executes a sequence of jobs (compile, M2M Transforms, simulations, etc.)
+ * Base class for all configurations used to configure an Eclipse based {@link Workflow} (or
+ * launch). which internally executes a sequence of jobs (compile, M2M Transforms, simulations,
+ * etc.)
  * 
  */
-public abstract class AbstractWorkflowBasedRunConfiguration extends AbstractJobConfiguration implements
-        IJobConfiguration, Cloneable {
+public abstract class AbstractWorkflowBasedRunConfiguration extends AbstractJobConfiguration
+        implements IJobConfiguration, Cloneable {
 
     /** The is interactive. */
     protected boolean isInteractive = false;

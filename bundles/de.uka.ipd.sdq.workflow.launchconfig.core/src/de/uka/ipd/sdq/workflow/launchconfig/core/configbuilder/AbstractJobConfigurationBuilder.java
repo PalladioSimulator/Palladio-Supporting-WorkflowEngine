@@ -1,4 +1,5 @@
-package de.uka.ipd.sdq.workflow.launchconfig.configbuilder;
+/** */
+package de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder;
 
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import de.uka.ipd.sdq.workflow.configuration.AbstractJobConfiguration;
  *            Type of the configuration object this builder is going to build
  * @author Steffen Becker
  */
-public abstract class AbstractUIBasedConfigurationBuilder<ConfigurationType extends AbstractJobConfiguration> {
+public abstract class AbstractJobConfigurationBuilder<ConfigurationType extends AbstractJobConfiguration> {
 
     /** Key-value pairs of the configuration options set in the run dialog. */
     private Map<String, Object> attributes = null;
@@ -23,7 +24,7 @@ public abstract class AbstractUIBasedConfigurationBuilder<ConfigurationType exte
      * @param attributes
      *            The key-value pairs used to configure the produced object
      */
-    public AbstractUIBasedConfigurationBuilder(Map<String, Object> attributes) {
+    public AbstractJobConfigurationBuilder(Map<String, Object> attributes) {
         super();
 
         this.attributes = attributes;

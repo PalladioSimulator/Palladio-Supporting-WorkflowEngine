@@ -1,5 +1,6 @@
 package de.uka.ipd.sdq.workflow.logging.console;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -7,8 +8,8 @@ import org.apache.log4j.Logger;
  */
 public class LoggerAppenderStruct {
 
-    /** The logger. */
     private final Logger logger;
+    private final Level logLevel;
 
     /** The appender. */
     private final StreamsProxyAppender appender;
@@ -21,9 +22,9 @@ public class LoggerAppenderStruct {
      * @param appender
      *            the appender
      */
-    public LoggerAppenderStruct(Logger logger, StreamsProxyAppender appender) {
-        super();
+    public LoggerAppenderStruct(Logger logger, Level logLevel, StreamsProxyAppender appender) {
         this.logger = logger;
+        this.logLevel = logLevel;
         this.appender = appender;
     }
 
@@ -43,5 +44,9 @@ public class LoggerAppenderStruct {
      */
     public StreamsProxyAppender getAppender() {
         return appender;
+    }
+
+    public Level getLogLevel() {
+        return logLevel;
     }
 }

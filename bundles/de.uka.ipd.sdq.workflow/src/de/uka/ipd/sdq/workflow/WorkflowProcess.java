@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.ui;
+package de.uka.ipd.sdq.workflow;
 
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.debug.core.DebugEvent;

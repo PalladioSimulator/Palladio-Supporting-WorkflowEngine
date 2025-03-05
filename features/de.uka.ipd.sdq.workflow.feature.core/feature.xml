@@ -38,6 +38,13 @@ a workflow for tasks being run under the Eclipse UI from the Run Dialog.
          unpack="false"/>
 
    <plugin
+         id="de.uka.ipd.sdq.workflow.launchconfig.core"
+         download-size="0"
+         install-size="0"
+         version="5.2.1.qualifier"
+         unpack="false"/>
+
+   <plugin
          id="de.uka.ipd.sdq.workflow.launchconfig"
          download-size="0"
          install-size="0"

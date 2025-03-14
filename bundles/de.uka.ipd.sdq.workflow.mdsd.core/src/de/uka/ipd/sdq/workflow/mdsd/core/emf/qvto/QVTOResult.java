@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.emf.qvto;
+package de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

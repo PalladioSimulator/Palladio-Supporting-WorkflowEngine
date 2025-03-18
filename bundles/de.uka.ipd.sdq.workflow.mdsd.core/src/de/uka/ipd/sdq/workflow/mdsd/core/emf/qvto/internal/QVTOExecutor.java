@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal;
+package de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto.internal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -18,9 +18,10 @@ import org.eclipse.m2m.qvt.oml.BasicModelExtent;
 import org.eclipse.m2m.qvt.oml.ExecutionContextImpl;
 import org.eclipse.m2m.qvt.oml.ExecutionDiagnostic;
 import org.eclipse.m2m.qvt.oml.ModelExtent;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
-import de.uka.ipd.sdq.workflow.mdsd.Activator;
-import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.QVTOResult;
+import de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto.QVTOResult;
 
 /**
  * The Class QVTOExecutor.
@@ -62,7 +63,7 @@ public class QVTOExecutor {
         for (int i = 0; i < inoutParameter.length; i++) {
             transformationParameter[i] = new BasicModelExtent();
             if (inoutParameter[i] != null) {
-                final ArrayList<EObject> contents = new ArrayList<EObject>();
+                final ArrayList<EObject> contents = new ArrayList<>();
                 contents.addAll(inoutParameter[i]);
                 transformationParameter[i].setContents(contents);
             }
@@ -98,12 +99,19 @@ public class QVTOExecutor {
         return qvtResult;
     }
 
-    public static void log(IStatus status) {
-        Optional<ILog> bundleLogger = Optional.ofNullable(Activator.getDefault()).map(Plugin::getLog);
+    private static void log(IStatus status) {
+        Optional<ILog> bundleLogger = Optional.ofNullable(getLog());
         if (bundleLogger.isPresent()) {
-            bundleLogger.get().log(status);
+            bundleLogger.get()
+                .log(status);
         } else {
             new QVTOLogger().log(Level.ERROR.toInt(), status.getMessage());
         }
+    }
+
+    private static ILog getLog() {
+        Bundle bundle = FrameworkUtil.getBundle(QVTOExecutor.class);
+        ILog log = Platform.getLog(bundle);
+        return log;
     }
 }

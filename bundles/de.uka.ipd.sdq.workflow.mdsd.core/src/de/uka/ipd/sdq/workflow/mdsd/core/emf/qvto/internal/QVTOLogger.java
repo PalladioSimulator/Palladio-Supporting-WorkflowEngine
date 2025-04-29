@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal;
+package de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto.internal;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

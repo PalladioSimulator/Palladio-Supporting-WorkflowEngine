@@ -1,11 +1,11 @@
-package de.uka.ipd.sdq.workflow.launchconfig.core;
+package de.uka.ipd.sdq.workflow.launchconfig;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 
 import de.uka.ipd.sdq.workflow.Workflow;
-import de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder.AbstractJobConfigurationBuilder;
+import de.uka.ipd.sdq.workflow.launchconfig.configbuilder.AbstractUIBasedConfigurationBuilder;
 
 /**
  * The Class AbstractConfigBuilderBasedLaunchConfigurationDelegate.
@@ -48,6 +48,6 @@ public abstract class AbstractConfigBuilderBasedLaunchConfigurationDelegate<Work
      * @throws CoreException
      *             the core exception
      */
-    protected abstract AbstractJobConfigurationBuilder<WorkflowConfigurationType> getConfigurationBuilder(
+    protected abstract AbstractUIBasedConfigurationBuilder<WorkflowConfigurationType> getConfigurationBuilder(
             ILaunchConfiguration configuration) throws CoreException;
 }

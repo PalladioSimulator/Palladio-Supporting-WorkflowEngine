@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto;
+package de.uka.ipd.sdq.workflow.mdsd.emf.qvto;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-import de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto.internal.QVTOExecutor;
+import de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal.QVTOExecutor;
 
 /**
  * A job that performs a QVT Operational transformation.

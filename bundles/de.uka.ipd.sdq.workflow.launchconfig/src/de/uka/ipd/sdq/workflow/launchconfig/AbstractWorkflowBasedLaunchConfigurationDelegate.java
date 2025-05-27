@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.launchconfig.core;
+package de.uka.ipd.sdq.workflow.launchconfig;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -17,11 +17,13 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 
 import de.uka.ipd.sdq.workflow.Workflow;
 import de.uka.ipd.sdq.workflow.WorkflowExceptionHandler;
-import de.uka.ipd.sdq.workflow.WorkflowProcess;
 import de.uka.ipd.sdq.workflow.configuration.InvalidWorkflowJobConfigurationException;
 import de.uka.ipd.sdq.workflow.jobs.IJob;
+import de.uka.ipd.sdq.workflow.launchconfig.tabs.DebugEnabledCommonTab;
 import de.uka.ipd.sdq.workflow.logging.console.LoggerAppenderStruct;
 import de.uka.ipd.sdq.workflow.logging.console.StreamsProxyAppender;
+import de.uka.ipd.sdq.workflow.ui.UIBasedWorkflowExceptionHandler;
+import de.uka.ipd.sdq.workflow.ui.WorkflowProcess;
 
 /**
  * Abstract base class for Eclipse Launches (both Run and Debug mode are supported) which run based
@@ -63,9 +65,6 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
 
     /** Name of the entry in the configuration hashmap containing the log level. */
     public static final String VERBOSE_LOGGING = "verboseLogging";
-
-    /** The Constant WORKFLOW_ENGINE_DEBUG_LEVEL. */
-    public static final String WORKFLOW_ENGINE_DEBUG_LEVEL = "de.uka.ipd.sdq.workflowengine.debuglevel";
 
     /*
      * (non-Javadoc)
@@ -160,7 +159,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      */
     protected Level getLogLevel(ILaunchConfiguration configuration) {
         try {
-            switch (configuration.getAttribute(WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
+            switch (configuration.getAttribute(DebugEnabledCommonTab.WORKFLOW_ENGINE_DEBUG_LEVEL, 0)) {
             case 0:
                 return Level.TRACE;
             case 1:
@@ -242,7 +241,9 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
      *            Whether the workflow runs interactive
      * @return A workflow exception handler
      */
-    protected abstract WorkflowExceptionHandler createExceptionHandler(boolean interactive);
+    protected WorkflowExceptionHandler createExceptionHandler(boolean interactive) {
+        return new UIBasedWorkflowExceptionHandler(!interactive);
+    }
 
     /**
      * Instantiate the workflow engine. By default a standard workflow engine is created.
@@ -321,7 +322,7 @@ public abstract class AbstractWorkflowBasedLaunchConfigurationDelegate<WorkflowC
         localLogger.setAdditivity(false);
         localLogger.addAppender(appender);
 
-        return new LoggerAppenderStruct(localLogger, logLevel, appender);
+        return new LoggerAppenderStruct(localLogger, appender);
     }
 
     /**

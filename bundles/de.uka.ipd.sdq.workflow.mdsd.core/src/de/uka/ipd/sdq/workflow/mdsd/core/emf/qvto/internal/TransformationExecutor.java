@@ -1,4 +1,4 @@
-package de.uka.ipd.sdq.workflow.mdsd.emf.qvto.internal;
+package de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto.internal;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.m2m.internal.qvt.oml.InternalTransformationExecutor;

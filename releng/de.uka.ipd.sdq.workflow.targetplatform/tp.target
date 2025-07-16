@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="WorkflowEngine TP" sequenceNumber="6">
+<?pde version="3.8"?><target name="WorkflowEngine TP" sequenceNumber="7">
 	<locations>
+		<location type="Target" uri="mvn:org.palladiosimulator:palladio-target-platforms:0.1.0:target:palladio-2023-03"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="org.eclipse.m2m.qvt.oml.sdk.feature.group" version="0.0.0"/>
 			<repository location="https://download.eclipse.org/releases/2023-03/202303151000/"/>
@@ -16,30 +17,17 @@
 			<unit id="org.hamcrest.library" version="0.0.0"/>
 			<repository location="https://download.eclipse.org/tools/orbit/downloads/2023-03/"/>
 		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release">
-			<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.0.0"/>
-			<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/releases/latest/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/"/>
 		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release">
-			<unit id="tools.mdsd.license.epl2.feature.group" version="0.0.0"/>
-			<repository location="https://updatesite.mdsd.tools/build-licensefeature/releases/latest/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="tools.mdsd.license.epl2.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.mdsd.tools/build-licensefeature/nightly/"/>
 		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
-			<unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
-			<unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
-			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
-			<unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="1.4.0.201611171324"/>
-			<unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="1.4.0.201611171324"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="0.0.0"/>
+			<unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/"/>
 		</location>
 	</locations>

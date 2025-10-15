@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workflow UI
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.ui;singleton:=true
-Bundle-Version: 5.2.1.qualifier
+Bundle-Version: 5.2.2
 Export-Package: de.uka.ipd.sdq.workflow.ui
 Require-Bundle: de.uka.ipd.sdq.workflow;bundle-version="1.1.0",
  de.uka.ipd.sdq.dialogs;bundle-version="2.0.1",

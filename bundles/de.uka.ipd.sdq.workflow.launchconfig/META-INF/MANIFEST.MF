@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Run Config Plug-in
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.launchconfig;singleton:=true
-Bundle-Version: 5.2.1.qualifier
+Bundle-Version: 5.2.2
 Bundle-Activator: de.uka.ipd.sdq.workflow.launchconfig.LaunchConfigPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.logging;bundle-version="1.1.1",
  de.uka.ipd.sdq.workflow.logging.console;bundle-version="1.0.0";visibility:=reexport,
  de.uka.ipd.sdq.workflow.ui;bundle-version="1.0.0";visibility:=reexport,
- de.uka.ipd.sdq.workflow.launchconfig.core;bundle-version="5.2.1";visibility:=reexport
+ de.uka.ipd.sdq.workflow.launchconfig.core;bundle-version="5.2.2";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: sdq.ipd.uka.de
 Export-Package: de.uka.ipd.sdq.workflow.launchconfig,

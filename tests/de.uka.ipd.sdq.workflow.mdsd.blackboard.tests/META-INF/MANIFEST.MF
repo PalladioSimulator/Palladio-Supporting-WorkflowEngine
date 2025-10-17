@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WFE MDSD Blackboard Tests
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.blackboard.tests
-Bundle-Version: 5.2.2
+Bundle-Version: 6.0.0.qualifier
 Fragment-Host: de.uka.ipd.sdq.workflow.mdsd.blackboard;bundle-version="5.2.2"
 Automatic-Module-Name: de.uka.ipd.sdq.workflow.mdsd.blackboard.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17

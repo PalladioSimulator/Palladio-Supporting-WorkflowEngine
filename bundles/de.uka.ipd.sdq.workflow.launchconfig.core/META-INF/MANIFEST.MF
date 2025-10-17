@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Run Config Core
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.launchconfig.core
-Bundle-Version: 5.2.2
+Bundle-Version: 6.0.0.qualifier
 Export-Package: de.uka.ipd.sdq.workflow.launchconfig.core,
  de.uka.ipd.sdq.workflow.launchconfig.core.configbuilder
 Require-Bundle: org.eclipse.debug.core;bundle-version="3.20.0",

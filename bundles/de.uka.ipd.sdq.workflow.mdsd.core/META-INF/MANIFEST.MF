@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core MDSD Jobs for Palladio Workflow Engine
 Bundle-SymbolicName: de.uka.ipd.sdq.workflow.mdsd.core
-Bundle-Version: 5.2.2
+Bundle-Version: 6.0.0.qualifier
 Export-Package: de.uka.ipd.sdq.workflow.mdsd.core,
  de.uka.ipd.sdq.workflow.mdsd.core.emf.qvto
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.26.100",

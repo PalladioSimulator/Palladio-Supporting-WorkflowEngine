@@ -2,7 +2,7 @@
 <feature
       id="de.uka.ipd.sdq.workflow.feature.core"
       label="Palladio Workflow Engine Core"
-      version="5.2.2"
+      version="6.0.0.qualifier"
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license"
       license-feature-version="1.0.0">
@@ -26,7 +26,7 @@ a workflow for tasks being run under the Eclipse UI from the Run Dialog.
       <import plugin="de.uka.ipd.sdq.workflow.logging.console"/>
       <import plugin="de.uka.ipd.sdq.workflow.ui"/>
       <import plugin="de.uka.ipd.sdq.workflow"/>
-      <import plugin="de.uka.ipd.sdq.dialogs" version="2.0.1" match="greaterOrEqual"/>
+      <import plugin="de.uka.ipd.sdq.dialogs"/>
       <import plugin="org.palladiosimulator.branding"/>
    </requires>
 

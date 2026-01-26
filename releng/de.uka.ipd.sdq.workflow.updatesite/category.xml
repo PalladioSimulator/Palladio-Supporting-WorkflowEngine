@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/de.uka.ipd.sdq.workflow.feature.core_5.2.2.jar" id="de.uka.ipd.sdq.workflow.feature.core" version="5.2.2">
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.core_6.0.0.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.core" version="6.0.0.qualifier">
       <category name="org.palladiosimulator.support.category"/>
    </feature>
-   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd_5.2.2.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd" version="5.2.2">
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd_6.0.0.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd" version="6.0.0.qualifier">
       <category name="org.palladiosimulator.support.category"/>
    </feature>
-   <feature url="features/de.uka.ipd.sdq.workflow.feature.core.source_5.2.2.jar" id="de.uka.ipd.sdq.workflow.feature.core.source" version="5.2.2">
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.core.source_6.0.0.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.core.source" version="6.0.0.qualifier">
       <category name="org.palladiosimulator.support.source.category"/>
    </feature>
-   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd.source_5.2.2.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd.source" version="5.2.2">
+   <feature url="features/de.uka.ipd.sdq.workflow.feature.mdsd.source_6.0.0.qualifier.jar" id="de.uka.ipd.sdq.workflow.feature.mdsd.source" version="6.0.0.qualifier">
       <category name="org.palladiosimulator.support.source.category"/>
    </feature>
    <category-def name="org.palladiosimulator.support.category" label="Palladio Supporting Features">

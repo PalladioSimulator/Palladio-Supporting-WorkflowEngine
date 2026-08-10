@@ -12,4 +12,4 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.5.0";visibility:=reexpo
  de.uka.ipd.sdq.workflow;visibility:=reexport
 Export-Package: de.uka.ipd.sdq.workflow.workbench
 Bundle-Vendor: sdq.ipd.uka.de
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21

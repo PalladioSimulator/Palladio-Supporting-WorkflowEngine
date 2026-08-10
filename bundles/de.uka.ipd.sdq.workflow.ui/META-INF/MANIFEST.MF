@@ -8,4 +8,4 @@ Require-Bundle: de.uka.ipd.sdq.workflow,
  de.uka.ipd.sdq.dialogs,
  org.eclipse.ui;bundle-version="3.5.0"
 Bundle-Vendor: Palladio Project
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21

@@ -10,4 +10,4 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.20.0",
  de.uka.ipd.sdq.workflow.logging.console
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: sdq.ipd.uka.de
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21

@@ -1,48 +1,50 @@
 package de.uka.ipd.sdq.workflow.launchconfig.tabs;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.text.StringMatcher;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.ui.views.navigator.ResourcePatternFilter;
+import org.eclipse.jface.viewers.ViewerFilter;
 
 /**
- * Allows to select files based on their name. Uses inverted behavior of
- * {@link ResourcePatternFilter} to filter files based on their name.
- * 
- * @author groenda
- * 
+ * Allows to select files based on their name.
+ *
  */
-@SuppressWarnings("deprecation")
-public class FilePatternFilter extends ResourcePatternFilter {
+public class FilePatternFilter extends ViewerFilter {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.views.navigator.ResourcePatternFilter#select(org.eclipse
-     * .jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-     */
-    @Override
-    public boolean select(Viewer viewer, Object parentElement, Object element) {
-        if (element instanceof IResource) {
-            IResource resource = (IResource) element;
-            if (resource.getType() == IResource.ROOT || resource.getType() == IResource.PROJECT
-                    || resource.getType() == IResource.FOLDER) {
-                return true;
-            } else {
-                return !super.select(viewer, parentElement, element);
-            }
-        } else {
-            return true;
+    private String[] patterns = new String[0];
+    private StringMatcher[] matchers = new StringMatcher[0];
+
+    public void setPatterns(String[] newPatterns) {
+        if (newPatterns == null) {
+            this.patterns = new String[0];
+            this.matchers = new StringMatcher[0];
+            return;
+        }
+        this.patterns = newPatterns;
+        this.matchers = new StringMatcher[newPatterns.length];
+        for (int i = 0; i < newPatterns.length; i++) {
+            this.matchers[i] = new StringMatcher(newPatterns[i], true, false);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.ui.views.navigator.ResourcePatternFilter#setPatterns(java.lang.String[])
-     */
+    public String[] getPatterns() {
+        return this.patterns;
+    }
+
     @Override
-    public void setPatterns(String[] newPatterns) {
-        super.setPatterns(newPatterns);
-        // overriding prevents deprecation warning
+    public boolean select(Viewer viewer, Object parentElement, Object element) {
+        if (!(element instanceof IResource resource)) {
+            return true;
+        }
+        int type = resource.getType();
+        if (type == IResource.ROOT || type == IResource.PROJECT || type == IResource.FOLDER) {
+            return true;
+        }
+        for (StringMatcher matcher : this.matchers) {
+            if (matcher.match(resource.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

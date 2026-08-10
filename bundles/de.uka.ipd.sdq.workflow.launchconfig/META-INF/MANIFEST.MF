@@ -24,4 +24,4 @@ Bundle-Vendor: sdq.ipd.uka.de
 Export-Package: de.uka.ipd.sdq.workflow.launchconfig,
  de.uka.ipd.sdq.workflow.launchconfig.extension,
  de.uka.ipd.sdq.workflow.launchconfig.tabs
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21

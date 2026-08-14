@@ -3,21 +3,6 @@
 	<locations>
 		<location type="Target" uri="mvn:org.palladiosimulator:palladio-target-platforms:6.0.0-SNAPSHOT:target:palladio-2025-12"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-			<unit id="org.eclipse.m2m.qvt.oml.sdk.feature.group" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/releases/2023-03/202303151000/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="0.0.0"/>
-			<unit id="org.eclipse.xpand" version="0.0.0"/>
-			<unit id="org.eclipse.xtend.typesystem.emf" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/releases/2023-03/202303151000/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-			<unit id="org.hamcrest.core" version="0.0.0"/>
-			<unit id="org.hamcrest.library" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/tools/orbit/downloads/2023-03/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="tools.mdsd.library.standalone.initialization.core.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.mdsd.tools/library-standaloneinitialization/releases/1.2.0/"/>
 		</location>
@@ -29,6 +14,10 @@
 			<unit id="de.uka.ipd.sdq.dialogs.feature.feature.group" version="0.0.0"/>
 			<unit id="de.uka.ipd.sdq.errorhandling.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/releases/2025-12/202512101000/"/>
 		</location>
 	</locations>
 </target>

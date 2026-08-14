@@ -16,10 +16,7 @@
       <import plugin="de.uka.ipd.sdq.workflow"/>
       <import plugin="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.xpand"/>
       <import plugin="org.eclipse.emf.mwe.core"/>
-      <import plugin="org.eclipse.xtend"/>
-      <import plugin="org.eclipse.xtend.typesystem.emf"/>
       <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.m2m.qvt.oml.common" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.m2m.qvt.oml" version="2.0.0" match="greaterOrEqual"/>
